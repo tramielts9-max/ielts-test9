@@ -1,5 +1,5 @@
 /**
- * js/evaluator.js - Bộ máy chấm điểm, định dạng kết quả và nộp điểm Cloud
+ * js/evaluator.js - Bộ máy chấm điểm, chuẩn hóa chuỗi (Text Normalization) và nộp điểm Cloud
  */
 import { CONFIG } from './config.js';
 import { stateManager } from './state.js';
@@ -7,6 +7,19 @@ import { stateManager } from './state.js';
 export class TestEvaluator {
   constructor(testData) {
     this.testData = testData || window.TEST_DATA || { answers: {} };
+  }
+
+  /**
+   * CHUẨN HÓA VĂN BẢN (TEXT NORMALIZATION):
+   * Triệt tiêu lỗi sai do thừa khoảng trắng, chữ hoa/thường, dấu câu cuối câu
+   */
+  normalizeText(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+      .toLowerCase()
+      .trim()
+      .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "") // Bỏ dấu câu bao quanh
+      .replace(/\s+/g, ' ');                         // Gộp nhiều dấu cách thành 1
   }
 
   evaluate() {
@@ -30,27 +43,32 @@ export class TestEvaluator {
       const thoughtEl = document.getElementById(`${qKey}_thought`);
       const aiBox = document.getElementById(`ai_response_${qKey}`);
 
-      let userVal = textInput ? textInput.value.trim() : (radioSelected ? radioSelected.value.trim() : '');
+      let userVal = textInput ? textInput.value : (radioSelected ? radioSelected.value : '');
+      userVal = (userVal || '').trim();
+
       if (textInput) snapshot.inputs[textInput.id] = userVal;
       if (radioSelected) snapshot.radios[qKey] = userVal;
       if (thoughtEl) snapshot.thoughts[thoughtEl.id] = thoughtEl.value;
       if (aiBox && aiBox.innerHTML.trim() !== "") snapshot.aiResponses[aiBox.id] = aiBox.innerHTML;
 
       let isCorrect = false;
+
       if (radioSelected) {
+        // So khớp trắc nghiệm (không phân biệt hoa thường)
         isCorrect = (userVal.toUpperCase() === String(expected).trim().toUpperCase());
       } else {
-        const cleanVal = userVal.toLowerCase().replace(/\s+/g, ' ');
+        // So khớp tự luận điền từ có hỗ trợ Multi-answers và Normalization
+        const cleanUser = this.normalizeText(userVal);
         if (Array.isArray(expected)) {
-          isCorrect = expected.map(a => a.toLowerCase().trim()).includes(cleanVal);
+          isCorrect = expected.some(exp => this.normalizeText(exp) === cleanUser);
         } else {
-          isCorrect = (cleanVal === String(expected).toLowerCase().trim());
+          isCorrect = (cleanUser === this.normalizeText(expected));
         }
       }
 
       if (isCorrect) score++;
 
-      // Cập nhật giao diện câu hỏi (đúng viền xanh, sai viền đỏ)
+      // Cập nhật giao diện câu hỏi
       if (qDiv) {
         const resDiv = qDiv.querySelector('.result');
         const expDiv = qDiv.querySelector('.explanation');
@@ -60,14 +78,14 @@ export class TestEvaluator {
           qDiv.classList.remove('incorrect-border');
         } else {
           const expStr = Array.isArray(expected) ? expected.join(' / ') : expected;
-          if (resDiv) resDiv.innerHTML = `<span class='incorrect-text'>✗ Sai (Đáp án: <b>${expStr}</b>)</span>`;
+          if (resDiv) resDiv.innerHTML = `<span class='incorrect-text'>✗ Sai (Đáp án chuẩn: <b>${expStr}</b>)</span>`;
           qDiv.classList.add('incorrect-border');
           qDiv.classList.remove('correct-border');
         }
         if (expDiv) expDiv.style.display = 'block';
       }
 
-      // Cập nhật nút số câu bên dưới (nếu là bài nghe)
+      // Cập nhật badge số câu
       const badge = document.getElementById(`badge_${qKey}`);
       if (badge) {
         badge.classList.toggle('status-correct', isCorrect);
@@ -83,8 +101,13 @@ export class TestEvaluator {
   async submitToCloud(resultData, studentName, studentEmail, timeSpent) {
     const scoreStr = `${resultData.score}/${resultData.total}`;
     
-    // Lưu chính xác đường dẫn bài thi để sau này bấm vào xem lại mở đúng đề
-    const fullPageUrl = (window.location.pathname.split('/').pop() || '') + window.location.search;
+    // Lưu chính xác đường dẫn bài thi phục vụ nút "Xem lại"
+    let fullPageUrl = (window.location.pathname.split('/').pop() || '') + window.location.search;
+    if (window.location.pathname.includes('reading/') && !fullPageUrl.startsWith('reading/')) {
+      fullPageUrl = 'reading/' + fullPageUrl;
+    } else if (window.location.pathname.includes('listening/') && !fullPageUrl.startsWith('listening/')) {
+      fullPageUrl = 'listening/' + fullPageUrl;
+    }
 
     const payload = {
       testTitle: this.testData.title || document.title,
@@ -106,19 +129,16 @@ export class TestEvaluator {
       ...resultData.snapshot
     };
 
-    // =========================================================================
-    // 1. LƯU NGAY LẬP TỨC VÀO BỘ NHỚ MÁY (LOCALSTORAGE)
-    // Giúp trang chủ index.html hiện ngay bài làm trong 0.01s, không lo mạng lỗi
-    // =========================================================================
+    // 1. Lưu LocalStorage
     try {
       const localHist = JSON.parse(localStorage.getItem('ielts_local_history') || '[]');
-      localHist.unshift(attemptSnapshot); // Đưa bài mới nhất lên đầu danh sách
+      localHist.unshift(attemptSnapshot);
       localStorage.setItem('ielts_local_history', JSON.stringify(localHist));
     } catch (e) {
       console.warn("Không thể lưu cache lịch sử tại máy:", e);
     }
 
-    // 2. Gửi điểm lên Google Sheets
+    // 2. Gửi Google Sheets
     if (CONFIG.AI_AND_SHEET_URL) {
       fetch(CONFIG.AI_AND_SHEET_URL, {
         method: "POST",
@@ -127,7 +147,7 @@ export class TestEvaluator {
       }).catch(() => {});
     }
 
-    // 3. Gửi Snapshot toàn diện lên Google Drive
+    // 3. Gửi Google Drive
     if (CONFIG.DRIVE_STORAGE_URL) {
       fetch(CONFIG.DRIVE_STORAGE_URL, {
         method: "POST",
@@ -136,7 +156,6 @@ export class TestEvaluator {
       }).catch(() => {});
     }
 
-    // Hiện các nút chức năng sau khi nộp (Lưu bản sau sửa, Làm lại bài)
     this.renderPostSubmissionControls();
   }
 
@@ -185,7 +204,12 @@ export class TestEvaluator {
     const now = new Date();
     const timeStr = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')} - ${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
 
-    const fullPageUrl = (window.location.pathname.split('/').pop() || '') + window.location.search;
+    let fullPageUrl = (window.location.pathname.split('/').pop() || '') + window.location.search;
+    if (window.location.pathname.includes('reading/') && !fullPageUrl.startsWith('reading/')) {
+      fullPageUrl = 'reading/' + fullPageUrl;
+    } else if (window.location.pathname.includes('listening/') && !fullPageUrl.startsWith('listening/')) {
+      fullPageUrl = 'listening/' + fullPageUrl;
+    }
 
     const attemptSnapshot = {
       id: "attempt_" + Date.now(),
@@ -205,14 +229,12 @@ export class TestEvaluator {
     document.querySelectorAll('input.fill-input').forEach(i => attemptSnapshot.inputs[i.id] = i.value);
     document.querySelectorAll('input[type="radio"]:checked').forEach(r => attemptSnapshot.radios[r.name] = r.value);
 
-    // Cập nhật ngay bản "Sau sửa" này vào máy
     try {
       const localHist = JSON.parse(localStorage.getItem('ielts_local_history') || '[]');
       localHist.unshift(attemptSnapshot);
       localStorage.setItem('ielts_local_history', JSON.stringify(localHist));
     } catch(e) {}
 
-    // Gửi lên Google Drive
     if (CONFIG.DRIVE_STORAGE_URL) {
       fetch(CONFIG.DRIVE_STORAGE_URL, {
         method: "POST",
