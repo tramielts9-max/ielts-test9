@@ -1,6 +1,7 @@
 /**
  * IELTS SPEAKING CONTROLLER & 2-TIER GRADING ENGINE
- * BẢN FULL ĐẦY ĐỦ 100% - LƯU TỪNG LẦN LÀM, ĐỔI MÀU THẺ & XEM LẠI BÀI CŨ
+ * BẢN FULL ĐẦY ĐỦ 100% - AUTO-SAVE TRANSCRIPT THỜI GIAN THỰC, NÚT LƯU TẠM DRAFT,
+ * FIX DEEP-LINK XEM LẠI TỪ TRANG CHỦ & FIX HIỂN THỊ CÂU GỐC TRONG AI SỬA BÀI
  */
 
 // 1. MÃ HÓA RUNTIME AUTH KEY
@@ -41,13 +42,80 @@ if (window.marked) {
   marked.setOptions({ breaks: true, gfm: true });
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-  loadPartData(1);
+window.addEventListener('DOMContentLoaded', async () => {
+  injectSaveDraftButtonSpeaking();
+  setupSpeakingDraftListeners();
+  await loadPartData(1);
   initSpeechRecognition();
+  handleUrlDeepLinkSpeaking();
 });
 
 // =========================================================================
-// QUẢN LÝ LƯU TRỮ TỪNG LẦN NÓI & BÀI CHẤM AI (ATTEMPTS: LẦN 1, LẦN 2...)
+// 1. QUẢN LÝ LƯU TRỮ BẢN NHÁP (DRAFT AUTO-SAVE & RESUME)
+// =========================================================================
+function getSpeakingDraftKey(promptKey) {
+  return `ielts_spk_draft_${promptKey}`;
+}
+
+function saveSpeakingDraft(promptKey, transcriptText) {
+  if (!promptKey) return;
+  const draftData = {
+    transcript: transcriptText,
+    guideSeconds: guideSecondsCount,
+    updatedAt: new Date().toISOString()
+  };
+  localStorage.setItem(getSpeakingDraftKey(promptKey), JSON.stringify(draftData));
+}
+
+function loadSpeakingDraft(promptKey) {
+  if (!promptKey) return null;
+  try {
+    const raw = localStorage.getItem(getSpeakingDraftKey(promptKey));
+    return raw ? JSON.parse(raw) : null;
+  } catch(e) {
+    return null;
+  }
+}
+
+function clearSpeakingDraft(promptKey) {
+  if (!promptKey) return;
+  localStorage.removeItem(getSpeakingDraftKey(promptKey));
+}
+
+// Tự động chèn nút "💾 Lưu Tạm Bài Nói" cạnh nút Bắt đầu chấm AI
+function injectSaveDraftButtonSpeaking() {
+  const gradeBtn = document.getElementById('btnStartGrading');
+  if (!gradeBtn || document.getElementById('btnSaveDraftSpeaking')) return;
+
+  const draftBtn = document.createElement('button');
+  draftBtn.id = 'btnSaveDraftSpeaking';
+  draftBtn.type = 'button';
+  draftBtn.className = 'btn-3d btn-3d-white';
+  draftBtn.style.cssText = 'padding: 12px 18px; font-size: 13.5px; font-weight: 900; margin-right: 10px; border-color: #FCD34D; color: #92400E;';
+  draftBtn.innerHTML = '💾 Lưu Tạm Bài Nói';
+  draftBtn.onclick = () => {
+    const transcript = document.getElementById('speechTranscript')?.value || '';
+    saveSpeakingDraft(activePromptKey, transcript);
+    alert("✅ Đã lưu tạm câu trả lời của em thành công! Lần sau mở chủ đề này em sẽ được nói tiếp.");
+  };
+
+  gradeBtn.parentNode.insertBefore(draftBtn, gradeBtn);
+}
+
+function setupSpeakingDraftListeners() {
+  const txtArea = document.getElementById('speechTranscript');
+  let autoSaveTimeout = null;
+
+  txtArea?.addEventListener('input', () => {
+    clearTimeout(autoSaveTimeout);
+    autoSaveTimeout = setTimeout(() => {
+      saveSpeakingDraft(activePromptKey, txtArea.value);
+    }, 1500);
+  });
+}
+
+// =========================================================================
+// 2. QUẢN LÝ LƯU TRỮ TỪNG LẦN NÓI & BÀI CHẤM AI (ATTEMPTS: LẦN 1, LẦN 2...)
 // =========================================================================
 function getSpeakingStorageKey(promptKey) {
   return `ielts_spk_attempts_${promptKey}`;
@@ -84,11 +152,92 @@ function getCompletedRecord(promptId, topicName) {
   }
 }
 
+// =========================================================================
+// 3. XỬ LÝ DEEP-LINK NÚT "XEM LẠI" TỪ TRANG CHỦ
+// =========================================================================
+function handleUrlDeepLinkSpeaking() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const attemptId = urlParams.get('attemptId');
+  const promptParam = urlParams.get('prompt') || urlParams.get('id');
+
+  // Trường hợp 1: Có attemptId từ nút Xem lại của trang chủ
+  if (attemptId) {
+    try {
+      const localHist = JSON.parse(localStorage.getItem('ielts_local_history') || '[]');
+      const foundAttempt = localHist.find(a => a.id === attemptId);
+
+      if (foundAttempt) {
+        // Tự động nhận diện Part từ testTitle (ví dụ: Speaking Part 2...)
+        const partMatch = foundAttempt.testTitle.match(/Part\s*([123])/i);
+        const targetPart = partMatch ? parseInt(partMatch[1]) : 1;
+
+        loadPartData(targetPart).then(() => {
+          const matchedItem = currentPromptsData.find(item => 
+            foundAttempt.testTitle.includes(item.id) || 
+            foundAttempt.testTitle.includes(item.topic) ||
+            foundAttempt.testTitle.includes(item.title)
+          ) || currentPromptsData[0];
+
+          if (matchedItem) {
+            window.startLessonSpeaking(matchedItem.id);
+            restoreAttemptToWorkspaceSpeaking(foundAttempt);
+          }
+        });
+        return;
+      }
+    } catch(e) {
+      console.warn("Lỗi deep-link Speaking attemptId:", e);
+    }
+  }
+
+  // Trường hợp 2: Có promptParam trên URL
+  if (promptParam) {
+    const matchedItem = currentPromptsData.find(item => item.id === promptParam);
+    if (matchedItem) {
+      window.startLessonSpeaking(matchedItem.id);
+    }
+  }
+}
+
+function restoreAttemptToWorkspaceSpeaking(attempt) {
+  const txtArea = document.getElementById('speechTranscript');
+  const resultBox = document.getElementById('result-box');
+  const resultContent = document.getElementById('result-content');
+  const statusBar = document.getElementById('status-bar');
+  const printBtn = document.getElementById('btnPrintReport');
+
+  let transcriptText = '';
+  let aiText = '';
+
+  if (attempt.details && attempt.details.includes('BÀI NÓI (TRANSCRIPT):')) {
+    const parts = attempt.details.split('BÀI NÓI (TRANSCRIPT):');
+    if (parts[1]) {
+      const subParts = parts[1].split('NHẬN XÉT AI:');
+      transcriptText = subParts[0].trim();
+      aiText = subParts[1] ? subParts[1].trim() : '';
+    }
+  } else if (attempt.transcript) {
+    transcriptText = attempt.transcript;
+    aiText = attempt.aiFeedback || '';
+  }
+
+  if (txtArea) {
+    txtArea.value = transcriptText;
+  }
+
+  if (resultBox && resultContent) {
+    resultBox.style.display = 'block';
+    if (printBtn) printBtn.style.display = 'inline-flex';
+    statusBar.innerHTML = `📜 ĐANG XEM LẠI BÀI NÓI: <b>${attempt.testTitle}</b> (${attempt.timestamp}) — Điểm: <b>${attempt.score}</b>`;
+    resultContent.innerHTML = marked.parse(aiText || '<i>Chưa có dữ liệu bài chấm chi tiết.</i>');
+    resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
 // ==================== MÀN HÌNH 1: PORTAL CARD LOGIC ====================
 async function loadPartData(partNum) {
   currentPart = partNum;
   
-  // Cập nhật tab active 3D
   ['tabPart1Btn', 'tabPart2Btn', 'tabPart3Btn'].forEach((id, idx) => {
     const btn = document.getElementById(id);
     if (btn) btn.classList.toggle('active', idx + 1 === partNum);
@@ -154,6 +303,7 @@ function renderPortalCards() {
     const promptKey = item.id || item.topic;
     const attempts = getSpeakingAttempts(promptKey);
     const rec = getCompletedRecord(item.id, item.topic);
+    const draft = loadSpeakingDraft(promptKey);
     const isDone = attempts.length > 0 || !!rec;
     const count = attempts.length > 0 ? attempts.length : (isDone ? 1 : 0);
     const latestScore = attempts.length > 0 ? attempts[0].score : (rec?.score || 'Đã luyện');
@@ -162,9 +312,7 @@ function renderPortalCards() {
       ? `<span style="font-size: 12.5px; font-weight: 900; background: #DCFCE7; color: #166534; padding: 2px 8px; border-radius: 6px; border: 1px solid #86EFAC;">
            ✓ Đã luyện ${count} lần (${latestScore})
          </span>`
-      : `<span style="font-size: 12.5px; font-weight: 800; color: var(--text-muted);">
-           ● Chưa làm
-         </span>`;
+      : (draft ? `<span style="font-size: 12px; font-weight: 800; background: #FEF3C7; color: #92400E; padding: 2px 6px; border-radius: 6px;">● Đang nói dở</span>` : `<span style="font-size: 12.5px; font-weight: 800; color: var(--text-muted);">● Chưa làm</span>`);
 
     const qCount = item.questions ? `${item.questions.length} câu hỏi` : (item.questionCount ? `${item.questionCount} câu hỏi` : 'Full set');
 
@@ -188,7 +336,7 @@ function renderPortalCards() {
 
         <div style="display: flex; gap: 8px; margin-top: 10px;">
           <button onclick="window.startLessonSpeaking('${item.id}')" class="btn-3d ${isDone ? 'btn-3d-green' : 'btn-3d-gold'}" style="flex: 1; padding: 11px; font-size: 13px;">
-            ${isDone ? `+ Luyện tiếp lần ${count + 1}` : 'Vào luyện nói →'}
+            ${isDone ? `+ Luyện tiếp lần ${count + 1}` : (draft ? 'Nói tiếp bài dở →' : 'Vào luyện nói →')}
           </button>
           ${isDone ? `
             <button onclick="window.openPastAttemptsSpeaking('${item.id}')" class="btn-3d btn-3d-white" style="padding: 11px 12px; font-size: 13px;" title="Xem lại bài nói và bài sửa của các lần trước">
@@ -220,8 +368,18 @@ window.startLessonSpeaking = (promptId) => {
   document.getElementById('customPromptInput').style.display = 'none';
   document.getElementById('promptDisplayArea').innerText = selectedPromptItem.fullPromptText || selectedPromptItem.topic;
 
+  // Phục hồi nháp nếu có
+  const draft = loadSpeakingDraft(activePromptKey);
+  const txtArea = document.getElementById('speechTranscript');
+  if (draft && txtArea) {
+    txtArea.value = draft.transcript || '';
+    guideSecondsCount = draft.guideSeconds || 0;
+  } else {
+    if (txtArea) txtArea.value = '';
+    resetGuideTimer();
+  }
+
   updateGuideView(selectedPromptItem.guide);
-  resetGuideTimer();
   resetRecordingUI();
   renderWorkspacePastAttemptsBar();
 };
@@ -259,13 +417,19 @@ window.backToPortalSpeaking = () => {
   if (recognition) { try { recognition.stop(); } catch(e){} }
   isRecording = false;
 
+  // Tự lưu nháp khi thoát
+  const transcript = document.getElementById('speechTranscript')?.value || '';
+  if (transcript.trim()) {
+    saveSpeakingDraft(activePromptKey, transcript);
+  }
+
   document.getElementById('workspaceScreen').classList.add('hidden');
   document.getElementById('portalScreen').classList.remove('hidden');
   renderPortalCards();
 };
 
 // =========================================================================
-// THANH HIỂN THỊ CÁC LẦN LUYỆN NÓI CŨ ĐỂ XEM LẠI BÀI VÀ NHẬN XÉT AI
+// 4. THANH HIỂN THỊ CÁC LẦN LUYỆN NÓI CŨ
 // =========================================================================
 function renderWorkspacePastAttemptsBar() {
   let bar = document.getElementById('spkPastAttemptsBar');
@@ -319,8 +483,10 @@ window.viewPastAttemptDetailSpeaking = (idx) => {
   const resultBox = document.getElementById('result-box');
   const resultContent = document.getElementById('result-content');
   const statusBar = document.getElementById('status-bar');
+  const printBtn = document.getElementById('btnPrintReport');
 
   resultBox.style.display = 'block';
+  if (printBtn) printBtn.style.display = 'inline-flex';
   statusBar.innerHTML = `📜 ĐANG XEM LẠI BÀI CHẤM: <b>LẦN ${att.attemptNum || 1}</b> (${att.timestamp}) — Điểm: <b>${att.score}</b>`;
   resultContent.innerHTML = marked.parse(att.aiFeedback || '');
   resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -428,7 +594,10 @@ function initSpeechRecognition() {
       }
     }
     const txtArea = document.getElementById('speechTranscript');
-    if (txtArea) txtArea.value = final + interim;
+    if (txtArea) {
+      txtArea.value = final + interim;
+      saveSpeakingDraft(activePromptKey, txtArea.value);
+    }
   };
 
   recognition.onerror = (e) => console.error("Speech Error:", e.error);
@@ -494,7 +663,6 @@ function resetRecordingUI() {
     document.getElementById('recIcon').innerText = "🎙️";
   }
   document.getElementById('audioContainer').style.display = 'none';
-  document.getElementById('speechTranscript').value = '';
   document.getElementById('result-box').style.display = 'none';
   document.getElementById('status-bar').innerText = '';
 }
@@ -553,6 +721,9 @@ async function streamGeminiDirect(apiKey, parts, onChunk) {
   throw lastError;
 }
 
+// =========================================================================
+// 5. CHẤM BÀI AI (BẮT BUỘC TRÍCH DẪN NGUYÊN VĂN CÂU NÓI CỦA HỌC SINH)
+// =========================================================================
 window.startGrading = async () => {
   const apiKey = getDecodedKey();
   const taskPrompt = isCustomMode 
@@ -592,10 +763,16 @@ QUY TẮC XƯNG HÔ: Bắt buộc xưng "Anh" và gọi học sinh là "Em".
 QUY TẮC ĐỊNH DẠNG: DÙNG 100% MARKDOWN THUẦN (###, ####, -). MỖI Ý XUỐNG DÒNG RIÊNG BIỆT.
 TRẠNG THÁI BÀI LÀM: ${assistanceStatus}
 
+QUY TẮC BẮT BUỘC TRONG PHẦN 1:
+- KHÔNG ĐƯỢC NUỐT CÂU GỐC HỌC SINH ĐÃ NÓI.
+- MỖI CÂU ĐỀU PHẢI TRÍCH DẪN NGUYÊN VĂN:
+  "### 📌 Câu [Số]: [CÂU GỐC CỦA EM ĐÃ NÓI - BẮT BUỘC TRÍCH DẪN NGUYÊN VĂN] — Đánh giá: Band [Điểm/9]"
+  trước khi tiến hành Bước 1 và Bước 2.
+
 HÃY XUẤT BÀI CHẤM THEO ĐÚNG CẤU TRÚC 5 PHẦN SAU:
 # PHẦN 1: MỔ XẺ TỪNG CÂU NÓI (2 TẦNG SPEAKING)
 ---
-### 📌 Câu [Số]: "[Câu gốc của em]" — Đánh giá: Band [Điểm/9]
+### 📌 Câu [Số]: "[CÂU GỐC CỦA EM ĐÃ NÓI - BẮT BUỘC TRÍCH DẪN NGUYÊN VĂN]" — Đánh giá: Band [Điểm/9]
 #### 🛠️ BƯỚC 1: SỬA LỖI DIỄN ĐẠT & NGỮ PHÁP (Band [Điểm/9])
 - **Anh chỉnh lại tự nhiên:** [Viết lại câu. Lỗi dùng <del class="err">từ sai</del>, sửa đúng <ins class="fix">từ đúng</ins>]
 - **👉 Câu sửa sạch lỗi cơ bản:** "[Câu hoàn chỉnh]"
@@ -637,6 +814,9 @@ HÃY XUẤT BÀI CHẤM THEO ĐÚNG CẤU TRÚC 5 PHẦN SAU:
     submitBtn.disabled = false;
     printBtn.style.display = "inline-flex";
 
+    // Xóa nháp vì đã hoàn thành nộp bài
+    clearSpeakingDraft(activePromptKey);
+
     // --- LƯU VÀO ATTEMPTS RIÊNG BIỆT ---
     const now = new Date();
     const timeStr = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')} - ${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
@@ -665,7 +845,7 @@ HÃY XUẤT BÀI CHẤM THEO ĐÚNG CẤU TRÚC 5 PHẦN SAU:
       const attemptSnapshot = {
         id: "attempt_spk_" + Date.now(),
         timestamp: `${timeStr} (Lần ${newAttemptNum})`,
-        testTitle: `Speaking Part ${currentPart}: ${selectedPromptItem ? selectedPromptItem.topic : 'Tự luyện'} (Lần ${newAttemptNum})`,
+        testTitle: `Speaking Part ${currentPart}: ${selectedPromptItem ? (selectedPromptItem.title || selectedPromptItem.topic) : 'Tự luyện'} (Lần ${newAttemptNum})`,
         studentName: sName,
         studentEmail: sEmail,
         score: bandScore,
