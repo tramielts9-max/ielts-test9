@@ -15,6 +15,591 @@
     "q25": "D",
     "q26": "D"
   },
-  "passageHtml": "<h2>READING PASSAGE 2</h2><h3>How could multilingualism benefit India's poorest schoolchildren?</h3><p><span class=\"hl\" id=\"hl-q14\" data-q=\"[Q14]\">The crowded and bustling streets of Delhi teem with life. Stop to listen and, above the din of rickshaws and buses, you'll hear a multitude of languages, as <span class=\"kw\">more than 20 million people</span> go about their daily lives</span>. <span class=\"hl\" id=\"hl-q15-17\" data-q=\"[Q15-17]\">Many were born and raised here, and <span class=\"kw\">many millions more have recently made India's capital their home</span>, having moved from <span class=\"kw\">surrounding neighbourhoods</span>, cities and states or across the country, often in the hope of <span class=\"kw\">gaining better jobs and a better life</span></span>. Some arrive speaking fluent Hindi, the dominant language in Delhi (and the official language of government), but many arrive speaking any number of India's 22 officially recognised languages, let alone the hundreds of regional languages in a country of more than 1.3 billion people.</p><p><span class=\"hl\" id=\"hl-q18-19\" data-q=\"[Q18-19]\">A team of researchers led by Professor Ianthi Tsimpli of Cambridge University is currently working on a project collecting data on 1,000 primary-age children in Delhi and the cities of Hyderabad and Bihar. The <span class=\"kw\">overriding aim</span> of the four-year project, called 'Multilingualism and Multiliteracy', is to find out why in a country where multilingualism is so common (more than 255 million people in India speak at least two languages, and nearly 90 million speak three or more languages), the <span class=\"kw\">many benefits of speaking more than one language, observed in schools in Europe for instance, do not apply</span> to many of India's schoolchildren</span>.</p><p><span class=\"hl\" id=\"hl-q20\" data-q=\"[Q20]\">'Each year across India, 600,000 children are tested, and year after year over 50% of children in Standard 5 [ten-year-olds] cannot read a Standard 2 [seven-year-olds] task fluently, and <span class=\"kw\">just under 50% of them cannot solve a Standard 2 subtraction task</span>,' says Tsimpli</span>. <span class=\"hl\" id=\"hl-q21\" data-q=\"[Q21-NG]\">She explains that low educational achievement can lead to many of these students dropping out of school - a problem disproportionately affecting female students</span>.</p><p><span class=\"hl\" id=\"hl-q22\" data-q=\"[Q22]\">Tsimpli and her colleagues are <span class=\"kw\">investigating whether these low learning outcomes could be caused by an Indian school system where the language that children are taught in often differs from the language used at home</span></span>. The research project, which focuses on 8 to 11-year-old schoolchildren in rural and urban areas, collects data on whether the schoolchildren live in slum* or non-slum areas. Many of the children have moved from remote, rural areas to urban areas. They are so poor they have to live in slums and, as a result of migration, they may speak languages that are different from the regional language.</p><p><span class=\"hl\" id=\"hl-q23\" data-q=\"[Q23]\">Having already tested 1,000 children, the researchers will now embark on retesting them. <span class=\"kw\">They intend to look not only at test results, but also at variables such as the standard of schooling, the environment and the teaching practices themselves</span></span>. It's possible that one of the causes of low performance is the lack of pupil-centred teaching methods; in many Indian primary schools the teacher dominates and there is little room for independent learning.</p><p><span class=\"hl\" id=\"hl-q24\" data-q=\"[Q24]\">Although the findings are at a preliminary stage, Tsimpli and her team have found that the medium of instruction used in schools, especially English, may hold back those children who have little familiarity with, or exposure to, the language before starting school and outside of school life. According to Tsimpli, most of the evidence from this and other projects shows that <span class=\"kw\">English instruction for children from low socio-economic areas might not be the best way for them to learn</span>, at least in the first three years of primary education</span>.</p><p>'What we would recommend for everyone, not just low socio-economic status children, would be to start learning in the language they feel comfortable learning in ... English can still be used, but perhaps not as the medium of instruction in primary schools. It could, for example, be one of the subjects that are being taught alongside other subjects. <span class=\"hl\" id=\"hl-q25\" data-q=\"[Q25]\">We are not suggesting that English be withdrawn - <span class=\"kw\">that ship has sailed</span> - but we perhaps have to think more about learner needs</span>. There is perhaps too much uniformity in teaching and less tailoring to the children's language abilities and needs,' says Tsimpli.</p><p><span class=\"hl\" id=\"hl-q26\" data-q=\"[Q26]\">While the preliminary results show there is no difference in general intelligence among boys and girls from slum areas versus those from urban poor backgrounds, <span class=\"kw\">an unanticipated finding has been that children from slum backgrounds do not seem to lag behind children from other urban poor backgrounds - and in some cases outperform them</span> (e.g. in numeracy and literacy tasks)</span>. According to the researchers, this unexpected finding may be down to the life experiences of children growing up in slums. They are likely to mature faster and come into closer contact with the numeracy skills essential for day-to-day survival.</p><p>The project has already caught the attention of government ministers, who are keen to use the findings of the study to inform and adjust school policy in Delhi and the wider state. 'They are as keen as us to understand how the challenging context of deprivation can be attenuated when focusing on the languages children learn and use while at school. Our findings don't mean you're doomed if you're poor. It may be that these low learning outcomes are because of the way education is provided in India, with a huge focus on Hindi and English as the mediums of instruction, to the potential detriment of children unfamiliar with those languages,' explains Tsimpli.</p><p>'Language is central to the way knowledge is transferred - so the medium of instruction is obviously hugely influential. We hope to ... show that problem solving, numeracy and literacy can and do improve in children who are educated in a language of instruction they know. The trick may be to bridge school skills with life skills and make use of the richness of a child's life experience to help them learn in the most effective ways possible,' says Tsimpli.</p><p><i>* slum: a very densely populated area in which the infrastructure is incomplete and services inadequate or non-existent</i></p>",
-  "questionHtml": "<div class=\"section-title\">Questions 14-19: Summary Completion</div><p><i>Complete the summary using the list of words, <b>A-J</b>, below. Type the correct letter (A-J) in each box.</i></p><div style=\"background: var(--bg-subcard, #f8fafc); border: 1px solid var(--border-color, #e2e8f0); padding: 12px; border-radius: 8px; margin-bottom: 15px;\"><b>A.</b> basic outlook | <b>B.</b> employment opportunities | <b>C.</b> wealthy visitors | <b>D.</b> distant country | <b>E.</b> primary objective | <b>F.</b> similar advantages | <b>G.</b> thriving economy | <b>H.</b> nearby district | <b>I.</b> dense population | <b>J.</b> new immigrants</div><div class=\"question\" id=\"q14\"><p>The city of Delhi has a <b>14.</b> <input type=\"text\" id=\"q14_input\" class=\"fill-input\" maxlength=\"2\" placeholder=\"Letter\"> and as you walk through its streets you hear people speaking a variety of languages.</p><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q14_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">I</span> (dense population)</div><div class=\"exp-step\">• <b>Bước 1:</b> Cần cụm danh từ chỉ đặc điểm dân số đông đúc.</div><div class=\"exp-step\">• <b>Bước 2:</b> Quét 'crowded', '20 million people' ở Đoạn 1.</div><div class=\"exp-step\">• <b>Bước 3:</b> <mark style=\"background-color: #fef08a;\">more than 20 million people</mark> = 'dense population' (Đáp án I).</div><div class=\"exp-step\">• <b>Bước 4:</b> Chốt <b>I</b>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> 'crowded' = 'dense', '20 million people' = 'population'. Chọn <b>I</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q14')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q14\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q14')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q14\"></div></div></div></div><div class=\"question\" id=\"q15\"><p>Some of them have spent their entire life in Delhi, while others are <b>15.</b> <input type=\"text\" id=\"q15_input\" class=\"fill-input\" maxlength=\"2\" placeholder=\"Letter\">.</p><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q15_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">J</span> (new immigrants)</div><div class=\"exp-step\">• <b>Bước 1:</b> Người sống cả đời VS những người mới đến. Cần danh từ chỉ dân di cư.</div><div class=\"exp-step\">• <b>Bước 2:</b> Quét 'recently made home' ở Đoạn 1.</div><div class=\"exp-step\">• <b>Bước 3:</b> <mark style=\"background-color: #fef08a;\">recently made India's capital their home</mark> = 'new immigrants' (Đáp án J).</div><div class=\"exp-step\">• <b>Bước 4:</b> Chốt <b>J</b>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> 'recently moved' = 'new immigrants'. Chọn <b>J</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q15-17')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q15\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q15')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q15\"></div></div></div></div><div class=\"question\" id=\"q16\"><p>Whether they have come from a <b>16.</b> <input type=\"text\" id=\"q16_input\" class=\"fill-input\" maxlength=\"2\" placeholder=\"Letter\"> or have travelled from the other side of India...</p><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q16_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">H</span> (nearby district)</div><div class=\"exp-step\">• <b>Bước 1:</b> Đến từ một [16] hay từ xa. Cần danh từ chỉ vùng lân cận.</div><div class=\"exp-step\">• <b>Bước 2:</b> Quét 'surrounding neighbourhoods' ở Đoạn 1.</div><div class=\"exp-step\">• <b>Bước 3:</b> <mark style=\"background-color: #fef08a;\">surrounding neighbourhoods</mark> = 'nearby district' (Đáp án H).</div><div class=\"exp-step\">• <b>Bước 4:</b> Chốt <b>H</b>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> 'surrounding' = 'nearby'. Chọn <b>H</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q15-17')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q16\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q16')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q16\"></div></div></div></div><div class=\"question\" id=\"q17\"><p>...they have all come in search of things such as improved <b>17.</b> <input type=\"text\" id=\"q17_input\" class=\"fill-input\" maxlength=\"2\" placeholder=\"Letter\">.</p><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q17_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">B</span> (employment opportunities)</div><div class=\"exp-step\">• <b>Bước 1:</b> Cần danh từ chỉ cơ hội việc làm.</div><div class=\"exp-step\">• <b>Bước 2:</b> Quét 'better jobs' ở Đoạn 1.</div><div class=\"exp-step\">• <b>Bước 3:</b> <mark style=\"background-color: #fef08a;\">gaining better jobs and a better life</mark> = 'employment opportunities' (Đáp án B).</div><div class=\"exp-step\">• <b>Bước 4:</b> Chốt <b>B</b>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> 'better jobs' = 'employment opportunities'. Chọn <b>B</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q15-17')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q17\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q17')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q17\"></div></div></div></div><div class=\"question\" id=\"q18\"><p>The <b>18.</b> <input type=\"text\" id=\"q18_input\" class=\"fill-input\" maxlength=\"2\" placeholder=\"Letter\"> of the research is to discover why multilingualism does not benefit children in India.</p><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q18_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">E</span> (primary objective)</div><div class=\"exp-step\">• <b>Bước 1:</b> Cần danh từ chỉ mục tiêu chính.</div><div class=\"exp-step\">• <b>Bước 2:</b> Quét 'overriding aim' ở Đoạn 2.</div><div class=\"exp-step\">• <b>Bước 3:</b> <mark style=\"background-color: #fef08a;\">overriding aim of the four-year project</mark> = 'primary objective' (Đáp án E).</div><div class=\"exp-step\">• <b>Bước 4:</b> Chốt <b>E</b>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> 'aim' = 'objective', 'overriding' = 'primary'. Chọn <b>E</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q18-19')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q18\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q18')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q18\"></div></div></div></div><div class=\"question\" id=\"q19\"><p>...they do not experience <b>19.</b> <input type=\"text\" id=\"q19_input\" class=\"fill-input\" maxlength=\"2\" placeholder=\"Letter\"> to those that multilingual schoolchildren in Europe experience.</p><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q19_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">F</span> (similar advantages)</div><div class=\"exp-step\">• <b>Bước 1:</b> Cần danh từ chỉ lợi ích tương tự.</div><div class=\"exp-step\">• <b>Bước 2:</b> Quét 'benefits', 'Europe' ở Đoạn 2.</div><div class=\"exp-step\">• <b>Bước 3:</b> <mark style=\"background-color: #fef08a;\">benefits... observed in Europe do not apply</mark> = không có 'similar advantages' (Đáp án F).</div><div class=\"exp-step\">• <b>Bước 4:</b> Chốt <b>F</b>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> 'benefits' = 'advantages'. Chọn <b>F</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q18-19')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q19\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q19')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q19\"></div></div></div></div><div class=\"section-title\">Questions 20-23</div><p><i>Do the following statements agree with the claims of the writer? Select YES, NO, or NOT GIVEN.</i></p><div class=\"question\" id=\"q20\"><p><b>20.</b> Ten-year-old Indian schoolchildren tend to perform better in literacy than in numeracy.</p><div class=\"options\"><label><input type=\"radio\" name=\"q20\" value=\"YES\"> YES</label><label><input type=\"radio\" name=\"q20\" value=\"NO\"> NO</label><label><input type=\"radio\" name=\"q20\" value=\"NOT GIVEN\"> NOT GIVEN</label></div><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q20_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">NO</span></div><div class=\"exp-step\">• <b>Bước 1:</b> Trẻ 10 tuổi đọc tốt hơn làm toán ('better in literacy than in numeracy').</div><div class=\"exp-step\">• <b>Bước 2:</b> Quét '50%', 'ten-year-olds' ở Đoạn 3.</div><div class=\"exp-step\">• <b>Bước 3:</b> HƠN 50% không đọc được, nhưng <mark style=\"background-color: #fef08a;\">just under 50% cannot solve subtraction</mark> (DƯỚI 50% không làm được toán). Tức toán làm tốt hơn đọc.</div><div class=\"exp-step\">• <b>Bước 4:</b> Đề bảo đọc tốt hơn toán VS Thực tế toán tốt hơn đọc. Chọn <b>NO</b>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> Tỷ lệ làm toán thành công cao hơn đọc. Đề bài nói ngược lại. Chọn <b>NO</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q20')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q20\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q20')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q20\"></div></div></div></div><div class=\"question\" id=\"q21\"><p><b>21.</b> Tsimpli had problems convincing female students to take part in her research project.</p><div class=\"options\"><label><input type=\"radio\" name=\"q21\" value=\"YES\"> YES</label><label><input type=\"radio\" name=\"q21\" value=\"NO\"> NO</label><label><input type=\"radio\" name=\"q21\" value=\"NOT GIVEN\"> NOT GIVEN</label></div><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q21_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">NOT GIVEN</span></div><div class=\"exp-step\">• <b>Bước 1:</b> Khó khăn thuyết phục nữ sinh tham gia ('convincing female students').</div><div class=\"exp-step\">• <b>Bước 2:</b> Quét 'female students' ở Đoạn 3.</div><div class=\"exp-step\">• <b>Bước 3:</b> Bài chỉ nói nữ sinh bị ảnh hưởng nhiều khi bỏ học, KHÔNG HỀ nói bà gặp khó khăn khi thuyết phục các em.</div><div class=\"exp-step\">• <b>Bước 4:</b> Thiếu dữ kiện. Chọn <b>NOT GIVEN</b>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> Không có thông tin 'convincing' (thuyết phục). Chọn <b>NOT GIVEN</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q21')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q21\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q21')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q21\"></div></div></div></div><div class=\"question\" id=\"q22\"><p><b>22.</b> Tsimpli and her team want to know if there is a connection between poor performance and being taught in an unfamiliar language.</p><div class=\"options\"><label><input type=\"radio\" name=\"q22\" value=\"YES\"> YES</label><label><input type=\"radio\" name=\"q22\" value=\"NO\"> NO</label><label><input type=\"radio\" name=\"q22\" value=\"NOT GIVEN\"> NOT GIVEN</label></div><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q22_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">YES</span></div><div class=\"exp-step\">• <b>Bước 1:</b> Mối liên hệ giữa kết quả kém và học bằng ngôn ngữ lạ.</div><div class=\"exp-step\">• <b>Bước 2:</b> Quét 'investigating whether', 'differs from language at home' ở Đoạn 4.</div><div class=\"exp-step\">• <b>Bước 3:</b> <mark style=\"background-color: #fef08a;\">investigating whether low learning outcomes caused by language differs from home</mark> = connection between poor performance and unfamiliar language.</div><div class=\"exp-step\">• <b>Bước 4:</b> Trùng khớp 100%. Chọn <b>YES</b>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> 'differs from language at home' = 'unfamiliar language'. Chọn <b>YES</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q22')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q22\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q22')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q22\"></div></div></div></div><div class=\"question\" id=\"q23\"><p><b>23.</b> The researchers have decided against investigating teaching methodology.</p><div class=\"options\"><label><input type=\"radio\" name=\"q23\" value=\"YES\"> YES</label><label><input type=\"radio\" name=\"q23\" value=\"NO\"> NO</label><label><input type=\"radio\" name=\"q23\" value=\"NOT GIVEN\"> NOT GIVEN</label></div><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q23_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">NO</span></div><div class=\"exp-step\">• <b>Bước 1:</b> Quyết định KHÔNG điều tra phương pháp dạy ('decided against').</div><div class=\"exp-step\">• <b>Bước 2:</b> Quét 'teaching practices' ở Đoạn 5.</div><div class=\"exp-step\">• <b>Bước 3:</b> <mark style=\"background-color: #fef08a;\">They intend to look not only at test results, but also at... teaching practices themselves</mark> (có ý định xem xét phương pháp dạy).</div><div class=\"exp-step\">• <b>Bước 4:</b> Không điều tra VS Dự định xem xét. Mâu thuẫn. Chọn <b>NO</b>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> 'decided against' (quyết định không làm) VS 'intend to look at' (có ý định làm). Chọn <b>NO</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q23')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q23\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q23')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q23\"></div></div></div></div><div class=\"section-title\">Questions 24-26</div><p><i>Choose the correct letter, <b>A, B, C or D</b>.</i></p><div class=\"question\" id=\"q24\"><p><b>24.</b> What point does the writer make about primary schools in India in the sixth paragraph?</p><div class=\"options options-vertical\"><label><input type=\"radio\" name=\"q24\" value=\"A\"> A. Most children speak English before starting school.</label><label><input type=\"radio\" name=\"q24\" value=\"B\"> B. English is taught extremely well in most primary schools.</label><label><input type=\"radio\" name=\"q24\" value=\"C\"> C. Poor children may be disadvantaged further by being instructed in English.</label><label><input type=\"radio\" name=\"q24\" value=\"D\"> D. English should be used as the sole medium of instruction.</label></div><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q24_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">C</span></div><div class=\"exp-step\">• <b>Bước 1:</b> Quan điểm về trường tiểu học Ấn Độ ở đoạn 6.</div><div class=\"exp-step\">• <b>Bước 2:</b> Quét 'English instruction' ở Đoạn 6.</div><div class=\"exp-step\">• <b>Bước 3:</b> <mark style=\"background-color: #fef08a;\">English instruction for children from low socio-economic areas might not be the best way for them to learn</mark>.</div><div class=\"exp-step\">• <b>Bước 4:</b> Trẻ em nghèo bị thiệt thòi khi dạy bằng tiếng Anh. Chọn <b>C</b>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> 'low socio-economic' = 'Poor', 'might not be best' = 'disadvantaged'. Chọn <b>C</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q24')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q24\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q24')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q24\"></div></div></div></div><div class=\"question\" id=\"q25\"><p><b>25.</b> What does Tsimpli mean when she says 'that ship has sailed' in paragraph 7?</p><div class=\"options options-vertical\"><label><input type=\"radio\" name=\"q25\" value=\"A\"> A. It is time to travel abroad to learn English.</label><label><input type=\"radio\" name=\"q25\" value=\"B\"> B. English instruction has failed completely.</label><label><input type=\"radio\" name=\"q25\" value=\"C\"> C. Ships are bringing new English teaching materials.</label><label><input type=\"radio\" name=\"q25\" value=\"D\"> D. It is too late to remove English completely as a language of instruction in schools.</label></div><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q25_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">D</span></div><div class=\"exp-step\">• <b>Bước 1:</b> Ý nghĩa thành ngữ 'that ship has sailed' ở đoạn 7.</div><div class=\"exp-step\">• <b>Bước 2:</b> Quét cụm 'that ship has sailed' ở Đoạn 7.</div><div class=\"exp-step\">• <b>Bước 3:</b> <mark style=\"background-color: #fef08a;\">We are not suggesting that English be withdrawn - that ship has sailed</mark> (đã quá muộn để rút tiếng Anh hoàn toàn).</div><div class=\"exp-step\">• <b>Bước 4:</b> Chọn <b>D</b>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> 'ship has sailed' = 'too late' (đã quá muộn). Chọn <b>D</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q25')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q25\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q25')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q25\"></div></div></div></div><div class=\"question\" id=\"q26\"><p><b>26.</b> What surprised the researchers in paragraph 8?</p><div class=\"options options-vertical\"><label><input type=\"radio\" name=\"q26\" value=\"A\"> A. Slum children have higher general intelligence than non-slum children.</label><label><input type=\"radio\" name=\"q26\" value=\"B\"> B. Boys perform much better than girls in slum schools.</label><label><input type=\"radio\" name=\"q26\" value=\"C\"> C. Teachers in slum schools are better trained.</label><label><input type=\"radio\" name=\"q26\" value=\"D\"> D. The literacy and numeracy skills of slum children are not lower than those of children from other urban poor backgrounds.</label></div><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q26_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">D</span></div><div class=\"exp-step\">• <b>Bước 1:</b> Điều gì làm nghiên cứu sinh bất ngờ ở đoạn 8.</div><div class=\"exp-step\">• <b>Bước 2:</b> Quét 'unanticipated finding' ở Đoạn 8.</div><div class=\"exp-step\">• <b>Bước 3:</b> <mark style=\"background-color: #fef08a;\">children from slum backgrounds do not seem to lag behind children from other urban poor backgrounds</mark>.</div><div class=\"exp-step\">• <b>Bước 4:</b> Kỹ năng của trẻ ổ chuột không hề thấp hơn các bạn nghèo khác. Chọn <b>D</b>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> 'not lag behind' = 'not lower than'. Chọn <b>D</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q26')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q26\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q26')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q26\"></div></div></div></div><button class=\"btn-submit\" onclick=\"checkAnswers()\">CHẤM BÀI VÀ NỘP KẾT QUẢ</button>"
+  "passageHtml": "<h2>READING PASSAGE 2</h2><h3>How could multilingualism benefit India's poorest schoolchildren?</h3><p><span class=\"hl\" id=\"hl-q14\" data-q=\"[Q14]\">The crowded and bustling streets of Delhi teem with life. Stop to listen and, above the din of rickshaws and buses, you'll hear a multitude of languages, as <span class=\"kw\">more than 20 million people</span> go about their daily lives</span>. <span class=\"hl\" id=\"hl-q15-17\" data-q=\"[Q15-17]\">Many were born and raised here, and <span class=\"kw\">many millions more have recently made India's capital their home</span>, having moved from <span class=\"kw\">surrounding neighbourhoods</span>, cities and states or across the country, often in the hope of <span class=\"kw\">gaining better jobs and a better life</span></span>. Some arrive speaking fluent Hindi, the dominant language in Delhi (and the official language of government), but many arrive speaking any number of India's 22 officially recognised languages, let alone the hundreds of regional languages in a country of more than 1.3 billion people.</p><p><span class=\"hl\" id=\"hl-q18-19\" data-q=\"[Q18-19]\">A team of researchers led by Professor Ianthi Tsimpli of Cambridge University is currently working on a project collecting data on 1,000 primary-age children in Delhi and the cities of Hyderabad and Bihar. The <span class=\"kw\">overriding aim</span> of the four-year project, called 'Multilingualism and Multiliteracy', is to find out why in a country where multilingualism is so common (more than 255 million people in India speak at least two languages, and nearly 90 million speak three or more languages), the <span class=\"kw\">many benefits of speaking more than one language, observed in schools in Europe for instance, do not apply</span> to many of India's schoolchildren</span>.</p><p><span class=\"hl\" id=\"hl-q20\" data-q=\"[Q20]\">'Each year across India, 600,000 children are tested, and year after year over 50% of children in Standard 5 [ten-year-olds] cannot read a Standard 2 [seven-year-olds] task fluently, and <span class=\"kw\">just under 50% of them cannot solve a Standard 2 subtraction task</span>,' says Tsimpli</span>. <span class=\"hl\" id=\"hl-q21\" data-q=\"[Q21]\">She explains that low educational achievement can lead to many of these students dropping out of school - a problem disproportionately affecting female students</span>.</p><p><span class=\"hl\" id=\"hl-q22\" data-q=\"[Q22]\">Tsimpli and her colleagues are <span class=\"kw\">investigating whether these low learning outcomes could be caused by an Indian school system where the language that children are taught in often differs from the language used at home</span></span>. The research project, which focuses on 8 to 11-year-old schoolchildren in rural and urban areas, collects data on whether the schoolchildren live in slum* or non-slum areas. Many of the children have moved from remote, rural areas to urban areas. They are so poor they have to live in slums and, as a result of migration, they may speak languages that are different from the regional language.</p><p><span class=\"hl\" id=\"hl-q23\" data-q=\"[Q23]\">Having already tested 1,000 children, the researchers will now embark on retesting them. <span class=\"kw\">They intend to look not only at test results, but also at variables such as the standard of schooling, the environment and the teaching practices themselves</span></span>. It's possible that one of the causes of low performance is the lack of pupil-centred teaching methods; in many Indian primary schools the teacher dominates and there is little room for independent learning.</p><p><span class=\"hl\" id=\"hl-q24\" data-q=\"[Q24]\">Although the findings are at a preliminary stage, Tsimpli and her team have found that the medium of instruction used in schools, especially English, may hold back those children who have little familiarity with, or exposure to, the language before starting school and outside of school life. According to Tsimpli, most of the evidence from this and other projects shows that <span class=\"kw\">English instruction for children from low socio-economic areas might not be the best way for them to learn</span>, at least in the first three years of primary education</span>.</p><p>'What we would recommend for everyone, not just low socio-economic status children, would be to start learning in the language they feel comfortable learning in ... English can still be used, but perhaps not as the medium of instruction in primary schools. It could, for example, be one of the subjects that are being taught alongside other subjects. <span class=\"hl\" id=\"hl-q25\" data-q=\"[Q25]\">We are not suggesting that English be withdrawn - <span class=\"kw\">that ship has sailed</span> - but we perhaps have to think more about learner needs</span>. There is perhaps too much uniformity in teaching and less tailoring to the children's language abilities and needs,' says Tsimpli.</p><p><span class=\"hl\" id=\"hl-q26\" data-q=\"[Q26]\">While the preliminary results show there is no difference in general intelligence among boys and girls from slum areas versus those from urban poor backgrounds, <span class=\"kw\">an unanticipated finding has been that children from slum backgrounds do not seem to lag behind children from other urban poor backgrounds - and in some cases outperform them</span> (e.g. in numeracy and literacy tasks)</span>. According to the researchers, this unexpected finding may be down to the life experiences of children growing up in slums. They are likely to mature faster and come into closer contact with the numeracy skills essential for day-to-day survival.</p><p>The project has already caught the attention of government ministers, who are keen to use the findings of the study to inform and adjust school policy in Delhi and the wider state. 'They are as keen as us to understand how the challenging context of deprivation can be attenuated when focusing on the languages children learn and use while at school. Our findings don't mean you're doomed if you're poor. It may be that these low learning outcomes are because of the way education is provided in India, with a huge focus on Hindi and English as the mediums of instruction, to the potential detriment of children unfamiliar with those languages,' explains Tsimpli.</p><p>'Language is central to the way knowledge is transferred - so the medium of instruction is obviously hugely influential. We hope to ... show that problem solving, numeracy and literacy can and do improve in children who are educated in a language of instruction they know. The trick may be to bridge school skills with life skills and make use of the richness of a child's life experience to help them learn in the most effective ways possible,' says Tsimpli.</p><p><i>* slum: a very densely populated area in which the infrastructure is incomplete and services inadequate or non-existent</i></p>",
+  "groups": [
+    {
+      "id": "g1",
+      "type": "summary_options",
+      "title": "Questions 14-19",
+      "instructions": "<i>Complete the summary using the list of words, <b>A-J</b>, below.<br>Write the correct letter, <b>A-J</b>, in boxes 14-19 on your answer sheet.</i><br><br><b>A.</b> basic outlook<br><b>B.</b> employment opportunities<br><b>C.</b> wealthy visitors<br><b>D.</b> distant country<br><b>E.</b> primary objective<br><b>F.</b> similar advantages<br><b>G.</b> thriving economy<br><b>H.</b> nearby district<br><b>I.</b> dense population<br><b>J.</b> new immigrants",
+      "summaryTitle": "Multilingualism in India",
+      "questionIds": ["q14", "q15", "q16", "q17", "q18", "q19"],
+      "template": "<p>The city of Delhi has a <b>14.</b> {{q14}} and as you walk through its streets you hear people speaking a variety of languages. Some of them have spent their entire life in Delhi, while others are <b>15.</b> {{q15}}. Whether they have come from a <b>16.</b> {{q16}} or have travelled from the other side of India, they have all come in search of things such as improved <b>17.</b> {{q17}}.</p><p>The <b>18.</b> {{q18}} of the research is to discover why multilingualism does not benefit children in India. In particular, the researchers want to know why they do not experience <b>19.</b> {{q19}} to those that multilingual schoolchildren in Europe experience.</p>"
+    },
+    {
+      "id": "g2",
+      "type": "ynng",
+      "title": "Questions 20-23",
+      "instructions": "<i>Do the following statements agree with the claims of the writer in Reading Passage 2?<br>In boxes 20-23 on your answer sheet, write:<br><b>YES</b> if the statement agrees with the claims of the writer<br><b>NO</b> if the statement contradicts the claims of the writer<br><b>NOT GIVEN</b> if it is impossible to say what the writer thinks about this</i>",
+      "questionIds": ["q20", "q21", "q22", "q23"]
+    },
+    {
+      "id": "g3",
+      "type": "mcq",
+      "title": "Questions 24-26",
+      "instructions": "<i>Choose the correct letter, <b>A, B, C or D</b>.<br>Write the correct letter in boxes 24-26 on your answer sheet.</i>",
+      "questionIds": ["q24", "q25", "q26"]
+    }
+  ],
+  "questions": {
+    "q14": {
+      "num": 14,
+      "text": "The city of Delhi has a 14 ............ and as you walk through its streets you hear people speaking a variety of languages.",
+      "options": [
+        "A. basic outlook",
+        "B. employment opportunities",
+        "C. wealthy visitors",
+        "D. distant country",
+        "E. primary objective",
+        "F. similar advantages",
+        "G. thriving economy",
+        "H. nearby district",
+        "I. dense population",
+        "J. new immigrants"
+      ],
+      "finalAnswer": "I",
+      "highlightId": "hl-q14",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Phân tích ngữ cảnh",
+            "question": "Câu 14 tóm tắt: Thành phố Delhi có một [14]... và khi bạn đi dạo trên đường bạn nghe thấy đủ thứ ngôn ngữ.",
+            "guide": "Sau mạo từ 'a' cần một cụm danh từ chỉ quy mô dân số hoặc đặc điểm đô thị đông đúc.",
+            "bridge": "Hãy đọc câu đầu tiên của đoạn 1."
+          },
+          {
+            "title": "Đối chiếu bài đọc",
+            "question": "Đoạn 1 miêu tả đường phố Delhi đông đúc như thế nào?",
+            "guide": "Bài viết: 'The crowded and bustling streets of Delhi teem with life... as more than 20 million people go about their daily lives.' (đông đúc với hơn 20 triệu người sinh sống).",
+            "bridge": "'crowded' và 'more than 20 million people' tương đương với cụm từ nào chỉ mật độ dân số trong bảng A-J?"
+          },
+          {
+            "title": "Chọn từ trong khung",
+            "question": "Cụm từ nào mang nghĩa 'mật độ dân số đông đúc'?",
+            "guide": "Đó là phương án I: 'dense population'.",
+            "bridge": "Chốt câu 14: I."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý tóm tắt:</b> Delhi có mật độ dân cư rất đông đúc.",
+          "<b>Đoạn 1 (dòng 1-3):</b> <i>'The crowded and bustling streets... more than 20 million people...'</i>",
+          "<b>Khớp từ:</b> <i>crowded / more than 20 million people</i> = mật độ dân số dày đặc (<i>dense population</i>).",
+          "<b>Kết luận:</b> Chọn <b>I</b>."
+        ]
+      }
+    },
+    "q15": {
+      "num": 15,
+      "text": "Some of them have spent their entire life in Delhi, while others are 15 ............ .",
+      "options": [
+        "A. basic outlook",
+        "B. employment opportunities",
+        "C. wealthy visitors",
+        "D. distant country",
+        "E. primary objective",
+        "F. similar advantages",
+        "G. thriving economy",
+        "H. nearby district",
+        "I. dense population",
+        "J. new immigrants"
+      ],
+      "finalAnswer": "J",
+      "highlightId": "hl-q15-17",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Phân tích cấu trúc đối lập",
+            "question": "Câu 15 nói: Một số người đã sống cả đời ở Delhi, trong khi những người khác là [15]...",
+            "guide": "Cần một danh từ chỉ người đối lập với người bản địa sinh ra và lớn lên ở đây.",
+            "bridge": "Hãy đọc câu thứ hai của đoạn 1."
+          },
+          {
+            "title": "Đối chiếu bài đọc",
+            "question": "Đoạn 1 đối chiếu nhóm người bản địa với nhóm người nào vừa chuyển đến?",
+            "guide": "Bài viết: 'Many were born and raised here, and many millions more have recently made India's capital their home, having moved from...' (hàng triệu người mới chuyển đến thủ đô gần đây).",
+            "bridge": "Những người mới chuyển đến sinh sống được gọi là gì trong danh sách từ?"
+          },
+          {
+            "title": "Chọn từ trong khung",
+            "question": "Cụm từ nào mang nghĩa 'những người mới nhập cư / chuyển đến'?",
+            "guide": "Đó là phương án J: 'new immigrants'.",
+            "bridge": "Chốt câu 15: J."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý tóm tắt:</b> Người sinh ra ở đây đối lập với những người mới nhập cư.",
+          "<b>Đoạn 1 (dòng 3-4):</b> <i>'Many were born and raised here, and many millions more have recently made India's capital their home, having moved from...'</i>",
+          "<b>Khớp từ:</b> <i>recently made... their home, having moved from...</i> = những người mới nhập cư (<i>new immigrants</i>).",
+          "<b>Kết luận:</b> Chọn <b>J</b>."
+        ]
+      }
+    },
+    "q16": {
+      "num": 16,
+      "text": "Whether they have come from a 16 ............ or have travelled from the other side of India...",
+      "options": [
+        "A. basic outlook",
+        "B. employment opportunities",
+        "C. wealthy visitors",
+        "D. distant country",
+        "E. primary objective",
+        "F. similar advantages",
+        "G. thriving economy",
+        "H. nearby district",
+        "I. dense population",
+        "J. new immigrants"
+      ],
+      "finalAnswer": "H",
+      "highlightId": "hl-q15-17",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Phân tích cấu trúc đối lập về khoảng cách",
+            "question": "Câu 16 nói: Dù họ đến từ một [16]... hay đi từ tận đầu bên kia của đất nước Ấn Độ...",
+            "guide": "Đối lập với 'the other side of India' (nơi xa xôi) phải là một địa điểm ở gần xung quanh.",
+            "bridge": "Hãy tìm từ miêu tả nơi xuất phát của dòng người ở đoạn 1."
+          },
+          {
+            "title": "Đối chiếu bài đọc",
+            "question": "Đoạn 1 nói người dân chuyển đến từ những khu vực nào?",
+            "guide": "Bài viết: '...having moved from surrounding neighbourhoods, cities and states or across the country...'",
+            "bridge": "'surrounding neighbourhoods' (các vùng lân cận xung quanh) tương ứng với cụm từ nào trong bảng?"
+          },
+          {
+            "title": "Chọn từ trong khung",
+            "question": "Cụm từ nào mang nghĩa 'vùng / quận lân cận'?",
+            "guide": "Đó là phương án H: 'nearby district'.",
+            "bridge": "Chốt câu 16: H."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý tóm tắt:</b> Dù họ chuyển đến từ vùng lân cận hay từ vùng xa xôi.",
+          "<b>Đoạn 1 (dòng 4-5):</b> <i>'...having moved from surrounding neighbourhoods, cities and states or across the country...'</i>",
+          "<b>Khớp từ:</b> <i>surrounding neighbourhoods</i> = khu vực lân cận (<i>nearby district</i>).",
+          "<b>Kết luận:</b> Chọn <b>H</b>."
+        ]
+      }
+    },
+    "q17": {
+      "num": 17,
+      "text": "...they have all come in search of things such as improved 17 ............ .",
+      "options": [
+        "A. basic outlook",
+        "B. employment opportunities",
+        "C. wealthy visitors",
+        "D. distant country",
+        "E. primary objective",
+        "F. similar advantages",
+        "G. thriving economy",
+        "H. nearby district",
+        "I. dense population",
+        "J. new immigrants"
+      ],
+      "finalAnswer": "B",
+      "highlightId": "hl-q15-17",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Phân tích mục đích di cư",
+            "question": "Câu 17 nói: Họ đều đến đây để tìm kiếm những điều như cải thiện [17]...",
+            "guide": "Cần danh từ chỉ mục tiêu công việc hoặc điều kiện sống mà người nhập cư mong đợi.",
+            "bridge": "Đọc tiếp lý do di cư ở đoạn 1 nhé."
+          },
+          {
+            "title": "Đối chiếu bài đọc",
+            "question": "Đoạn 1 nêu lý do họ chuyển đến Delhi là gì?",
+            "guide": "Bài viết: '...often in the hope of gaining better jobs and a better life.' (với hy vọng kiếm được công việc tốt hơn và cuộc sống tốt hơn).",
+            "bridge": "'gaining better jobs' tương ứng với cụm từ nào trong khung từ A-J?"
+          },
+          {
+            "title": "Chọn từ trong khung",
+            "question": "Cụm từ nào mang nghĩa 'cơ hội việc làm'?",
+            "guide": "Đó là phương án B: 'employment opportunities'.",
+            "bridge": "Chốt câu 17: B."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý tóm tắt:</b> Họ chuyển tới để tìm kiếm cơ hội việc làm tốt hơn.",
+          "<b>Đoạn 1 (dòng 5):</b> <i>'...often in the hope of gaining better jobs and a better life.'</i>",
+          "<b>Khớp từ:</b> <i>gaining better jobs</i> = cải thiện cơ hội việc làm (<i>improved employment opportunities</i>).",
+          "<b>Kết luận:</b> Chọn <b>B</b>."
+        ]
+      }
+    },
+    "q18": {
+      "num": 18,
+      "text": "The 18 ............ of the research is to discover why multilingualism does not benefit children in India.",
+      "options": [
+        "A. basic outlook",
+        "B. employment opportunities",
+        "C. wealthy visitors",
+        "D. distant country",
+        "E. primary objective",
+        "F. similar advantages",
+        "G. thriving economy",
+        "H. nearby district",
+        "I. dense population",
+        "J. new immigrants"
+      ],
+      "finalAnswer": "E",
+      "highlightId": "hl-q18-19",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Phân tích ngữ cảnh nghiên cứu",
+            "question": "Câu 18 nói: [18]... của nghiên cứu là tìm hiểu xem tại sao việc biết nhiều thứ tiếng không mang lại lợi ích cho học sinh Ấn Độ.",
+            "guide": "Đứng đầu câu làm chủ ngữ cần một danh từ chỉ mục tiêu, mục đích chính của dự án nghiên cứu.",
+            "bridge": "Hãy tìm câu nói về mục đích của dự án ở đoạn 2."
+          },
+          {
+            "title": "Đối chiếu bài đọc",
+            "question": "Đoạn 2 nói mục tiêu bao trùm của dự án nghiên cứu là gì?",
+            "guide": "Bài viết: 'The overriding aim of the four-year project... is to find out why in a country where multilingualism is so common... the many benefits... do not apply...'",
+            "bridge": "'overriding aim' đồng nghĩa với cụm từ nào trong bảng từ A-J?"
+          },
+          {
+            "title": "Chọn từ trong khung",
+            "question": "Cụm từ nào mang nghĩa 'mục tiêu hàng đầu / mục tiêu chính'?",
+            "guide": "Đó là phương án E: 'primary objective'.",
+            "bridge": "Chốt câu 18: E."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý tóm tắt:</b> Mục tiêu chính của nghiên cứu là tìm hiểu nguyên nhân.",
+          "<b>Đoạn 2 (dòng 3):</b> <i>'The overriding aim of the four-year project... is to find out why...'</i>",
+          "<b>Khớp từ:</b> <i>overriding aim</i> = mục tiêu chính (<i>primary objective</i>).",
+          "<b>Kết luận:</b> Chọn <b>E</b>."
+        ]
+      }
+    },
+    "q19": {
+      "num": 19,
+      "text": "...they do not experience 19 ............ to those that multilingual schoolchildren in Europe experience.",
+      "options": [
+        "A. basic outlook",
+        "B. employment opportunities",
+        "C. wealthy visitors",
+        "D. distant country",
+        "E. primary objective",
+        "F. similar advantages",
+        "G. thriving economy",
+        "H. nearby district",
+        "I. dense population",
+        "J. new immigrants"
+      ],
+      "finalAnswer": "F",
+      "highlightId": "hl-q18-19",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Phân tích sự so sánh lợi ích",
+            "question": "Câu 19 nói: Tại sao học sinh Ấn Độ không có được những [19]... giống như những gì học sinh đa ngôn ngữ ở Châu Âu trải nghiệm.",
+            "guide": "Cần danh từ số nhiều chỉ lợi ích hoặc điểm cộng tương đương.",
+            "bridge": "Đọc tiếp phần sau của câu ở đoạn 2 nhé."
+          },
+          {
+            "title": "Đối chiếu bài đọc",
+            "question": "Đoạn 2 nói điều gì ở học sinh Châu Âu lại không áp dụng được với học sinh Ấn Độ?",
+            "guide": "Bài viết: '...the many benefits of speaking more than one language, observed in schools in Europe for instance, do not apply to many of India's schoolchildren.'",
+            "bridge": "'many benefits... observed in Europe' tương đương với lựa chọn nào trong bảng?"
+          },
+          {
+            "title": "Chọn từ trong khung",
+            "question": "Cụm từ nào mang nghĩa 'những lợi ích / ưu thế tương tự'?",
+            "guide": "Đó là phương án F: 'similar advantages'.",
+            "bridge": "Chốt câu 19: F."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý tóm tắt:</b> Trẻ em Ấn Độ không được hưởng lợi ích tương tự như học sinh ở châu Âu.",
+          "<b>Đoạn 2 (dòng 5-6):</b> <i>'...the many benefits of speaking more than one language, observed in schools in Europe for instance, do not apply to many of India's schoolchildren.'</i>",
+          "<b>Khớp từ:</b> <i>benefits observed in Europe</i> = các lợi thế tương tự (<i>similar advantages</i>).",
+          "<b>Kết luận:</b> Chọn <b>F</b>."
+        ]
+      }
+    },
+    "q20": {
+      "num": 20,
+      "text": "Ten-year-old Indian schoolchildren tend to perform better in literacy than in numeracy.",
+      "finalAnswer": "NO",
+      "highlightId": "hl-q20",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Xác định từ khóa nhận định",
+            "question": "Câu 20 nói: Học sinh 10 tuổi ở Ấn Độ có xu hướng làm bài đọc viết ('literacy') tốt hơn làm toán ('numeracy').",
+            "guide": "Em hãy tìm số liệu về trẻ 10 tuổi (Standard 5) ở đoạn 3.",
+            "bridge": "Cùng so sánh tỷ lệ học sinh không biết đọc và không biết làm toán nhé."
+          },
+          {
+            "title": "Đối chiếu bài đọc",
+            "question": "Đoạn 3 đưa ra tỷ lệ thất bại giữa đọc và làm phép trừ như thế nào?",
+            "guide": "Bài viết: 'over 50% of children in Standard 5 [ten-year-olds] cannot read... and just under 50% of them cannot solve a Standard 2 subtraction task.' (Hơn 50% không biết đọc lưu loát, nhưng chỉ có dưới 50% là không giải được bài toán trừ).",
+            "bridge": "Hơn 50% không biết đọc (kém hơn) trong khi dưới 50% không giải được toán (toán làm tốt hơn đọc)."
+          },
+          {
+            "title": "Đưa ra kết luận",
+            "question": "Câu nhận định bảo làm đọc viết tốt hơn làm toán, nhưng bài đọc cho thấy môn toán các em làm tốt hơn môn đọc. Hai ý này có ngược nhau không?",
+            "guide": "Hoàn toàn trái ngược, chọn NO.",
+            "bridge": "Chốt câu 20: NO."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý nhận định:</b> Học sinh 10 tuổi có kết quả đọc viết tốt hơn làm toán.",
+          "<b>Đoạn 3 (dòng 1-3):</b> <i>'...over 50% of children in Standard 5 cannot read... and just under 50% of them cannot solve a Standard 2 subtraction task...'</i>",
+          "<b>Đối chiếu:</b> Tỷ lệ thất bại ở môn đọc cao hơn (>50%) so với môn toán (<50%), nghĩa là các em làm toán tốt hơn đọc viết. Nhận định này nói ngược thực tế.",
+          "<b>Kết luận:</b> Chọn <b>NO</b>."
+        ]
+      }
+    },
+    "q21": {
+      "num": 21,
+      "text": "Tsimpli had problems convincing female students to take part in her research project.",
+      "finalAnswer": "NOT GIVEN",
+      "highlightId": "hl-q21",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Xác định từ khóa nhận định",
+            "question": "Câu 21 nói: Giáo sư Tsimpli gặp khó khăn trong việc thuyết phục các nữ sinh tham gia dự án nghiên cứu ('had problems convincing female students to take part...').",
+            "guide": "Em hãy tìm từ 'female students' ở đoạn 3.",
+            "bridge": "Cùng xem bài đọc nói gì về các học sinh nữ nhé."
+          },
+          {
+            "title": "Đối chiếu bài đọc",
+            "question": "Đoạn 3 nhắc đến 'female students' trong ngữ cảnh nào?",
+            "guide": "Bài viết: 'She explains that low educational achievement can lead to many of these students dropping out of school - a problem disproportionately affecting female students.' (thành tích kém dẫn đến bỏ học - vấn đề ảnh hưởng nặng nề hơn tới học sinh nữ).",
+            "bridge": "Bài chỉ nói về tỷ lệ bỏ học ở học sinh nữ, có đề cập gì đến việc giáo sư khó khăn khi thuyết phục các em tham gia nghiên cứu không?"
+          },
+          {
+            "title": "Đưa ra kết luận",
+            "question": "Không hề có thông tin về việc thuyết phục học sinh tham gia, vậy đáp án là gì?",
+            "guide": "Thiếu dữ kiện, chọn NOT GIVEN.",
+            "bridge": "Chốt câu 21: NOT GIVEN."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý nhận định:</b> Tsimpli gặp trở ngại khi thuyết phục nữ sinh tham gia dự án.",
+          "<b>Đoạn 3 (câu cuối):</b> Bài chỉ đề cập học sinh nữ bị ảnh hưởng nặng nề bởi tình trạng bỏ học (<i>disproportionately affecting female students</i>).",
+          "<b>Đối chiếu:</b> Hoàn toàn không có thông tin về việc bà gặp khó khăn khi tuyển chọn hay thuyết phục nữ sinh tham gia nghiên cứu.",
+          "<b>Kết luận:</b> Chọn <b>NOT GIVEN</b>."
+        ]
+      }
+    },
+    "q22": {
+      "num": 22,
+      "text": "Tsimpli and her team want to know if there is a connection between poor performance and being taught in an unfamiliar language.",
+      "finalAnswer": "YES",
+      "highlightId": "hl-q22",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Xác định từ khóa nhận định",
+            "question": "Câu 22 nói: Tsimpli và nhóm muốn biết liệu có mối liên hệ giữa thành tích kém ('poor performance') với việc bị dạy bằng một ngôn ngữ xa lạ ('being taught in an unfamiliar language') hay không.",
+            "guide": "Em hãy đọc câu đầu tiên của đoạn 4.",
+            "bridge": "Cùng xem họ đang điều tra nghi vấn gì nhé."
+          },
+          {
+            "title": "Đối chiếu bài đọc",
+            "question": "Đoạn 4 nói nhóm nghiên cứu đang điều tra điều gì?",
+            "guide": "Bài viết: 'Tsimpli and her colleagues are investigating whether these low learning outcomes could be caused by an Indian school system where the language that children are taught in often differs from the language used at home.'",
+            "bridge": "'low learning outcomes' = poor performance; 'language taught in differs from home' = unfamiliar language.",
+            "answer": "YES"
+          },
+          {
+            "title": "Đưa ra kết luận",
+            "question": "Ý của câu hỏi và nội dung điều tra của nhóm có trùng khớp 100% không?",
+            "guide": "Trùng khớp hoàn toàn, chọn YES.",
+            "bridge": "Chốt câu 22: YES."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý nhận định:</b> Nhóm nghiên cứu muốn biết liệu kết quả học kém có liên quan đến việc học bằng ngôn ngữ xa lạ.",
+          "<b>Đoạn 4 (câu đầu):</b> <i>'Tsimpli and her colleagues are investigating whether these low learning outcomes could be caused by... the language that children are taught in often differs from the language used at home.'</i>",
+          "<b>Khớp từ:</b> <i>low learning outcomes</i> = <i>poor performance</i>; <i>differs from language at home</i> = <i>unfamiliar language</i>.",
+          "<b>Kết luận:</b> Chọn <b>YES</b>."
+        ]
+      }
+    },
+    "q23": {
+      "num": 23,
+      "text": "The researchers have decided against investigating teaching methodology.",
+      "finalAnswer": "NO",
+      "highlightId": "hl-q23",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Xác định từ khóa nhận định",
+            "question": "Câu 23 nói: Các nhà nghiên cứu đã quyết định không điều tra phương pháp sư phạm / phương pháp dạy học ('decided against investigating teaching methodology').",
+            "guide": "Em hãy tìm từ 'teaching practices' ở đoạn 5.",
+            "bridge": "Cùng xem họ có tìm hiểu về phương pháp dạy học không nhé."
+          },
+          {
+            "title": "Đối chiếu bài đọc",
+            "question": "Đoạn 5 nói các nhà nghiên cứu dự định xem xét những yếu tố nào khi kiểm tra lại?",
+            "guide": "Bài viết: 'They intend to look not only at test results, but also at variables such as the standard of schooling, the environment and the teaching practices themselves.' (Họ dự định không chỉ xem điểm thi mà còn xem xét cả chính các phương pháp giảng dạy).",
+            "bridge": "Họ 'dự định xem xét phương pháp dạy' đối nghịch trực tiếp với 'quyết định không điều tra'."
+          },
+          {
+            "title": "Đưa ra kết luận",
+            "question": "Một bên nói quyết định không làm, bài đọc nói họ có dự định xem xét. Hai ý này ngược nhau, đúng không?",
+            "guide": "Ngược nghĩa hoàn toàn, chọn NO.",
+            "bridge": "Chốt câu 23: NO."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý nhận định:</b> Các nhà nghiên cứu quyết định không tìm hiểu về phương pháp giảng dạy.",
+          "<b>Đoạn 5 (dòng 2-3):</b> <i>'They intend to look not only at test results, but also at variables such as the standard of schooling, the environment and the teaching practices themselves.'</i>",
+          "<b>Đối chiếu:</b> Họ có kế hoạch xem xét phương pháp giảng dạy (<i>teaching practices</i>), trái ngược với khẳng định quyết định không điều tra (<i>decided against</i>).",
+          "<b>Kết luận:</b> Chọn <b>NO</b>."
+        ]
+      }
+    },
+    "q24": {
+      "num": 24,
+      "text": "What point does the writer make about primary schools in India in the sixth paragraph?",
+      "options": [
+        "A. Most children speak English before starting school.",
+        "B. English is taught extremely well in most primary schools.",
+        "C. Poor children may be disadvantaged further by being instructed in English.",
+        "D. English should be used as the sole medium of instruction."
+      ],
+      "finalAnswer": "C",
+      "highlightId": "hl-q24",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Đọc câu hỏi và định vị",
+            "question": "Câu 24 hỏi: Tác giả đưa ra quan điểm gì về các trường tiểu học ở Ấn Độ trong đoạn 6?",
+            "guide": "Em hãy đọc kỹ đoạn 6 chỗ bàn về việc dạy bằng tiếng Anh cho học sinh nghèo.",
+            "bridge": "Cùng xem tiếng Anh tác động thế nào đến trẻ em có hoàn cảnh khó khăn nhé."
+          },
+          {
+            "title": "Tìm câu dẫn chứng",
+            "question": "Đoạn 6 viết việc dạy học bằng tiếng Anh gây bất lợi cho những đối tượng nào?",
+            "guide": "Bài viết: '...the medium of instruction used in schools, especially English, may hold back those children who have little familiarity with... English instruction for children from low socio-economic areas might not be the best way for them to learn...'",
+            "bridge": "'hold back' và 'not the best way' đối với trẻ em 'low socio-economic' chính là làm trẻ em nghèo chịu thêm thiệt thòi."
+          },
+          {
+            "title": "Chọn phương án đúng",
+            "question": "Lựa chọn nào mang ý nghĩa 'Trẻ em nghèo có thể bị thiệt thòi thêm khi bị dạy bằng tiếng Anh'?",
+            "guide": "Đó là phương án C: 'Poor children may be disadvantaged further by being instructed in English'.",
+            "bridge": "Chốt câu 24: C."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý câu hỏi:</b> Tác giả nêu quan điểm gì về trường tiểu học Ấn Độ ở đoạn 6?",
+          "<b>Đoạn 6:</b> <i>'...medium of instruction... especially English, may hold back those children... English instruction for children from low socio-economic areas might not be the best way for them to learn...'</i>",
+          "<b>Khớp ý:</b> Trẻ em nghèo (<i>children from low socio-economic areas</i>) bị kìm hãm / bất lợi (<i>disadvantaged / hold back</i>) khi học bằng tiếng Anh.",
+          "<b>Kết luận:</b> Chọn <b>C</b>."
+        ]
+      }
+    },
+    "q25": {
+      "num": 25,
+      "text": "What does Tsimpli mean when she says 'that ship has sailed' in paragraph 7?",
+      "options": [
+        "A. It is time to travel abroad to learn English.",
+        "B. English instruction has failed completely.",
+        "C. Ships are bringing new English teaching materials.",
+        "D. It is too late to remove English completely as a language of instruction in schools."
+      ],
+      "finalAnswer": "D",
+      "highlightId": "hl-q25",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Đọc câu hỏi và định vị",
+            "question": "Câu 25 hỏi: Tsimpli có ý gì khi nói 'that ship has sailed' ở đoạn 7?",
+            "guide": "Em hãy đọc câu chứa thành ngữ 'that ship has sailed' ở đoạn 7.",
+            "bridge": "Cùng xem bà đang nói về việc rút tiếng Anh ra khỏi trường học nhé."
+          },
+          {
+            "title": "Tìm câu dẫn chứng",
+            "question": "Đoạn 7 viết: 'We are not suggesting that English be withdrawn - that ship has sailed...' Câu này có nghĩa là gì?",
+            "guide": "Nghĩa đen của thành ngữ 'that ship has sailed' là 'con tàu đó đã nhổ neo ra khơi rồi', tức là cơ hội hay khả năng làm việc đó đã qua mất rồi, đã quá muộn để thay đổi.",
+            "bridge": "Bà không đề xuất loại bỏ tiếng Anh vì việc loại bỏ tiếng Anh hoàn toàn bây giờ là điều không thể / đã quá muộn rồi."
+          },
+          {
+            "title": "Chọn phương án đúng",
+            "question": "Lựa chọn nào mang nghĩa 'Đã quá muộn để loại bỏ tiếng Anh hoàn toàn khỏi ngôn ngữ giảng dạy'?",
+            "guide": "Đó là phương án D: 'It is too late to remove English completely as a language of instruction in schools'.",
+            "bridge": "Chốt câu 25: D."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý câu hỏi:</b> Ý nghĩa của câu 'that ship has sailed' ở đoạn 7 là gì?",
+          "<b>Đoạn 7 (dòng 5):</b> <i>'We are not suggesting that English be withdrawn - that ship has sailed - but we perhaps have to think more about learner needs.'</i>",
+          "<b>Khớp ý:</b> Thành ngữ <i>that ship has sailed</i> = cơ hội đã qua, đã quá muộn để rút lại (<i>too late to remove English completely</i>).",
+          "<b>Kết luận:</b> Chọn <b>D</b>."
+        ]
+      }
+    },
+    "q26": {
+      "num": 26,
+      "text": "What surprised the researchers in paragraph 8?",
+      "options": [
+        "A. Slum children have higher general intelligence than non-slum children.",
+        "B. Boys perform much better than girls in slum schools.",
+        "C. Teachers in slum schools are better trained.",
+        "D. The literacy and numeracy skills of slum children are not lower than those of children from other urban poor backgrounds."
+      ],
+      "finalAnswer": "D",
+      "highlightId": "hl-q26",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Đọc câu hỏi và định vị",
+            "question": "Câu 26 hỏi: Điều gì đã làm các nhà nghiên cứu bất ngờ ở đoạn 8?",
+            "guide": "Em hãy tìm cụm từ chỉ phát hiện bất ngờ ('unanticipated finding / unexpected finding') ở đoạn 8.",
+            "bridge": "Cùng xem phát hiện bất ngờ đó là gì nhé."
+          },
+          {
+            "title": "Tìm câu dẫn chứng",
+            "question": "Đoạn 8 viết phát hiện bất ngờ ('unanticipated finding') liên quan đến trẻ em khu ổ chuột là gì?",
+            "guide": "Bài viết: '...an unanticipated finding has been that children from slum backgrounds do not seem to lag behind children from other urban poor backgrounds - and in some cases outperform them (e.g. in numeracy and literacy tasks).'",
+            "bridge": "Trẻ em khu ổ chuột không hề thua kém ('do not lag behind' = not lower than) so với các trẻ em nghèo thành thị khác ở bài đọc viết và làm toán."
+          },
+          {
+            "title": "Chọn phương án đúng",
+            "question": "Lựa chọn nào mang ý nghĩa 'Kỹ năng đọc viết và làm toán của trẻ em khu ổ chuột không thấp hơn các trẻ em nghèo đô thị khác'?",
+            "guide": "Đó là phương án D: 'The literacy and numeracy skills of slum children are not lower than those of children from other urban poor backgrounds'.",
+            "bridge": "Hoàn thành Passage 2! Chốt câu 26: D."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý câu hỏi:</b> Phát hiện nào khiến các nhà nghiên cứu ngạc nhiên ở đoạn 8?",
+          "<b>Đoạn 8 (dòng 2-4):</b> <i>'...an unanticipated finding has been that children from slum backgrounds do not seem to lag behind children from other urban poor backgrounds - and in some cases outperform them (e.g. in numeracy and literacy tasks).'</i>",
+          "<b>Khớp ý:</b> Trẻ em khu ổ chuột không hề thụt lùi (<i>not lower than / do not lag behind</i>) ở kỹ năng đọc viết và tính toán so với các trẻ em nghèo đô thị khác.",
+          "<b>Kết luận:</b> Chọn <b>D</b>."
+        ]
+      }
+    }
+  }
 }
