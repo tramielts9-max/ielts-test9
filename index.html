@@ -91,6 +91,7 @@
     .btn-3d:active { transform: translateY(3px); box-shadow: none !important; }
     .btn-3d-red { background: var(--tram-red); color: #FFFFFF !important; border-bottom: 5px solid var(--tram-red-shadow); }
     .btn-3d-red:hover { background: var(--tram-red-hover); }
+    .btn-3d-blue { background: #0284C7; color: #FFFFFF !important; border-bottom: 5px solid #0369A1; }
     .btn-3d-white { background: #FFFFFF; color: var(--text-main) !important; border: 2px solid var(--duo-border); border-bottom: 5px solid var(--duo-shadow); }
 
     /* KHUNG LOGIN */
@@ -217,6 +218,10 @@
       </div>
     </div>
     <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+      <!-- NÚT 1: VÀO THI CHẨN ĐOÁN NĂNG LỰC 45 PHÚT -->
+      <a href="diagnostic/index-diag.html" class="duo-pill pill-streak" style="background: #FDF2F2; color: var(--tram-red); border: 2px solid #F8B4B7; text-decoration: none; cursor: pointer;">
+        <i class="fa-solid fa-crosshairs"></i> THI CHẨN ĐOÁN
+      </a>
       <a href="error-notebook.html" class="duo-pill" style="background: #FEF3C7; color: #92400E; border: 2px solid #FCD34D; text-decoration: none; cursor: pointer;">
         <i class="fa-solid fa-book-bookmark"></i> DOC SỬA LỖI
       </a>
@@ -302,6 +307,25 @@
     <!-- VIEW HỌC VIÊN -->
     <div id="studentViewSection">
       
+      <!-- BANNER NỔI BẬT: BÀI THI CHẨN ĐOÁN ĐẦU VÀO THÍCH ỨNG -->
+      <div style="background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%); border-radius: 20px; padding: 18px 22px; margin-bottom: 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; box-shadow: 0 4px 0 #075985; color: white;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="background: #FFC800; color: #5A3800; font-size: 11.5px; font-weight: 900; padding: 2px 8px; border-radius: 20px;">MIỄN PHÍ</span>
+            <span style="font-size: 13px; font-weight: 800; opacity: 0.95;">(Đo phản xạ TTFI & Two-Tier chống đoán mò)</span>
+          </div>
+          <h3 style="margin: 5px 0 0 0; font-size: 19px; font-weight: 900; color: #FFFFFF;">
+            🎯 BÀI KIỂM TRA CHẨN ĐOÁN NĂNG LỰC ĐẦU VÀO (TEST 1 - 45 PHÚT)
+          </h3>
+          <p style="margin: 4px 0 0 0; font-size: 13px; opacity: 0.95; font-weight: 700;">
+            Kiểm tra 5 kỹ năng (Ngữ pháp, Nghe, Đọc 2 tầng, Dịch viết, Nói) để AI tự động băm nhỏ lộ trình
+          </p>
+        </div>
+        <a href="diagnostic/index-diag.html" class="btn-3d" style="background: #FFFFFF; color: #0284C7 !important; border-bottom: 4px solid rgba(0,0,0,0.18); font-size: 13.5px; padding: 11px 22px;">
+          🚀 VÀO THI NGAY &rarr;
+        </a>
+      </div>
+
       <!-- 1. KHỐI LỘ TRÌNH TỰ ĐỘNG CỦA HỆ THỐNG -->
       <div id="roadmapSectionMount"></div>
 
@@ -330,7 +354,7 @@
           <div class="module-icon">🧠</div>
           <div>
             <h3>1. TỪ VỰNG THÔNG MINH (SPACED REPETITION) <span class="module-badge-tag">CORE</span></h3>
-            <p>5 Hũ trí nhớ lặp lại ngắt quãng • Bảng xếp hạng thi đua • Giữ chuỗi Streak 🔥</p>
+            <p>Học từ mới qua Flashcard • Bảng kiểm tra 30 từ trọn gói • AI Chấm tự động 1 lần 🔥</p>
           </div>
         </div>
         <a href="vocab/index-v.html" class="btn-module-white">HỌC TIẾP &rarr;</a>
@@ -614,7 +638,7 @@
   };
 
   // =========================================================================
-  // 2. SỬA TRIỆT ĐỂ NÚT "XEM LẠI" (ĐIỀU HƯỚNG CHÍNH XÁC VÀO BÀI ĐÃ LÀM)
+  // 2. SỬA TRIỆT ĐỂ NÚT "XEM LẠI" (HỖ TRỢ CẢ PHÒNG THI CHẨN ĐOÁN DIAGNOSTIC)
   // =========================================================================
   function resolveReviewPageUrl(pageUrl, attemptId = '', email = '') {
     if (!pageUrl) return `reading/runner-reading.html?attemptId=${attemptId}&email=${encodeURIComponent(email)}`;
@@ -624,6 +648,7 @@
     // Chuẩn hóa đường dẫn tương đối
     if (target.startsWith('runner-reading.html')) target = 'reading/' + target;
     if (target.startsWith('runner-listening.html')) target = 'listening/' + target;
+    if (target.startsWith('runner-diag.html')) target = 'diagnostic/' + target;
 
     const sep = target.includes('?') ? '&' : '?';
     let finalUrl = target;
