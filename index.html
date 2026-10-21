@@ -80,6 +80,7 @@
     }
     .pill-streak { background: #FFF4E5; color: #D97706; border: 2px solid #FCD34D; }
     .pill-red { background: #FDF2F2; color: var(--tram-red); border: 2px solid #F8B4B7; }
+    .pill-dark { background: #1E293B; color: #F8FAFC; border: 2px solid #0F172A; }
 
     /* DUOLINGO 3D BUTTONS */
     .btn-3d {
@@ -218,10 +219,15 @@
       </div>
     </div>
     <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-      <!-- NÚT 1: VÀO THI CHẨN ĐOÁN NĂNG LỰC 45 PHÚT -->
+      <!-- NÚT 1: THI CHẨN ĐOÁN -->
       <a href="diagnostic/index-diag.html" class="duo-pill pill-streak" style="background: #FDF2F2; color: var(--tram-red); border: 2px solid #F8B4B7; text-decoration: none; cursor: pointer;">
         <i class="fa-solid fa-crosshairs"></i> THI CHẨN ĐOÁN
       </a>
+      <!-- NÚT 2: HỌC QUA NETFLIX & PHIM -->
+      <a href="netflix-advisor.html" class="duo-pill pill-dark" style="text-decoration: none; cursor: pointer;">
+        <i class="fa-solid fa-film text-red-500"></i> PHIM & NETFLIX
+      </a>
+      <!-- NÚT 3: DOC SỬA LỖI -->
       <a href="error-notebook.html" class="duo-pill" style="background: #FEF3C7; color: #92400E; border: 2px solid #FCD34D; text-decoration: none; cursor: pointer;">
         <i class="fa-solid fa-book-bookmark"></i> DOC SỬA LỖI
       </a>
@@ -307,14 +313,14 @@
     <!-- VIEW HỌC VIÊN -->
     <div id="studentViewSection">
       
-      <!-- BANNER NỔI BẬT: BÀI THI CHẨN ĐOÁN ĐẦU VÀO THÍCH ỨNG -->
-      <div style="background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%); border-radius: 20px; padding: 18px 22px; margin-bottom: 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; box-shadow: 0 4px 0 #075985; color: white;">
+      <!-- BANNER 1: BÀI THI CHẨN ĐOÁN NĂNG LỰC ĐẦU VÀO -->
+      <div style="background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%); border-radius: 20px; padding: 18px 22px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; box-shadow: 0 4px 0 #075985; color: white;">
         <div>
           <div style="display: flex; align-items: center; gap: 8px;">
             <span style="background: #FFC800; color: #5A3800; font-size: 11.5px; font-weight: 900; padding: 2px 8px; border-radius: 20px;">MIỄN PHÍ</span>
             <span style="font-size: 13px; font-weight: 800; opacity: 0.95;">(Đo phản xạ TTFI & Two-Tier chống đoán mò)</span>
           </div>
-          <h3 style="margin: 5px 0 0 0; font-size: 19px; font-weight: 900; color: #FFFFFF;">
+          <h3 style="margin: 5px 0 0 0; font-size: 18.5px; font-weight: 900; color: #FFFFFF;">
             🎯 BÀI KIỂM TRA CHẨN ĐOÁN NĂNG LỰC ĐẦU VÀO (TEST 1 - 45 PHÚT)
           </h3>
           <p style="margin: 4px 0 0 0; font-size: 13px; opacity: 0.95; font-weight: 700;">
@@ -323,6 +329,25 @@
         </div>
         <a href="diagnostic/index-diag.html" class="btn-3d" style="background: #FFFFFF; color: #0284C7 !important; border-bottom: 4px solid rgba(0,0,0,0.18); font-size: 13.5px; padding: 11px 22px;">
           🚀 VÀO THI NGAY &rarr;
+        </a>
+      </div>
+
+      <!-- BANNER 2: TRUNG TÂM LUYỆN NGHE PHIM ẢNH & YOUTUBE IMMERSION (MỚI) -->
+      <div style="background: linear-gradient(135deg, #141414 0%, #1E1B18 50%, #8B1518 100%); border-radius: 20px; padding: 18px 22px; margin-bottom: 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; box-shadow: 0 4px 0 #5E0C0E; color: white;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="background: #E50914; color: #FFFFFF; font-size: 11.5px; font-weight: 900; padding: 2px 8px; border-radius: 20px;">NETFLIX & YOUTUBE</span>
+            <span style="font-size: 13px; font-weight: 800; opacity: 0.95;">(Tracking thời lượng nghe thực & Cố vấn AI)</span>
+          </div>
+          <h3 style="margin: 5px 0 0 0; font-size: 18.5px; font-weight: 900; color: #FFFFFF;">
+            🎬 HỌC TIẾNG ANH QUA PHIM & YOUTUBE THỰC CHIẾN
+          </h3>
+          <p style="margin: 4px 0 0 0; font-size: 13px; opacity: 0.95; font-weight: 700;">
+            Áp dụng Reverse Netflix Method • Tự động phát tiếp giây đã dừng • Chat với Cố vấn AI 24/7
+          </p>
+        </div>
+        <a href="netflix-advisor.html" class="btn-3d" style="background: #FFFFFF; color: #8B1518 !important; border-bottom: 4px solid rgba(0,0,0,0.18); font-size: 13.5px; padding: 11px 22px;">
+          🍿 VÀO HỌC QUA PHIM &rarr;
         </a>
       </div>
 
@@ -523,7 +548,7 @@
       </div>
     </div>
 
-    <!-- ẢNH DANH THIẾP QR ZALO CỦA BẠN (ĐƯỜNG DẪN: assets/zalo-qr.png) -->
+    <!-- ẢNH DANH THIẾP QR ZALO CỦA BẠN (assets/zalo-qr.png) -->
     <div style="margin-bottom:16px;">
       <div style="font-size:12.5px; font-weight:800; color:#334155; margin-bottom:8px;">Quét mã QR Zalo Thầy Phúc để kích hoạt:</div>
       <img src="assets/zalo-qr.png" onerror="this.onerror=null; this.src='zalo-qr.png';" alt="QR Zalo Đinh Nguyên Phúc" style="width:170px; height:170px; border-radius:14px; border:2px solid #E8E2D8; object-fit:cover; margin:0 auto; display:block;">
@@ -572,9 +597,7 @@
   let studentsMap = {};
   let systemSettings = { modules: {} };
 
-  // =========================================================================
-  // 1. CƠ CHẾ SINH MÃ HỌC VIÊN TR-XXXX & KIỂM TRA QUYỀN TRUY CẬP (FREEMIUM)
-  // =========================================================================
+  // 1. CƠ CHẾ SINH MÃ HỌC VIÊN TR-XXXX & KIỂM TRA QUYỀN
   function getOrCreateStudentId() {
     let id = localStorage.getItem('tram_student_id');
     if (!id) {
@@ -637,15 +660,11 @@
     }
   };
 
-  // =========================================================================
-  // 2. SỬA TRIỆT ĐỂ NÚT "XEM LẠI" (HỖ TRỢ CẢ PHÒNG THI CHẨN ĐOÁN DIAGNOSTIC)
-  // =========================================================================
+  // 2. ĐIỀU HƯỚNG NÚT "XEM LẠI" (HỖ TRỢ TOÀN BỘ PHÂN HỆ VÀ DIAGNOSTIC)
   function resolveReviewPageUrl(pageUrl, attemptId = '', email = '') {
     if (!pageUrl) return `reading/runner-reading.html?attemptId=${attemptId}&email=${encodeURIComponent(email)}`;
 
     let target = pageUrl;
-
-    // Chuẩn hóa đường dẫn tương đối
     if (target.startsWith('runner-reading.html')) target = 'reading/' + target;
     if (target.startsWith('runner-listening.html')) target = 'listening/' + target;
     if (target.startsWith('runner-diag.html')) target = 'diagnostic/' + target;
@@ -668,9 +687,7 @@
     return (CONFIG.ADMIN_EMAILS || []).map(e => e.toLowerCase().trim()).includes(email.toLowerCase().trim());
   }
 
-  // =========================================================================
-  // 3. ĐĂNG NHẬP & PHÂN QUYỀN GIAO DIỆN
-  // =========================================================================
+  // 3. ĐĂNG NHẬP & PHÂN QUYỀN
   window.handleStudentLogin = () => {
     const name = document.getElementById('loginNameInput').value.trim();
     const email = document.getElementById('loginEmailInput').value.trim().toLowerCase();
@@ -730,7 +747,6 @@
     }
   }
 
-  // Chặn học sinh bấm vào phân hệ nếu chưa được active (Freemium Gate)
   function bindModuleGateInterceptors() {
     const isUnlocked = isStudentUnlocked();
 
@@ -808,9 +824,7 @@
         if (data && data.success && Array.isArray(data.attempts)) {
           cloudAttempts = data.attempts;
         }
-      } catch (err) {
-        console.warn("⚠️ Dùng dữ liệu trên máy:", err);
-      }
+      } catch (err) {}
     }
 
     const combinedMap = new Map();
