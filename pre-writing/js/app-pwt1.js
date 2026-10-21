@@ -1,6 +1,7 @@
 /**
  * pre-writing/js/app-pwt1.js - Điều khiển Pre-Writing Task 1 Duolingo 3D
- * BẢN FULL ĐẦY ĐỦ 100% - LƯU TỪNG LẦN LÀM, XUẤT PDF & TRỢ GIẢNG AI STACKING Q&A
+ * BẢN FULL ĐẦY ĐỦ 100% - AUTO-SAVE THỜI GIAN THỰC, NÚT LƯU TẠM DRAFT,
+ * FIX DEEP-LINK XEM LẠI TỪ TRANG CHỦ & FIX HIỂN THỊ CÂU GỐC TRONG AI SỬA BÀI
  */
 
 import { streamGeminiPWT1 } from './api-pwt1.js';
@@ -14,14 +15,65 @@ const CATEGORIES = ["ALL", "Line", "Bar", "Pie", "Table", "Mixed", "Map", "Floor
 const CLOUD_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyNErQQFdciAQM0k9KUrACtpX7rxKkopjChYAC2Ubwj5MGzFOeekDEGs8C1n7P9cNR6vg/exec";
 
 window.addEventListener('DOMContentLoaded', async () => {
+  setupWorkspaceListeners();
+  injectSaveDraftButtonPWT1();
   await loadManifestAndInitPortal();
-  document.getElementById('bandTargetSelect')?.addEventListener('change', updateExerciseView);
-  document.getElementById('studentEnglishInput')?.addEventListener('input', updateWordCount);
-  document.getElementById('btnGrading')?.addEventListener('click', runEvaluation);
+  handleUrlDeepLinkPWT1();
 });
 
 // =========================================================================
-// QUẢN LÝ LƯU TRỮ TỪNG LẦN LÀM (ATTEMPTS: LẦN 1, LẦN 2...)
+// 1. QUẢN LÝ LƯU TRỮ BẢN NHÁP (DRAFT AUTO-SAVE & RESUME)
+// =========================================================================
+function getPWT1DraftKey(exId) {
+  return `ielts_pwt1_draft_${exId}`;
+}
+
+function savePWT1Draft(exId, text) {
+  if (!exId) return;
+  const draftData = {
+    text: text,
+    updatedAt: new Date().toISOString()
+  };
+  localStorage.setItem(getPWT1DraftKey(exId), JSON.stringify(draftData));
+}
+
+function loadPWT1Draft(exId) {
+  if (!exId) return null;
+  try {
+    const raw = localStorage.getItem(getPWT1DraftKey(exId));
+    return raw ? JSON.parse(raw) : null;
+  } catch(e) {
+    return null;
+  }
+}
+
+function clearPWT1Draft(exId) {
+  if (!exId) return;
+  localStorage.removeItem(getPWT1DraftKey(exId));
+}
+
+// Tự động chèn nút "💾 Lưu Tạm Bài Dịch" cạnh nút Chấm bài
+function injectSaveDraftButtonPWT1() {
+  const gradeBtn = document.getElementById('btnGrading');
+  if (!gradeBtn || document.getElementById('btnSaveDraftPWT1')) return;
+
+  const draftBtn = document.createElement('button');
+  draftBtn.id = 'btnSaveDraftPWT1';
+  draftBtn.type = 'button';
+  draftBtn.className = 'btn-3d btn-3d-white';
+  draftBtn.style.cssText = 'padding: 12px 18px; font-size: 13.5px; font-weight: 900; margin-right: 10px; border-color: #93C5FD; color: #1E40AF;';
+  draftBtn.innerHTML = '💾 Lưu Tạm Bài Dịch';
+  draftBtn.onclick = () => {
+    const text = document.getElementById('studentEnglishInput')?.value || '';
+    savePWT1Draft(activeExerciseId, text);
+    alert("✅ Đã lưu tạm câu dịch của em thành công! Lần sau mở bài này em sẽ được dịch tiếp.");
+  };
+
+  gradeBtn.parentNode.insertBefore(draftBtn, gradeBtn);
+}
+
+// =========================================================================
+// 2. QUẢN LÝ LƯU TRỮ TỪNG LẦN LÀM (ATTEMPTS: LẦN 1, LẦN 2...)
 // =========================================================================
 function getPWT1StorageKey(exId) {
   return `ielts_pwt1_attempts_${exId}`;
@@ -55,6 +107,83 @@ function getCompletedRecord(fileOrTitle) {
   }
 }
 
+// =========================================================================
+// 3. XỬ LÝ DEEP-LINK NÚT "XEM LẠI" TỪ TRANG CHỦ
+// =========================================================================
+function handleUrlDeepLinkPWT1() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const attemptId = urlParams.get('attemptId');
+  const testParam = urlParams.get('test') || urlParams.get('id');
+
+  // Trường hợp 1: Có attemptId từ nút Xem lại của trang chủ
+  if (attemptId) {
+    try {
+      const localHist = JSON.parse(localStorage.getItem('ielts_local_history') || '[]');
+      const foundAttempt = localHist.find(a => a.id === attemptId);
+
+      if (foundAttempt) {
+        const matchedItem = manifestData.find(item => 
+          foundAttempt.testTitle.includes(item.id) || 
+          foundAttempt.testTitle.includes(item.title)
+        ) || manifestData[0];
+
+        if (matchedItem) {
+          window.startLessonPWT1(matchedItem.file, matchedItem.title, matchedItem.id).then(() => {
+            restoreAttemptToWorkspacePWT1(foundAttempt);
+          });
+          return;
+        }
+      }
+    } catch(e) {
+      console.warn("Lỗi deep-link PWT1 attemptId:", e);
+    }
+  }
+
+  // Trường hợp 2: Có test/id trực tiếp trên URL
+  if (testParam) {
+    const matchedItem = manifestData.find(item => item.id === testParam || item.file.includes(testParam));
+    if (matchedItem) {
+      window.startLessonPWT1(matchedItem.file, matchedItem.title, matchedItem.id);
+    }
+  }
+}
+
+function restoreAttemptToWorkspacePWT1(attempt) {
+  const inputEl = document.getElementById('studentEnglishInput');
+  const resultBox = document.getElementById('result-box');
+  const resultContent = document.getElementById('result-content');
+  const statusBar = document.getElementById('status-bar');
+
+  let studentText = '';
+  let aiText = '';
+
+  if (attempt.details && attempt.details.includes('BẢN DỊCH HỌC VIÊN:')) {
+    const parts = attempt.details.split('BẢN DỊCH HỌC VIÊN:');
+    if (parts[1]) {
+      const subParts = parts[1].split('ĐÁNH GIÁ 2 TẦNG:');
+      studentText = subParts[0].trim();
+      aiText = subParts[1] ? subParts[1].trim() : '';
+    }
+  } else if (attempt.studentText) {
+    studentText = attempt.studentText;
+    aiText = attempt.aiFeedback || '';
+  }
+
+  if (inputEl) {
+    inputEl.value = studentText;
+    updateWordCount();
+  }
+
+  if (resultBox && resultContent) {
+    resultBox.style.display = 'block';
+    statusBar.innerHTML = `📜 ĐANG XEM LẠI BÀI LÀM: <b>${attempt.testTitle}</b> (${attempt.timestamp}) — Điểm: <b>${attempt.score}</b>`;
+    resultContent.innerHTML = marked.parse(aiText || '<i>Chưa có dữ liệu bài sửa chi tiết.</i>');
+    resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    renderExportPdfButton();
+  }
+}
+
+// ==================== MÀN HÌNH 1: PORTAL LOGIC ====================
 async function loadManifestAndInitPortal() {
   try {
     const res = await fetch('data/pwt1-manifest.json');
@@ -115,6 +244,7 @@ function renderCards() {
   container.innerHTML = filtered.map(item => {
     const attempts = getExerciseAttempts(item.id);
     const rec = getCompletedRecord(item.title);
+    const draft = loadPWT1Draft(item.id);
     const isDone = attempts.length > 0 || !!rec;
     const count = attempts.length > 0 ? attempts.length : (isDone ? 1 : 0);
     const latestScore = attempts.length > 0 ? attempts[0].score : (rec?.score || 'Đã nộp');
@@ -130,7 +260,7 @@ function renderCards() {
               ? `<span style="font-size: 12.5px; font-weight: 900; background: #DCFCE7; color: #166534; padding: 2px 8px; border-radius: 6px; border: 1px solid #86EFAC;">
                    ✓ Đã làm ${count} lần (${latestScore})
                  </span>` 
-              : `<span style="font-size: 13px; font-weight: 800; color: var(--text-muted);">● Chưa làm</span>`
+              : (draft ? `<span style="font-size: 12px; font-weight: 800; background: #FEF3C7; color: #92400E; padding: 2px 6px; border-radius: 6px;">● Đang làm dở</span>` : `<span style="font-size: 13px; font-weight: 800; color: var(--text-muted);">● Chưa làm</span>`)
             }
           </div>
           <h4 class="pwt1-card-title" title="${item.title}">
@@ -140,7 +270,7 @@ function renderCards() {
 
         <div style="display: flex; gap: 8px; margin-top: 10px;">
           <button onclick="window.startLessonPWT1('${item.file}', '${item.title.replace(/'/g, "\\'")}', '${item.id}')" class="btn-3d ${isDone ? 'btn-3d-green' : 'btn-3d-blue'}" style="flex: 1; padding: 10px 14px; font-size: 13px;">
-            ${isDone ? `+ Làm tiếp lần ${count + 1}` : 'Vào làm bài →'}
+            ${isDone ? `+ Làm tiếp lần ${count + 1}` : (draft ? 'Dịch tiếp bài dở →' : 'Vào làm bài →')}
           </button>
           ${isDone ? `
             <button onclick="window.openPastAttemptsPWT1('${item.id}', '${item.title.replace(/'/g, "\\'")}')" class="btn-3d btn-3d-white" style="padding: 10px 12px; font-size: 13px;" title="Xem lại các lần làm trước">
@@ -155,11 +285,23 @@ function renderCards() {
 
 window.filterPWT1Cards = () => renderCards();
 
+// ==================== WORKSPACE LOGIC ====================
 window.startLessonPWT1 = async (filePath, title, exId) => {
   activeExerciseId = exId;
   document.getElementById('portalScreen').classList.add('hidden');
   document.getElementById('workspaceScreen').classList.remove('hidden');
   window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Khôi phục bản nháp nếu có
+  const draft = loadPWT1Draft(activeExerciseId);
+  const inputEl = document.getElementById('studentEnglishInput');
+  if (draft && inputEl) {
+    inputEl.value = draft.text || '';
+    updateWordCount();
+  } else {
+    if (inputEl) inputEl.value = '';
+    updateWordCount();
+  }
 
   try {
     const res = await fetch(filePath);
@@ -168,7 +310,6 @@ window.startLessonPWT1 = async (filePath, title, exId) => {
     currentExercise.id = exId;
     updateExerciseView();
 
-    // Hiển thị thanh các lần nộp cũ trên đầu Workspace
     renderWorkspacePastAttemptsBar();
     resetQAChatBox();
   } catch (err) {
@@ -177,10 +318,33 @@ window.startLessonPWT1 = async (filePath, title, exId) => {
 };
 
 window.backToPortalPWT1 = () => {
+  // Tự lưu nháp khi thoát
+  const text = document.getElementById('studentEnglishInput')?.value || '';
+  if (text.trim()) {
+    savePWT1Draft(activeExerciseId, text);
+  }
+
   document.getElementById('workspaceScreen').classList.add('hidden');
   document.getElementById('portalScreen').classList.remove('hidden');
   renderCards();
 };
+
+function setupWorkspaceListeners() {
+  document.getElementById('bandTargetSelect')?.addEventListener('change', updateExerciseView);
+  
+  const inputEl = document.getElementById('studentEnglishInput');
+  let autoSaveTimeout = null;
+
+  inputEl?.addEventListener('input', () => {
+    updateWordCount();
+    clearTimeout(autoSaveTimeout);
+    autoSaveTimeout = setTimeout(() => {
+      savePWT1Draft(activeExerciseId, inputEl.value);
+    }, 1500);
+  });
+
+  document.getElementById('btnGrading')?.addEventListener('click', runEvaluation);
+}
 
 function updateExerciseView() {
   if (!currentExercise) return;
@@ -221,7 +385,7 @@ function updateWordCount() {
 }
 
 // =========================================================================
-// THANH HIỂN THỊ CÁC LẦN NỘP BÀI CŨ ĐỂ HỌC SINH XEM LẠI BẤT KỲ LÚC NÀO
+// 4. THANH HIỂN THỊ CÁC LẦN NỘP BÀI CŨ
 // =========================================================================
 function renderWorkspacePastAttemptsBar() {
   let bar = document.getElementById('pwt1PastAttemptsBar');
@@ -279,6 +443,7 @@ window.viewPastAttemptDetailPWT1 = (idx) => {
   statusBar.innerHTML = `📜 ĐANG XEM LẠI BẢN SỬA: <b>LẦN ${att.attemptNum || 1}</b> (${att.timestamp}) — Điểm: <b>${att.score}</b>`;
   resultContent.innerHTML = marked.parse(att.aiFeedback || '');
   resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  renderExportPdfButton();
 };
 
 window.openPastAttemptsPWT1 = (exId, title) => {
@@ -292,7 +457,7 @@ window.openPastAttemptsPWT1 = (exId, title) => {
 };
 
 // =========================================================================
-// CHẤM ĐIỂM AI 2 TẦNG & LƯU VÀO ATTEMPTS RIÊNG BIỆT
+// 5. CHẤM ĐIỂM AI 2 TẦNG (BẮT BUỘC TRÍCH DẪN NGUYÊN VĂN CÂU HỌC SINH DỊCH)
 // =========================================================================
 async function runEvaluation() {
   const studentText = document.getElementById('studentEnglishInput').value.trim();
@@ -322,20 +487,27 @@ QUY TẮC ĐỊNH DẠNG: Dùng cú pháp Markdown chuẩn (#, ##, ###, ####). D
 <mark class="vocab">từ vựng C1-C2 Task 1</mark>
 <span class="teacher-note">💬 (lời dặn của Anh)</span>
 
+QUY TẮC BẮT BUỘC TRONG PHẦN 1:
+- KHÔNG ĐƯỢC NUỐT CÂU GỐC CỦA HỌC SINH.
+- MỖI CÂU ĐỀU PHẢI TRÍCH DẪN RÕ RÀNG:
+  "### 📌 Câu [Số]: [CÂU GỐC CỦA EM ĐÃ DỊCH - BẮT BUỘC TRÍCH DẪN NGUYÊN VĂN]"
+  "*Đối chiếu tiếng Việt: [Câu tiếng Việt]*"
+  trước khi tiến hành Bước 1 (Tầng 1) và Bước 2 (Tầng 2).
+
 XUẤT THEO CẤU TRÚC:
 # PHẦN 1: MỔ XẺ TỪNG CÂU DỊCH (SỬA BÀI 2 TẦNG TASK 1)
 ---
-### Câu [Số]: "[Câu học sinh]"
-*Đối chiếu tiếng Việt: "[Câu tiếng Việt]"*
+### 📌 Câu [Số]: "[CÂU GỐC CỦA EM ĐÃ DỊCH - TRÍCH DẪN NGUYÊN VĂN]"
+*Đối chiếu tiếng Việt: "[Câu tiếng Việt tương ứng]"*
 #### TẦNG 1: SỬA LỖI NGỮ PHÁP, SỐ LIỆU & DIỄN ĐẠT (Band 6.5 - 7.0)
 - **Anh sửa trực tiếp:** [Câu sửa]
 - **Các điểm cần sửa ngay:** [Lỗi sai]
-- **Bản sửa sạch lỗi:** "[Câu hoàn chỉnh]"
+- **Bản sửa sạch lỗi:** "[Câu hoàn chỉnh sạch lỗi]"
 
 #### TẦNG 2: NÂNG TẦM ACADEMIC TASK 1 (Band 8.0 - 8.5)
 - **Biến hóa với cấu trúc và Collocations học thuật:** [Câu Band 8+]
 - **Từ vựng & cấu trúc ăn điểm:** [Cụm tầng 1 ➔ Cụm Band 8]
-- **Bản nâng cấp:** "[Câu đỉnh cao]"
+- **Bản nâng cấp:** "[Câu đỉnh cao chuẩn band 8+]"
 ---
 
 # PHẦN 2: BẢNG ĐÁNH GIÁ 4 TIÊU CHÍ TASK 1
@@ -368,7 +540,10 @@ XUẤT THEO CẤU TRÚC:
     statusBar.innerHTML = `✅ Thầy đã chấm xong bằng model [${usedModel}]. Em học kỹ các cấu trúc Tầng 2 nhé!`;
     btn.disabled = false;
 
-    // LƯU KẾT QUẢ VÀO DANH SÁCH LẦN LÀM (ATTEMPTS)
+    // Xóa nháp vì đã nộp bài thành công
+    clearPWT1Draft(activeExerciseId);
+
+    // LƯU KẾT QUẢ VÀO ATTEMPTS RIÊNG BIỆT
     const now = new Date();
     const timeStr = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')} - ${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
     const sName = localStorage.getItem('ielts_student_name') || 'Học viên';
@@ -391,7 +566,7 @@ XUẤT THEO CẤU TRÚC:
     saveExerciseAttempt(activeExerciseId, newAttemptRecord);
     renderWorkspacePastAttemptsBar();
 
-    // LƯU LỊCH SỬ CHUNG TRANG CHỦ
+    // LƯU LỊCH SỬ CHUNG TRANG CHỦ & BẮN LÊN DRIVE
     const attemptSnapshot = {
       id: "attempt_pwt1_" + Date.now(),
       timestamp: `${timeStr} (Lần ${newAttemptNum})`,
@@ -401,7 +576,7 @@ XUẤT THEO CẤU TRÚC:
       score: bandScore,
       timeSpent: "N/A",
       details: `BẢN DỊCH HỌC VIÊN:\n${studentText}\n\nĐÁNH GIÁ 2 TẦNG:\n${fullText}`,
-      pageUrl: "pre-writing/index-pwt1.html",
+      pageUrl: `pre-writing/index-pwt1.html?test=${activeExerciseId}`,
       moduleType: "pre_writing_t1"
     };
 
@@ -416,7 +591,6 @@ XUẤT THEO CẤU TRÚC:
       body: JSON.stringify({ action: "save_attempt", attempt: attemptSnapshot })
     }).catch(() => {});
 
-    // HIỂN THỊ NÚT XUẤT PDF
     renderExportPdfButton();
 
   } catch (e) {
@@ -426,7 +600,7 @@ XUẤT THEO CẤU TRÚC:
 }
 
 // =========================================================================
-// XUẤT BÀI LÀM VÀ BÀI SỬA RA FILE PDF IN ẤN
+// 6. XUẤT BÀI LÀM VÀ BÀI SỬA RA FILE PDF IN ẤN
 // =========================================================================
 function renderExportPdfButton() {
   if (document.getElementById('btnExportPdfPWT1')) return;
@@ -488,7 +662,7 @@ window.exportPWT1ToPDF = () => {
 };
 
 // =========================================================================
-// TRỢ GIẢNG AI STACKING Q&A (HỎI DÀN Ý, HẠ ĐỘ KHÓ TỪ VỰNG THEO YÊU CẦU)
+// 7. TRỢ GIẢNG AI STACKING Q&A
 // =========================================================================
 function resetQAChatBox() {
   const container = document.getElementById('qaChatContainer');
