@@ -1,7 +1,8 @@
 /**
  * writing task 1/js/app-t1.js
  * BỘ ĐIỀU KHIỂN TASK 1 THEO PHONG CÁCH DUOLINGO X TRẠM IELTS
- * BẢN FULL ĐẦY ĐỦ 100% - LƯU TỪNG LẦN LÀM, XUẤT PDF & TRỢ GIẢNG AI STACKING Q&A
+ * BẢN FULL ĐẦY ĐỦ 100% - AUTO-SAVE THỜI GIAN THỰC, NÚT LƯU TẠM DRAFT,
+ * FIX DEEP-LINK XEM LẠI TỪ TRANG CHỦ & FIX HIỂN THỊ CÂU GỐC TRONG AI SỬA BÀI
  */
 
 import { streamGeminiTask1 } from './api-t1.js';
@@ -12,22 +13,105 @@ let currentBase64Image = null;
 let currentCategory = "ALL";
 let activeExerciseKey = null;
 
+// Bộ đếm thời gian xem gợi ý
 let guideTimerInterval = null;
 let guideTotalOpenSeconds = 0;
 let isGuideOpen = false;
+
+// Bộ đếm thời gian làm bài (Stopwatch) để tính giờ tiếp tục khi mở lại bài dở
+let task1TimerInterval = null;
+let task1ElapsedSeconds = 0;
+let isTask1TimerRunning = false;
 
 const CATEGORIES = ["ALL", "Line Graph", "Bar Chart", "Pie Chart", "Table", "Mixed Charts", "Map", "Floor Plan", "Process"];
 const CLOUD_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyNErQQFdciAQM0k9KUrACtpX7rxKkopjChYAC2Ubwj5MGzFOeekDEGs8C1n7P9cNR6vg/exec";
 
 marked.setOptions({ breaks: true, gfm: true });
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   setupWorkspaceListeners();
-  loadManifestAndInitPortal();
+  injectSaveDraftButton();
+  await loadManifestAndInitPortal();
+  handleUrlDeepLink();
 });
 
 // =========================================================================
-// QUẢN LÝ LƯU TRỮ TỪNG LẦN LÀM (ATTEMPTS: LẦN 1, LẦN 2...)
+// 1. QUẢN LÝ LƯU TRỮ BẢN NHÁP (DRAFT AUTO-SAVE & RESUME)
+// =========================================================================
+function getWT1DraftKey(key) {
+  return `ielts_wt1_draft_${key}`;
+}
+
+function saveWT1Draft(key, text, elapsedSec = 0) {
+  if (!key) return;
+  const draftData = {
+    text: text,
+    elapsedSeconds: elapsedSec,
+    guideSeconds: guideTotalOpenSeconds,
+    updatedAt: new Date().toISOString()
+  };
+  localStorage.setItem(getWT1DraftKey(key), JSON.stringify(draftData));
+}
+
+function loadWT1Draft(key) {
+  if (!key) return null;
+  try {
+    const raw = localStorage.getItem(getWT1DraftKey(key));
+    return raw ? JSON.parse(raw) : null;
+  } catch(e) {
+    return null;
+  }
+}
+
+function clearWT1Draft(key) {
+  if (!key) return;
+  localStorage.removeItem(getWT1DraftKey(key));
+}
+
+// Tự động chèn nút "💾 Lưu Tạm Bài Làm" vào giao diện kế bên nút Nộp Bài
+function injectSaveDraftButton() {
+  const submitBtn = document.getElementById('btnSubmitGrading');
+  if (!submitBtn || document.getElementById('btnSaveDraftWT1')) return;
+
+  const draftBtn = document.createElement('button');
+  draftBtn.id = 'btnSaveDraftWT1';
+  draftBtn.type = 'button';
+  draftBtn.className = 'btn-3d btn-3d-white';
+  draftBtn.style.cssText = 'padding: 12px 18px; font-size: 13.5px; font-weight: 900; margin-right: 10px; border-color: #86EFAC; color: #166534;';
+  draftBtn.innerHTML = '💾 Lưu Tạm (Làm Tiếp Sau)';
+  draftBtn.onclick = () => {
+    const essay = document.getElementById('studentEssayInput')?.value || '';
+    saveWT1Draft(activeExerciseKey, essay, task1ElapsedSeconds);
+    alert(`✅ Đã lưu tạm bài viết thành công (${task1ElapsedSeconds} giây làm bài). Lần sau mở bài này em sẽ được viết tiếp!`);
+  };
+
+  submitBtn.parentNode.insertBefore(draftBtn, submitBtn);
+}
+
+// Bộ đếm thời gian làm bài viết
+function startTask1Timer() {
+  if (isTask1TimerRunning) return;
+  isTask1TimerRunning = true;
+  task1TimerInterval = setInterval(() => {
+    task1ElapsedSeconds++;
+  }, 1000);
+}
+
+function pauseTask1Timer() {
+  isTask1TimerRunning = false;
+  if (task1TimerInterval) {
+    clearInterval(task1TimerInterval);
+    task1TimerInterval = null;
+  }
+}
+
+function resetTask1Timer(initialSeconds = 0) {
+  pauseTask1Timer();
+  task1ElapsedSeconds = initialSeconds;
+}
+
+// =========================================================================
+// 2. QUẢN LÝ LƯU TRỮ TỪNG LẦN LÀM (ATTEMPTS: LẦN 1, LẦN 2...)
 // =========================================================================
 function getWT1StorageKey(key) {
   return `ielts_wt1_attempts_${key}`;
@@ -58,6 +142,86 @@ function getCompletedRecord(title) {
     return list.find(item => item.testTitle && item.testTitle.includes(title));
   } catch (e) {
     return null;
+  }
+}
+
+// =========================================================================
+// 3. XỬ LÝ DEEP-LINK NÚT "XEM LẠI" TỪ TRANG CHỦ
+// =========================================================================
+function handleUrlDeepLink() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const attemptId = urlParams.get('attemptId');
+  const testParam = urlParams.get('test') || urlParams.get('file');
+
+  // Trường hợp 1: Nhấp "Xem lại" có attemptId từ trang chủ
+  if (attemptId) {
+    try {
+      const localHist = JSON.parse(localStorage.getItem('ielts_local_history') || '[]');
+      const foundAttempt = localHist.find(a => a.id === attemptId);
+
+      if (foundAttempt) {
+        // Tìm bài tương ứng trong manifest
+        const matchedItem = manifestData.find(item => 
+          foundAttempt.testTitle.includes(item.id) || 
+          foundAttempt.testTitle.includes(item.title) ||
+          (foundAttempt.details && foundAttempt.details.includes(item.title))
+        ) || manifestData[0];
+
+        if (matchedItem) {
+          const itemKey = matchedItem.id || matchedItem.title;
+          window.startLessonTask1(matchedItem.file, matchedItem.image || '', matchedItem.type, itemKey).then(() => {
+            // Khôi phục nội dung bài viết và nhận xét AI đã lưu
+            restoreAttemptToWorkspace(foundAttempt);
+          });
+          return;
+        }
+      }
+    } catch(e) {
+      console.warn("Lỗi xử lý deep-link attemptId:", e);
+    }
+  }
+
+  // Trường hợp 2: Có test/file trực tiếp trên URL
+  if (testParam) {
+    const matchedItem = manifestData.find(item => item.file.includes(testParam) || item.id === testParam);
+    if (matchedItem) {
+      const itemKey = matchedItem.id || matchedItem.title;
+      window.startLessonTask1(matchedItem.file, matchedItem.image || '', matchedItem.type, itemKey);
+    }
+  }
+}
+
+function restoreAttemptToWorkspace(attempt) {
+  const essayInput = document.getElementById('studentEssayInput');
+  const resultBox = document.getElementById('resultBox');
+  const resultMarkdown = document.getElementById('resultMarkdown');
+  const statusBar = document.getElementById('statusBar');
+
+  let essayText = '';
+  let aiText = '';
+
+  if (attempt.details && attempt.details.includes('BÀI LÀM HỌC VIÊN:')) {
+    const parts = attempt.details.split('BÀI LÀM HỌC VIÊN:');
+    if (parts[1]) {
+      const subParts = parts[1].split('BÀI CHẤM AI:');
+      essayText = subParts[0].trim();
+      aiText = subParts[1] ? subParts[1].trim() : '';
+    }
+  } else if (attempt.studentEssay) {
+    essayText = attempt.studentEssay;
+    aiText = attempt.aiFeedback || '';
+  }
+
+  if (essayInput) {
+    essayInput.value = essayText;
+    document.getElementById('wordCounter').innerText = `${essayText ? essayText.split(/\s+/).length : 0} từ`;
+  }
+
+  if (resultBox && resultMarkdown) {
+    resultBox.style.display = 'block';
+    statusBar.innerHTML = `📜 ĐANG XEM LẠI BÀI LÀM: <b>${attempt.testTitle}</b> (Nộp lúc: ${attempt.timestamp}) — Điểm: <b>${attempt.score}</b>`;
+    resultMarkdown.innerHTML = marked.parse(aiText || '<i>Chưa có dữ liệu bài chấm chi tiết.</i>');
+    resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }
 
@@ -127,6 +291,7 @@ function renderCards() {
     const itemKey = item.id || item.title;
     const attempts = getWT1Attempts(itemKey);
     const rec = getCompletedRecord(item.title);
+    const draft = loadWT1Draft(itemKey);
     const isDone = attempts.length > 0 || !!rec;
     const count = attempts.length > 0 ? attempts.length : (isDone ? 1 : 0);
     const latestScore = attempts.length > 0 ? attempts[0].score : (rec?.score || 'Đã viết');
@@ -142,9 +307,7 @@ function renderCards() {
               ? `<span style="font-size: 12.5px; font-weight: 900; background: #DCFCE7; color: #166534; padding: 2px 8px; border-radius: 6px; border: 1px solid #86EFAC;">
                    ✓ Đã viết ${count} lần (${latestScore})
                  </span>` 
-              : `<span style="font-size: 12.5px; font-weight: 800; color: var(--text-muted);">
-                   ● Chưa làm
-                 </span>`
+              : (draft ? `<span style="font-size: 12px; font-weight: 800; background: #FEF3C7; color: #92400E; padding: 2px 6px; border-radius: 6px;">● Đang viết dở</span>` : `<span style="font-size: 12.5px; font-weight: 800; color: var(--text-muted);">● Chưa làm</span>`)
             }
           </div>
           <h4 style="font-size: 16.5px; font-weight: 900; color: var(--text-main); margin: 6px 0 16px 0; line-height: 1.4;" title="${item.title}">
@@ -154,7 +317,7 @@ function renderCards() {
 
         <div style="display: flex; gap: 8px; margin-top: 10px;">
           <button onclick="window.startLessonTask1('${item.file}', '${item.image || ''}', '${item.type}', '${itemKey}')" class="btn-3d ${isDone ? 'btn-3d-green' : 'btn-3d-teal'}" style="flex: 1; padding: 10px 14px; font-size: 13px;">
-            ${isDone ? `+ Viết tiếp lần ${count + 1}` : 'Vào phòng thi viết →'}
+            ${isDone ? `+ Viết tiếp lần ${count + 1}` : (draft ? 'Viết tiếp bài dở →' : 'Vào phòng thi viết →')}
           </button>
           ${isDone ? `
             <button onclick="window.openPastAttemptsTask1('${item.file}', '${item.image || ''}', '${item.type}', '${itemKey}')" class="btn-3d btn-3d-white" style="padding: 10px 12px; font-size: 13px;" title="Xem lại bài viết và nhận xét AI">
@@ -178,6 +341,25 @@ window.startLessonTask1 = async (filePath, imageSrc, chartType, itemKey) => {
 
   document.getElementById('chartTypeBadge').innerText = chartType;
 
+  // Khôi phục bản nháp dở dang nếu có
+  const draft = loadWT1Draft(activeExerciseKey);
+  const essayInput = document.getElementById('studentEssayInput');
+  if (draft && essayInput) {
+    essayInput.value = draft.text || '';
+    resetTask1Timer(draft.elapsedSeconds || 0);
+    guideTotalOpenSeconds = draft.guideSeconds || 0;
+    updateTimerBadge();
+    const count = draft.text.trim() ? draft.text.trim().split(/\s+/).length : 0;
+    document.getElementById('wordCounter').innerText = `${count} từ (Bản nháp)`;
+  } else {
+    if (essayInput) essayInput.value = '';
+    resetTask1Timer(0);
+    resetGuideTimer();
+    document.getElementById('wordCounter').innerText = `0 từ`;
+  }
+
+  startTask1Timer();
+
   try {
     const res = await fetch(filePath);
     currentItemJson = await res.json();
@@ -190,7 +372,6 @@ window.startLessonTask1 = async (filePath, imageSrc, chartType, itemKey) => {
       removeImage();
     }
     renderGuideContent(currentItemJson.guide);
-    resetGuideTimer();
     renderWorkspacePastAttemptsBar();
     resetQAChatBox();
   } catch (err) {
@@ -213,18 +394,36 @@ window.openPastAttemptsTask1 = async (filePath, imageSrc, chartType, itemKey) =>
 };
 
 window.backToPortalTask1 = () => {
+  // Lưu tạm trước khi thoát ra danh mục
+  const essay = document.getElementById('studentEssayInput')?.value || '';
+  if (essay.trim()) {
+    saveWT1Draft(activeExerciseKey, essay, task1ElapsedSeconds);
+  }
+  pauseTask1Timer();
+
   document.getElementById('workspaceScreen').classList.add('hidden');
   document.getElementById('portalScreen').classList.remove('hidden');
   renderCards();
 };
 
-// ==================== WORKSPACE LOGIC ====================
+// ==================== WORKSPACE LISTENERS & AUTO-SAVE ====================
 function setupWorkspaceListeners() {
   const essayInput = document.getElementById('studentEssayInput');
+  let autoSaveTimeout = null;
+
   essayInput?.addEventListener('input', () => {
-    const text = essayInput.value.trim();
-    const count = text ? text.split(/\s+/).length : 0;
+    const text = essayInput.value;
+    const count = text.trim() ? text.trim().split(/\s+/).length : 0;
     document.getElementById('wordCounter').innerText = `${count} từ`;
+
+    // Tự động kích hoạt bộ đếm thời gian khi bắt đầu gõ
+    if (!isTask1TimerRunning) startTask1Timer();
+
+    // Auto-save sau mỗi 1.5 giây dừng gõ phím
+    clearTimeout(autoSaveTimeout);
+    autoSaveTimeout = setTimeout(() => {
+      saveWT1Draft(activeExerciseKey, text, task1ElapsedSeconds);
+    }, 1500);
   });
 
   document.getElementById('btnToggleGuide')?.addEventListener('click', toggleGuide);
@@ -246,7 +445,7 @@ function setupWorkspaceListeners() {
 }
 
 // =========================================================================
-// THANH HIỂN THỊ CÁC LẦN NỘP BÀI CŨ
+// 4. THANH HIỂN THỊ CÁC LẦN NỘP BÀI CŨ
 // =========================================================================
 function renderWorkspacePastAttemptsBar() {
   let bar = document.getElementById('wt1PastAttemptsBar');
@@ -326,16 +525,16 @@ function toggleGuide() {
     box.style.display = 'block';
     toggleText.innerText = 'THU GỌN HƯỚNG DẪN VIẾT';
     icon.innerText = '▲';
-    startTimer();
+    startGuideTimer();
   } else {
     box.style.display = 'none';
     toggleText.innerText = 'MỞ HƯỚNG DẪN CHI TIẾT (TRẠM IELTS)';
     icon.innerText = '📖';
-    stopTimer();
+    stopGuideTimer();
   }
 }
 
-function startTimer() {
+function startGuideTimer() {
   if (guideTimerInterval) clearInterval(guideTimerInterval);
   guideTimerInterval = setInterval(() => {
     guideTotalOpenSeconds++;
@@ -343,7 +542,7 @@ function startTimer() {
   }, 1000);
 }
 
-function stopTimer() {
+function stopGuideTimer() {
   if (guideTimerInterval) {
     clearInterval(guideTimerInterval);
     guideTimerInterval = null;
@@ -351,7 +550,7 @@ function stopTimer() {
 }
 
 function resetGuideTimer() {
-  stopTimer();
+  stopGuideTimer();
   guideTotalOpenSeconds = 0;
   isGuideOpen = false;
   document.getElementById('guideCollapsibleBox').style.display = 'none';
@@ -362,6 +561,7 @@ function resetGuideTimer() {
 
 function updateTimerBadge() {
   const badge = document.getElementById('guideTimerBadge');
+  if (!badge) return;
   if (guideTotalOpenSeconds > 30) {
     badge.className = 'timer-tag assisted';
     badge.innerHTML = `⚠️ Có trợ giúp (${guideTotalOpenSeconds}s > 30s)`;
@@ -419,7 +619,9 @@ async function loadRemoteImageToBase64(url) {
 
 window.openImageModal = (src) => window.open(src, '_blank');
 
-// ==================== CHẤM BÀI & LƯU CLOUD ====================
+// =========================================================================
+// 5. CHẤM BÀI AI (BẮT BUỘC TRÍCH DẪN CÂU GỐC CỦA HỌC SINH)
+// =========================================================================
 async function submitEssay() {
   const essay = document.getElementById('studentEssayInput').value.trim();
   if (!essay) {
@@ -427,7 +629,9 @@ async function submitEssay() {
     return;
   }
 
-  stopTimer();
+  stopGuideTimer();
+  pauseTask1Timer();
+
   const isAssisted = guideTotalOpenSeconds > 30;
   const modeStatus = isAssisted 
     ? `Có trợ giúp từ gợi ý mẫu (${guideTotalOpenSeconds} giây xem hướng dẫn)`
@@ -442,26 +646,30 @@ async function submitEssay() {
   submitBtn.disabled = true;
   resultBox.style.display = 'block';
   resultMarkdown.innerHTML = '';
-  statusBar.innerHTML = `⏳ Thầy đang phân tích và sửa bài 2 tầng cho em... (Chế độ: <b>${modeStatus}</b>)`;
+  statusBar.innerHTML = `⏳ Thầy đang phân tích và sửa bài 2 tầng cho em... (Thời gian làm bài: <b>${Math.round(task1ElapsedSeconds / 60)} phút</b> | Chế độ: <b>${modeStatus}</b>)`;
 
   const promptPayload = [{
     text: `
-Bạn là Giám khảo IELTS & Giáo viên dạy viết cự phách.
+Bạn là Giám khảo IELTS & Giáo viên dạy viết Task 1 cự phách.
 QUY TẮC XƯNG HÔ: Bắt buộc xưng "Thầy" và gọi học sinh là "Em".
 THÔNG TIN LÀM BÀI: ${modeStatus}.
+
+QUY TẮC BẮT BUỘC TRONG PHẦN 1:
+- KHÔNG ĐƯỢC NUỐT CÂU GỐC CỦA HỌC SINH.
+- MỖI CÂU ĐỀU PHẢI TRÍCH DẪN RÕ RÀNG: "Câu [Số]: [CÂU GỐC HỌC SINH VIẾT]" trước khi tiến hành Bước 1 và Bước 2.
 
 HÃY XUẤT BÀI CHẤM THEO ĐÚNG CẤU TRÚC 6 PHẦN SAU (DÙNG 100% MARKDOWN):
 # PHẦN 1: MỔ XẺ 2 TẦNG CHI TIẾT TỪNG CÂU
 ---
-### 📌 Câu [Số] — Điểm gốc: Band [Điểm/9]
+### 📌 Câu [Số]: "[CÂU GỐC CỦA EM ĐÃ VIẾT - BẮT BUỘC TRÍCH DẪN NGUYÊN VĂN]" — Điểm gốc: Band [Điểm/9]
 #### 🛠️ BƯỚC 1: SỬA LỖI HIỂN NHIÊN (Band 6.0 - 6.5)
 - **Thầy sửa trực tiếp:** [Câu sửa]
-- **🔄 Từ sửa:** <del class="err">[Sai]</del> ➔ <ins class="fix">[Đúng]</ins>
-- **👉 Câu sạch lỗi:** "[Viết lại câu]"
+- **🔄 Từ sửa:** <del class="err">[Từ sai]</del> ➔ <ins class="fix">[Từ đúng]</ins>
+- **👉 Câu sạch lỗi:** "[Viết lại câu hoàn chỉnh sạch lỗi]"
 
 #### ✨ BƯỚC 2: NÂNG CẤP HOÀN MỸ (Band 8.0+)
-- **Bơm từ C1-C2:** [Viết câu với <mark class="vocab">từ C1-C2</mark>]
-- **👉 Chốt câu hoàn mỹ:** "[Câu đỉnh cao]"
+- **Bơm từ C1-C2 & cấu trúc số liệu:** [Viết câu nâng cấp với <mark class="vocab">từ C1-C2</mark>]
+- **👉 Chốt câu hoàn mỹ:** "[Câu đỉnh cao chuẩn band 8+]"
 ---
 # PHẦN 2: BẢNG TỔNG HỢP ĐIỂM TỪNG CÂU
 | Câu số | Điểm gốc (/9) | Điểm sau sửa lỗi (/9) | Điểm hoàn mỹ (/9) | Lỗi cốt lõi |
@@ -500,6 +708,9 @@ ${essay}
     statusBar.innerHTML = `✅ Thầy đã chấm xong! (Trạng thái: <b>${modeStatus}</b>)`;
     submitBtn.disabled = false;
 
+    // Xóa nháp vì đã nộp bài thành công
+    clearWT1Draft(activeExerciseKey);
+
     // --- LƯU VÀO ATTEMPTS RIÊNG BIỆT ---
     const now = new Date();
     const timeStr = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')} - ${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
@@ -516,7 +727,7 @@ ${essay}
       attemptNum: newAttemptNum,
       timestamp: timeStr,
       score: bandScore,
-      timeSpent: `${guideTotalOpenSeconds}s`,
+      timeSpent: `${Math.round(task1ElapsedSeconds / 60)} phút (${task1ElapsedSeconds}s)`,
       studentEssay: essay,
       aiFeedback: fullOutput
     };
@@ -532,9 +743,9 @@ ${essay}
       studentName: sName,
       studentEmail: sEmail,
       score: bandScore,
-      timeSpent: `${guideTotalOpenSeconds}s`,
+      timeSpent: `${Math.round(task1ElapsedSeconds / 60)} phút`,
       details: `ĐỀ BÀI:\n${prompt}\n\nBÀI LÀM HỌC VIÊN:\n${essay}\n\nBÀI CHẤM AI:\n${fullOutput}`,
-      pageUrl: "writing task 1/index-t1.html",
+      pageUrl: `writing task 1/index-t1.html?test=${activeExerciseKey}`,
       moduleType: "writing_t1"
     };
 
@@ -557,7 +768,7 @@ ${essay}
 }
 
 // =========================================================================
-// TRỢ GIẢNG AI STACKING Q&A (HỎI DÀN Ý, HẠ ĐỘ KHÓ TỪ VỰNG THEO YÊU CẦU)
+// 6. TRỢ GIẢNG AI STACKING Q&A (HỎI DÀN Ý, HẠ ĐỘ KHÓ TỪ VỰNG THEO YÊU CẦU)
 // =========================================================================
 function resetQAChatBox() {
   const container = document.getElementById('qaChatContainer');
