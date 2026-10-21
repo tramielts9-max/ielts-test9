@@ -1,6 +1,7 @@
 /**
  * pre-writing/js/app-pwt2.js - Điều khiển Pre-Writing Task 2 Duolingo 3D
- * BẢN FULL ĐẦY ĐỦ 100% - LƯU TỪNG LẦN LÀM, XUẤT PDF & TRỢ GIẢNG AI STACKING Q&A
+ * BẢN FULL ĐẦY ĐỦ 100% - AUTO-SAVE THỜI GIAN THỰC, NÚT LƯU TẠM DRAFT,
+ * FIX DEEP-LINK XEM LẠI TỪ TRANG CHỦ & FIX HIỂN THỊ CÂU GỐC TRONG AI SỬA BÀI
  */
 
 import { streamGeminiPWT2 } from './api-pwt2.js';
@@ -8,19 +9,70 @@ import { streamGeminiPWT2 } from './api-pwt2.js';
 let manifestData = [];
 let currentEssay = null;
 let activeEssayIdx = 0;
+let activeEssayId = null;
 
 const CLOUD_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyNErQQFdciAQM0k9KUrACtpX7rxKkopjChYAC2Ubwj5MGzFOeekDEGs8C1n7P9cNR6vg/exec";
 
 window.addEventListener('DOMContentLoaded', async () => {
+  setupWorkspaceListeners();
+  injectSaveDraftButtonPWT2();
   await initEssayList();
-  document.getElementById('essaySelect')?.addEventListener('change', onEssaySelected);
-  document.getElementById('bandTargetSelect')?.addEventListener('change', updateEssayView);
-  document.getElementById('studentEssayInput')?.addEventListener('input', updateWordCount);
-  document.getElementById('btnGrading')?.addEventListener('click', runEvaluation);
+  handleUrlDeepLinkPWT2();
 });
 
 // =========================================================================
-// QUẢN LÝ LƯU TRỮ TỪNG LẦN LÀM (ATTEMPTS: LẦN 1, LẦN 2...)
+// 1. QUẢN LÝ LƯU TRỮ BẢN NHÁP (DRAFT AUTO-SAVE & RESUME)
+// =========================================================================
+function getPWT2DraftKey(essayId) {
+  return `ielts_pwt2_draft_${essayId}`;
+}
+
+function savePWT2Draft(essayId, text) {
+  if (!essayId) return;
+  const draftData = {
+    text: text,
+    updatedAt: new Date().toISOString()
+  };
+  localStorage.setItem(getPWT2DraftKey(essayId), JSON.stringify(draftData));
+}
+
+function loadPWT2Draft(essayId) {
+  if (!essayId) return null;
+  try {
+    const raw = localStorage.getItem(getPWT2DraftKey(essayId));
+    return raw ? JSON.parse(raw) : null;
+  } catch(e) {
+    return null;
+  }
+}
+
+function clearPWT2Draft(essayId) {
+  if (!essayId) return;
+  localStorage.removeItem(getPWT2DraftKey(essayId));
+}
+
+// Tự động chèn nút "💾 Lưu Tạm Bài Luận" cạnh nút Chấm bài
+function injectSaveDraftButtonPWT2() {
+  const gradeBtn = document.getElementById('btnGrading');
+  if (!gradeBtn || document.getElementById('btnSaveDraftPWT2')) return;
+
+  const draftBtn = document.createElement('button');
+  draftBtn.id = 'btnSaveDraftPWT2';
+  draftBtn.type = 'button';
+  draftBtn.className = 'btn-3d btn-3d-white';
+  draftBtn.style.cssText = 'padding: 12px 18px; font-size: 13.5px; font-weight: 900; margin-right: 10px; border-color: #FECDD3; color: #BE123C;';
+  draftBtn.innerHTML = '💾 Lưu Tạm Bài Luận';
+  draftBtn.onclick = () => {
+    const text = document.getElementById('studentEssayInput')?.value || '';
+    savePWT2Draft(activeEssayId, text);
+    alert("✅ Đã lưu tạm câu luận của em thành công! Lần sau mở bài này em sẽ được viết tiếp.");
+  };
+
+  gradeBtn.parentNode.insertBefore(draftBtn, gradeBtn);
+}
+
+// =========================================================================
+// 2. QUẢN LÝ LƯU TRỮ TỪNG LẦN LÀM (ATTEMPTS: LẦN 1, LẦN 2...)
 // =========================================================================
 function getPWT2StorageKey(essayId) {
   return `ielts_pwt2_attempts_${essayId}`;
@@ -45,12 +97,93 @@ function savePWT2Attempt(essayId, attemptData) {
   }
 }
 
+// =========================================================================
+// 3. XỬ LÝ DEEP-LINK NÚT "XEM LẠI" TỪ TRANG CHỦ
+// =========================================================================
+function handleUrlDeepLinkPWT2() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const attemptId = urlParams.get('attemptId');
+  const testParam = urlParams.get('test') || urlParams.get('file');
+
+  // Trường hợp 1: Có attemptId từ trang chủ
+  if (attemptId) {
+    try {
+      const localHist = JSON.parse(localStorage.getItem('ielts_local_history') || '[]');
+      const foundAttempt = localHist.find(a => a.id === attemptId);
+
+      if (foundAttempt) {
+        const foundIdx = manifestData.findIndex(item => 
+          foundAttempt.testTitle.includes(item.id) || 
+          foundAttempt.testTitle.includes(item.title)
+        );
+        const idxToLoad = foundIdx !== -1 ? foundIdx : 0;
+        const selectBox = document.getElementById('essaySelect');
+        if (selectBox) selectBox.value = idxToLoad;
+
+        activeEssayIdx = idxToLoad;
+        loadEssayDetail(manifestData[idxToLoad].file).then(() => {
+          restoreAttemptToWorkspacePWT2(foundAttempt);
+        });
+        return;
+      }
+    } catch(e) {
+      console.warn("Lỗi deep-link PWT2 attemptId:", e);
+    }
+  }
+
+  // Trường hợp 2: Có test/file trực tiếp trên URL
+  if (testParam) {
+    const foundIdx = manifestData.findIndex(item => item.file.includes(testParam) || item.id === testParam);
+    if (foundIdx !== -1) {
+      activeEssayIdx = foundIdx;
+      const selectBox = document.getElementById('essaySelect');
+      if (selectBox) selectBox.value = foundIdx;
+      loadEssayDetail(manifestData[foundIdx].file);
+    }
+  }
+}
+
+function restoreAttemptToWorkspacePWT2(attempt) {
+  const inputEl = document.getElementById('studentEssayInput');
+  const resultBox = document.getElementById('result-box');
+  const resultContent = document.getElementById('result-content');
+  const statusBar = document.getElementById('status-bar');
+
+  let essayText = '';
+  let aiText = '';
+
+  if (attempt.details && attempt.details.includes('BẢN VIẾT HỌC VIÊN:')) {
+    const parts = attempt.details.split('BẢN VIẾT HỌC VIÊN:');
+    if (parts[1]) {
+      const subParts = parts[1].split('ĐÁNH GIÁ 2 TẦNG:');
+      essayText = subParts[0].trim();
+      aiText = subParts[1] ? subParts[1].trim() : '';
+    }
+  } else if (attempt.studentText) {
+    essayText = attempt.studentText;
+    aiText = attempt.aiFeedback || '';
+  }
+
+  if (inputEl) {
+    inputEl.value = essayText;
+    updateWordCount();
+  }
+
+  if (resultBox && resultContent) {
+    resultBox.style.display = 'block';
+    statusBar.innerHTML = `📜 ĐANG XEM LẠI BÀI LUẬN: <b>${attempt.testTitle}</b> (${attempt.timestamp}) — Điểm: <b>${attempt.score}</b>`;
+    resultContent.innerHTML = marked.parse(aiText || '<i>Chưa có dữ liệu bài sửa chi tiết.</i>');
+    resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    renderExportPdfButtonPWT2();
+  }
+}
+
 async function initEssayList() {
   try {
     const res = await fetch('data/pwt2-manifest.json');
     manifestData = await res.json();
     renderEssaySelectOptions();
-    if (manifestData.length > 0) {
+    if (manifestData.length > 0 && !activeEssayId) {
       activeEssayIdx = 0;
       await loadEssayDetail(manifestData[0].file);
     }
@@ -67,9 +200,10 @@ function renderEssaySelectOptions() {
   manifestData.forEach((item, idx) => {
     const attempts = getPWT2Attempts(item.id || item.file);
     const count = attempts.length;
+    const draft = loadPWT2Draft(item.id || item.file);
     const opt = document.createElement('option');
     opt.value = idx;
-    opt.innerText = `${count > 0 ? `✓ [Đã làm ${count} lần] ` : ''}${item.title}`;
+    opt.innerText = `${count > 0 ? `✓ [Đã làm ${count} lần] ` : (draft ? `● [Dở] ` : '')}${item.title}`;
     selectBox.appendChild(opt);
   });
 }
@@ -86,7 +220,20 @@ async function loadEssayDetail(filePath) {
   try {
     const res = await fetch(filePath);
     currentEssay = await res.json();
-    currentEssay.id = manifestData[activeEssayIdx]?.id || filePath;
+    activeEssayId = currentEssay.id || manifestData[activeEssayIdx]?.id || filePath;
+    currentEssay.id = activeEssayId;
+
+    // Phục hồi nháp nếu có
+    const draft = loadPWT2Draft(activeEssayId);
+    const inputEl = document.getElementById('studentEssayInput');
+    if (draft && inputEl) {
+      inputEl.value = draft.text || '';
+      updateWordCount();
+    } else {
+      if (inputEl) inputEl.value = '';
+      updateWordCount();
+    }
+
     updateEssayView();
     renderWorkspacePastAttemptsBar();
     resetQAChatBox();
@@ -111,8 +258,26 @@ function updateWordCount() {
   document.getElementById('wordCountDisplay').innerText = `${words} từ`;
 }
 
+function setupWorkspaceListeners() {
+  document.getElementById('essaySelect')?.addEventListener('change', onEssaySelected);
+  document.getElementById('bandTargetSelect')?.addEventListener('change', updateEssayView);
+  
+  const inputEl = document.getElementById('studentEssayInput');
+  let autoSaveTimeout = null;
+
+  inputEl?.addEventListener('input', () => {
+    updateWordCount();
+    clearTimeout(autoSaveTimeout);
+    autoSaveTimeout = setTimeout(() => {
+      savePWT2Draft(activeEssayId, inputEl.value);
+    }, 1500);
+  });
+
+  document.getElementById('btnGrading')?.addEventListener('click', runEvaluation);
+}
+
 // =========================================================================
-// THANH HIỂN THỊ CÁC LẦN NỘP BÀI CŨ
+// 4. THANH HIỂN THỊ CÁC LẦN NỘP BÀI CŨ
 // =========================================================================
 function renderWorkspacePastAttemptsBar() {
   let bar = document.getElementById('pwt2PastAttemptsBar');
@@ -123,9 +288,7 @@ function renderWorkspacePastAttemptsBar() {
     if (workspace) workspace.parentNode.insertBefore(bar, workspace);
   }
 
-  const essayId = currentEssay?.id || manifestData[activeEssayIdx]?.file;
-  const attempts = getPWT2Attempts(essayId);
-
+  const attempts = getPWT2Attempts(activeEssayId);
   if (attempts.length === 0) {
     bar.innerHTML = '';
     return;
@@ -157,8 +320,7 @@ function renderWorkspacePastAttemptsBar() {
 }
 
 window.viewPastAttemptDetailPWT2 = (idx) => {
-  const essayId = currentEssay?.id || manifestData[activeEssayIdx]?.file;
-  const attempts = getPWT2Attempts(essayId);
+  const attempts = getPWT2Attempts(activeEssayId);
   const att = attempts[idx];
   if (!att) return;
 
@@ -173,10 +335,11 @@ window.viewPastAttemptDetailPWT2 = (idx) => {
   statusBar.innerHTML = `📜 ĐANG XEM LẠI BẢN SỬA: <b>LẦN ${att.attemptNum || 1}</b> (${att.timestamp}) — Điểm: <b>${att.score}</b>`;
   resultContent.innerHTML = marked.parse(att.aiFeedback || '');
   resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  renderExportPdfButtonPWT2();
 };
 
 // =========================================================================
-// CHẤM ĐIỂM AI 2 TẦNG & LƯU VÀO ATTEMPTS RIÊNG BIỆT
+// 5. CHẤM ĐIỂM AI 2 TẦNG (BẮT BUỘC TRÍCH DẪN NGUYÊN VĂN CÂU HỌC SINH VIẾT)
 // =========================================================================
 async function runEvaluation() {
   const studentText = document.getElementById('studentEssayInput').value.trim();
@@ -206,11 +369,18 @@ QUY TẮC ĐỊNH DẠNG: Dùng cú pháp Markdown chuẩn (#, ##, ###, ####). D
 <mark class="vocab">Collocation C1-C2 Task 2</mark>
 <span class="teacher-note">💬 (lời dặn của Anh)</span>
 
+QUY TẮC BẮT BUỘC TRONG PHẦN 1:
+- KHÔNG ĐƯỢC NUỐT CÂU GỐC CỦA HỌC SINH.
+- MỖI CÂU ĐỀU PHẢI TRÍCH DẪN RÕ RÀNG:
+  "### 📌 Câu [Số]: [CÂU GỐC CỦA EM ĐÃ VIẾT - BẮT BUỘC TRÍCH DẪN NGUYÊN VĂN]"
+  "*Đối chiếu ý tưởng: [Ý tưởng tiếng Việt]*"
+  trước khi tiến hành Bước 1 (Tầng 1) và Bước 2 (Tầng 2).
+
 XUẤT THEO CẤU TRÚC:
 # PHẦN 1: SỬA TỪNG CÂU THEO NGUYÊN LÝ 2 TẦNG (TASK 2 ESSAY)
 ---
-### Câu [Số]: "[Câu học sinh]"
-*Đối chiếu ý tưởng: "[Ý tưởng tiếng Việt]"*
+### 📌 Câu [Số]: "[CÂU GỐC CỦA EM ĐÃ VIẾT - TRÍCH DẪN NGUYÊN VĂN]"
+*Đối chiếu ý tưởng: "[Ý tưởng tiếng Việt tương ứng]"*
 #### TẦNG 1: SỬA LỖI NGỮ PHÁP, VĂN PHONG VÀ CHINGLISH (Band 6.5 - 7.0)
 - **Anh sửa trực tiếp:** [Câu sửa]
 - **Giải thích lỗi sai:** [Word-by-word, collocation chưa tự nhiên, sai mệnh đề quan hệ...]
@@ -251,6 +421,9 @@ XUẤT THEO CẤU TRÚC:
     });
     statusBar.innerHTML = `✅ Thầy đã chấm xong bằng model [${usedModel}]. Em nghiền ngẫm các Collocations Tầng 2 nhé!`;
 
+    // Xóa nháp vì đã nộp bài thành công
+    clearPWT2Draft(activeEssayId);
+
     // LƯU KẾT QUẢ VÀO ATTEMPTS RIÊNG BIỆT
     const now = new Date();
     const timeStr = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')} - ${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
@@ -260,8 +433,7 @@ XUẤT THEO CẤU TRÚC:
     const bandMatch = fullText.match(/OVERALL BAND DỰ KIẾN:\s*([0-9.]+)/i) || fullText.match(/Band\s*([0-9.]+)/i);
     const bandScore = bandMatch ? `Band ${bandMatch[1]}` : "Đã dịch xong";
 
-    const essayId = currentEssay?.id || manifestData[activeEssayIdx]?.file;
-    const attempts = getPWT2Attempts(essayId);
+    const attempts = getPWT2Attempts(activeEssayId);
     const newAttemptNum = attempts.length + 1;
 
     const newAttemptRecord = {
@@ -272,11 +444,11 @@ XUẤT THEO CẤU TRÚC:
       aiFeedback: fullText
     };
 
-    savePWT2Attempt(essayId, newAttemptRecord);
+    savePWT2Attempt(activeEssayId, newAttemptRecord);
     renderWorkspacePastAttemptsBar();
     renderEssaySelectOptions();
 
-    // LƯU LỊCH SỬ CHUNG TRANG CHỦ
+    // LƯU LỊCH SỬ CHUNG TRANG CHỦ & BẮN LÊN DRIVE
     const attemptSnapshot = {
       id: "attempt_pwt2_" + Date.now(),
       timestamp: `${timeStr} (Lần ${newAttemptNum})`,
@@ -286,7 +458,7 @@ XUẤT THEO CẤU TRÚC:
       score: bandScore,
       timeSpent: "N/A",
       details: `BẢN VIẾT HỌC VIÊN:\n${studentText}\n\nĐÁNH GIÁ 2 TẦNG:\n${fullText}`,
-      pageUrl: "pre-writing/index-pwt2.html",
+      pageUrl: `pre-writing/index-pwt2.html?test=${activeEssayId}`,
       moduleType: "pre_writing_t2"
     };
 
@@ -301,7 +473,6 @@ XUẤT THEO CẤU TRÚC:
       body: JSON.stringify({ action: "save_attempt", attempt: attemptSnapshot })
     }).catch(() => {});
 
-    // HIỂN THỊ NÚT XUẤT PDF
     renderExportPdfButtonPWT2();
     btn.disabled = false;
 
@@ -312,7 +483,7 @@ XUẤT THEO CẤU TRÚC:
 }
 
 // =========================================================================
-// XUẤT PDF IN ẤN CHO TASK 2
+// 6. XUẤT PDF IN ẤN CHO TASK 2
 // =========================================================================
 function renderExportPdfButtonPWT2() {
   if (document.getElementById('btnExportPdfPWT2')) return;
@@ -374,7 +545,7 @@ window.exportPWT2ToPDF = () => {
 };
 
 // =========================================================================
-// TRỢ GIẢNG AI STACKING Q&A (HỎI DÀN Ý, HẠ ĐỘ KHÓ TỪ VỰNG CHO TASK 2)
+// 7. TRỢ GIẢNG AI STACKING Q&A
 // =========================================================================
 function resetQAChatBox() {
   const container = document.getElementById('qaChatContainer');
