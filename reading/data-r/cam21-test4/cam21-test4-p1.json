@@ -9,12 +9,499 @@
     "q6": "FALSE",
     "q7": "TRUE",
     "q8": "cow dung",
-    "q9": ["fermentation", "fermentation process"],
+    "q9": "fermentation",
     "q10": "pipes",
     "q11": "time",
     "q12": "money",
     "q13": "price"
   },
-  "passageHtml": "<h2>READING PASSAGE 1</h2><h3>The problems and benefits created by the spread of the water hyacinth in Kenya</h3><p>Water hyacinth (Eichhornia crassipes), an aquatic plant native to South America, first appeared in countries in Africa in the early 1900s. Scientists there called it the 'world's worst aquatic weed', after it spread from the southernmost tip of Africa in the early 1900s and started obstructing major dams and rivers.</p><p>In east Africa the plant arrived with <span class=\"hl\" id=\"hl-q1\" data-q=\"[Q1]\">Belgian colonists in Rwanda, who liked the look of its <span class=\"kw\">glossy leaves and delicate purple flowers</span> floating in their ponds</span>. But by the 1980s, <span class=\"hl\" id=\"hl-q2\" data-q=\"[Q2]\">it had <span class=\"kw\">'escaped' out of the country via the Kagera river</span> and made its way downstream to Lake Victoria</span>. There, with no natural predators and perfect temperature conditions, the plant began spreading in the open water, <span class=\"hl\" id=\"hl-q4\" data-q=\"[Q4-NG]\">blocking fishing routes and providing a new habitat for disease-carrying mosquitoes</span>.</p><p>For the women who smoke fish from the lake to sell it has meant declining income, as <span class=\"hl\" id=\"hl-q3\" data-q=\"[Q3]\">the boats that once brought the fish to shore by the hundreds <span class=\"kw\">struggle to navigate</span> through the mass of plants</span>. But water hyacinth isn't their only headache. In order to smoke the fish that they buy, they must gather huge quantities of firewood, sometimes walking as far as 10km each way to collect enough to complete their work. And each day as they cook, they breathe in the thick, grey smoke. <span class=\"hl\" id=\"hl-q5\" data-q=\"[Q5-NG]\">About three out of four families in Kenya depend on wood or charcoal to cook their daily meals, and the rate is even higher in rural areas, Kenya's latest demographic and health survey shows. Using solid fuels like these for cooking increases indoor pollution</span>. The World Health Organization estimates that about 14,300 Kenyans die annually as a result of indoor air pollution - most of which is caused by cooking and heating sources.</p><p>Some years ago, on the shores of Lake Victoria, <span class=\"hl\" id=\"hl-q6\" data-q=\"[Q6]\">huge piles of water hyacinth that villagers had <span class=\"kw\">taken out of the water</span> in an attempt to clear it were a common sight</span>. But buried in those decaying waxy leaves was a renewable energy gold mine. It turns out the floating plant isn't just good at spreading - its foliage also contains a high ratio of carbon to nitrogen. It's a magic combination that <span class=\"hl\" id=\"hl-q7\" data-q=\"[Q7]\">has captivated researchers' imaginations <span class=\"kw\">since as early as the 1980s</span></span> when, across the world, they began to explore its potential as a biofuel. Just about 4kg of the dried plant would be enough to cater for a large family's daily energy needs, early research predicted.</p><p>In 2014, Nigerian academics announced they had got better yields of biofuel gas when they mixed the plant with chicken manure. A few years later, Kenyan scientists confirmed what their Nigerian peers and others had already found: manure worked to improve the process of converting the weed into gas.</p><p>In 2018, the technology came to a village on the shore of Lake Victoria, called Dunga. The project promised a two-for-one solution to the dual menaces of the water hyacinth and dependence on firewood. The community received a pair of donated biogas digesters - machines that would <span class=\"hl\" id=\"hl-q8\" data-q=\"[Q8]\">transform a mix of water hyacinth and <span class=\"kw\">cow dung</span></span> into biogas for cooking.</p><p>The digesters work a bit like a stomach. The mixture goes in one end - think of it as a mouth - and over the next 20 to 30 days, it <span class=\"hl\" id=\"hl-q9\" data-q=\"[Q9]\">goes through a <span class=\"kw\">fermentation</span> process</span> and breaks down, giving off gas that comes out the other end. From there, the clean-burning gas is <span class=\"hl\" id=\"hl-q10\" data-q=\"[Q10]\">passed through <span class=\"kw\">pipes</span></span> to the point of use, just like traditional domestic gas. In Dunga, the machines produce enough gas to serve about 60% of the village's population. It is used in domestic stoves and for other household tasks such as purifying water and incubating chicks.</p><p>The project is testing whether biogas can provide an effective alternative to firewood and charcoal in rural Kenyan communities. Results indicate that the programme seems to be working. The women who smoke the lake fish are already getting sick less often. Besides, <span class=\"hl\" id=\"hl-q11\" data-q=\"[Q11]\">they don't have to devote a lot of <span class=\"kw\">time</span> every day to gathering firewood</span>, which is a great relief. As a result, <span class=\"hl\" id=\"hl-q12\" data-q=\"[Q12]\">they're able to make more <span class=\"kw\">money</span></span> for their families from other enterprises.</p><p>Kanyiva Muindi is an epidemiologist and air pollution research fellow at the African Population and Health Research Centre in Nairobi. She says families who switch to the smokeless cooking method could expect fewer respiratory diseases. Women, young girls and children are particularly vulnerable because they are the ones who cook in the kitchen or outside over fires.</p><p>How much better the biogas stoves will be for the community's health still needs more research, says Dominic Kahumbu Wanjihia, Biogas International's chief executive. But <span class=\"hl\" id=\"hl-q13\" data-q=\"[Q13]\">unless the <span class=\"kw\">price</span> of the machines drops</span>, it's pretty clear that most communities will never be able to afford any, since they sell for about $750.</p><p>Kanyiva says affordability is a challenge worth addressing, given the huge health and environmental dangers posed by 'dirty' fuels such as wood, charcoal and kerosene. If biogas could become affordable on a large scale, she says it 'would be life-changing for millions on the African continent and beyond'.</p>",
-  "questionHtml": "<div class=\"section-title\">Questions 1-7</div><p><i>Do the following statements agree with the information given in Reading Passage 1? Select TRUE, FALSE, or NOT GIVEN.</i></p><div class=\"question\" id=\"q1\"><p><b>1.</b> Water hyacinth was introduced as a decorative plant in east Africa.</p><div class=\"options\"><label><input type=\"radio\" name=\"q1\" value=\"TRUE\"> TRUE</label><label><input type=\"radio\" name=\"q1\" value=\"FALSE\"> FALSE</label><label><input type=\"radio\" name=\"q1\" value=\"NOT GIVEN\"> NOT GIVEN</label></div><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q1_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">TRUE</span></div><div class=\"exp-step\">• <b>Bước 1 (Cắt câu & Khoanh từ):</b> Bèo tây ('Water hyacinth') / được đưa vào như một cây trang trí ('decorative plant') ở Đông Phi.</div><div class=\"exp-step\">• <b>Bước 2 (Tìm vị trí):</b> Quét từ 'east Africa', 'Belgian colonists' ở Đoạn 2.</div><div class=\"exp-step\">• <b>Bước 3 (So từ hai bên):</b> Thực dân Bỉ mang đến vì <mark style=\"background-color: #fef08a;\">liked the look of its glossy leaves and delicate purple flowers floating in their ponds</mark> (thích ngắm hoa tím và lá bóng trong ao).</div><div class=\"exp-step\">• <b>Bước 4 (Chốt đáp án):</b> Thích ngắm vẻ đẹp trồng trong ao chính là làm cây trang trí. Trùng khớp 100%. Chọn <b>TRUE</b>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> 'decorative' (trang trí) = 'liked the look' + 'flowers'. Chọn <b>TRUE</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q1')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q1\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q1')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q1\"></div></div></div></div><div class=\"question\" id=\"q2\"><p><b>2.</b> Fishermen took some water hyacinth plants to Lake Victoria.</p><div class=\"options\"><label><input type=\"radio\" name=\"q2\" value=\"TRUE\"> TRUE</label><label><input type=\"radio\" name=\"q2\" value=\"FALSE\"> FALSE</label><label><input type=\"radio\" name=\"q2\" value=\"NOT GIVEN\"> NOT GIVEN</label></div><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q2_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">FALSE</span></div><div class=\"exp-step\">• <b>Bước 1 (Cắt câu & Khoanh từ):</b> Ngư dân ('Fishermen') đã mang bèo tây đến hồ Victoria.</div><div class=\"exp-step\">• <b>Bước 2 (Tìm vị trí):</b> Quét 'Lake Victoria' và 'Kagera river' ở Đoạn 2.</div><div class=\"exp-step\">• <b>Bước 3 (So từ hai bên):</b> Cây tự trôi dạt: <mark style=\"background-color: #fef08a;\">escaped out of the country via the Kagera river and made its way downstream to Lake Victoria</mark>.</div><div class=\"exp-step\">• <b>Bước 4 (Chốt đáp án):</b> Ngư dân mang đến VS Cây tự trôi dạt. Mâu thuẫn. Chọn <b>FALSE</b>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> Đề ghi 'Fishermen' mang tới, bài ghi trôi theo dòng sông 'river'. Chọn <b>FALSE</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q2')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q2\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q2')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q2\"></div></div></div></div><div class=\"question\" id=\"q3\"><p><b>3.</b> It is now difficult to force boats through the thick water hyacinth on Lake Victoria.</p><div class=\"options\"><label><input type=\"radio\" name=\"q3\" value=\"TRUE\"> TRUE</label><label><input type=\"radio\" name=\"q3\" value=\"FALSE\"> FALSE</label><label><input type=\"radio\" name=\"q3\" value=\"NOT GIVEN\"> NOT GIVEN</label></div><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q3_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">TRUE</span></div><div class=\"exp-step\">• <b>Bước 1 (Cắt câu & Khoanh từ):</b> Khó khăn ('difficult') để thuyền di chuyển qua thảm bèo dày.</div><div class=\"exp-step\">• <b>Bước 2 (Tìm vị trí):</b> Quét từ 'boats', 'navigate' ở Đoạn 3.</div><div class=\"exp-step\">• <b>Bước 3 (So từ hai bên):</b> 'difficult to force boats through' = <mark style=\"background-color: #fef08a;\">boats struggle to navigate through the mass of plants</mark>.</div><div class=\"exp-step\">• <b>Bước 4 (Chốt đáp án):</b> Khớp nghĩa 100%. Chọn <b>TRUE</b>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> 'difficult' (khó) = 'struggle' (vật lộn/khó khăn). Chọn <b>TRUE</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q3')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q3\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q3')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q3\"></div></div></div></div><div class=\"question\" id=\"q4\"><p><b>4.</b> Chemicals produced by the water hyacinth plants are affecting the numbers of fish in Lake Victoria.</p><div class=\"options\"><label><input type=\"radio\" name=\"q4\" value=\"TRUE\"> TRUE</label><label><input type=\"radio\" name=\"q4\" value=\"FALSE\"> FALSE</label><label><input type=\"radio\" name=\"q4\" value=\"NOT GIVEN\"> NOT GIVEN</label></div><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q4_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">NOT GIVEN</span></div><div class=\"exp-step\">• <b>Bước 1 (Cắt câu & Khoanh từ):</b> Hóa chất từ bèo tây ('Chemicals') ảnh hưởng số lượng cá.</div><div class=\"exp-step\">• <b>Bước 2 (Tìm vị trí):</b> Quét 'fish', 'Lake Victoria' ở Đoạn 2 & 3.</div><div class=\"exp-step\">• <b>Bước 3 (So từ hai bên):</b> Bài chỉ nói bèo cản trở thuyền cá và tạo muỗi, KHÔNG HỀ nói bèo tiết ra 'hóa chất'.</div><div class=\"exp-step\">• <b>Bước 4 (Chốt đáp án):</b> Không có thông tin. Chọn <b>NOT GIVEN</b>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> Không tìm thấy từ 'Chemicals' (hóa chất) trong bài. Chọn <b>NOT GIVEN</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q4')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q4\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q4')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q4\"></div></div></div></div><div class=\"question\" id=\"q5\"><p><b>5.</b> Cooking with charcoal proved to be even worse than wood for people's health.</p><div class=\"options\"><label><input type=\"radio\" name=\"q5\" value=\"TRUE\"> TRUE</label><label><input type=\"radio\" name=\"q5\" value=\"FALSE\"> FALSE</label><label><input type=\"radio\" name=\"q5\" value=\"NOT GIVEN\"> NOT GIVEN</label></div><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q5_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">NOT GIVEN</span></div><div class=\"exp-step\">• <b>Bước 1 (Cắt câu & Khoanh từ):</b> Nấu bằng than ('charcoal') độc hại hơn củi ('worse than wood').</div><div class=\"exp-step\">• <b>Bước 2 (Tìm vị trí):</b> Quét 'charcoal', 'wood' ở Đoạn 3.</div><div class=\"exp-step\">• <b>Bước 3 (So từ hai bên):</b> Bài đọc nói 3/4 gia đình dùng củi hoặc than (<mark style=\"background-color: #fef08a;\">depend on wood or charcoal</mark>), KHÔNG so sánh cái nào độc hơn.</div><div class=\"exp-step\">• <b>Bước 4 (Chốt đáp án):</b> Không có dữ kiện so sánh. Chọn <b>NOT GIVEN</b>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> Thấy so sánh hơn 'worse than' mà bài không đề cập -> Chọn <b>NOT GIVEN</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q5')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q5\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q5')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q5\"></div></div></div></div><div class=\"question\" id=\"q6\"><p><b>6.</b> People found it impossible to remove much water hyacinth from Lake Victoria.</p><div class=\"options\"><label><input type=\"radio\" name=\"q6\" value=\"TRUE\"> TRUE</label><label><input type=\"radio\" name=\"q6\" value=\"FALSE\"> FALSE</label><label><input type=\"radio\" name=\"q6\" value=\"NOT GIVEN\"> NOT GIVEN</label></div><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q6_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">FALSE</span></div><div class=\"exp-step\">• <b>Bước 1 (Cắt câu & Khoanh từ):</b> Người dân không thể vớt được nhiều bèo ('impossible to remove much').</div><div class=\"exp-step\">• <b>Bước 2 (Tìm vị trí):</b> Quét 'taken out of the water', 'huge piles' ở Đoạn 4.</div><div class=\"exp-step\">• <b>Bước 3 (So từ hai bên):</b> Bài ghi: <mark style=\"background-color: #fef08a;\">huge piles of water hyacinth that villagers had taken out of the water... were a common sight</mark> (vớt được những đống bèo khổng lồ).</div><div class=\"exp-step\">• <b>Bước 4 (Chốt đáp án):</b> Vớt được đống khổng lồ VS Không thể vớt nhiều. Mâu thuẫn. Chọn <b>FALSE</b>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> 'impossible' (không thể) VS 'huge piles' (đống khổng lồ). Chọn <b>FALSE</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q6')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q6\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q6')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q6\"></div></div></div></div><div class=\"question\" id=\"q7\"><p><b>7.</b> Scientists started investigating the possibility of using water hyacinth to generate biogas in the last century.</p><div class=\"options\"><label><input type=\"radio\" name=\"q7\" value=\"TRUE\"> TRUE</label><label><input type=\"radio\" name=\"q7\" value=\"FALSE\"> FALSE</label><label><input type=\"radio\" name=\"q7\" value=\"NOT GIVEN\"> NOT GIVEN</label></div><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q7_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">TRUE</span></div><div class=\"exp-step\">• <b>Bước 1 (Cắt câu & Khoanh từ):</b> Nghiên cứu dùng bèo làm khí sinh học từ thế kỷ trước ('in the last century').</div><div class=\"exp-step\">• <b>Bước 2 (Tìm vị trí):</b> Quét năm '1980s' ở Đoạn 4.</div><div class=\"exp-step\">• <b>Bước 3 (So từ hai bên):</b> <mark style=\"background-color: #fef08a;\">since as early as the 1980s</mark> (thập niên 1980 thuộc thế kỷ 20 = thế kỷ trước).</div><div class=\"exp-step\">• <b>Bước 4 (Chốt đáp án):</b> Khớp mốc thời gian. Chọn <b>TRUE</b>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> '1980s' chính là thế kỷ trước ('last century'). Chọn <b>TRUE</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q7')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q7\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q7')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q7\"></div></div></div></div><div class=\"section-title\">Questions 8-13</div><p><i>Complete the notes below. Choose ONE WORD ONLY from the passage for each answer.</i></p><div class=\"question\" id=\"q8\"><p><b>8.</b> First, place water hyacinth together with some <input type=\"text\" id=\"q8_input\" class=\"fill-input\"> into a digester.</p><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q8_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">cow dung</span></div><div class=\"exp-step\">• <b>Bước 1 (Cắt câu & Khoanh từ):</b> Trộn bèo với một ít [8] vào máy. Cần danh từ nguyên liệu.</div><div class=\"exp-step\">• <b>Bước 2 (Tìm vị trí):</b> Quét 'digester', 'water hyacinth' ở Đoạn 6.</div><div class=\"exp-step\">• <b>Bước 3 (So từ hai bên):</b> <mark style=\"background-color: #fef08a;\">transform a mix of water hyacinth and cow dung</mark>.</div><div class=\"exp-step\">• <b>Bước 4 (Chốt đáp án):</b> Chép <span class=\"kw-exp\">cow dung</span>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> Thấy từ 'water hyacinth and cow dung'. Điền <b>cow dung</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q8')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q8\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q8')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q8\"></div></div></div></div><div class=\"question\" id=\"q9\"><p><b>9.</b> Leave the mixture until the <input type=\"text\" id=\"q9_input\" class=\"fill-input\"> is completed.</p><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q9_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">fermentation</span></div><div class=\"exp-step\">• <b>Bước 1 (Cắt câu & Khoanh từ):</b> Chờ đến khi quá trình [9] hoàn thành. Cần danh từ chỉ quá trình.</div><div class=\"exp-step\">• <b>Bước 2 (Tìm vị trí):</b> Quét '20 to 30 days' ở Đoạn 7.</div><div class=\"exp-step\">• <b>Bước 3 (So từ hai bên):</b> <mark style=\"background-color: #fef08a;\">goes through a fermentation process</mark>.</div><div class=\"exp-step\">• <b>Bước 4 (Chốt đáp án):</b> Chép <span class=\"kw-exp\">fermentation</span>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> 'fermentation process' (quá trình lên men). Chép <b>fermentation</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q9')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q9\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q9')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q9\"></div></div></div></div><div class=\"question\" id=\"q10\"><p><b>10.</b> Use <input type=\"text\" id=\"q10_input\" class=\"fill-input\"> to transport the gas to individual homes.</p><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q10_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">pipes</span></div><div class=\"exp-step\">• <b>Bước 1 (Cắt câu & Khoanh từ):</b> Dùng [10] để dẫn khí đến từng nhà. Cần danh từ thiết bị dẫn khí.</div><div class=\"exp-step\">• <b>Bước 2 (Tìm vị trí):</b> Quét 'passed through', 'gas' ở Đoạn 7.</div><div class=\"exp-step\">• <b>Bước 3 (So từ hai bên):</b> <mark style=\"background-color: #fef08a;\">clean-burning gas is passed through pipes</mark>.</div><div class=\"exp-step\">• <b>Bước 4 (Chốt đáp án):</b> Chép <span class=\"kw-exp\">pipes</span>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> Dẫn khí qua 'pipes' (đường ống). Điền <b>pipes</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q10')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q10\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q10')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q10\"></div></div></div></div><div class=\"question\" id=\"q11\"><p><b>11.</b> There is no need for them to spend so much <input type=\"text\" id=\"q11_input\" class=\"fill-input\"> collecting fuel.</p><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q11_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">time</span></div><div class=\"exp-step\">• <b>Bước 1 (Cắt câu & Khoanh từ):</b> Không cần tốn quá nhiều [11] để nhặt củi. Cần danh từ chỉ thời gian.</div><div class=\"exp-step\">• <b>Bước 2 (Tìm vị trí):</b> Quét 'gathering firewood' ở Đoạn 8.</div><div class=\"exp-step\">• <b>Bước 3 (So từ hai bên):</b> <mark style=\"background-color: #fef08a;\">don't have to devote a lot of time every day to gathering firewood</mark>.</div><div class=\"exp-step\">• <b>Bước 4 (Chốt đáp án):</b> Chép <span class=\"kw-exp\">time</span>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> 'devote a lot of time' = 'spend so much time'. Điền <b>time</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q11')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q11\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q11')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q11\"></div></div></div></div><div class=\"question\" id=\"q12\"><p><b>12.</b> They can focus on different tasks that bring in <input type=\"text\" id=\"q12_input\" class=\"fill-input\"> for their families.</p><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q12_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">money</span></div><div class=\"exp-step\">• <b>Bước 1 (Cắt câu & Khoanh từ):</b> Mang lại [12] cho gia đình. Cần danh từ chỉ thu nhập.</div><div class=\"exp-step\">• <b>Bước 2 (Tìm vị trí):</b> Quét 'other enterprises' ở Đoạn 8.</div><div class=\"exp-step\">• <b>Bước 3 (So từ hai bên):</b> <mark style=\"background-color: #fef08a;\">make more money for their families from other enterprises</mark>. 'bring in' = 'make'.</div><div class=\"exp-step\">• <b>Bước 4 (Chốt đáp án):</b> Chép <span class=\"kw-exp\">money</span>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> 'make more money' = 'bring in money'. Điền <b>money</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q12')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q12\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q12')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q12\"></div></div></div></div><div class=\"question\" id=\"q13\"><p><b>13.</b> The <input type=\"text\" id=\"q13_input\" class=\"fill-input\"> of the digesters is beyond the reach of most villages.</p><div class=\"thought-box\"><label>💭 Mạch suy nghĩ của em:</label><textarea id=\"q13_thought\"></textarea></div><div class=\"result\"></div><div class=\"explanation\"><h4 style=\"color: #0369a1; margin-bottom: 8px;\">📝 LỜI GIẢI CHI TIẾT 4 BƯỚC:</h4><div class=\"exp-step\">• <b>Đáp án chốt:</b> <span class=\"kw-exp\">price</span></div><div class=\"exp-step\">• <b>Bước 1 (Cắt câu & Khoanh từ):</b> [13] của máy phân hủy vượt quá khả năng chi trả. Sau 'The' và trước 'of' cần danh từ chỉ giá cả.</div><div class=\"exp-step\">• <b>Bước 2 (Tìm vị trí):</b> Quét 'afford', 'digesters' ở Đoạn 10.</div><div class=\"exp-step\">• <b>Bước 3 (So từ hai bên):</b> <mark style=\"background-color: #fef08a;\">unless the price of the machines drops, most communities will never be able to afford any</mark>. Danh từ chỉ giá tiền là 'price'.</div><div class=\"exp-step\">• <b>Bước 4 (Chốt đáp án):</b> Chép từ <span class=\"kw-exp\">price</span>.</div><div class=\"exp-step\" style=\"background: #f1f5f9; padding: 6px; border-radius: 4px; margin-top: 4px;\">🛡️ <b>Mẹo B1:</b> 'beyond reach' (vượt khả năng) = 'never be able to afford'. Danh từ giá cả là 'price'. Chép <b>price</b>.</div><button class=\"btn-locate\" onclick=\"highlightText('hl-q13')\">📍 Định vị vị trí trong bài đọc</button><div class=\"ai-assistant-box\"><label>🤖 Hỏi Trợ giảng AI về câu này:</label><div class=\"ai-input-group\"><input type=\"text\" id=\"ai_ask_q13\"><button class=\"ai-btn\" onclick=\"askGeminiAI('q13')\">Gửi AI</button></div><div class=\"ai-response\" id=\"ai_response_q13\"></div></div></div></div><button class=\"btn-submit\" onclick=\"checkAnswers()\">CHẤM BÀI VÀ NỘP KẾT QUẢ</button>"
+  "passageHtml": "<h2>READING PASSAGE 1</h2><h3>The problems and benefits created by the spread of the water hyacinth in Kenya</h3><p>Water hyacinth (Eichhornia crassipes), an aquatic plant native to South America, first appeared in countries in Africa in the early 1900s. Scientists there called it the 'world's worst aquatic weed', after it spread from the southernmost tip of Africa in the early 1900s and started obstructing major dams and rivers.</p><p>In east Africa the plant arrived with <span class=\"hl\" id=\"hl-q1\" data-q=\"[Q1]\">Belgian colonists in Rwanda, who liked the look of its <span class=\"kw\">glossy leaves and delicate purple flowers</span> floating in their ponds</span>. But by the 1980s, <span class=\"hl\" id=\"hl-q2\" data-q=\"[Q2]\">it had <span class=\"kw\">'escaped' out of the country via the Kagera river</span> and made its way downstream to Lake Victoria</span>. There, with no natural predators and perfect temperature conditions, the plant began spreading in the open water, <span class=\"hl\" id=\"hl-q4\" data-q=\"[Q4]\">blocking fishing routes and providing a new habitat for disease-carrying mosquitoes</span>.</p><p>For the women who smoke fish from the lake to sell it has meant declining income, as <span class=\"hl\" id=\"hl-q3\" data-q=\"[Q3]\">the boats that once brought the fish to shore by the hundreds <span class=\"kw\">struggle to navigate</span> through the mass of plants</span>. But water hyacinth isn't their only headache. In order to smoke the fish that they buy, they must gather huge quantities of firewood, sometimes walking as far as 10km each way to collect enough to complete their work. And each day as they cook, they breathe in the thick, grey smoke. <span class=\"hl\" id=\"hl-q5\" data-q=\"[Q5]\">About three out of four families in Kenya depend on wood or charcoal to cook their daily meals, and the rate is even higher in rural areas, Kenya's latest demographic and health survey shows. Using solid fuels like these for cooking increases indoor pollution</span>. The World Health Organization estimates that about 14,300 Kenyans die annually as a result of indoor air pollution - most of which is caused by cooking and heating sources.</p><p>Some years ago, on the shores of Lake Victoria, <span class=\"hl\" id=\"hl-q6\" data-q=\"[Q6]\">huge piles of water hyacinth that villagers had <span class=\"kw\">taken out of the water</span> in an attempt to clear it were a common sight</span>. But buried in those decaying waxy leaves was a renewable energy gold mine. It turns out the floating plant isn't just good at spreading - its foliage also contains a high ratio of carbon to nitrogen. It's a magic combination that <span class=\"hl\" id=\"hl-q7\" data-q=\"[Q7]\">has captivated researchers' imaginations <span class=\"kw\">since as early as the 1980s</span></span> when, across the world, they began to explore its potential as a biofuel. Just about 4kg of the dried plant would be enough to cater for a large family's daily energy needs, early research predicted.</p><p>In 2014, Nigerian academics announced they had got better yields of biofuel gas when they mixed the plant with chicken manure. A few years later, Kenyan scientists confirmed what their Nigerian peers and others had already found: manure worked to improve the process of converting the weed into gas.</p><p>In 2018, the technology came to a village on the shore of Lake Victoria, called Dunga. The project promised a two-for-one solution to the dual menaces of the water hyacinth and dependence on firewood. The community received a pair of donated biogas digesters - machines that would <span class=\"hl\" id=\"hl-q8\" data-q=\"[Q8]\">transform a mix of water hyacinth and <span class=\"kw\">cow dung</span></span> into biogas for cooking.</p><p>The digesters work a bit like a stomach. The mixture goes in one end - think of it as a mouth - and over the next 20 to 30 days, it <span class=\"hl\" id=\"hl-q9\" data-q=\"[Q9]\">goes through a <span class=\"kw\">fermentation</span> process</span> and breaks down, giving off gas that comes out the other end. From there, the clean-burning gas is <span class=\"hl\" id=\"hl-q10\" data-q=\"[Q10]\">passed through <span class=\"kw\">pipes</span></span> to the point of use, just like traditional domestic gas. In Dunga, the machines produce enough gas to serve about 60% of the village's population. It is used in domestic stoves and for other household tasks such as purifying water and incubating chicks.</p><p>The project is testing whether biogas can provide an effective alternative to firewood and charcoal in rural Kenyan communities. Results indicate that the programme seems to be working. The women who smoke the lake fish are already getting sick less often. Besides, <span class=\"hl\" id=\"hl-q11\" data-q=\"[Q11]\">they don't have to devote a lot of <span class=\"kw\">time</span> every day to gathering firewood</span>, which is a great relief. As a result, <span class=\"hl\" id=\"hl-q12\" data-q=\"[Q12]\">they're able to make more <span class=\"kw\">money</span></span> for their families from other enterprises.</p><p>Kanyiva Muindi is an epidemiologist and air pollution research fellow at the African Population and Health Research Centre in Nairobi. She says families who switch to the smokeless cooking method could expect fewer respiratory diseases. Women, young girls and children are particularly vulnerable because they are the ones who cook in the kitchen or outside over fires.</p><p>How much better the biogas stoves will be for the community's health still needs more research, says Dominic Kahumbu Wanjihia, Biogas International's chief executive. But <span class=\"hl\" id=\"hl-q13\" data-q=\"[Q13]\">unless the <span class=\"kw\">price</span> of the machines drops</span>, it's pretty clear that most communities will never be able to afford any, since they sell for about $750.</p><p>Kanyiva says affordability is a challenge worth addressing, given the huge health and environmental dangers posed by 'dirty' fuels such as wood, charcoal and kerosene. If biogas could become affordable on a large scale, she says it 'would be life-changing for millions on the African continent and beyond'.</p>",
+  "groups": [
+    {
+      "id": "g1",
+      "type": "tfng",
+      "title": "Questions 1-7",
+      "instructions": "<i>Do the following statements agree with the information given in Reading Passage 1?<br>In boxes 1-7 on your answer sheet, write:<br><b>TRUE</b> if the statement agrees with the information<br><b>FALSE</b> if the statement contradicts the information<br><b>NOT GIVEN</b> if there is no information on this</i>",
+      "questionIds": ["q1", "q2", "q3", "q4", "q5", "q6", "q7"]
+    },
+    {
+      "id": "g2",
+      "type": "notes",
+      "title": "Questions 8-13",
+      "instructions": "<i>Complete the notes below.<br>Choose <b>ONE WORD ONLY</b> from the passage for each answer.<br>Write your answers in boxes 8-13 on your answer sheet.</i>",
+      "noteTitle": "Producing biogas from water hyacinth",
+      "questionIds": ["q8", "q9", "q10", "q11", "q12", "q13"],
+      "template": "<p><b>The process:</b></p><ul><li style=\"margin-bottom: 10px;\">First, place water hyacinth together with some <b>8.</b> {{q8}} into a digester.</li><li style=\"margin-bottom: 10px;\">Leave the mixture until the <b>9.</b> {{q9}} is completed.</li><li style=\"margin-bottom: 10px;\">Use <b>10.</b> {{q10}} to transport the gas to individual homes.</li></ul><p><b>Benefits and challenges:</b></p><ul><li style=\"margin-bottom: 10px;\">There is no need for women to spend so much <b>11.</b> {{q11}} collecting fuel.</li><li style=\"margin-bottom: 10px;\">They can focus on different tasks that bring in <b>12.</b> {{q12}} for their families.</li><li style=\"margin-bottom: 10px;\">The <b>13.</b> {{q13}} of the digesters is beyond the reach of most villages.</li></ul>"
+    }
+  ],
+  "questions": {
+    "q1": {
+      "num": 1,
+      "text": "Water hyacinth was introduced as a decorative plant in east Africa.",
+      "finalAnswer": "TRUE",
+      "highlightId": "hl-q1",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Xác định từ khóa nhận định",
+            "question": "Câu 1 nói bèo tây được đưa vào Đông Phi với mục đích làm cây cảnh trang trí ('introduced as a decorative plant in east Africa').",
+            "guide": "Em hãy đọc đoạn 2 để xem lý do ban đầu thực dân Bỉ mang loài cây này đến.",
+            "bridge": "Cùng xem họ thích điều gì ở cây bèo tây nhé."
+          },
+          {
+            "title": "Đối chiếu bài đọc",
+            "question": "Đoạn 2 nói thực dân Bỉ mang bèo tây đến Rwanda vì lý do gì?",
+            "guide": "Bài viết: 'Belgian colonists in Rwanda, who liked the look of its glossy leaves and delicate purple flowers floating in their ponds.' (họ thích ngắm nhìn lá bóng và hoa tím của nó trôi trong ao).",
+            "bridge": "Thích ngắm vẻ đẹp của lá và hoa trong ao chính là dùng làm cây trang trí (decorative plant)."
+          },
+          {
+            "title": "Đưa ra kết luận",
+            "question": "Nội dung câu nhận định có khớp hoàn toàn với bài đọc không?",
+            "guide": "Khớp nghĩa 100%, chọn TRUE.",
+            "bridge": "Chốt câu 1: TRUE."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý nhận định:</b> Bèo tây được đưa vào Đông Phi như một loài cây cảnh trang trí.",
+          "<b>Đoạn 2 (dòng 1-2):</b> <i>'Belgian colonists in Rwanda, who liked the look of its glossy leaves and delicate purple flowers floating in their ponds.'</i>",
+          "<b>Khớp ý:</b> Thích ngắm lá và hoa trong ao = đưa vào làm cây cảnh trang trí (<i>decorative plant</i>).",
+          "<b>Kết luận:</b> Chọn <b>TRUE</b>."
+        ]
+      }
+    },
+    "q2": {
+      "num": 2,
+      "text": "Fishermen took some water hyacinth plants to Lake Victoria.",
+      "finalAnswer": "FALSE",
+      "highlightId": "hl-q2",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Xác định từ khóa nhận định",
+            "question": "Câu 2 nói: Ngư dân ('Fishermen') đã mang bèo tây đến hồ Victoria ('took some water hyacinth plants to Lake Victoria').",
+            "guide": "Em hãy đọc tiếp câu sau ở đoạn 2 để xem bèo tây đã tới hồ Victoria bằng cách nào.",
+            "bridge": "Cùng xem ai hay cái gì đã đưa bèo tây đến hồ nhé."
+          },
+          {
+            "title": "Đối chiếu bài đọc",
+            "question": "Đoạn 2 nói bèo tây đã đến hồ Victoria như thế nào?",
+            "guide": "Bài viết: '...it had \"escaped\" out of the country via the Kagera river and made its way downstream to Lake Victoria.' (nó đã thoát ra khỏi đất nước qua sông Kagera và trôi xuôi dòng đến hồ Victoria).",
+            "bridge": "Cây tự trôi dạt tự nhiên qua dòng sông, chứ không phải do các ngư dân đem đến."
+          },
+          {
+            "title": "Đưa ra kết luận",
+            "question": "Một bên nói ngư dân mang đến, một bên nói cây tự trôi theo dòng sông. Hai thông tin này đối nghịch nhau, đúng không?",
+            "guide": "Thông tin đối lập trực tiếp, chọn FALSE.",
+            "bridge": "Chốt câu 2: FALSE."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý nhận định:</b> Ngư dân đã đem một số cây bèo tây tới hồ Victoria.",
+          "<b>Đoạn 2 (dòng 2-3):</b> <i>'...it had \"escaped\" out of the country via the Kagera river and made its way downstream to Lake Victoria.'</i>",
+          "<b>Đối chiếu:</b> Cây bèo tự trôi dạt theo dòng sông Kagera xuống hồ Victoria chứ không phải do ngư dân chủ động đem đến.",
+          "<b>Kết luận:</b> Chọn <b>FALSE</b>."
+        ]
+      }
+    },
+    "q3": {
+      "num": 3,
+      "text": "It is now difficult to force boats through the thick water hyacinth on Lake Victoria.",
+      "finalAnswer": "TRUE",
+      "highlightId": "hl-q3",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Xác định từ khóa nhận định",
+            "question": "Câu 3 nói: Hiện nay rất khó khăn để đưa thuyền di chuyển qua những thảm bèo tây dày đặc trên hồ Victoria ('difficult to force boats through...').",
+            "guide": "Em hãy đọc câu đầu tiên của đoạn 3 về hoạt động của các thuyền cá.",
+            "bridge": "Cùng xem các thuyền cá gặp trở ngại gì nhé."
+          },
+          {
+            "title": "Đối chiếu bài đọc",
+            "question": "Đoạn 3 mô tả tình trạng các thuyền cá ra sao?",
+            "guide": "Bài viết: '...the boats that once brought the fish to shore by the hundreds struggle to navigate through the mass of plants.' (những chiếc thuyền từng chở hàng trăm con cá nay phải chật vật/vật lộn để điều hướng qua thảm bèo khổng lồ).",
+            "bridge": "'struggle to navigate' chính là 'difficult to force boats through'."
+          },
+          {
+            "title": "Đưa ra kết luận",
+            "question": "Thông tin bài đọc có trùng khớp hoàn toàn với nhận định không?",
+            "guide": "Hoàn toàn trùng khớp, chọn TRUE.",
+            "bridge": "Chốt câu 3: TRUE."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý nhận định:</b> Hiện rất khó để đẩy thuyền đi qua thảm bèo dày trên hồ Victoria.",
+          "<b>Đoạn 3 (dòng 2-3):</b> <i>'...the boats that once brought the fish to shore by the hundreds struggle to navigate through the mass of plants.'</i>",
+          "<b>Khớp từ:</b> <i>struggle to navigate</i> = <i>difficult to force boats through</i>; <i>mass of plants</i> = <i>thick water hyacinth</i>.",
+          "<b>Kết luận:</b> Chọn <b>TRUE</b>."
+        ]
+      }
+    },
+    "q4": {
+      "num": 4,
+      "text": "Chemicals produced by the water hyacinth plants are affecting the numbers of fish in Lake Victoria.",
+      "finalAnswer": "NOT GIVEN",
+      "highlightId": "hl-q4",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Xác định từ khóa nhận định",
+            "question": "Câu 4 nói: Các hóa chất do cây bèo tiết ra ('Chemicals produced by...') đang ảnh hưởng đến số lượng cá trong hồ.",
+            "guide": "Em hãy quét từ khóa 'chemicals' và 'fish' ở đoạn 2 và 3.",
+            "bridge": "Cùng xem bài đọc có nhắc đến việc cây bèo tiết ra hóa chất không nhé."
+          },
+          {
+            "title": "Đối chiếu bài đọc",
+            "question": "Bài viết nói bèo tây gây hại gì cho ngành cá và hồ Victoria?",
+            "guide": "Bài chỉ nói bèo cản trở đường đánh cá ('blocking fishing routes'), tạo nơi sinh sản cho muỗi, cản trở thuyền bè. Hoàn toàn không nhắc tới việc bèo tiết ra chất hóa học ('chemicals').",
+            "bridge": "Không có thông tin về hóa chất do bèo sinh ra."
+          },
+          {
+            "title": "Đưa ra kết luận",
+            "question": "Bài đọc không đề cập đến hóa chất từ bèo tây, vậy đáp án là gì?",
+            "guide": "Thiếu dữ kiện, chọn NOT GIVEN.",
+            "bridge": "Chốt câu 4: NOT GIVEN."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý nhận định:</b> Hóa chất do bèo tây tiết ra đang làm ảnh hưởng đến số lượng cá ở hồ Victoria.",
+          "<b>Đoạn 2 & 3:</b> Bài chỉ nói bèo chặn đường đánh cá (<i>blocking fishing routes</i>) và làm thuyền khó di chuyển.",
+          "<b>Đối chiếu:</b> Không có bất kỳ thông tin nào nói về việc cây bèo tiết ra hóa chất (<i>chemicals</i>) hại cá.",
+          "<b>Kết luận:</b> Chọn <b>NOT GIVEN</b>."
+        ]
+      }
+    },
+    "q5": {
+      "num": 5,
+      "text": "Cooking with charcoal proved to be even worse than wood for people's health.",
+      "finalAnswer": "NOT GIVEN",
+      "highlightId": "hl-q5",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Xác định từ khóa nhận định",
+            "question": "Câu 5 nói: Nấu ăn bằng than hoa được chứng minh là còn gây hại cho sức khỏe hơn cả củi ('even worse than wood').",
+            "guide": "Em hãy đọc đoạn 3 chỗ nói về 'wood' và 'charcoal'.",
+            "bridge": "Cùng xem tác giả có so sánh tác hại giữa than và củi không nhé."
+          },
+          {
+            "title": "Đối chiếu bài đọc",
+            "question": "Đoạn 3 viết gì về than củi ('wood or charcoal')?",
+            "guide": "Bài viết: 'About three out of four families in Kenya depend on wood or charcoal to cook... Using solid fuels like these for cooking increases indoor pollution.' (Khoảng 3/4 gia đình phụ thuộc vào củi hoặc than... dùng nhiên liệu rắn như thế này làm tăng ô nhiễm trong nhà).",
+            "bridge": "Tác giả gộp chung củi và than là 'nhiên liệu rắn' gây ô nhiễm, không so sánh xem cái nào 'độc hại hơn' cái nào."
+          },
+          {
+            "title": "Đưa ra kết luận",
+            "question": "Không có dữ liệu so sánh hơn kém về độ độc hại giữa than và củi, vậy đáp án là gì?",
+            "guide": "Thiếu thông tin so sánh, chọn NOT GIVEN.",
+            "bridge": "Chốt câu 5: NOT GIVEN."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý nhận định:</b> Đun nấu bằng than củi độc hại hơn so với củi gỗ.",
+          "<b>Đoạn 3 (dòng 7-9):</b> <i>'About three out of four families in Kenya depend on wood or charcoal to cook their daily meals... Using solid fuels like these for cooking increases indoor pollution.'</i>",
+          "<b>Đối chiếu:</b> Bài chỉ nêu cả củi và than đều là nhiên liệu rắn gây ô nhiễm không khí trong nhà, không hề so sánh than độc hại hơn củi (<i>even worse than wood</i>).",
+          "<b>Kết luận:</b> Chọn <b>NOT GIVEN</b>."
+        ]
+      }
+    },
+    "q6": {
+      "num": 6,
+      "text": "People found it impossible to remove much water hyacinth from Lake Victoria.",
+      "finalAnswer": "FALSE",
+      "highlightId": "hl-q6",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Xác định từ khóa nhận định",
+            "question": "Câu 6 nói: Người dân nhận thấy không thể vớt được nhiều bèo tây khỏi hồ Victoria ('found it impossible to remove much water hyacinth...').",
+            "guide": "Em hãy đọc câu đầu tiên của đoạn 4 để xem dân làng đã vớt được bao nhiêu bèo.",
+            "bridge": "Cùng xem kết quả vớt bèo của dân làng nhé."
+          },
+          {
+            "title": "Đối chiếu bài đọc",
+            "question": "Đoạn 4 miêu tả lượng bèo mà dân làng vớt lên bờ như thế nào?",
+            "guide": "Bài viết: '...huge piles of water hyacinth that villagers had taken out of the water in an attempt to clear it were a common sight.' (những đống bèo khổng lồ mà dân làng vớt ra khỏi nước là hình ảnh rất quen thuộc).",
+            "bridge": "Vớt được những 'đống khổng lồ' (huge piles) chứng tỏ họ vớt được rất nhiều, hoàn toàn trái ngược với 'impossible to remove much'."
+          },
+          {
+            "title": "Đưa ra kết luận",
+            "question": "Bài đọc bảo vớt được những đống bèo khổng lồ, câu hỏi lại bảo không thể vớt được nhiều. Vậy ta chọn gì?",
+            "guide": "Ngược nghĩa 100%, chọn FALSE.",
+            "bridge": "Chốt câu 6: FALSE."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý nhận định:</b> Người dân thấy không thể vớt được nhiều bèo tây ra khỏi hồ.",
+          "<b>Đoạn 4 (câu đầu):</b> <i>'...huge piles of water hyacinth that villagers had taken out of the water in an attempt to clear it were a common sight.'</i>",
+          "<b>Đối chiếu:</b> <i>huge piles</i> (những đống bèo khổng lồ) chứng tỏ họ đã vớt được số lượng rất lớn, mâu thuẫn hoàn toàn với khẳng định không thể vớt nhiều (<i>impossible to remove much</i>).",
+          "<b>Kết luận:</b> Chọn <b>FALSE</b>."
+        ]
+      }
+    },
+    "q7": {
+      "num": 7,
+      "text": "Scientists started investigating the possibility of using water hyacinth to generate biogas in the last century.",
+      "finalAnswer": "TRUE",
+      "highlightId": "hl-q7",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Xác định từ khóa nhận định",
+            "question": "Câu 7 nói: Các nhà khoa học đã bắt đầu nghiên cứu khả năng dùng bèo tạo khí sinh học từ thế kỷ trước ('in the last century').",
+            "guide": "Em hãy tìm mốc thời gian nghiên cứu bèo làm nhiên liệu sinh học ở đoạn 4.",
+            "bridge": "Cùng xem mốc thập niên nào được nhắc tới nhé."
+          },
+          {
+            "title": "Đối chiếu bài đọc",
+            "question": "Đoạn 4 nêu mốc thời gian nào khi các nhà nghiên cứu bắt đầu tìm hiểu tiềm năng làm nhiên liệu của bèo?",
+            "guide": "Bài viết: '...has captivated researchers' imaginations since as early as the 1980s when, across the world, they began to explore its potential as a biofuel.' (từ tận những năm 1980 khi họ bắt đầu khám phá tiềm năng nhiên liệu sinh học của nó).",
+            "bridge": "Thập niên 1980 (1980s) thuộc thế kỷ 20, chính là thế kỷ trước (the last century)."
+          },
+          {
+            "title": "Đưa ra kết luận",
+            "question": "Mốc thời gian 1980s có đúng là 'thế kỷ trước' không?",
+            "guide": "Chính xác, chọn TRUE.",
+            "bridge": "Chốt câu 7: TRUE."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý nhận định:</b> Các nhà khoa học đã bắt đầu tìm hiểu việc dùng bèo tạo khí sinh học từ thế kỷ trước.",
+          "<b>Đoạn 4 (dòng 5-6):</b> <i>'...since as early as the 1980s when, across the world, they began to explore its potential as a biofuel.'</i>",
+          "<b>Khớp từ:</b> Thập niên 1980 (<i>1980s</i>) thuộc thế kỷ 20 = thế kỷ trước (<i>the last century</i>).",
+          "<b>Kết luận:</b> Chọn <b>TRUE</b>."
+        ]
+      }
+    },
+    "q8": {
+      "num": 8,
+      "finalAnswer": "cow dung",
+      "inputWidth": "120px",
+      "highlightId": "hl-q8",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Xác định từ cần điền",
+            "question": "Câu 8 tóm tắt: Đầu tiên, cho bèo tây cùng với một ít [8] vào hầm phân hủy sinh học ('together with some 8 ______ into a digester').",
+            "guide": "Sau 'some' cần một danh từ chỉ chất hoặc chất thải hữu cơ được trộn cùng với bèo tây.",
+            "bridge": "Hãy tìm câu nói về việc trộn nguyên liệu ở đoạn 6 nhé."
+          },
+          {
+            "title": "Đối chiếu bài đọc",
+            "question": "Đoạn 6 nói máy phân hủy sinh học (biogas digesters) biến đổi hỗn hợp bèo tây với cái gì?",
+            "guide": "Bài viết: '...machines that would transform a mix of water hyacinth and cow dung into biogas for cooking.'",
+            "bridge": "Hỗn hợp gồm 'water hyacinth' và thành phần còn lại là gì?"
+          },
+          {
+            "title": "Chọn từ trong bài",
+            "question": "Cụm danh từ chỉ chất thải hữu cơ đó là gì?",
+            "guide": "Đáp án là 'cow dung' (phân bò).",
+            "bridge": "Chốt câu 8: cow dung."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý tóm tắt:</b> Cho bèo tây cùng với nguyên liệu gì vào máy phân hủy.",
+          "<b>Đoạn 6 (câu cuối):</b> <i>'...transform a mix of water hyacinth and cow dung into biogas for cooking.'</i>",
+          "<b>Khớp từ:</b> <i>a mix of water hyacinth and cow dung</i> = <i>water hyacinth together with some cow dung</i>.",
+          "<b>Từ cần điền:</b> <b>cow dung</b>."
+        ]
+      }
+    },
+    "q9": {
+      "num": 9,
+      "finalAnswer": "fermentation",
+      "inputWidth": "130px",
+      "highlightId": "hl-q9",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Xác định từ cần điền",
+            "question": "Câu 9 tóm tắt: Để hỗn hợp trong máy cho đến khi quá trình [9] hoàn tất ('until the 9 ______ is completed').",
+            "guide": "Sau mạo từ 'the' cần một danh từ chỉ một quá trình sinh hóa diễn ra bên trong máy.",
+            "bridge": "Hãy đọc câu thứ hai của đoạn 7 để tìm tên quá trình này."
+          },
+          {
+            "title": "Đối chiếu bài đọc",
+            "question": "Đoạn 7 nói trong suốt 20 đến 30 ngày, hỗn hợp trải qua quá trình gì?",
+            "guide": "Bài viết: '...over the next 20 to 30 days, it goes through a fermentation process and breaks down, giving off gas...'",
+            "bridge": "Tên của quá trình biến đổi đó là gì?"
+          },
+          {
+            "title": "Chọn từ trong bài",
+            "question": "Từ đứng trước 'process' trong bài là gì?",
+            "guide": "Đáp án là 'fermentation' (sự lên men).",
+            "bridge": "Chốt câu 9: fermentation."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý tóm tắt:</b> Để hỗn hợp cho tới khi quá trình gì hoàn thành.",
+          "<b>Đoạn 7 (dòng 2):</b> <i>'...over the next 20 to 30 days, it goes through a fermentation process and breaks down...'</i>",
+          "<b>Khớp từ:</b> <i>fermentation process</i> = quá trình lên men (<i>fermentation</i>).",
+          "<b>Từ cần điền:</b> <b>fermentation</b>."
+        ]
+      }
+    },
+    "q10": {
+      "num": 10,
+      "finalAnswer": "pipes",
+      "inputWidth": "100px",
+      "highlightId": "hl-q10",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Xác định từ cần điền",
+            "question": "Câu 10 tóm tắt: Sử dụng [10] để dẫn khí ga đến từng hộ gia đình ('Use 10 ______ to transport the gas to individual homes').",
+            "guide": "Sau động từ 'Use' cần một danh từ chỉ thiết bị dẫn khí (dạng số nhiều).",
+            "bridge": "Hãy tìm câu nói về việc dẫn khí ga đi ở đoạn 7."
+          },
+          {
+            "title": "Đối chiếu bài đọc",
+            "question": "Đoạn 7 nói khí ga sạch được dẫn qua thiết bị gì đến nơi sử dụng?",
+            "guide": "Bài viết: 'From there, the clean-burning gas is passed through pipes to the point of use, just like traditional domestic gas.'",
+            "bridge": "'passed through' tương đương với việc vận chuyển dẫn truyền. Thiết bị đó là gì?"
+          },
+          {
+            "title": "Chọn từ trong bài",
+            "question": "Từ danh từ số nhiều trong bài là gì?",
+            "guide": "Đáp án là 'pipes' (các đường ống dẫn).",
+            "bridge": "Chốt câu 10: pipes."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý tóm tắt:</b> Dùng vật gì để vận chuyển khí đốt đến nhà người dân.",
+          "<b>Đoạn 7 (dòng 3-4):</b> <i>'...the clean-burning gas is passed through pipes to the point of use...'</i>",
+          "<b>Khớp từ:</b> <i>passed through pipes</i> = <i>use pipes to transport</i>.",
+          "<b>Từ cần điền:</b> <b>pipes</b>."
+        ]
+      }
+    },
+    "q11": {
+      "num": 11,
+      "finalAnswer": "time",
+      "inputWidth": "90px",
+      "highlightId": "hl-q11",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Xác định từ cần điền",
+            "question": "Câu 11 tóm tắt: Phụ nữ không cần phải dành quá nhiều [11] để đi kiếm chất đốt ('spend so much 11 ______ collecting fuel').",
+            "guide": "Sau 'spend so much' cần một danh từ không đếm được chỉ nguồn lực mà phụ nữ phải bỏ ra hàng ngày.",
+            "bridge": "Hãy đọc đoạn 8 chỗ nói về những thuận lợi của phụ nữ nướng cá."
+          },
+          {
+            "title": "Đối chiếu bài đọc",
+            "question": "Đoạn 8 nói phụ nữ không còn phải dành nhiều cái gì cho việc nhặt củi?",
+            "guide": "Bài viết: 'Besides, they don't have to devote a lot of time every day to gathering firewood, which is a great relief.'",
+            "bridge": "'devote a lot of' tương đương với 'spend so much'. Danh từ đi sau là gì?"
+          },
+          {
+            "title": "Chọn từ trong bài",
+            "question": "Từ danh từ cần điền là gì?",
+            "guide": "Đáp án là 'time' (thời gian).",
+            "bridge": "Chốt câu 11: time."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý tóm tắt:</b> Phụ nữ không còn phải mất nhiều thời gian đi kiếm củi.",
+          "<b>Đoạn 8 (dòng 3-4):</b> <i>'Besides, they don't have to devote a lot of time every day to gathering firewood...'</i>",
+          "<b>Khớp từ:</b> <i>devote a lot of time to gathering firewood</i> = <i>spend so much time collecting fuel</i>.",
+          "<b>Từ cần điền:</b> <b>time</b>."
+        ]
+      }
+    },
+    "q12": {
+      "num": 12,
+      "finalAnswer": "money",
+      "inputWidth": "100px",
+      "highlightId": "hl-q12",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Xác định từ cần điền",
+            "question": "Câu 12 tóm tắt: Họ có thể tập trung vào các công việc khác mang lại [12] cho gia đình ('bring in 12 ______ for their families').",
+            "guide": "Sau 'bring in' cần một danh từ chỉ thu nhập, tiền bạc hoặc tài chính.",
+            "bridge": "Hãy đọc tiếp câu kế tiếp ở đoạn 8."
+          },
+          {
+            "title": "Đối chiếu bài đọc",
+            "question": "Đoạn 8 nói việc tiết kiệm thời gian giúp họ làm được điều gì từ các hoạt động kinh doanh khác?",
+            "guide": "Bài viết: 'As a result, they're able to make more money for their families from other enterprises.'",
+            "bridge": "'bring in' đồng nghĩa với 'make'. Thứ họ làm ra nhiều hơn là gì?"
+          },
+          {
+            "title": "Chọn từ trong bài",
+            "question": "Từ danh từ chỉ tài chính trong câu là gì?",
+            "guide": "Đáp án là 'money' (tiền bạc).",
+            "bridge": "Chốt câu 12: money."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý tóm tắt:</b> Họ có thể tập trung làm việc khác để kiếm tiền cho gia đình.",
+          "<b>Đoạn 8 (câu cuối):</b> <i>'As a result, they're able to make more money for their families from other enterprises.'</i>",
+          "<b>Khớp từ:</b> <i>make more money</i> = <i>bring in money</i>.",
+          "<b>Từ cần điền:</b> <b>money</b>."
+        ]
+      }
+    },
+    "q13": {
+      "num": 13,
+      "finalAnswer": "price",
+      "inputWidth": "100px",
+      "highlightId": "hl-q13",
+      "socratic": {
+        "steps": [
+          {
+            "title": "Xác định từ cần điền",
+            "question": "Câu 13 tóm tắt: [13] của các máy phân hủy sinh học hiện vượt quá khả năng chi trả của phần lớn các ngôi làng ('The 13 ______ of the digesters is beyond the reach...').",
+            "guide": "Sau 'The' và trước 'of' cần một danh từ chỉ giá cả hoặc chi phí.",
+            "bridge": "Hãy tìm câu nói về giá của máy ở đoạn 10."
+          },
+          {
+            "title": "Đối chiếu bài đọc",
+            "question": "Đoạn 10 nhắc đến yếu tố nào khiến người dân không thể mua nổi máy nếu nó không giảm?",
+            "guide": "Bài viết: 'But unless the price of the machines drops, it's pretty clear that most communities will never be able to afford any, since they sell for about $750.'",
+            "bridge": "'beyond the reach / cannot afford' gắn liền với yếu tố chi phí nào?"
+          },
+          {
+            "title": "Chọn từ trong bài",
+            "question": "Từ danh từ chỉ mức giá là gì?",
+            "guide": "Đáp án là 'price' (giá bán).",
+            "bridge": "Hoàn thành Passage 1! Chốt câu 13: price."
+          }
+        ]
+      },
+      "explanation": {
+        "steps": [
+          "<b>Ý tóm tắt:</b> Mức giá của máy phân hủy nằm ngoài khả năng mua của hầu hết các làng.",
+          "<b>Đoạn 10 (dòng 3-4):</b> <i>'But unless the price of the machines drops, it's pretty clear that most communities will never be able to afford any...'</i>",
+          "<b>Khớp từ:</b> <i>beyond the reach</i> = <i>never be able to afford</i>; danh từ tương ứng là <i>price</i>.",
+          "<b>Từ cần điền:</b> <b>price</b>."
+        ]
+      }
+    }
+  }
 }
