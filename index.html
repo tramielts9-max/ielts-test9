@@ -122,7 +122,7 @@
     }
     .history-header-bar h3 { margin: 0; font-size: 19px; font-weight: 900; color: var(--tram-red); display: flex; align-items: center; gap: 10px; }
 
-    /* CÁC CARD HỌC PHẦN (PHÓNG TO CHỮ & NÚT) */
+    /* CÁC CARD HỌC PHẦN */
     .section-headline { margin: 36px 0 18px 0; font-size: 21px; font-weight: 900; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
     
     .module-card {
@@ -216,12 +216,12 @@
         <div class="brand-tagline">CỔNG LUYỆN THI TOÀN DIỆN</div>
       </div>
     </div>
-<div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
       <a href="error-notebook.html" class="duo-pill" style="background: #FEF3C7; color: #92400E; border: 2px solid #FCD34D; text-decoration: none; cursor: pointer;">
         <i class="fa-solid fa-book-bookmark"></i> DOC SỬA LỖI
       </a>
       <span class="duo-pill pill-streak" id="streakCounterBadge"><i class="fa-solid fa-fire"></i> 0 NGÀY</span>
-      <span class="duo-pill pill-red"><i class="fa-solid fa-gem"></i> BAND 8.0+</span>
+      <span class="duo-pill pill-red" id="studentStatusPill"><i class="fa-solid fa-gem"></i> BAND 8.0+</span>
     </div>
   </div>
 
@@ -472,6 +472,73 @@
   </div>
 </div>
 
+<!-- =========================================================================
+     MODAL KÍCH HOẠT QUYỀN HỌC VIÊN QUA ZALO (CONVERSION GATE MODAL)
+     ========================================================================= -->
+<div id="zaloConversionModal" style="display:none; position:fixed; inset:0; z-index:99999; background:rgba(15, 23, 42, 0.75); backdrop-filter:blur(6px); align-items:center; justify-content:center; padding:16px;">
+  <div style="background:#FFFFFF; border:3px solid #E8E2D8; border-bottom:7px solid #D3CBC0; border-radius:26px; max-width:440px; width:100%; padding:26px 22px; text-align:center; position:relative; box-shadow:0 20px 40px rgba(0,0,0,0.3); font-family:'Plus Jakarta Sans', system-ui, sans-serif;">
+    
+    <button type="button" onclick="window.closeZaloModal()" style="position:absolute; top:14px; right:16px; background:#F1ECE6; border:none; width:34px; height:34px; border-radius:50%; font-weight:900; color:#7E7672; cursor:pointer; font-size:16px;">✕</button>
+
+    <div style="width:60px; height:60px; border-radius:50%; background:#FFF4E5; border:3px solid #FCD34D; display:flex; align-items:center; justify-content:center; margin:0 auto 12px auto; font-size:26px;">
+      🔒
+    </div>
+
+    <h3 style="margin:0 0 6px 0; color:#8B1518; font-size:20px; font-weight:900;">
+      MỞ KHÓA BÀI HỌC & AI CHẤM
+    </h3>
+    <p id="lockFeatureNotice" style="margin:0 0 16px 0; font-size:13.5px; font-weight:700; color:#64748B;">
+      Phân hệ này cần được Thầy Phúc kích hoạt để sử dụng toàn bộ tính năng và AI sửa bài.
+    </p>
+
+    <div style="background:#F0F9FF; border:2px dashed #0284C7; border-radius:14px; padding:10px 14px; margin-bottom:16px;">
+      <div style="font-size:11.5px; font-weight:800; color:#0369A1; text-transform:uppercase;">Mã Định Danh Học Viên Của Em</div>
+      <div style="display:flex; align-items:center; justify-content:center; gap:8px; margin-top:2px;">
+        <span id="lockStudentIdDisplay" style="font-size:22px; font-weight:900; color:#0C4A6E; letter-spacing:1px;">TR-4821</span>
+        <button type="button" onclick="window.copyStudentId()" style="background:#0284C7; color:white; border:none; padding:4px 10px; border-radius:6px; font-size:11.5px; font-weight:800; cursor:pointer;">Sao chép</button>
+      </div>
+    </div>
+
+    <!-- ẢNH DANH THIẾP QR ZALO CỦA BẠN (ĐƯỜNG DẪN: assets/zalo-qr.png) -->
+    <div style="margin-bottom:16px;">
+      <div style="font-size:12.5px; font-weight:800; color:#334155; margin-bottom:8px;">Quét mã QR Zalo Thầy Phúc để kích hoạt:</div>
+      <img src="assets/zalo-qr.png" onerror="this.onerror=null; this.src='zalo-qr.png';" alt="QR Zalo Đinh Nguyên Phúc" style="width:170px; height:170px; border-radius:14px; border:2px solid #E8E2D8; object-fit:cover; margin:0 auto; display:block;">
+    </div>
+
+    <a id="btnOpenZaloApp" href="https://zalo.me/0967561243" target="_blank" style="background:#0068FF; color:#FFFFFF; text-decoration:none; padding:13px 20px; border-radius:14px; font-weight:900; font-size:14.5px; display:flex; align-items:center; justify-content:center; gap:8px; border-bottom:4px solid #004EC4; margin-bottom:12px;">
+      <i class="fa-solid fa-comment-dots"></i> Nhắn Tin Zalo Thầy Phúc (0967 561 243)
+    </a>
+
+    <div style="font-size:12px; font-weight:700; color:#64748B;">
+      Thầy đã duyệt mã của em? 
+      <a href="javascript:location.reload()" style="color:#8B1518; font-weight:900; text-decoration:underline;">Bấm vào đây để tải lại trang</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- =========================================================================
+     THANH QUẢN TRỊ NỔI BÍ MẬT (CHỈ HIỆN KHI URL CÓ ?admin=...)
+     ========================================================================= -->
+<div id="floatingAdminBar" style="display:none; position:fixed; bottom:0; left:0; right:0; z-index:999999; background:#0F172A; color:#FFFFFF; border-top:3.5px solid #F59E0B; padding:10px 18px; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; font-family:monospace; font-size:13px; box-shadow:0 -4px 20px rgba(0,0,0,0.5);">
+  <div style="display:flex; align-items:center; gap:10px;">
+    <span style="background:#D97706; color:white; padding:3px 8px; border-radius:6px; font-weight:bold;">🛠️ TRẠM ADMIN TOOLBAR</span>
+    <span>Học viên hiện tại: <b id="adminCurrentTabId" style="color:#38BDF8;">TR-....</b></span>
+  </div>
+
+  <div style="display:flex; align-items:center; gap:8px;">
+    <input type="text" id="adminInputStudentCode" placeholder="Nhập mã TR-xxxx..." style="background:#1E293B; border:1px solid #475569; color:#FFFFFF; padding:6px 10px; border-radius:8px; outline:none; font-family:inherit; width:130px; font-weight:bold;">
+    
+    <button type="button" onclick="window.adminSetStatus('active')" style="background:#16A34A; color:white; border:none; padding:6px 14px; border-radius:8px; font-weight:bold; cursor:pointer;">
+      ✓ Duyệt Active
+    </button>
+
+    <button type="button" onclick="window.adminSetStatus('locked')" style="background:#EF4444; color:white; border:none; padding:6px 14px; border-radius:8px; font-weight:bold; cursor:pointer;">
+      🔒 Khóa Lại
+    </button>
+  </div>
+</div>
+
 <script type="module">
   import { CONFIG } from './js/config.js';
   import { stateManager } from './js/state.js';
@@ -481,11 +548,94 @@
   let studentsMap = {};
   let systemSettings = { modules: {} };
 
-  function resolveReviewPageUrl(pageUrl) {
-    if (!pageUrl) return 'reading/runner-reading.html';
-    if (pageUrl.startsWith('runner-reading.html')) return 'reading/' + pageUrl;
-    if (pageUrl.startsWith('runner-listening.html')) return 'listening/' + pageUrl;
-    return pageUrl;
+  // =========================================================================
+  // 1. CƠ CHẾ SINH MÃ HỌC VIÊN TR-XXXX & KIỂM TRA QUYỀN TRUY CẬP (FREEMIUM)
+  // =========================================================================
+  function getOrCreateStudentId() {
+    let id = localStorage.getItem('tram_student_id');
+    if (!id) {
+      const randNum = Math.floor(1000 + Math.random() * 9000);
+      id = `TR-${randNum}`;
+      localStorage.setItem('tram_student_id', id);
+    }
+    return id;
+  }
+
+  const currentStudentId = getOrCreateStudentId();
+
+  function isStudentUnlocked() {
+    const user = stateManager.getUser();
+    if (checkIsAdmin(user.email)) return true;
+    return localStorage.getItem('tram_access_status') === 'active';
+  }
+
+  window.openZaloModal = (featureTitle = 'Bài học & AI Chấm') => {
+    const modal = document.getElementById('zaloConversionModal');
+    const notice = document.getElementById('lockFeatureNotice');
+    const idEl = document.getElementById('lockStudentIdDisplay');
+    if (idEl) idEl.innerText = currentStudentId;
+    if (notice) notice.innerHTML = `Để làm <b>${featureTitle}</b> và dùng AI sửa bài 2 tầng, em hãy gửi mã học viên cho Thầy nhé!`;
+    if (modal) modal.style.display = 'flex';
+  };
+
+  window.closeZaloModal = () => {
+    const modal = document.getElementById('zaloConversionModal');
+    if (modal) modal.style.display = 'none';
+  };
+
+  window.copyStudentId = () => {
+    navigator.clipboard.writeText(currentStudentId).then(() => {
+      alert(`Đã copy mã học viên: ${currentStudentId}. Em hãy gửi qua Zalo cho Thầy nhé!`);
+    });
+  };
+
+  // Khởi động Floating Admin Toolbar nếu có ?admin=...
+  function initFloatingAdminToolbar() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('admin')) {
+      const bar = document.getElementById('floatingAdminBar');
+      const tabIdEl = document.getElementById('adminCurrentTabId');
+      const inputEl = document.getElementById('adminInputStudentCode');
+      if (bar) bar.style.display = 'flex';
+      if (tabIdEl) tabIdEl.innerText = currentStudentId;
+      if (inputEl) inputEl.value = currentStudentId;
+    }
+  }
+
+  window.adminSetStatus = (status) => {
+    const code = document.getElementById('adminInputStudentCode')?.value.trim() || currentStudentId;
+    if (code === currentStudentId) {
+      localStorage.setItem('tram_access_status', status);
+      alert(`Đã cập nhật mã [${code}] sang trạng thái: ${status.toUpperCase()}!`);
+      location.reload();
+    } else {
+      alert(`Đã lưu thay đổi cho mã [${code}] sang: ${status.toUpperCase()}`);
+    }
+  };
+
+  // =========================================================================
+  // 2. SỬA TRIỆT ĐỂ NÚT "XEM LẠI" (ĐIỀU HƯỚNG CHÍNH XÁC VÀO BÀI ĐÃ LÀM)
+  // =========================================================================
+  function resolveReviewPageUrl(pageUrl, attemptId = '', email = '') {
+    if (!pageUrl) return `reading/runner-reading.html?attemptId=${attemptId}&email=${encodeURIComponent(email)}`;
+
+    let target = pageUrl;
+
+    // Chuẩn hóa đường dẫn tương đối
+    if (target.startsWith('runner-reading.html')) target = 'reading/' + target;
+    if (target.startsWith('runner-listening.html')) target = 'listening/' + target;
+
+    const sep = target.includes('?') ? '&' : '?';
+    let finalUrl = target;
+
+    if (attemptId && !finalUrl.includes('attemptId=')) {
+      finalUrl += `${sep}attemptId=${attemptId}`;
+    }
+    if (email && !finalUrl.includes('email=')) {
+      const sep2 = finalUrl.includes('?') ? '&' : '?';
+      finalUrl += `${sep2}email=${encodeURIComponent(email)}`;
+    }
+    return finalUrl;
   }
 
   function checkIsAdmin(email) {
@@ -493,6 +643,9 @@
     return (CONFIG.ADMIN_EMAILS || []).map(e => e.toLowerCase().trim()).includes(email.toLowerCase().trim());
   }
 
+  // =========================================================================
+  // 3. ĐĂNG NHẬP & PHÂN QUYỀN GIAO DIỆN
+  // =========================================================================
   window.handleStudentLogin = () => {
     const name = document.getElementById('loginNameInput').value.trim();
     const email = document.getElementById('loginEmailInput').value.trim().toLowerCase();
@@ -524,24 +677,49 @@
       const isAdmin = checkIsAdmin(user.email);
       const roleBadge = document.getElementById('roleBadge');
       const adminSwitch = document.getElementById('adminSwitchBar');
+      const statusPill = document.getElementById('studentStatusPill');
 
       if (isAdmin) {
         roleBadge.innerText = "👑 QUẢN TRỊ VIÊN";
         roleBadge.className = "duo-pill pill-streak";
         adminSwitch.style.display = "flex";
       } else {
-        roleBadge.innerText = "HỌC SINH";
-        roleBadge.className = "duo-pill pill-red";
+        const isUnlocked = isStudentUnlocked();
+        roleBadge.innerText = isUnlocked ? `HỌC VIÊN (${currentStudentId})` : `KHÁCH (${currentStudentId})`;
+        roleBadge.className = isUnlocked ? "duo-pill pill-streak" : "duo-pill pill-red";
         adminSwitch.style.display = "none";
+
+        if (statusPill) {
+          statusPill.innerHTML = isUnlocked ? `<i class="fa-solid fa-circle-check"></i> ĐÃ DUYỆT` : `<i class="fa-solid fa-lock"></i> CHƯA DUYỆT`;
+        }
       }
 
       loadModuleSettings();
       syncAndRenderHistory(user.email);
       curriculumUI.render('roadmapSectionMount');
+      initFloatingAdminToolbar();
+      bindModuleGateInterceptors();
     } else {
       document.getElementById('authGateBox').style.display = 'block';
       document.getElementById('unlockedContentBox').style.display = 'none';
     }
+  }
+
+  // Chặn học sinh bấm vào phân hệ nếu chưa được active (Freemium Gate)
+  function bindModuleGateInterceptors() {
+    const isUnlocked = isStudentUnlocked();
+
+    document.querySelectorAll('.module-card').forEach(card => {
+      const btn = card.querySelector('.btn-module-white');
+      const title = card.querySelector('h3')?.innerText || 'Bài học';
+
+      if (btn && !isUnlocked) {
+        btn.onclick = (e) => {
+          e.preventDefault();
+          window.openZaloModal(title);
+        };
+      }
+    });
   }
 
   window.switchMainView = (view) => {
@@ -730,9 +908,7 @@
       `;
 
       groups[date].forEach(att => {
-        const targetPage = resolveReviewPageUrl(att.pageUrl);
-        const separator = targetPage.includes('?') ? '&' : '?';
-        const reviewLink = `${targetPage}${separator}attemptId=${att.id}&email=${encodeURIComponent(email)}`;
+        const reviewLink = resolveReviewPageUrl(att.pageUrl, att.id, email);
 
         html += `
           <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px dashed var(--duo-border); flex-wrap: wrap; gap: 10px;">
