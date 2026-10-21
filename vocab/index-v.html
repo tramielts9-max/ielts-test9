@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Vocab - Trợ Lý Trí Nhớ Trạm IELTS</title>
+  <title>Smart Vocab - Trạm IELTS</title>
   
-  <!-- Font Plus Jakarta Sans: Chuẩn nét Duolingo, hỗ trợ tiếng Việt 100% -->
+  <!-- Font Plus Jakarta Sans: Chuẩn nét Duolingo, hỗ trợ 100% tiếng Việt -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
@@ -13,13 +13,99 @@
 
   <link rel="stylesheet" href="css-v/base-v.css">
   <link rel="stylesheet" href="css-v/dashboard-v.css">
-  <link rel="stylesheet" href="css-v/quiz-v.css">
-  <link rel="stylesheet" href="css-v/leaderboard-v.css">
+
+  <style>
+    :root {
+      --tram-red: #8B1518;
+      --tram-red-hover: #A01B20;
+      --tram-red-shadow: #5E0C0E;
+      --duo-border: #E8E2D8;
+      --duo-shadow: #D3CBC0;
+    }
+
+    body {
+      background-color: #FAF7F2 !important;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 100 100"><circle cx="50" cy="50" r="34" fill="none" stroke="%238B1518" stroke-width="8" opacity="0.045"/><rect x="15" y="44" width="70" height="12" rx="2" fill="%238B1518" opacity="0.045"/></svg>');
+      background-repeat: repeat;
+      background-size: 130px 130px;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important;
+    }
+
+    .btn-3d {
+      border: none; border-radius: 14px; font-family: inherit; font-weight: 900; font-size: 13.5px;
+      text-transform: uppercase; padding: 10px 18px; display: inline-flex; align-items: center;
+      justify-content: center; gap: 6px; cursor: pointer; text-decoration: none; transition: all 0.08s ease;
+      box-sizing: border-box; white-space: nowrap;
+    }
+    .btn-3d:active { transform: translateY(2px); box-shadow: none !important; }
+    .btn-3d-red { background: var(--tram-red); color: #FFFFFF !important; border-bottom: 4px solid var(--tram-red-shadow); }
+    .btn-3d-red:hover { background: var(--tram-red-hover); }
+    .btn-3d-blue { background: #0284C7; color: #FFFFFF !important; border-bottom: 4px solid #0369A1; }
+    .btn-3d-white { background: #FFFFFF; color: #261F1D !important; border: 2px solid var(--duo-border); border-bottom: 4px solid var(--duo-shadow); }
+
+    /* CARD BÀI HỌC VỚI THỐNG KÊ CHI TIẾT */
+    .vocab-unit-card {
+      background: #FFFFFF; border: 2.5px solid var(--duo-border); border-bottom: 5px solid var(--duo-shadow);
+      border-radius: 20px; padding: 18px 22px; margin-bottom: 16px; display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 16px; transition: transform 0.1s ease;
+    }
+    .vocab-unit-card:hover { transform: translateY(-2px); }
+
+    .unit-stat-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; font-size: 12px; font-weight: 800; }
+    .pill-learned { background: #DCFCE7; color: #166534; padding: 3px 10px; border-radius: 8px; border: 1px solid #86EFAC; }
+    .pill-score { background: #FEF3C7; color: #92400E; padding: 3px 10px; border-radius: 8px; border: 1px solid #FCD34D; }
+    .pill-attempts { background: #EFF6FF; color: #1E40AF; padding: 3px 10px; border-radius: 8px; border: 1px solid #BFDBFE; }
+
+    /* GIAO DIỆN KIỂM TRA DẠNG LIST CHUẨN TRANG 15 */
+    .exam-paper-container {
+      background: #FFFFFF; border: 2.5px solid var(--duo-border); border-bottom: 6px solid var(--duo-shadow);
+      border-radius: 24px; padding: 28px 24px; max-width: 960px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+    .exam-header-banner {
+      border-bottom: 2px solid #E8E2D8; padding-bottom: 16px; margin-bottom: 22px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+
+    /* BẢNG 2 CỘT SONG SONG CHUẨN PDF TRANG 15 */
+    .exam-table-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    }
+    @media (max-width: 768px) {
+      .exam-table-grid { grid-template-columns: 1fr; }
+    }
+
+    .word-test-table {
+      width: 100%; border-collapse: collapse; border: 1.5px solid #CBD5E1; border-radius: 12px; overflow: hidden;
+    }
+    .word-test-table th {
+      background: #FAF7F2; border: 1px solid #CBD5E1; padding: 10px 8px; font-size: 13px; font-weight: 900; color: #334155; text-align: center;
+    }
+    .word-test-table td {
+      border: 1px solid #CBD5E1; padding: 6px 8px; font-size: 14px; vertical-align: middle;
+    }
+    .col-stt { width: 44px; text-align: center; font-weight: 900; color: #64748B; background: #F8FAFC; }
+    .col-en { width: 140px; font-weight: 800; color: var(--tram-red); }
+    .col-vn-input {
+      width: 100%; box-sizing: border-box; border: 1.5px solid #CBD5E1; border-radius: 8px;
+      padding: 7px 10px; font-size: 13.5px; font-family: inherit; font-weight: 700; color: #1E293B; outline: none;
+    }
+    .col-vn-input:focus { border-color: var(--tram-red); background: #FFFDFD; }
+    .col-vn-input.is-correct { border-color: #22C55E !important; background: #F0FDF4 !important; color: #166534 !important; font-weight: 800; }
+    .col-vn-input.is-wrong { border-color: #EF4444 !important; background: #FEF2F2 !important; color: #991B1B !important; }
+
+    /* FLASHCARD SCREEN */
+    .flashcard-box {
+      background: #FFFFFF; border: 3px solid var(--duo-border); border-bottom: 6px solid var(--duo-shadow);
+      border-radius: 26px; max-width: 550px; margin: 30px auto; padding: 36px 30px; text-align: center;
+      cursor: pointer; user-select: none; transition: transform 0.1s ease;
+    }
+    .flashcard-box:active { transform: scale(0.98); }
+  </style>
 </head>
 <body>
 
 <div class="container">
-  <!-- HEADER DUOLINGO TOP BAR -->
+  <!-- TOPBAR -->
   <header class="vocab-topbar">
     <div class="vocab-brand-wrap">
       <a href="../index.html" class="btn-home-back" title="Về trang chủ Trạm IELTS">
@@ -28,23 +114,22 @@
       <div class="tram-roundel-mini"></div>
       <div>
         <div class="vocab-app-title">SMART VOCAB</div>
-        <div class="vocab-app-sub">TRÍ NHỚ LẶP LẠI NGẮT QUÃNG</div>
+        <div class="vocab-app-sub">HỌC & KIỂM TRA 30 TỪ HỌC THUẬT TRỌN GÓI</div>
       </div>
     </div>
 
     <div class="user-stats">
       <div class="stat-badge stat-streak" id="userStreak"><i class="fa-solid fa-fire"></i> 1 ngày</div>
-      <div class="stat-badge stat-freeze" id="userFreeze"><i class="fa-solid fa-snowflake"></i> 1 thẻ</div>
       <div class="stat-badge stat-xp" id="userXP"><i class="fa-solid fa-bolt"></i> 0 KN</div>
-      <div class="stat-badge stat-league" id="userLeague">🏆 Đồng 🥉</div>
+      <span style="font-size: 13px; font-weight: 800; color: var(--text-muted);" id="userDisplayLabel">Học viên</span>
     </div>
   </header>
 
-  <!-- THANH CHỌN KHÓA HỌC DUOLINGO 3D -->
-  <div class="course-picker-card">
+  <!-- THANH CHỌN KHÓA HỌC -->
+  <div class="course-picker-card" id="coursePickerSection">
     <div class="course-picker-label">
       <span class="icon-book">📚</span>
-      <b>KHÓA HỌC ĐANG CHỌN:</b>
+      <b>KHÓA HỌC TỪ VỰNG:</b>
     </div>
     <select id="courseSelectorDropdown" class="duo-select-picker">
       <option value="course_ielts_300">300 Từ Học Thuật IELTS Cốt Lõi (10 Bài)</option>
@@ -52,134 +137,156 @@
     </select>
   </div>
 
-  <!-- THANH ĐIỀU HƯỚNG TAB DUOLINGO 3D -->
-  <nav class="mochi-nav">
-    <button class="nav-tab-btn active" id="tab_ontap"><i class="fa-solid fa-rotate"></i> Ôn tập</button>
-    <button class="nav-tab-btn" id="tab_roadmap"><i class="fa-solid fa-book-open"></i> Học từ mới</button>
-    <button class="nav-tab-btn" id="tab_sotay"><i class="fa-solid fa-book-bookmark"></i> Sổ tay</button>
-    <button class="nav-tab-btn" id="tab_rank"><i class="fa-solid fa-trophy"></i> Xếp hạng</button>
-  </nav>
-
-  <!-- NỘI DUNG CHÍNH (ĐỔI THEO TAB) -->
-  <main id="dashboardView">
-    <!-- TAB 1: ÔN TẬP -->
-    <div id="view_ontap">
-      <!-- Lịch check-in tuần -->
-      <div class="streak-card">
-        <div class="streak-card-top">
-          <div class="streak-card-title"><i class="fa-solid fa-fire"></i> CHUỖI NGÀY HỌC LIÊN TIẾP</div>
-          <div class="streak-card-target">Mục tiêu: 7 Ngày 🎯</div>
-        </div>
-        <div class="streak-week-days" id="weekStreakDays"></div>
+  <!-- =========================================================================
+       MÀN HÌNH 1: LỘ TRÌNH BÀI HỌC (HIỂN THỊ SỐ TỪ THUỘC & ĐIỂM KIỂM TRA)
+       ========================================================================= -->
+  <main id="portalRoadmapView">
+    <div class="roadmap-container">
+      <div class="course-banner-header" id="courseHeaderTitle" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+        <span id="courseBannerText">300 TỪ HỌC THUẬT IELTS CỐT LÕI</span>
+        <span id="totalCourseProgressBadge" style="font-size: 13px; background: rgba(255,255,255,0.25); padding: 4px 12px; border-radius: 12px;">Đang tải...</span>
       </div>
 
-      <div class="dashboard-grid">
-        <section class="card golden-card">
-          <div class="card-headline"><i class="fa-solid fa-hourglass-half"></i> THỜI ĐIỂM VÀNG ÔN TẬP</div>
-          <div class="golden-timer-box">
-            <div class="golden-timer-sub">Đợt quên tiếp theo sau:</div>
-            <div class="countdown" id="goldenCountdown">00:00:00</div>
-            <button class="btn btn-duo-action" id="btnStartReview">
-              ⚡ ÔN TẬP TẤT CẢ (GIỜ VÀNG) &rarr;
-            </button>
-          </div>
-        </section>
-
-        <section class="card tower-card">
-          <div class="card-headline-wrap">
-            <div class="card-headline"><i class="fa-solid fa-layer-group"></i> THÁP TRÍ NHỚ 5 TẦNG</div>
-            <div class="retention-pill">Trí nhớ: <b id="retentionRateDisplay">0%</b></div>
-          </div>
-          <div class="memory-tower">
-            <div class="tower-tier tier-1"><span>Tầng 1: Mới gặp (Cần ôn gấp)</span><span id="towerT1">0 từ 👉</span></div>
-            <div class="tower-tier tier-2"><span>Tầng 2: Nhớ mang máng</span><span id="towerT2">0 từ 👉</span></div>
-            <div class="tower-tier tier-3"><span>Tầng 3: Tạm nhớ</span><span id="towerT3">0 từ 👉</span></div>
-            <div class="tower-tier tier-4"><span>Tầng 4: Ghi nhớ tốt</span><span id="towerT4">0 từ 👉</span></div>
-            <div class="tower-tier tier-5"><span>Tầng 5: Dài hạn (Master)</span><span id="towerT5">0 từ 👉</span></div>
-          </div>
-        </section>
-      </div>
-    </div>
-
-    <!-- TAB 2: LỘ TRÌNH BÀI HỌC -->
-    <div id="view_roadmap" class="hidden">
-      <div class="roadmap-container">
-        <div class="course-banner-header" id="courseHeaderTitle">
-          300 TỪ HỌC THUẬT IELTS CỐT LÕI
-        </div>
-        <div class="lesson-list" id="roadmapLessonList"></div>
-      </div>
-    </div>
-
-    <!-- TAB 3: SỔ TAY TỪ VỰNG -->
-    <div id="view_sotay" class="hidden">
-      <div class="sotay-container">
-        <!-- 1. BẢNG THỐNG KÊ TIẾN ĐỘ -->
-        <div class="sotay-stat-box">
-          <div class="sotay-stat-title">
-            <i class="fa-solid fa-chart-pie"></i> TIẾN ĐỘ HỌC TỪ VỰNG CỦA EM
-          </div>
-          <div class="sotay-grid-3">
-            <div class="sotay-pill-card pill-card-total">
-              <div class="val" id="statTotalWords">0</div>
-              <div class="lbl">TỔNG SỐ TỪ</div>
-            </div>
-            <div class="sotay-pill-card pill-card-learned">
-              <div class="val" id="statLearnedWords">0</div>
-              <div class="lbl">ĐÃ HỌC (<span id="statLearnedPercent">0%</span>)</div>
-            </div>
-            <div class="sotay-pill-card pill-card-unlearned">
-              <div class="val" id="statUnlearnedWords">0</div>
-              <div class="lbl">CHƯA HỌC</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 2. BỘ LỌC & TÌM KIẾM -->
-        <div class="sotay-filter-card">
-          <div class="sotay-filter-top">
-            <div class="filter-btn-group">
-              <button type="button" class="btn-filter active" id="btnFilterAll" onclick="window.filterWordTable('all')">Tất cả</button>
-              <button type="button" class="btn-filter" id="btnFilterLearned" onclick="window.filterWordTable('learned')">✅ Đã học</button>
-              <button type="button" class="btn-filter" id="btnFilterUnlearned" onclick="window.filterWordTable('unlearned')">⏳ Chưa học</button>
-            </div>
-            <div class="search-input-wrap">
-              <input type="text" id="inputSearchWordTable" placeholder="🔍 Tìm kiếm từ vựng hoặc nghĩa..." oninput="window.searchWordTable(this.value)" class="duo-search-input">
-            </div>
-          </div>
-
-          <div id="wordStatusTableContainer" class="word-status-list"></div>
-        </div>
-
-        <!-- 3. THÁP PHÂN CẤP SỔ TAY -->
-        <div class="card tower-card">
-          <div class="card-headline"><i class="fa-solid fa-cubes"></i> PHÂN BỔ TRÍ NHỚ TRONG SỔ TAY (BẤM XEM CHI TIẾT)</div>
-          <div class="memory-tower" style="margin-top: 15px;">
-            <div class="tower-tier tier-1"><span>Tầng 1: Mới gặp (Cần ôn gấp)</span><span id="towerT1_st">0 từ 👉</span></div>
-            <div class="tower-tier tier-2"><span>Tầng 2: Nhớ mang máng</span><span id="towerT2_st">0 từ 👉</span></div>
-            <div class="tower-tier tier-3"><span>Tầng 3: Tạm nhớ</span><span id="towerT3_st">0 từ 👉</span></div>
-            <div class="tower-tier tier-4"><span>Tầng 4: Ghi nhớ tốt</span><span id="towerT4_st">0 từ 👉</span></div>
-            <div class="tower-tier tier-5"><span>Tầng 5: Dài hạn (Master)</span><span id="towerT5_st">0 từ 👉</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 4: BẢNG XẾP HẠNG (LEADERBOARD) -->
-    <div id="view_rank" class="hidden">
-      <section class="card leaderboard-card">
-        <div class="league-header">
-          <span>🏆 BẢNG XẾP HẠNG LEAGUE 30 NGƯỜI</span>
-          <span class="league-sub">Kết thúc vào Chủ Nhật</span>
-        </div>
-        <div class="leaderboard-list" id="leaderboardList"></div>
-      </section>
+      <div class="lesson-list" id="roadmapLessonList"></div>
     </div>
   </main>
 
-  <div id="quizContainer" class="quiz-container hidden"></div>
+  <!-- =========================================================================
+       MÀN HÌNH 2: BẢNG KIỂM TRA LIST 30 TỪ TRỌN GÓI (CHIA 2 CỘT CHUẨN TRANG 15)
+       ========================================================================= -->
+  <div id="listExamScreen" style="display: none; padding-bottom: 60px;">
+    <div class="exam-paper-container">
+      
+      <div class="exam-header-banner">
+        <div>
+          <button type="button" onclick="window.backToVocabPortal()" class="btn-3d btn-3d-white" style="padding: 7px 14px; font-size: 12.5px; margin-bottom: 8px;">
+            ⬅ Trở về danh sách Unit
+          </button>
+          <h2 style="margin: 0; color: var(--tram-red); font-size: 21px; font-weight: 900;" id="examUnitTitleDisplay">
+            BÀI KIỂM TRA TỪ VỰNG: UNIT 1
+          </h2>
+          <div style="font-size: 13.5px; color: #64748B; font-weight: 700; margin-top: 4px;" id="examStudentNameDisplay">
+            Học viên: ... • Mục tiêu: Điền đúng 30 nghĩa tiếng Việt để AI chấm trọn gói
+          </div>
+        </div>
+
+        <div style="text-align: right;">
+          <div style="font-size: 13px; font-weight: 800; color: #64748B;">⏱️ Thời gian làm bài:</div>
+          <div style="font-size: 22px; font-weight: 900; color: var(--tram-red); font-family: monospace;" id="examTimerDisplay">00:00</div>
+        </div>
+      </div>
+
+      <!-- BẢNG 2 CỘT 30 TỪ -->
+      <form id="vocabTestForm" onsubmit="return false;">
+        <div class="exam-table-grid">
+          <!-- CỘT TRÁI: 15 TỪ ĐẦU (1 - 15) -->
+          <div>
+            <table class="word-test-table">
+              <thead>
+                <tr>
+                  <th style="width:44px;">STT</th>
+                  <th>Từ vựng (English)</th>
+                  <th>Nghĩa Tiếng Việt (Em điền)</th>
+                </tr>
+              </thead>
+              <tbody id="examTbodyLeft"></tbody>
+            </table>
+          </div>
+
+          <!-- CỘT PHẢI: 15 TỪ SAU (16 - 30) -->
+          <div>
+            <table class="word-test-table">
+              <thead>
+                <tr>
+                  <th style="width:44px;">STT</th>
+                  <th>Từ vựng (English)</th>
+                  <th>Nghĩa Tiếng Việt (Em điền)</th>
+                </tr>
+              </thead>
+              <tbody id="examTbodyRight"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- CÁC NÚT THAO TÁC Ở CHÂN BẢNG -->
+        <div style="margin-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-top: 2px dashed #E8E2D8; padding-top: 18px;">
+          <div style="display: flex; gap: 10px;">
+            <button type="button" id="btnSaveDraftVocab" class="btn-3d btn-3d-white">
+              💾 Lưu Tạm Bài Làm
+            </button>
+            <button type="button" onclick="window.backToVocabPortal()" class="btn-3d btn-3d-white">
+              ✕ Thoát ra
+            </button>
+          </div>
+
+          <button type="button" id="btnSubmitVocabList" class="btn-3d btn-3d-red" style="padding: 13px 26px; font-size: 15px;">
+            🚀 NỘP BÀI & GỌI AI CHẤM TRỌN GÓI 30 TỪ
+          </button>
+        </div>
+      </form>
+
+      <!-- KHUNG BÁO CÁO KẾT QUẢ AI CHẤM -->
+      <div id="aiExamResultContainer" style="display: none; margin-top: 24px; background: #F0FDF4; border: 2.5px solid #86EFAC; border-bottom: 5px solid #22C55E; border-radius: 20px; padding: 22px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
+          <h3 style="margin: 0; color: #166534; font-size: 19px; font-weight: 900;">
+            🎉 KẾT QUẢ ĐÁNH GIÁ TỪ VỰNG TỪ AI GEMINI
+          </h3>
+          <span id="examScoreBadge" style="font-size: 18px; font-weight: 900; background: #16A34A; color: white; padding: 4px 14px; border-radius: 12px;">
+            Điểm: 0/30
+          </span>
+        </div>
+        <div id="aiSummaryFeedback" style="font-size: 14px; color: #1E293B; line-height: 1.5; margin-bottom: 14px; font-weight: 700;"></div>
+        <button type="button" onclick="window.backToVocabPortal()" class="btn-3d btn-3d-blue" style="width: 100%;">
+          ✓ ĐÃ HIỂU - LƯU VÀO LỊCH SỬ & QUAY LẠI LỘ TRÌNH
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MÀN HÌNH 3: HỌC TỪ MỚI (FLASHCARD ĐƠN GIẢN TRƯỚC KHI KHẢO BÀI)
+       ========================================================================= -->
+  <div id="flashcardScreen" style="display: none; padding-bottom: 60px;">
+    <div style="max-width: 580px; margin: 0 auto; text-align: center;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <button type="button" onclick="window.backToVocabPortal()" class="btn-3d btn-3d-white" style="padding: 7px 14px; font-size: 12.5px;">
+          ⬅ Trở về danh sách Unit
+        </button>
+        <span id="fcCardCounterBadge" style="font-size: 13.5px; font-weight: 900; color: #64748B;">Thẻ: 1/30</span>
+      </div>
+
+      <div class="flashcard-box" id="flashcardElement" onclick="window.flipCurrentFlashcard()">
+        <div id="fcFrontSide">
+          <div style="font-size: 13px; font-weight: 800; color: #94A3B8; text-transform: uppercase;">Tiếng Anh (Bấm để xem nghĩa)</div>
+          <h2 id="fcWordEn" style="font-size: 32px; font-weight: 900; color: var(--tram-red); margin: 18px 0 10px 0;">Accept (v)</h2>
+          <div id="fcPhonetic" style="font-size: 15px; font-weight: 700; color: #64748B;">/əkˈsept/</div>
+        </div>
+
+        <div id="fcBackSide" style="display: none;">
+          <div style="font-size: 13px; font-weight: 800; color: #0284C7; text-transform: uppercase;">Nghĩa Tiếng Việt</div>
+          <h2 id="fcMeaningVn" style="font-size: 26px; font-weight: 900; color: #166534; margin: 16px 0 10px 0;">Chấp nhận</h2>
+          <p id="fcExample" style="font-size: 14.5px; font-style: italic; color: #334155; margin: 0; line-height: 1.5;">"They accept the new rule."</p>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: center; gap: 14px; margin-top: 18px;">
+        <button type="button" onclick="window.prevFlashcard()" class="btn-3d btn-3d-white" style="padding: 11px 22px;">
+          ◀ Thẻ trước
+        </button>
+        <button type="button" onclick="window.markFlashcardLearned()" class="btn-3d btn-3d-blue" style="padding: 11px 22px;">
+          ✓ Đã thuộc từ này
+        </button>
+        <button type="button" onclick="window.nextFlashcard()" class="btn-3d btn-3d-white" style="padding: 11px 22px;">
+          Thẻ sau ▶
+        </button>
+      </div>
+    </div>
+  </div>
+
 </div>
 
+<!-- SCRIPT CONTROLLER DUY NHẤT CỦA PHÂN HỆ TỪ VỰNG -->
 <script type="module" src="js-v/app-v.js"></script>
 </body>
 </html>
