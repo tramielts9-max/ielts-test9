@@ -1,0 +1,384 @@
+{
+  "testId": "test_01",
+  "version": 1,
+  "set": 1,
+  "title": "Reading Diagnostic Test 1 - Set 1 (Two-Tier 12 câu)",
+  "formatType": "TWO_TIER",
+  "totalQuestions": 12,
+  "questions": [
+    {
+      "id": "Q01",
+      "level": "A2",
+      "type": "True / False",
+      "passageSnippet": "In 2004, on December 26, Tilly Smith, a 10-year-old girl from the UK, was on holiday in Thailand with her family. They were walking along Mai Khao beach in Phuket. The weather was sunny, but the sea looked strange. The water moved back, going far away from the beach, and it looked white with bubbles. Tilly felt something was wrong.",
+      "statement": "Statement: The weather was clear and sunny when Tilly's family noticed strange signs in the ocean.",
+      "tier1Options": ["A. TRUE", "B. FALSE"],
+      "tier2Options": {
+        "A": [
+          { "code": "A1", "text": "A1. Đoạn văn chỉ ra bãi biển lúc đó có đông khách du lịch đang đi dạo (\"They were walking along Mai Khao beach in Phuket\")." },
+          { "code": "A2", "text": "A2. Tác giả khẳng định ngày hôm đó trời nắng ráo dù mặt biển có hiện tượng kỳ lạ (\"The weather was sunny, but the sea looked strange\")." },
+          { "code": "A3", "text": "A3. Bài đọc xác nhận gia đình Tilly đang trong chuyến nghỉ dưỡng tại Thái Lan (\"was on holiday in Thailand with her family\")." },
+          { "code": "A4", "text": "A4. Đoạn trích miêu tả nước biển rút ra xa tạo thành bọt trắng xóa (\"The water moved back, going far away from the beach, and it looked white with bubbles\")." }
+        ],
+        "B": [
+          { "code": "B1", "text": "B1. Biển có hiện tượng rút nước bất thường khiến bầu trời u ám (\"The water moved back, going far away from the beach\")." },
+          { "code": "B2", "text": "B2. Cô bé nhận thấy có điều gì đó không ổn về mặt thời tiết (\"Tilly felt something was wrong\")." },
+          { "code": "B3", "text": "B3. Chuyến đi diễn ra vào cuối tháng 12 năm 2004 (\"In 2004, on December 26, Tilly Smith, a 10-year-old girl from the UK...\")." },
+          { "code": "B4", "text": "B4. Cả gia đình đang đi bộ men theo bờ biển Mai Khao (\"They were walking along Mai Khao beach in Phuket\")." }
+        ]
+      },
+      "correctTier1": "A",
+      "correctTier2": "A2"
+    },
+    {
+      "id": "Q02",
+      "level": "A2",
+      "type": "Sentence Completion",
+      "passageSnippet": "I used to work at a factory making tomato sauce. It was just outside the city so I drove my car there, after dropping the children off to school.",
+      "statement": "In her previous job outside Turin, the woman was employed at a plant producing _______________.",
+      "tier1Options": ["A. school textbooks", "B. motor vehicles", "C. tomato sauce"],
+      "tier2Options": {
+        "A": [
+          { "code": "A1", "text": "A1. Tác giả làm việc liên quan đến môi trường học tập của con cái (\"after dropping the children off to school\")." },
+          { "code": "A2", "text": "A2. Gia đình có thói quen đọc sách khi đến thư viện (\"We visit the library more often because we spend more time reading\")." },
+          { "code": "A3", "text": "A3. Người chồng phải viết tài liệu công vụ tại tòa thị chính (\"where he writes important emails\")." },
+          { "code": "A4", "text": "A4. Trẻ em được học về tranh ảnh và lịch sử ở bảo tàng (\"We all enjoyed learning about art and history\")." }
+        ],
+        "B": [
+          { "code": "B1", "text": "B1. Nhà máy nằm ở khu vực ngoại ô nên cô phải tự lái ô tô đến nơi làm việc (\"so I drove my car there\")." },
+          { "code": "B2", "text": "B2. Chồng cô gặp khó khăn khi tìm kiếm chỗ đỗ xe tại trung tâm (\"The car park was always full and he didn’t know where to leave his car\")." },
+          { "code": "B3", "text": "B3. Xe buýt là phương tiện thuận tiện hơn nhiều khi sống ở thành phố (\"It was much easier to take the bus!\")." },
+          { "code": "B4", "text": "B4. Gia đình từng đi mua sắm nhiều quần áo mới tại trung tâm thương mại (\"went to the shopping centre to buy new clothes\")." }
+        ],
+        "C": [
+          { "code": "C1", "text": "C1. Nơi làm việc trước đây nằm ở khu vực ngoại ô thành phố (\"It was just outside the city so I drove my car there\")." },
+          { "code": "C2", "text": "C2. Cô phụ trách gửi thư từ và bưu phẩm cho thị trấn (\"sending letters and selling stamps\")." },
+          { "code": "C3", "text": "C3. Bài đọc nêu rõ công việc cũ của cô là làm việc tại nhà máy sản xuất sốt cà chua (\"I used to work at a factory making tomato sauce\")." },
+          { "code": "C4", "text": "C4. Gia đình hiện tự trồng rau củ quả trong khu vườn lớn (\"We grow our fruit and vegetables in our big garden\")." }
+        ]
+      },
+      "correctTier1": "C",
+      "correctTier2": "C3"
+    },
+    {
+      "id": "Q03",
+      "level": "A2",
+      "type": "Matching Information",
+      "passageSnippet": "Maria (Bristol): I don’t know what to do. I don’t want to argue with my neighbour because I have to see him every day. I think I should talk to him calmly and explain the situation. If he understands the problem, he will probably turn the music down. But I am also worried. What if he gets angry? He might think I am complaining too much.",
+      "statement": "What is Maria primarily afraid might happen if she talks to her neighbour?",
+      "tier1Options": [
+        "A. He might react with anger and accuse her of nagging.",
+        "B. He might refuse to lower the volume of the music.",
+        "C. He might force her to move away from the flat."
+      ],
+      "tier2Options": {
+        "A": [
+          { "code": "A1", "text": "A1. Cô không muốn xảy ra tranh cãi vì phải giáp mặt anh ta mỗi ngày (\"I don’t want to argue with my neighbour because I have to see him every day\")." },
+          { "code": "A2", "text": "A2. Cô nghĩ một cuộc nói chuyện hòa nhã sẽ giúp anh ta hiểu vấn đề (\"I think I should talk to him calmly and explain the situation\")." },
+          { "code": "A3", "text": "A3. Bạn bè khuyên cô nên để lại một mẩu tin nhắn lịch sự (\"Some of my friends say I should leave a polite note\")." },
+          { "code": "A4", "text": "A4. Tác giả lo ngại anh ta có thể nổi cáu và cho rằng cô phàn nàn quá mức (\"What if he gets angry? He might think I am complaining too much\")." }
+        ],
+        "B": [
+          { "code": "B1", "text": "B1. Anh ta có thể sẽ vặn nhỏ nhạc lại nếu hiểu được rắc rối (\"If he understands the problem, he will probably turn the music down\")." },
+          { "code": "B2", "text": "B2. Tiếng nhạc vẫn phát ầm ĩ vào lúc nửa đêm dù cô đã gõ cửa (\"The music was still playing at 12:30 a.m.\")." },
+          { "code": "B3", "text": "B3. Người hàng xóm có vẻ là một người tử tế vào ban ngày (\"He seems nice, but every evening he plays loud music\")." },
+          { "code": "B4", "text": "B4. Anh ta không mở cửa phòng khi cô sang phàn nàn tối qua (\"I knocked on Dan’s door, but nobody answered\")." }
+        ],
+        "C": [
+          { "code": "C1", "text": "C1. Cô mới chuyển đến căn hộ này được sáu tháng (\"I have lived in my flat for six months\")." },
+          { "code": "C2", "text": "C2. Cô cần một không gian sống yên bình giống như ở quê cũ (\"I used to live in the countryside, so I need a peaceful environment\")." },
+          { "code": "C3", "text": "C3. Hàng xóm ở khu vực này thường thân thiện và ít gây ồn ào (\"The neighbours are usually friendly and quiet\")." },
+          { "code": "C4", "text": "C4. Căn hộ này gần chỗ làm và nằm trong khu phố đẹp (\"close to my office, and in a quiet, picturesque neighbourhood\")." }
+        ]
+      },
+      "correctTier1": "A",
+      "correctTier2": "A4"
+    },
+    {
+      "id": "Q04",
+      "level": "A2",
+      "type": "Multiple Choice",
+      "passageSnippet": "Advice from Karen (Gloucester): Maria, I think you should speak to Dan in person, but you need to choose the right moment. Don’t talk to him late at night when you are tired and annoyed because you might say things that won’t help at all. Instead, speak to him during the day when you both feel calm. You should explain the situation politely and tell him how the noise makes you feel.",
+      "statement": "Why does Karen advise Maria NOT to talk to Dan late at night?",
+      "tier1Options": [
+        "A. Dan is usually asleep and will not open the door.",
+        "B. Maria might say unhelpful things due to tiredness and irritation.",
+        "C. Maria has to prepare for an early business meeting."
+      ],
+      "tier2Options": {
+        "A": [
+          { "code": "A1", "text": "A1. Đoạn trích nêu Maria từng gõ cửa nhưng Dan không trả lời (\"I knocked on Dan’s door, but nobody answered\")." },
+          { "code": "A2", "text": "A2. Đoạn trích khuyên nên chọn thời điểm ban ngày để trao đổi trực tiếp (\"Instead, speak to him during the day when you both feel calm\")." },
+          { "code": "A3", "text": "A3. Đoạn trích chỉ ra Dan có thể không nhận thức được âm lượng quá lớn (\"He might not realise how loud it is\")." },
+          { "code": "A4", "text": "A4. Đoạn trích nhấn mạnh không cần thiết phải gây gổ (\"You don’t need to argue — just explain that you have work in the morning\")." }
+        ],
+        "B": [
+          { "code": "B1", "text": "B1. Tác giả khuyên nên giải thích lịch sự tác động của tiếng ồn (\"You should explain the situation politely and tell him how the noise makes you feel\")." },
+          { "code": "B2", "text": "B2. Nói chuyện lúc mệt mỏi và bực bội vào đêm muộn dễ thốt ra những lời phản tác dụng (\"Don’t talk to him late at night when you are tired and annoyed because you might say things that won’t help at all\")." },
+          { "code": "B3", "text": "B3. Người hàng xóm sẽ biết điều và cẩn thận hơn trong tương lai (\"If he is reasonable, he will try to be more careful in the future\")." },
+          { "code": "B4", "text": "B4. Việc im lặng phớt lờ sẽ chỉ khiến mọi chuyện tiếp diễn hoặc tệ hơn (\"You shouldn’t ignore the problem because it might continue or even get worse\")." }
+        ],
+        "C": [
+          { "code": "C1", "text": "C1. Đoạn trích nêu Maria có cuộc họp quan trọng vào sáng hôm sau (\"I had an important meeting the next morning\")." },
+          { "code": "C2", "text": "C2. Karen khuyên cần giữ thái độ bình tĩnh và thân thiện (\"If you stay calm and friendly, he will probably understand\")." },
+          { "code": "C3", "text": "C3. Nếu không nói thì đối phương không biết tiếng ồn đang làm phiền (\"If you say nothing, he won’t know that the music is disturbing you\")." },
+          { "code": "C4", "text": "C4. Tiếng nhạc của Dan liên tục kéo dài đến tận nửa đêm (\"Sometimes the music goes on until midnight\")." }
+        ]
+      },
+      "correctTier1": "B",
+      "correctTier2": "B2"
+    },
+    {
+      "id": "Q05",
+      "level": "B2",
+      "type": "True / False / Not Given",
+      "passageSnippet": "The Mediterranean, a long-standing summer favorite destination, has been affected by extreme weather events. Spain and Italy have recorded their hottest years in 2022 and 2023, while Greece has battled severe wildfires and droughts. A 2023 EU Commission study forecast the growth of tourism demand in northern and central Europe and its decline in the south by 2100. To support this prediction, a European Travel Commission survey found that 74% of travelers now avoid destinations with extreme heat.",
+      "statement": "Statement: A European Travel Commission study revealed that nearly three-quarters of tourists actively steer clear of places experiencing severe heat.",
+      "tier1Options": ["A. TRUE", "B. FALSE", "C. NOT GIVEN"],
+      "tier2Options": {
+        "A": [
+          { "code": "A1", "text": "A1. Tây Ban Nha và Ý ghi nhận mức nhiệt độ kỷ lục trong các năm gần đây (\"Spain and Italy have recorded their hottest years in 2022 and 2023\")." },
+          { "code": "A2", "text": "A2. Hy Lạp phải liên tục đối mặt với nạn cháy rừng nghiêm trọng và hạn hán (\"while Greece has battled severe wildfires and droughts\")." },
+          { "code": "A3", "text": "A3. Khảo sát chỉ ra có đúng 74% du khách chủ động né tránh các điểm đến nắng nóng gay gắt (\"a European Travel Commission survey found that 74% of travelers now avoid destinations with extreme heat\")." },
+          { "code": "A4", "text": "A4. Nhu cầu du lịch tại khu vực Bắc và Trung Âu được dự báo sẽ tăng đến năm 2100 (\"A 2023 EU Commission study forecast the growth of tourism demand in northern and central Europe\")." }
+        ],
+        "B": [
+          { "code": "B1", "text": "B1. Địa Trung Hải vẫn là điểm đến mùa hè được yêu thích hàng đầu (\"The Mediterranean, a long-standing summer favorite destination, has been affected by extreme weather events\")." },
+          { "code": "B2", "text": "B2. Phần lớn du khách châu Âu vẫn chỉ quan tâm đến loại hình du lịch biển (\"sun and beach destinations as the main attraction for European travel\")." },
+          { "code": "B3", "text": "B3. Xu hướng du lịch mát mẻ chỉ là chiêu trò quảng cáo của các công ty lữ hành (\"coolcation is more of a marketing approach than a real movement\")." },
+          { "code": "B4", "text": "B4. Lượng du khách đến Nam Âu trong năm 2023 vẫn vượt xa phía Bắc (\"with over 300 million travelers visiting the region in 2023 compared to 80 million in the north\")." }
+        ],
+        "C": [
+          { "code": "C1", "text": "C1. Khảo sát không công bố tỷ lệ phần trăm cụ thể của các quốc gia tham gia (\"A 2023 EU Commission study forecast the growth of tourism demand...\")." },
+          { "code": "C2", "text": "C2. Không có số liệu đo lường hành vi thực tế của khách du lịch ngoài nước Đức (\"In 2023, out of Germany’s 65 million vacations...\")." },
+          { "code": "C3", "text": "C3. Bài đọc không nhắc tới độ tuổi trung bình của nhóm du khách được khảo sát (\"climate change is influencing holiday choices\")." },
+          { "code": "C4", "text": "C4. Chưa có dữ liệu so sánh giữa du khách châu Âu và du khách châu Mỹ (\"Alaska experienced a 10% jump in domestic flights\")." }
+        ]
+      },
+      "correctTier1": "A",
+      "correctTier2": "A3"
+    },
+    {
+      "id": "Q06",
+      "level": "B2",
+      "type": "Summary Completion with Box",
+      "passageSnippet": "As a result, it has been noted that the Mediterranean summer is moving away from a single high-priced peak season in July and August. Travellers braving the hottest months might, in fact, benefit from lower rates. On the other hand, the new trend suggests that there will be two high seasons, May-June and September-October. This shift means that hotels and other accommodation establishments in central and southern Italy and in the south of France are staying open for longer, even all-year round on some occasions.",
+      "statement": "Summary sentence: The transition towards a dual high-season model prompts accommodation businesses in southern Italy and southern France to _______________ their operating schedules.",
+      "tier1Options": ["A. shorten", "B. suspend", "C. prolong"],
+      "tier2Options": {
+        "A": [
+          { "code": "A1", "text": "A1. Mùa hè không còn duy trì một đợt cao điểm giá đắt duy nhất (\"moving away from a single high-priced peak season in July and August\")." },
+          { "code": "A2", "text": "A2. Khách du lịch đến vào các tháng nắng nóng đỉnh điểm được giảm giá phòng (\"benefit from lower rates\")." },
+          { "code": "A3", "text": "A3. Các đợt đóng cửa bắt buộc đã xuất hiện do thời tiết thất thường (\"leading to unforeseen or unnecessary closures\")." },
+          { "code": "A4", "text": "A4. Mùa cao điểm mới được dịch chuyển sang tháng 5-6 và tháng 9-10 (\"there will be two high seasons, May-June and September-October\")." }
+        ],
+        "B": [
+          { "code": "B1", "text": "B1. Các khu cắm trại từng phải đóng cửa hoàn toàn trong mùa mưa (\"used to force all safari camps to close during the rainy season\")." },
+          { "code": "B2", "text": "B2. Nắng nóng cực đoan và cháy rừng khiến nhiều cơ sở phải dừng phục vụ (\"Spain and Italy have recorded their hottest years in 2022 and 2023\")." },
+          { "code": "B3", "text": "B3. Nhu cầu du lịch tại Nam Âu được dự báo suy giảm vào cuối thế kỷ (\"and its decline in the south by 2100\")." },
+          { "code": "B4", "text": "B4. Lượng đặt phòng của du khách Đức có dấu hiệu chững lại (\"only 3.6 million were to northern countries like Sweden or Norway\")." }
+        ],
+        "C": [
+          { "code": "C1", "text": "C1. Hai đợt cao điểm mới kích thích các khách sạn kéo dài thời gian mở cửa, thậm chí quanh năm (\"means that hotels and other accommodation establishments... are staying open for longer, even all-year round on some occasions\")." },
+          { "code": "C2", "text": "C2. Du khách có xu hướng chọn đi nghỉ vào các tháng thấp điểm để tiết kiệm ngân sách (\"opting for safaris during traditionally off-peak and rainy periods to take advantage of lower prices\")." },
+          { "code": "C3", "text": "C3. Lượng khách quốc tế tìm kiếm điểm đến Bắc Âu tăng trưởng hơn 10% (\"arrivals to Norway, Ireland, and Sweden increased by over 10%\")." },
+          { "code": "C4", "text": "C4. Địa Trung Hải vẫn là điểm nghỉ mát hấp dẫn đối với hàng trăm triệu du khách (\"Southern Europe’s popularity continues, with over 300 million travelers visiting the region\")." }
+        ]
+      },
+      "correctTier1": "C",
+      "correctTier2": "C1"
+    },
+    {
+      "id": "Q07",
+      "level": "B2",
+      "type": "Matching Features",
+      "passageSnippet": "Some cities have already started to act. Venice has introduced entry fees for day visitors, Barcelona has raised tourist taxes and plans to remove tourist apartment licences, Amsterdam has limited short-term rentals, and other destinations have introduced tourist taxes or visitor limits. These measures are a step in the right direction, but they rarely give locals a ticket back to the neighbourhoods they have already been forced to leave.",
+      "statement": "Which city has restricted short-term accommodation rentals to protect its housing supply?",
+      "tier1Options": ["A. Amsterdam", "B. Venice", "C. Barcelona"],
+      "tier2Options": {
+        "A": [
+          { "code": "A1", "text": "A1. Thành phố đã thu phí vào cửa đối với những khách du lịch chỉ tham quan trong ngày (\"Venice has introduced entry fees for day visitors\")." },
+          { "code": "A2", "text": "A2. Tác giả từng không nhận ra người dân bản địa khi đi tàu điện ngầm tại đây (\"Where are all the Amsterdamers? I asked an underground worker\")." },
+          { "code": "A3", "text": "A3. Bài đọc ghi nhận thành phố này đã chủ động đặt giới hạn cho việc thuê phòng ngắn hạn (\"Amsterdam has limited short-term rentals\")." },
+          { "code": "A4", "text": "A4. Cư dân không còn đủ khả năng chi trả mức sống đắt đỏ tại trung tâm (\"We can’t afford to live here anymore, he replied\")." }
+        ],
+        "B": [
+          { "code": "B1", "text": "B1. Thành phố triển khai chính sách thu phí trực tiếp với du khách trong ngày (\"Venice has introduced entry fees for day visitors\")." },
+          { "code": "B2", "text": "B2. Các biện pháp hạn chế giúp người dân không phải rời bỏ khu dân cư (\"The hope is that those who remain will not be the next to go\")." },
+          { "code": "B3", "text": "B3. Người biểu tình mang biểu ngữ yêu cầu khách du lịch rời đi (\"Demonstrators carry signs telling tourists to go home\")." },
+          { "code": "B4", "text": "B4. Giá nhà đất tăng phi mã khiến các cửa hàng địa phương biến mất (\"Small local shops disappear, replaced by souvenir stores\")." }
+        ],
+        "C": [
+          { "code": "C1", "text": "C1. Thành phố tăng thuế du lịch và lên lộ trình hủy bỏ giấy phép căn hộ du lịch (\"Barcelona has raised tourist taxes and plans to remove tourist apartment licences\")." },
+          { "code": "C2", "text": "C2. Ban công các căn hộ treo băng rôn phản đối việc kinh doanh cho thuê ngắn hạn (\"balconies display banners against short-term rentals\")." },
+          { "code": "C3", "text": "C3. Làn sóng biểu tình lan rộng khắp các bãi biển và quán cà phê (\"they tell visitors in cafés and on beaches — or rather yell at them — to leave\")." },
+          { "code": "C4", "text": "C4. Vấn đề quá tải du lịch không còn bó hẹp ở một hai thành phố nổi tiếng (\"This problem is no longer limited to one or two famous destinations like Barcelona or Amsterdam\")." }
+        ]
+      },
+      "correctTier1": "A",
+      "correctTier2": "A3"
+    },
+    {
+      "id": "Q08",
+      "level": "B2",
+      "type": "Multiple Choice",
+      "passageSnippet": "Not surprisingly, many locals have started to push back. In several popular destinations, protests against overtourism are now hard to miss. Demonstrators carry signs telling tourists to go home; they tell visitors in cafés and on beaches — or rather yell at them — to leave; balconies display banners against short-term rentals; and graffiti has appeared on walls blaming tourists for rising prices. Local governments say tourism brings jobs and money. Still, residents argue that authorities could have limited the impact of tourism and might have avoided much of the anger if they had acted earlier.",
+      "statement": "According to residents, how could municipal authorities have prevented public hostility?",
+      "tier1Options": [
+        "A. By banning foreign food chains and souvenir stores altogether.",
+        "B. By distributing tourism revenues directly to displaced families.",
+        "C. By taking regulatory action sooner to curtail tourism's uncontrolled expansion."
+      ],
+      "tier2Options": {
+        "A": [
+          { "code": "A1", "text": "A1. Các cửa hàng nhỏ truyền thống bị thay thế hoàn toàn bởi các chuỗi thức ăn nhanh (\"Small local shops disappear, replaced by souvenir stores, fast-food chains\")." },
+          { "code": "A2", "text": "A2. Bản sắc văn hóa và tính cộng đồng bị biến đổi thành khu phức hợp phục vụ khách (\"Authenticity and community life are replaced by soulless theme-park areas\")." },
+          { "code": "A3", "text": "A3. Cư dân bị ép buộc phải chuyển ra các khu vực ngoại thành xa xôi (\"The more popular a city becomes, the farther residents are forced to move from the centre\")." },
+          { "code": "A4", "text": "A4. Khách du lịch đến để trải nghiệm văn hóa địa phương nhưng chỉ thấy toàn du khách khác (\"Ironically, people travel to experience the local atmosphere of places where the only people around are other tourists\")." }
+        ],
+        "B": [
+          { "code": "B1", "text": "B1. Chính quyền luôn khẳng định ngành du lịch đem lại nhiều nguồn thu và việc làm (\"Local governments say tourism brings jobs and money\")." },
+          { "code": "B2", "text": "B2. Các biện pháp hiện tại không giúp cư dân quay lại được nơi ở cũ (\"rarely give locals a ticket back to the neighbourhoods they have already been forced to leave\")." },
+          { "code": "B3", "text": "B3. Người dân sơn các khẩu hiệu đổ lỗi cho du khách vì làm tăng giá sinh hoạt (\"graffiti has appeared on walls blaming tourists for rising prices\")." },
+          { "code": "B4", "text": "B4. Tỷ lệ căn hộ chuyển đổi sang mô hình cho thuê ngắn hạn tăng vọt (\"as more flats are turned into holiday rentals, prices go up\")." }
+        ],
+        "C": [
+          { "code": "C1", "text": "C1. Người biểu tình giơ các tấm biển yêu cầu khách du lịch hồi hương (\"Demonstrators carry signs telling tourists to go home\")." },
+          { "code": "C2", "text": "C2. Cư dân cho rằng các nhà chức trách đã có thể tránh được cơn thịnh nộ nếu hành động sớm hơn nhằm hạn chế ảnh hưởng (\"residents argue that authorities could have limited the impact of tourism and might have avoided much of the anger if they had acted earlier\")." },
+          { "code": "C3", "text": "C3. Du lịch bị thả nổi phát triển không kiểm soát khiến hậu quả trở nên không thể cứu vãn (\"tourism was allowed to grow without limits, and by the time officials reacted, the damage had already been done\")." },
+          { "code": "C4", "text": "C4. Tranh cãi nổ ra gay gắt về việc vừa bảo vệ cư dân vừa duy trì kinh tế thành phố (\"how do you protect the local community without killing the industry that keeps the city alive?\")." }
+        ]
+      },
+      "correctTier1": "C",
+      "correctTier2": "C2"
+    },
+    {
+      "id": "Q09",
+      "level": "IELTS",
+      "type": "Yes / No / Not Given",
+      "passageSnippet": "In east Africa the plant arrived with Belgian colonists in Rwanda, who liked the look of its glossy leaves and delicate purple flowers floating in their ponds. But by the 1980s, it had 'escaped' out of the country via the Kagera river and made its way downstream to Lake Victoria. There, with no natural predators and perfect temperature conditions, the plant began spreading in the open water, blocking fishing routes and providing a new habitat for disease-carrying mosquitoes.",
+      "statement": "Statement: Belgian colonists transported water hyacinth into Rwanda primarily for its aesthetic qualities in ornamental ponds.",
+      "tier1Options": ["A. YES", "B. NO", "C. NOT GIVEN"],
+      "tier2Options": {
+        "A": [
+          { "code": "A1", "text": "A1. Cây lục bình có nguồn gốc xuất xứ ban đầu từ Nam Mỹ (\"an aquatic plant native to South America, first appeared in countries in Africa in the early 1900s\")." },
+          { "code": "A2", "text": "A2. Các nhà khoa học từng gọi loài này là loài cỏ dại thủy sinh tồi tệ nhất thế giới (\"Scientists there called it the 'world's worst aquatic weed'\")." },
+          { "code": "A3", "text": "A3. Cây không có thiên địch tự nhiên và sinh trưởng thuận lợi nhờ nhiệt độ lý tưởng (\"There, with no natural predators and perfect temperature conditions, the plant began spreading\")." },
+          { "code": "A4", "text": "A4. Người Bỉ mang loài cây này vào vì ưa thích vẻ đẹp của lá bóng và hoa tím trong ao (\"who liked the look of its glossy leaves and delicate purple flowers floating in their ponds\")." }
+        ],
+        "B": [
+          { "code": "B1", "text": "B1. Cây lục bình thoát khỏi tầm kiểm soát qua lưu vực sông Kagera (\"it had 'escaped' out of the country via the Kagera river and made its way downstream to Lake Victoria\")." },
+          { "code": "B2", "text": "B2. Lớp thảm thực vật dày đặc làm cản trở tuyến đường di chuyển của tàu đánh cá (\"blocking fishing routes and providing a new habitat for disease-carrying mosquitoes\")." },
+          { "code": "B3", "text": "B3. Loài cây này gây tắc nghẽn các đập nước và sông lớn ở châu Phi (\"started obstructing major dams and rivers\")." },
+          { "code": "B4", "text": "B4. Người dân nhổ cây lên khỏi mặt nước để khai thông dòng chảy (\"huge piles of water hyacinth that villagers had taken out of the water in an attempt to clear it were a common sight\")." }
+        ],
+        "C": [
+          { "code": "C1", "text": "C1. Bài viết không cung cấp danh mục các giống hoa cảnh khác du nhập vào Rwanda (\"In east Africa the plant arrived with Belgian colonists in Rwanda\")." },
+          { "code": "C2", "text": "C2. Không có dữ liệu ghi nhận chi phí thực dân Bỉ bỏ ra để nhập giống cây này (\"first appeared in countries in Africa in the early 1900s\")." },
+          { "code": "C3", "text": "C3. Đoạn trích không nhắc tới mục đích kinh tế thương mại của cây hoa tím (\"delicate purple flowers floating in their ponds\")." },
+          { "code": "C4", "text": "C4. Chưa có tài liệu đối chiếu loài cây này với hệ thực vật bản địa hồ Victoria (\"made its way downstream to Lake Victoria\")." }
+        ]
+      },
+      "correctTier1": "A",
+      "correctTier2": "A4"
+    },
+    {
+      "id": "Q10",
+      "level": "IELTS",
+      "type": "Note Completion",
+      "passageSnippet": "In 2018, the technology came to a village on the shore of Lake Victoria, called Dunga. The project promised a two-for-one solution to the dual menaces of the water hyacinth and dependence on firewood. The community received a pair of donated biogas digesters - machines that would transform a mix of water hyacinth and cow dung into biogas for cooking.",
+      "statement": "Complete the note: The biogas apparatus in Dunga converts an input blend of water hyacinth and _______________ into usable gas.",
+      "tier1Options": ["A. chicken manure", "B. cow dung", "C. dried charcoal"],
+      "tier2Options": {
+        "A": [
+          { "code": "A1", "text": "A1. Các nhà nghiên cứu Nigeria từng thu được lượng khí tốt hơn khi trộn cây với phân gà (\"mixed the plant with chicken manure\")." },
+          { "code": "A2", "text": "A2. Giới khoa học Kenya xác nhận các phát hiện trước đó của đồng nghiệp Nigeria (\"Kenyan scientists confirmed what their Nigerian peers and others had already found\")." },
+          { "code": "A3", "text": "A3. Phân chu động vật hỗ trợ đắc lực quá trình chuyển hóa cỏ dại thành khí gas đốt (\"manure worked to improve the process of converting the weed into gas\")." },
+          { "code": "A4", "text": "A4. Dự án Dunga được triển khai thử nghiệm trên bờ hồ Victoria năm 2018 (\"In 2018, the technology came to a village on the shore of Lake Victoria, called Dunga\")." }
+        ],
+        "B": [
+          { "code": "B1", "text": "B1. Thiết bị được tài trợ để giải quyết hiểm họa kép từ lục bình và nạn phụ thuộc củi đốt (\"The project promised a two-for-one solution to the dual menaces of the water hyacinth and dependence on firewood\")." },
+          { "code": "B2", "text": "B2. Đoạn văn xác nhận máy chuyển đổi hỗn hợp gồm cây lục bình kết hợp với phân bò (\"machines that would transform a mix of water hyacinth and cow dung into biogas for cooking\")." },
+          { "code": "B3", "text": "B3. Khí gas tạo ra được cấp qua hệ thống đường ống tới bếp nấu của các hộ dân (\"From there, the clean-burning gas is passed through pipes to the point of use\")." },
+          { "code": "B4", "text": "B4. Lượng khí sản xuất đủ cung cấp cho khoảng 60% dân số ngôi làng (\"the machines produce enough gas to serve about 60% of the village's population\")." }
+        ],
+        "C": [
+          { "code": "C1", "text": "C1. Phần lớn các gia đình nông thôn Kenya vẫn dựa vào gỗ và than củi để nấu nướng (\"About three out of four families in Kenya depend on wood or charcoal to cook their daily meals\")." },
+          { "code": "C2", "text": "C2. Dự án hướng đến việc kiểm tra xem khí sinh học có thể thay thế than củi hay không (\"testing whether biogas can provide an effective alternative to firewood and charcoal\")." },
+          { "code": "C3", "text": "C3. Việc dùng nhiên liệu rắn làm gia tăng ô nhiễm không khí trong nhà (\"Using solid fuels like these for cooking increases indoor pollution\")." },
+          { "code": "C4", "text": "C4. Nhiên liệu bẩn như dầu hỏa và than củi gây rủi ro lớn cho sức khỏe môi trường (\"huge health and environmental dangers posed by 'dirty' fuels such as wood, charcoal and kerosene\")." }
+        ]
+      },
+      "correctTier1": "B",
+      "correctTier2": "B2"
+    },
+    {
+      "id": "Q11",
+      "level": "IELTS",
+      "type": "Matching Information",
+      "passageSnippet": "'What we would recommend for everyone, not just low socio-economic status children, would be to start learning in the language they feel comfortable learning in ... English can still be used, but perhaps not as the medium of instruction in primary schools. It could, for example, be one of the subjects that are being taught alongside other subjects. We are not suggesting that English be withdrawn - that ship has sailed - but we perhaps have to think more about learner needs. There is perhaps too much uniformity in teaching and less tailoring to the children's language abilities and needs,' says Tsimpli.",
+      "statement": "What curriculum modification does Professor Tsimpli propose regarding English in early education?",
+      "tier1Options": [
+        "A. Utilizing English purely as an independent subject rather than the principal medium of instruction.",
+        "B. Eliminating English entirely to avoid confusion with local dialects.",
+        "C. Mandating English immersion across all primary grades nationwide."
+      ],
+      "tier2Options": {
+        "A": [
+          { "code": "A1", "text": "A1. Trẻ em nên bắt đầu việc học bằng ngôn ngữ mà chúng cảm thấy tự tin và thoải mái nhất (\"start learning in the language they feel comfortable learning in\")." },
+          { "code": "A2", "text": "A2. Tác giả khuyên nên dạy tiếng Anh như một môn học độc lập bên cạnh các môn khác thay vì dùng làm ngôn ngữ giảng dạy chính (\"English can still be used, but perhaps not as the medium of instruction in primary schools. It could, for example, be one of the subjects that are being taught alongside other subjects\")." },
+          { "code": "A3", "text": "A3. Nhóm nghiên cứu khẳng định không hề đề xuất loại bỏ hoàn toàn tiếng Anh (\"We are not suggesting that English be withdrawn - that ship has sailed\")." },
+          { "code": "A4", "text": "A4. Phương pháp giảng dạy hiện nay quá đồng khuôn và chưa thích ứng với năng lực thực tế của học sinh (\"too much uniformity in teaching and less tailoring to the children's language abilities and needs\")." }
+        ],
+        "B": [
+          { "code": "B1", "text": "B1. Ngôn ngữ dạy ở trường thường khác biệt hoàn toàn với ngôn ngữ mẹ đẻ ở nhà (\"the language that children are taught in often differs from the language used at home\")." },
+          { "code": "B2", "text": "B2. Giảng dạy hoàn toàn bằng tiếng Anh trong 3 năm đầu không phải cách tối ưu cho trẻ em nghèo (\"English instruction for children from low socio-economic areas might not be the best way for them to learn, at least in the first three years\")." },
+          { "code": "B3", "text": "B3. Tiếng Anh gây cản trở những trẻ em vốn ít có cơ hội tiếp xúc với ngôn ngữ này trước đó (\"English, may hold back those children who have little familiarity with, or exposure to, the language\")." },
+          { "code": "B4", "text": "B4. Hệ thống giáo dục chú trọng quá mức vào tiếng Hindi và tiếng Anh gây bất lợi cho học sinh (\"huge focus on Hindi and English as the mediums of instruction, to the potential detriment of children unfamiliar with those languages\")." }
+        ],
+        "C": [
+          { "code": "C1", "text": "C1. Hơn 255 triệu người Ấn Độ có khả năng nói từ hai thứ tiếng trở lên (\"more than 255 million people in India speak at least two languages\")." },
+          { "code": "C2", "text": "C2. Tiếng Hindi là ngôn ngữ thống trị và là ngôn ngữ hành chính chính thức (\"fluent Hindi, the dominant language in Delhi (and the official language of government)\")." },
+          { "code": "C3", "text": "C3. Lợi thế của việc đa ngôn ngữ từng được chứng minh rất rõ tại các trường học châu Âu (\"the many benefits of speaking more than one language, observed in schools in Europe for instance\")." },
+          { "code": "C4", "text": "C4. Ngôn ngữ đóng vai trò cốt lõi trong toàn bộ quá trình truyền tải tri thức (\"Language is central to the way knowledge is transferred\")." }
+        ]
+      },
+      "correctTier1": "A",
+      "correctTier2": "A2"
+    },
+    {
+      "id": "Q12",
+      "level": "IELTS",
+      "type": "Multiple Choice (Inference)",
+      "passageSnippet": "The digesters work a bit like a stomach. The mixture goes in one end - think of it as a mouth - and over the next 20 to 30 days, it goes through a fermentation process and breaks down, giving off gas that comes out the other end. From there, the clean-burning gas is passed through pipes to the point of use, just like traditional domestic gas. In Dunga, the machines produce enough gas to serve about 60% of the village's population. It is used in domestic stoves and for other household tasks such as purifying water and incubating chicks.",
+      "statement": "Besides cooking, for which secondary application is the generated biogas utilized in the community?",
+      "tier1Options": [
+        "A. Operating heavy tractors in farming zones",
+        "B. Keeping newborn chicks warm",
+        "C. Lighting commercial tourist spots"
+      ],
+      "tier2Options": {
+        "A": [
+          { "code": "A1", "text": "A1. Thiết bị sinh học được cung cấp nhằm thay thế củi và than trong sản xuất (\"The project is testing whether biogas can provide an effective alternative to firewood and charcoal\")." },
+          { "code": "A2", "text": "A2. Phụ nữ tiết kiệm được thời gian để làm thêm các công việc kinh doanh khác (\"they're able to make more money for their families from other enterprises\")." },
+          { "code": "A3", "text": "A3. Hỗn hợp phân hủy trải qua 20 đến 30 ngày lên men (\"over the next 20 to 30 days, it goes through a fermentation process and breaks down\")." },
+          { "code": "A4", "text": "A4. Khí gas sạch được truyền qua các đường ống kín tương tự như gas truyền thống (\"the clean-burning gas is passed through pipes to the point of use, just like traditional domestic gas\")." }
+        ],
+        "B": [
+          { "code": "B1", "text": "B1. Khí gas được ứng dụng trực tiếp cho các bếp nấu gia đình (\"It is used in domestic stoves...\")." },
+          { "code": "B2", "text": "B2. Đoạn văn chỉ rõ khí sinh học được tận dụng cho các công việc gia đình như lọc nước sạch và ấp trứng giữ ấm gà con (\"and for other household tasks such as purifying water and incubating chicks\")." },
+          { "code": "B3", "text": "B3. Sản lượng khí đáp ứng đủ cho hơn một nửa dân cư trong làng Dunga (\"produce enough gas to serve about 60% of the village's population\")." },
+          { "code": "B4", "text": "B4. Máy hoạt động theo cơ chế tương tự dạ dày động vật (\"The digesters work a bit like a stomach\")." }
+        ],
+        "C": [
+          { "code": "C1", "text": "C1. Khí đốt tạo ra ngọn lửa sạch không gây ô nhiễm khói bụi (\"the clean-burning gas is passed through pipes\")." },
+          { "code": "C2", "text": "C2. Đống lục bình khổng lồ từng là cảnh tượng quen thuộc trên bờ hồ (\"huge piles of water hyacinth that villagers had taken out of the water... were a common sight\")." },
+          { "code": "C3", "text": "C3. Cây lục bình có hoa tím đẹp từng được dùng để trang trí ao hồ cảnh (\"delicate purple flowers floating in their ponds\")." },
+          { "code": "C4", "text": "C4. Lục bình được xem như một mỏ vàng năng lượng tái tạo tiềm năng (\"buried in those decaying waxy leaves was a renewable energy gold mine\")." }
+        ]
+      },
+      "correctTier1": "B",
+      "correctTier2": "B2"
+    }
+  ]
+}
