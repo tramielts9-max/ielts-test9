@@ -1,0 +1,388 @@
+{
+  "testId": "test_01",
+  "version": 3,
+  "setName": "Set 3 (Phiên bản 3)",
+  "title": "TEST 1.3 - 30P - PHIÊN BẢN 3 (12 CÂU READING TWO-TIER)",
+  "formatType": "TWO_TIER",
+  "passageTitle": "Mini Diagnostic Passages (Level A2 - B2 - Cambridge IELTS)",
+  "questions": [
+    {
+      "id": "Q01",
+      "level": "Level A2",
+      "type": "True / False",
+      "passageSnippet": "Today, countries have warning systems to tell people when a tsunami is going to happen. In 2004, they didn’t. Because of stories like Tilly’s, we now understand how important it is to learn about natural disasters. Education can truly save lives.",
+      "statement": "Statement: Tsunami warning alert systems were already widespread and active across countries during the 2004 disaster.",
+      "tier1Options": ["A. TRUE", "B. FALSE"],
+      "tier2Options": {
+        "A": [
+          { "code": "A1", "text": "A1. Các quốc gia hiện nay đã sở hữu các hệ thống cảnh báo sớm sóng thần (\"Today, countries have warning systems to tell people when a tsunami is going to happen\")." },
+          { "code": "A2", "text": "A2. Nhận thức của con người về thảm họa tự nhiên đã nâng cao nhờ câu chuyện của Tilly (\"we now understand how important it is to learn about natural disasters\")." },
+          { "code": "A3", "text": "A3. Việc phổ biến kiến thức giáo dục có thể trực tiếp bảo vệ tính mạng con người (\"Education can truly save lives\")." },
+          { "code": "A4", "text": "A4. Toàn bộ người dân trên bãi biển Mai Khao đều được an toàn trong ngày hôm đó (\"everyone was safe at Mai Khao beach that day\")." }
+        ],
+        "B": [
+          { "code": "B1", "text": "B1. Câu chuyện của Tilly đã thức tỉnh sự cần thiết của việc giáo dục về hiểm họa thiên tai (\"Because of stories like Tilly’s, we now understand how important it is to learn about natural disasters\")." },
+          { "code": "B2", "text": "B2. Tác giả khẳng định rõ ràng rằng vào năm 2004 các quốc gia chưa hề có hệ thống cảnh báo này (\"In 2004, they didn’t\")." },
+          { "code": "B3", "text": "B3. Ngày nay các nước mới phát triển được hệ thống báo trước thời điểm sóng thần ập đến (\"Today, countries have warning systems to tell people when a tsunami is going to happen\")." },
+          { "code": "B4", "text": "B4. Trận sóng thần năm 2004 càn quét qua 14 quốc gia ven biển (\"Big waves hit 14 countries and killed more than 227,000 people\")." }
+        ]
+      },
+      "correctTier1": "B",
+      "correctTier2": "B2"
+    },
+    {
+      "id": "Q02",
+      "level": "Level A2",
+      "type": "Sentence Completion",
+      "passageSnippet": "There aren’t many restaurants or big shops in this small town, but there are other things to do... We grow our fruit and vegetables in our big garden–we don’t buy them at the market anymore!",
+      "statement": "Complete the sentence: Instead of purchasing produce at the marketplace, the family harvests fresh vegetables in their _______________.",
+      "tier1Options": ["A. town hall", "B. local museum", "C. big garden"],
+      "tier2Options": {
+        "A": [
+          { "code": "A1", "text": "A1. Người chồng hiện làm công việc văn phòng tại tòa thị chính (\"my husband now works in a smaller office in the town hall\")." },
+          { "code": "A2", "text": "A2. Anh phụ trách soạn thảo các email công vụ quan trọng (\"where he writes important emails\")." },
+          { "code": "A3", "text": "A3. Thị trấn có rất ít cửa hàng lớn hay hàng quán ăn uống (\"There aren’t many restaurants or big shops in this small town\")." },
+          { "code": "A4", "text": "A4. Cả gia đình thường đi dạo để ngắm các công trình cổ kính xung quanh thị trấn (\"We take long walks to see old buildings\")." }
+        ],
+        "B": [
+          { "code": "B1", "text": "B1. Cả nhà từng rất thích tìm hiểu về nghệ thuật và lịch sử ở viện bảo tàng (\"We all enjoyed learning about art and history\")." },
+          { "code": "B2", "text": "B2. Tòa lâu đài cổ được coi là một điểm đến du lịch thu hút đông đảo khách tham quan (\"It’s an important tourist attraction and many people come to see it\")." },
+          { "code": "B3", "text": "B3. Gia đình thường xuyên đến thư viện đọc sách cùng nhau (\"We visit the library more often because we spend more time reading\")." },
+          { "code": "B4", "text": "B4. Lũ trẻ tin rằng có một vị vua vẫn đang ngự trị trong lâu đài (\"and the children think there’s a king living in it!\")." }
+        ],
+        "C": [
+          { "code": "C1", "text": "C1. Ngôi nhà mới ở thị trấn có một mảnh sân vườn rộng rãi và nhiều cây xanh (\"we bought a house with a big garden. There are many trees near us\")." },
+          { "code": "C2", "text": "C2. Tiếng chim hót líu lo là cuộc sống bình yên mà gia đình luôn ao ước (\"and we hear the birds singing. That’s the kind of life we wanted!\")." },
+          { "code": "C3", "text": "C3. Gia đình đã bán căn hộ cũ tại Turin để chuyển về sống ở thị trấn nhỏ (\"We sold our city apartment and we bought a house with a big garden\")." },
+          { "code": "C4", "text": "C4. Bài đọc nêu rõ gia đình tự trồng rau củ trong khu vườn lớn chứ không còn mua ở chợ (\"We grow our fruit and vegetables in our big garden–we don’t buy them at the market anymore!\")." }
+        ]
+      },
+      "correctTier1": "C",
+      "correctTier2": "C4"
+    },
+    {
+      "id": "Q03",
+      "level": "Level A2",
+      "type": "Matching Information",
+      "passageSnippet": "Maria (Bristol): Two weeks ago, a new neighbour moved into the flat upstairs. His name is Dan. He seems nice, but every evening he plays loud music. Sometimes the music goes on until midnight... What if he gets angry? He might think I am complaining too much. Some of my friends say I should leave a polite note. Others think I must speak to him in person.",
+      "statement": "What is the viewpoint of some of Maria's friends regarding resolving the conflict with Dan?",
+      "tier1Options": [
+        "A. Write and deliver a courteous written message.",
+        "B. Call the building landlord immediately.",
+        "C. Retaliate by playing louder music early in the morning."
+      ],
+      "tier2Options": {
+        "A": [
+          { "code": "A1", "text": "A1. Đoạn trích chỉ ra một số bạn bè khuyên cô nên để lại một mẩu tin nhắn lịch sự (\"Some of my friends say I should leave a polite note\")." },
+          { "code": "A2", "text": "A2. Một nhóm bạn khác lại nghĩ cô nhất thiết phải trực tiếp nói chuyện với Dan (\"Others think I must speak to him in person\")." },
+          { "code": "A3", "text": "A3. Maria lo sợ người hàng xóm có thể nổi cáu và nghĩ cô càu nhàu quá nhiều (\"What if he gets angry? He might think I am complaining too much\")." },
+          { "code": "A4", "text": "A4. Dan mới chuyển đến căn hộ tầng trên được hai tuần (\"Two weeks ago, a new neighbour moved into the flat upstairs\")." }
+        ],
+        "B": [
+          { "code": "B1", "text": "B1. Maria rất ngại xảy ra cãi vã vì ngày nào cũng phải giáp mặt Dan (\"I don’t want to argue with my neighbour because I have to see him every day\")." },
+          { "code": "B2", "text": "B2. Tiếng nhạc ồn ào đôi khi kéo dài liên tục đến tận nửa đêm (\"Sometimes the music goes on until midnight\")." },
+          { "code": "B3", "text": "B3. Cô từng thử gõ cửa nhà Dan nhưng không có ai lên tiếng mở cửa (\"I knocked on Dan’s door, but nobody answered\")." },
+          { "code": "B4", "text": "B4. Dan thường tỏ ra là một người tử tế khi gặp gỡ (\"He seems nice, but every evening he plays loud music\")." }
+        ],
+        "C": [
+          { "code": "C1", "text": "C1. Maria cần không gian yên tĩnh vì sáng hôm sau có cuộc họp quan trọng (\"because I had an important meeting the next morning\")." },
+          { "code": "C2", "text": "C2. Tiếng nhạc đêm qua vẫn còn mở lúc 12 giờ 30 rạng sáng (\"The music was still playing at 12:30 a.m.\")." },
+          { "code": "C3", "text": "C3. Cô từng sinh sống ở miền quê nên rất nhạy cảm với sự yên tĩnh (\"I used to live in the countryside, so I need a peaceful environment\")." },
+          { "code": "C4", "text": "C4. Cô đã cư trú ở căn hộ này được sáu tháng (\"I have lived in my flat for six months\")." }
+        ]
+      },
+      "correctTier1": "A",
+      "correctTier2": "A1"
+    },
+    {
+      "id": "Q04",
+      "level": "Level A2",
+      "type": "Multiple Choice",
+      "passageSnippet": "Two weeks before, Tilly learnt about tsunamis in school. Her teacher showed a video of a big wave that hit Hawaii in 1946. When she saw the strange sea in Thailand, she remembered the lesson. She told her parents, “Tsunami! There’ll be a tsunami soon!”",
+      "statement": "What visual material helped Tilly recognize the impending tsunami at Phuket beach?",
+      "tier1Options": [
+        "A. A documentary concerning an earthquake in Indonesia.",
+        "B. A classroom video showing a historic massive wave that struck Hawaii in 1946.",
+        "C. A newspaper report illustrating tidal floods across European coastal zones."
+      ],
+      "tier2Options": {
+        "A": [
+          { "code": "A1", "text": "A1. Trận động đất khởi nguồn ở khu vực gần Indonesia (\"The tsunami that day began after a big earthquake close to Indonesia\")." },
+          { "code": "A2", "text": "A2. Thảm họa đã lấy đi sinh mạng của hơn 227.000 người trên thế giới (\"Big waves hit 14 countries and killed more than 227,000 people\")." },
+          { "code": "A3", "text": "A3. Sóng thần tấn công bờ biển Thái Lan hai giờ sau trận địa chấn (\"Thailand was hit two hours later\")." },
+          { "code": "A4", "text": "A4. Cô bé cảnh báo bố mẹ rằng sóng thần sắp ập tới bãi biển (\"She told her parents, “Tsunami! There’ll be a tsunami soon!”\")." }
+        ],
+        "B": [
+          { "code": "B1", "text": "B1. Hai tuần trước đó Tilly đã được học về sóng thần ở trường (\"Two weeks before, Tilly learnt about tsunamis in school\")." },
+          { "code": "B2", "text": "B2. Đoạn văn xác nhận giáo viên đã chiếu đoạn video về một con sóng lớn ập vào Hawaii năm 1946 giúp cô bé ghi nhớ (\"Her teacher showed a video of a big wave that hit Hawaii in 1946. When she saw the strange sea in Thailand, she remembered the lesson\")." },
+          { "code": "B3", "text": "B3. Nước biển rút ra rất xa và sủi bọt trắng xóa bất thường (\"The water moved back, going far away from the beach, and it looked white with bubbles\")." },
+          { "code": "B4", "text": "B4. Tilly cảm nhận được có điều gì đó không ổn đang xảy ra trên biển (\"Tilly felt something was wrong\")." }
+        ],
+        "C": [
+          { "code": "C1", "text": "C1. Một tờ báo của Pháp sau này đã bình chọn cô là Đứa trẻ của năm (\"and a French newspaper named her Child of the Year\")." },
+          { "code": "C2", "text": "C2. Cô bé cùng gia đình đang đi nghỉ dưỡng tại Phuket (\"was on holiday in Thailand with her family. They were walking along Mai Khao beach in Phuket\")." },
+          { "code": "C3", "text": "C3. Ban đầu mẹ cô bé không chịu tin lời cảnh báo nguy hiểm (\"At first, her mother didn’t believe her\")." },
+          { "code": "C4", "text": "C4. Người cha đã thông báo với nhân viên khách sạn để sơ tán khách (\"Her father listened and told the hotel staff\")." }
+        ]
+      },
+      "correctTier1": "B",
+      "correctTier2": "B2"
+    },
+    {
+      "id": "Q05",
+      "level": "Level B2",
+      "type": "True / False / Not Given",
+      "passageSnippet": "On Visit Sweden’s website, there’s no clear indication whether demand for cooler climates is rising, while Visit Norway’s website suggests that favorable exchange rates and marketing are responsible for their tourism growth—not just weather. The vast majority of German tourists, for example, still prefer warm destinations—though that could change in the future. In 2023, out of Germany’s 65 million vacations, only 3.6 million were to northern countries like Sweden or Norway.",
+      "statement": "Statement: The official portal of Visit Sweden provides definite statistics confirming that tourism demand for cooler weather is booming.",
+      "tier1Options": ["A. TRUE", "B. FALSE", "C. NOT GIVEN"],
+      "tier2Options": {
+        "A": [
+          { "code": "A1", "text": "A1. Các hãng hàng không đã tăng cường thêm nhiều đường bay mới lên phía Bắc (\"Norwegian Air added 10 new routes to northern Norway in response to growing demand\")." },
+          { "code": "A2", "text": "A2. Lượng du khách quốc tế đến Thụy Điển và Na Uy tăng hơn 10% (\"while international arrivals to Norway, Ireland, and Sweden increased by over 10%\")." },
+          { "code": "A3", "text": "A3. Khách du lịch mong muốn tìm đến các nước ôn đới để tránh nắng nóng (\"Travellers seek cooler destinations, such as Norway, Denmark, Finland, and Sweden, to avoid extreme heat\")." },
+          { "code": "A4", "text": "A4. Các cơ quan du lịch Bắc Âu đẩy mạnh quảng bá hình ảnh mát mẻ (\"Tourism agencies in Scandinavia have welcomed this trend\")." }
+        ],
+        "B": [
+          { "code": "B1", "text": "B1. Đa số du khách Đức vẫn trung thành với các kỳ nghỉ ở vùng biển nắng ấm (\"The vast majority of German tourists, for example, still prefer warm destinations\")." },
+          { "code": "B2", "text": "B2. Chỉ có 3,6 triệu trong tổng số 65 triệu chuyến đi của người Đức hướng về phía Bắc (\"In 2023, out of Germany’s 65 million vacations, only 3.6 million were to northern countries like Sweden or Norway\")." },
+          { "code": "B3", "text": "B3. Đoạn văn nêu rõ trang web của Visit Sweden không hề có dấu hiệu hay số liệu rõ ràng nào cho thấy nhu cầu khí hậu mát mẻ đang gia tăng (\"On Visit Sweden’s website, there’s no clear indication whether demand for cooler climates is rising\")." },
+          { "code": "B4", "text": "B4. Tăng trưởng du lịch Na Uy được cho là nhờ tỷ giá tiền tệ và chiến dịch quảng cáo (\"while Visit Norway’s website suggests that favorable exchange rates and marketing are responsible for their tourism growth—not just weather\")." }
+        ],
+        "C": [
+          { "code": "C1", "text": "C1. Bài đọc không đưa ra dự toán kinh phí quảng bá du lịch của hội đồng du lịch Thụy Điển (\"there’s no clear indication whether demand for cooler climates is rising\")." },
+          { "code": "C2", "text": "C2. Không có báo cáo số liệu phân tích lượng du khách Anh hay Pháp tới Scandinavia (\"only 3.6 million were to northern countries like Sweden or Norway\")." },
+          { "code": "C3", "text": "C3. Tác giả không nêu chi tiết các gói tour du lịch mát mẻ được bán chạy nhất (\"coolcation is more of a marketing approach than a real movement\")." },
+          { "code": "C4", "text": "C4. Chưa có dữ liệu khảo sát nhiệt độ trung bình các tháng mùa hè tại Thụy Điển (\"though that could change in the future\")." }
+        ]
+      },
+      "correctTier1": "B",
+      "correctTier2": "B3"
+    },
+    {
+      "id": "Q06",
+      "level": "Level B2",
+      "type": "Summary Completion with Box",
+      "passageSnippet": "In agricultural areas, especially in places like sub-Saharan Africa, extreme droughts are reducing the amount of food that can be grown, forcing people to move to more livable areas. These types of migrations will likely increase as climate change continues to affect the world.",
+      "statement": "Summary sentence: Across sub-Saharan farming territories, prolonged severe _______________ limit agricultural productivity, driving families to seek habitable regions.",
+      "tier1Options": ["A. floods", "B. wildfires", "C. droughts"],
+      "tier2Options": {
+        "A": [
+          { "code": "A1", "text": "A1. Một số cộng đồng dân cư phải bỏ nhà cửa vì các thảm họa đột ngột như lũ lụt và bão táp (\"Some people abandon their homes because of sudden disasters like floods, hurricanes, or wildfires\")." },
+          { "code": "A2", "text": "A2. Các vùng duyên hải tại Bangladesh và Hoa Kỳ đang đối mặt ngập lụt nghiêm trọng (\"Coastal communities in countries like Bangladesh and the United States are also experiencing flooding\")." },
+          { "code": "A3", "text": "A3. Việc gia cố bờ sông và đập ngăn nước giúp người dân tiếp tục bám trụ quê hương (\"building better flood defences like strategic dams and stronger river banks, can allow people to stay in their homes\")." },
+          { "code": "A4", "text": "A4. Nước biển dâng cao đe dọa làm biến mất các đảo quốc thấp (\"low-lying countries like Kiribati and Tuvalu in the Pacific Ocean are at risk of disappearing under the sea\")." }
+        ],
+        "B": [
+          { "code": "B1", "text": "B1. Cháy rừng dữ dội khiến nhiều vùng dân cư không còn đủ an toàn để sinh sống (\"wildfires... causing many areas to become less safe or less able to support life\")." },
+          { "code": "B2", "text": "B2. Hy Lạp phải gồng mình chiến đấu với cháy rừng trên diện rộng (\"while Greece has battled severe wildfires and droughts\")." },
+          { "code": "B3", "text": "B3. Hàng triệu người buộc phải di dời do biến đổi khí hậu (\"millions of people are being displaced – forced to leave their homes – due to environmental problems\")." },
+          { "code": "B4", "text": "B4. Các tổ chức cứu trợ phải cung cấp nơi trú ẩn khẩn cấp cho người gặp nạn (\"providing food, shelter, and medical care to people displaced by extreme weather events\")." }
+        ],
+        "C": [
+          { "code": "C1", "text": "C1. Đoạn trích khẳng định tại các vùng nông nghiệp như cận Sahara, các đợt hạn hán khốc liệt làm sụt giảm sản lượng lương thực trồng cấy (\"In agricultural areas, especially in places like sub-Saharan Africa, extreme droughts are reducing the amount of food that can be grown, forcing people to move...\")." },
+          { "code": "C2", "text": "C2. Việc đưa vào các giống cây trồng chịu hạn giúp người nông dân duy trì sản xuất (\"introducing new types of crops that can survive with less water may help farmers continue to grow food\")." },
+          { "code": "C3", "text": "C3. Làn sóng di cư do biến đổi khí hậu sẽ tiếp tục bùng nổ trên phạm vi toàn cầu (\"These types of migrations will likely increase as climate change continues to affect the world\")." },
+          { "code": "C4", "text": "C4. Người dân không còn đất canh tác bắt buộc phải di chuyển đến các vùng có điều kiện sống tốt hơn (\"forcing people to move to more livable areas\")." }
+        ]
+      },
+      "correctTier1": "C",
+      "correctTier2": "C1"
+    },
+    {
+      "id": "Q07",
+      "level": "Level B2",
+      "type": "Matching Information",
+      "passageSnippet": "Not surprisingly, many locals have started to push back. In several popular destinations, protests against overtourism are now hard to miss. Demonstrators carry signs telling tourists to go home; they tell visitors in cafés and on beaches — or rather yell at them — to leave; balconies display banners against short-term rentals; and graffiti has appeared on walls blaming tourists for rising prices.",
+      "statement": "Which direct form of hostility have tourists encountered while sitting in cafes and relaxing on beaches?",
+      "tier1Options": [
+        "A. Demonstrators shouting at them to pack up and leave.",
+        "B. Local shop owners refusing to accept cash payments.",
+        "C. Police officers handing out citations for loitering."
+      ],
+      "tier2Options": {
+        "A": [
+          { "code": "A1", "text": "A1. Đoạn trích mô tả người dân biểu tình nhắc nhở, thậm chí quát tháo du khách ở bãi biển và quán cà phê đòi họ phải rời đi (\"they tell visitors in cafés and on beaches — or rather yell at them — to leave\")." },
+          { "code": "A2", "text": "A2. Người biểu tình mang theo nhiều biển hiệu với khẩu hiệu yêu cầu du khách về nước (\"Demonstrators carry signs telling tourists to go home\")." },
+          { "code": "A3", "text": "A3. Khẩu hiệu phản đối du khách đẩy giá nhà xuất hiện dày đặc trên các bức tường (\"graffiti has appeared on walls blaming tourists for rising prices\")." },
+          { "code": "A4", "text": "A4. Cư dân phản kháng mạnh mẽ trước vấn nạn quá tải du khách (\"Not surprisingly, many locals have started to push back\")." }
+        ],
+        "B": [
+          { "code": "B1", "text": "B1. Các cửa hàng nhỏ truyền thống bị xóa sổ bởi các chuỗi bán đồ lưu niệm (\"Small local shops disappear, replaced by souvenir stores, fast-food chains, and holiday rentals\")." },
+          { "code": "B2", "text": "B2. Ban công nhà ở giăng biểu ngữ phản đối dịch vụ cho thuê nhà ngắn hạn (\"balconies display banners against short-term rentals\")." },
+          { "code": "B3", "text": "B3. Ngành du lịch vẫn được chính quyền coi là nguồn tạo việc làm và doanh thu (\"Local governments say tourism brings jobs and money\")." },
+          { "code": "B4", "text": "B4. Giá nhà đất và chi phí sinh hoạt tăng vọt khiến người dân địa phương không thở nổi (\"as more flats are turned into holiday rentals, prices go up\")." }
+        ],
+        "C": [
+          { "code": "C1", "text": "C1. Các nhà chức trách đã chậm trễ trong việc can thiệp để bảo vệ cộng đồng (\"and by the time officials reacted, the damage had already been done\")." },
+          { "code": "C2", "text": "C2. Thành phố Venice đã áp dụng thu phí vào cửa đối với du khách tham quan trong ngày (\"Venice has introduced entry fees for day visitors\")." },
+          { "code": "C3", "text": "C3. Làn sóng phản đối bùng nổ tại nhiều điểm đến nổi tiếng thế giới (\"In several popular destinations, protests against overtourism are now hard to miss\")." },
+          { "code": "C4", "text": "C4. Người dân lập luận rằng các nhà quản lý đã có thể hạn chế tác động tiêu cực nếu hành động sớm hơn (\"residents argue that authorities could have limited the impact of tourism\")." }
+        ]
+      },
+      "correctTier1": "A",
+      "correctTier2": "A1"
+    },
+    {
+      "id": "Q08",
+      "level": "Level B2",
+      "type": "Multiple Choice",
+      "passageSnippet": "Locals often say their neighbourhoods no longer feel like home, and in many cases, they are no longer home at all. Small local shops disappear, replaced by souvenir stores, fast-food chains, and holiday rentals. Ironically, people travel to experience the local atmosphere of places where the only people around are other tourists. The more popular a city becomes, the farther residents are forced to move from the centre. Authenticity and community life are replaced by soulless theme-park areas designed for visitors.",
+      "statement": "What ironic contradiction does the author observe about modern cultural tourism?",
+      "tier1Options": [
+        "A. Tourists spend enormous amounts of money without supporting municipal infrastructure.",
+        "B. Tourists travel to soak in indigenous atmosphere only to encounter crowds composed entirely of other travelers.",
+        "C. Historical monuments are dismantled to make space for transit hubs."
+      ],
+      "tier2Options": {
+        "A": [
+          { "code": "A1", "text": "A1. Chính quyền thành phố tăng mức thuế du lịch đánh vào mỗi lượt khách (\"Barcelona has raised tourist taxes and plans to remove tourist apartment licences\")." },
+          { "code": "A2", "text": "A2. Tiền thuế thu được không giúp cư dân quay lại được khu phố cũ của mình (\"rarely give locals a ticket back to the neighbourhoods they have already been forced to leave\")." },
+          { "code": "A3", "text": "A3. Ngành du lịch được ca ngợi vì mang lại nguồn tài chính lớn nuôi sống thành phố (\"protect the local community without killing the industry that keeps the city alive\")." },
+          { "code": "A4", "text": "A4. Cư dân không còn đủ khả năng tài chính để bám trụ lại ở trung tâm thành phố (\"We can’t afford to live here anymore, he replied\")." }
+        ],
+        "B": [
+          { "code": "B1", "text": "B1. Khu dân cư mất đi linh hồn và biến thành các tổ hợp công viên giải trí vô vị dành riêng cho khách vãng lai (\"Authenticity and community life are replaced by soulless theme-park areas designed for visitors\")." },
+          { "code": "B2", "text": "B2. Đoạn văn chỉ ra sự trớ trêu khi mọi người đi du lịch để tìm kiếm không khí bản địa nhưng xung quanh lại chỉ toàn là những du khách khác (\"Ironically, people travel to experience the local atmosphere of places where the only people around are other tourists\")." },
+          { "code": "B3", "text": "B3. Các tiệm tạp hóa nhỏ bản địa dần biến mất và nhường chỗ cho các tiệm lưu niệm và chuỗi thức ăn nhanh (\"Small local shops disappear, replaced by souvenir stores, fast-food chains, and holiday rentals\")." },
+          { "code": "B4", "text": "B4. Mức độ hút khách của thành phố càng cao thì người dân càng bị đẩy dạt ra xa (\"The more popular a city becomes, the farther residents are forced to move from the centre\")." }
+        ],
+        "C": [
+          { "code": "C1", "text": "C1. Tác giả suýt không nhận ra thành phố Amsterdam mà mình từng du học 20 năm trước (\"a city I had lived in 20 years earlier as an exchange student, but which I now barely recognised\")." },
+          { "code": "C2", "text": "C2. Các nhà ga tàu điện ngầm đông nghẹt du khách nước ngoài (\"I asked an underground worker during a visit to Amsterdam\")." },
+          { "code": "C3", "text": "C3. Khu phố cổ kính tràn ngập thực đơn in bằng 5 thứ tiếng khác nhau (\"enjoy a picturesque old town, only to find it full of souvenir shops... and restaurants with menus in five languages\")." },
+          { "code": "C4", "text": "C4. Hiểm họa quá tải du lịch không còn là câu chuyện riêng của Barcelona hay Amsterdam (\"This problem is no longer limited to one or two famous destinations like Barcelona or Amsterdam\")." }
+        ]
+      },
+      "correctTier1": "B",
+      "correctTier2": "B2"
+    },
+    {
+      "id": "Q09",
+      "level": "Level Cambridge IELTS",
+      "type": "Yes / No / Not Given",
+      "passageSnippet": "While the preliminary results show there is no difference in general intelligence among boys and girls from slum areas versus those from urban poor backgrounds, an unanticipated finding has been that children from slum backgrounds do not seem to lag behind children from other urban poor backgrounds - and in some cases outperform them (e.g. in numeracy and literacy tasks). According to the researchers, this unexpected finding may be down to the life experiences of children growing up in slums. They are likely to mature faster and come into closer contact with the numeracy skills essential for day-to-day survival.",
+      "statement": "Statement: Researchers concluded that boys raised in slum conditions possess innate mathematical cognitive abilities inherently superior to girls.",
+      "tier1Options": ["A. YES", "B. NO", "C. NOT GIVEN"],
+      "tier2Options": {
+        "A": [
+          { "code": "A1", "text": "A1. Trẻ em khu ổ chuột vượt trội hơn các bạn đồng trang lứa ở các bài kiểm tra làm toán và đọc hiểu (\"and in some cases outperform them (e.g. in numeracy and literacy tasks)\")." },
+          { "code": "A2", "text": "A2. Trải nghiệm bươn chải sinh tồn giúp học sinh khu ổ chuột trưởng thành sớm hơn (\"They are likely to mature faster and come into closer contact with the numeracy skills essential for day-to-day survival\")." },
+          { "code": "A3", "text": "A3. Kỹ năng tính toán là yêu cầu bắt buộc cho cuộc sống mưu sinh hàng ngày (\"essential for day-to-day survival\")." },
+          { "code": "A4", "text": "A4. Trẻ em khu ổ chuột không hề bị tụt lại phía sau trẻ em nghèo đô thị (\"children from slum backgrounds do not seem to lag behind children from other urban poor backgrounds\")." }
+        ],
+        "B": [
+          { "code": "B1", "text": "B1. Kết quả nghiên cứu sơ bộ chứng minh không có sự khác biệt về trí thông minh chung giữa các bé trai và bé gái (\"the preliminary results show there is no difference in general intelligence among boys and girls from slum areas versus those from urban poor backgrounds\")." },
+          { "code": "B2", "text": "B2. Sự vượt trội của trẻ em nghèo xuất phát từ vốn sống thực tế chứ không phải do chỉ số thông minh bẩm sinh (\"this unexpected finding may be down to the life experiences of children growing up in slums\")." },
+          { "code": "B3", "text": "B3. Nhóm nghiên cứu thu thập dữ liệu trên 1.000 học sinh ở cả nông thôn lẫn thành thị (\"The research project, which focuses on 8 to 11-year-old schoolchildren in rural and urban areas\")." },
+          { "code": "B4", "text": "B4. Tỷ lệ học sinh yếu kém bỏ học phân bổ chênh lệch đối với nữ sinh (\"low educational achievement can lead to many of these students dropping out of school - a problem disproportionately affecting female students\")." }
+        ],
+        "C": [
+          { "code": "C1", "text": "C1. Bài đọc không công bố bảng điểm phân tích riêng biệt của từng giới tính trong các bài tập làm tính trừ (\"just under 50% of them cannot solve a Standard 2 subtraction task\")." },
+          { "code": "C2", "text": "C2. Không có số liệu đo lường chỉ số IQ tuyệt đối của trẻ em nghèo ở Delhi (\"an unanticipated finding has been that children from slum backgrounds do not seem to lag behind\")." },
+          { "code": "C3", "text": "C3. Tác giả không nêu rõ công cụ đo lường khả năng đọc viết được áp dụng trong dự án (\"collecting data on 1,000 primary-age children in Delhi and the cities of Hyderabad and Bihar\")." },
+          { "code": "C4", "text": "C4. Chưa có dữ liệu nghiên cứu về sự phát triển trí não của học sinh theo từng độ tuổi cụ thể (\"which focuses on 8 to 11-year-old schoolchildren\")." }
+        ]
+      },
+      "correctTier1": "B",
+      "correctTier2": "B1"
+    },
+    {
+      "id": "Q10",
+      "level": "Level Cambridge IELTS",
+      "type": "Sentence Completion",
+      "passageSnippet": "Some years ago, on the shores of Lake Victoria, huge piles of water hyacinth that villagers had taken out of the water in an attempt to clear it were a common sight. But buried in those decaying waxy leaves was a renewable energy gold mine. It turns out the floating plant isn't just good at spreading - its foliage also contains a high ratio of carbon to nitrogen. It's a magic combination that has captivated researchers' imaginations since as early as the 1980s when, across the world, they began to explore its potential as a biofuel. Just about 4kg of the dried plant would be enough to cater for a large family's daily energy needs, early research predicted.",
+      "statement": "Complete the sentence: Early scientific calculations predicted that approximately _______________ of dried water hyacinth could supply the daily energy demands of a sizable family.",
+      "tier1Options": ["A. 4kg", "B. 10kg", "C. 750kg"],
+      "tier2Options": {
+        "A": [
+          { "code": "A1", "text": "A1. Cây lục bình chứa tỷ lệ cân bằng hoàn hảo giữa hàm lượng cacbon và nitơ (\"its foliage also contains a high ratio of carbon to nitrogen\")." },
+          { "code": "A2", "text": "A2. Các nghiên cứu ban đầu dự đoán chỉ cần khoảng 4kg cây khô là đủ đáp ứng nhu cầu năng lượng hàng ngày của một gia đình lớn (\"Just about 4kg of the dried plant would be enough to cater for a large family's daily energy needs, early research predicted\")." },
+          { "code": "A3", "text": "A3. Các nhà khoa học trên thế giới đã bắt đầu tìm hiểu tiềm năng nhiên liệu sinh học từ thập niên 1980 (\"captivated researchers' imaginations since as early as the 1980s when, across the world, they began to explore its potential as a biofuel\")." },
+          { "code": "A4", "text": "A4. Cây lục bình mục nát từng chất thành từng đống khổng lồ trên bờ hồ Victoria (\"huge piles of water hyacinth that villagers had taken out of the water... were a common sight\")." }
+        ],
+        "B": [
+          { "code": "B1", "text": "B1. Phụ nữ thu gom củi đốt đôi khi phải đi bộ tới 10km mỗi lượt (\"sometimes walking as far as 10km each way to collect enough to complete their work\")." },
+          { "code": "B2", "text": "B2. Hai chiếc máy phân hủy biogas được trao tặng cho ngôi làng Dunga vào năm 2018 (\"The community received a pair of donated biogas digesters\")." },
+          { "code": "B3", "text": "B3. Người dân phải hít khói độc hại hàng ngày khi đun nấu củi than (\"And each day as they cook, they breathe in the thick, grey smoke\")." },
+          { "code": "B4", "text": "B4. Lục bình được xem là một mỏ vàng năng lượng tái tạo ẩn sau những chiếc lá sáp (\"buried in those decaying waxy leaves was a renewable energy gold mine\")." }
+        ],
+        "C": [
+          { "code": "C1", "text": "C1. Mỗi chiếc máy phát khí sinh học hiện có giá bán trên thị trường khoảng 750 USD (\"since they sell for about $750\")." },
+          { "code": "C2", "text": "C2. Chi phí máy quá đắt khiến hầu hết các cộng đồng nghèo không bao giờ mua nổi (\"most communities will never be able to afford any\")." },
+          { "code": "C3", "text": "C3. Lục bình sinh sôi tự do trên mặt nước vì không hề có thiên địch tự nhiên (\"There, with no natural predators and perfect temperature conditions, the plant began spreading\")." },
+          { "code": "C4", "text": "C4. Thiết bị biogas là giải pháp trọn gói cho nạn thiếu củi và thảm họa cỏ dại (\"The project promised a two-for-one solution to the dual menaces of the water hyacinth and dependence on firewood\")." }
+        ]
+      },
+      "correctTier1": "A",
+      "correctTier2": "A2"
+    },
+    {
+      "id": "Q11",
+      "level": "Level Cambridge IELTS",
+      "type": "Matching Information",
+      "passageSnippet": "The project has already caught the attention of government ministers, who are keen to use the findings of the study to inform and adjust school policy in Delhi and the wider state. 'They are as keen as us to understand how the challenging context of deprivation can be attenuated when focusing on the languages children learn and use while at school. Our findings don't mean you're doomed if you're poor. It may be that these low learning outcomes are because of the way education is provided in India, with a huge focus on Hindi and English as the mediums of instruction, to the potential detriment of children unfamiliar with those languages,' explains Tsimpli.",
+      "statement": "According to Tsimpli, what institutional factor contributes directly to inadequate learning outcomes in India?",
+      "tier1Options": [
+        "A. A complete lack of budget allocation for school textbooks and facilities.",
+        "B. An excessive pedagogical emphasis on Hindi and English as the languages of instruction.",
+        "C. A refusal by state ministers to review contemporary research findings."
+      ],
+      "tier2Options": {
+        "A": [
+          { "code": "A1", "text": "A1. Môi trường trường học và điều kiện cơ sở hạ tầng ở khu ổ chuột còn rất thiếu thốn (\"infrastructure is incomplete and services inadequate or non-existent\")." },
+          { "code": "A2", "text": "A2. Tác giả nhấn mạnh sinh ra trong hoàn cảnh nghèo khó không có nghĩa là chắc chắn sẽ thất bại (\"Our findings don't mean you're doomed if you're poor\")." },
+          { "code": "A3", "text": "A3. Học sinh nghèo thường phải chuyển nhà theo các làn sóng di cư từ nông thôn (\"Many of the children have moved from remote, rural areas to urban areas\")." },
+          { "code": "A4", "text": "A4. Nguy cơ bỏ học tác động nặng nề nhất đối với các em học sinh nữ (\"low educational achievement can lead to many of these students dropping out of school\")." }
+        ],
+        "B": [
+          { "code": "B1", "text": "B1. Các bộ trưởng chính phủ rất quan tâm và muốn dựa vào kết quả nghiên cứu để điều chỉnh chính sách trường học (\"The project has already caught the attention of government ministers, who are keen to use the findings of the study to inform and adjust school policy\")." },
+          { "code": "B2", "text": "B2. Tác giả chỉ ra kết quả học tập yếu kém bắt nguồn từ phương thức cung cấp giáo dục, vốn tập trung quá mức vào tiếng Hindi và tiếng Anh khiến các em không quen ngôn ngữ bị thiệt thòi (\"It may be that these low learning outcomes are because of the way education is provided in India, with a huge focus on Hindi and English as the mediums of instruction, to the potential detriment of children unfamiliar with those languages\")." },
+          { "code": "B3", "text": "B3. Nhóm nghiên cứu muốn làm rõ cách giảm nhẹ sự thiếu thốn thông qua ngôn ngữ trẻ em dùng ở trường (\"understand how the challenging context of deprivation can be attenuated when focusing on the languages children learn and use while at school\")." },
+          { "code": "B4", "text": "B4. Tiếng Hindi là ngôn ngữ hành chính phổ biến nhất ở thủ đô Delhi (\"fluent Hindi, the dominant language in Delhi (and the official language of government)\")." }
+        ],
+        "C": [
+          { "code": "C1", "text": "C1. Các nhà quản lý chính sách tỏ ra hào hứng không kém nhóm nghiên cứu trong việc tìm giải pháp (\"They are as keen as us to understand how the challenging context of deprivation can be attenuated\")." },
+          { "code": "C2", "text": "C2. Dự án kéo dài 4 năm mang tên Đa ngôn ngữ và Đa khả năng đọc viết (\"overriding aim of the four-year project, called 'Multilingualism and Multiliteracy'\")." },
+          { "code": "C3", "text": "C3. Hơn nửa triệu trẻ em được kiểm tra kiến thức định kỳ hàng năm tại Ấn Độ (\"Each year across India, 600,000 children are tested\")." },
+          { "code": "C4", "text": "C4. Trẻ em cần được học tập bằng ngôn ngữ mà chúng cảm thấy tự tin và quen thuộc nhất (\"start learning in the language they feel comfortable learning in\")." }
+        ]
+      },
+      "correctTier1": "B",
+      "correctTier2": "B2"
+    },
+    {
+      "id": "Q12",
+      "level": "Level Cambridge IELTS",
+      "type": "Multiple Choice",
+      "passageSnippet": "For the women who smoke fish from the lake to sell it has meant declining income, as the boats that once brought the fish to shore by the hundreds struggle to navigate through the mass of plants. But water hyacinth isn't their only headache. In order to smoke the fish that they buy, they must gather huge quantities of firewood, sometimes walking as far as 10km each way to collect enough to complete their work. And each day as they cook, they breathe in the thick, grey smoke.",
+      "statement": "What physical distance must fish-smoking women sometimes walk to collect enough firewood for their work?",
+      "tier1Options": [
+        "A. Up to 10 kilometers in each direction",
+        "B. Exactly 20 kilometers round-trip on paved transit roads",
+        "C. Around 2 to 3 kilometers along the shoreline"
+      ],
+      "tier2Options": {
+        "A": [
+          { "code": "A1", "text": "A1. Thảm thực vật cản trở thuyền bè khiến nguồn cung cá vào bờ sụt giảm mạnh (\"as the boats that once brought the fish to shore by the hundreds struggle to navigate through the mass of plants\")." },
+          { "code": "A2", "text": "A2. Tác giả chỉ rõ để hun khói cá phụ nữ phải đi bộ xa tới 10km mỗi chiều để gom đủ số lượng củi phục vụ công việc (\"In order to smoke the fish that they buy, they must gather huge quantities of firewood, sometimes walking as far as 10km each way to collect enough to complete their work\")." },
+          { "code": "A3", "text": "A3. Hàng ngày họ phải hít thở bầu không khí ngập khói xám dày đặc khi đun củi (\"And each day as they cook, they breathe in the thick, grey smoke\")." },
+          { "code": "A4", "text": "A4. Thu nhập của phụ nữ giảm sút nghiêm trọng vì sự bùng phát của cây lục bình (\"For the women who smoke fish from the lake to sell it has meant declining income\")." }
+        ],
+        "B": [
+          { "code": "B1", "text": "B1. Phần lớn các gia đình tại Kenya lệ thuộc hoàn toàn vào củi hoặc than củi để nấu ăn (\"About three out of four families in Kenya depend on wood or charcoal to cook their daily meals\")." },
+          { "code": "B2", "text": "B2. Thiết bị sinh học phân giải hỗn hợp nạp trong khoảng từ 20 đến 30 ngày (\"over the next 20 to 30 days, it goes through a fermentation process and breaks down\")." },
+          { "code": "B3", "text": "B3. Máy biogas giúp phụ nữ không còn phải dành quá nhiều thời gian mỗi ngày đi nhặt củi (\"Besides, they don't have to devote a lot of time every day to gathering firewood\")." },
+          { "code": "B4", "text": "B4. Tỷ lệ tử vong vì khói bếp tại Kenya lên tới hơn 14.000 người mỗi năm (\"about 14,300 Kenyans die annually as a result of indoor air pollution\")." }
+        ],
+        "C": [
+          { "code": "C1", "text": "C1. Nạn nhân biến đổi khí hậu New Zealand được cấp thị thực đặc biệt với số lượng rất nhỏ (\"While some countries, like New Zealand, have started small programs to offer visas\")." },
+          { "code": "C2", "text": "C2. Cây lục bình phát triển thành những đống khổng lồ ngay trên bờ hồ Victoria (\"on the shores of Lake Victoria, huge piles of water hyacinth... were a common sight\")." },
+          { "code": "C3", "text": "C3. Lục bình cản trở dòng chảy và cung cấp nơi trú ngụ cho muỗi truyền bệnh (\"blocking fishing routes and providing a new habitat for disease-carrying mosquitoes\")." },
+          { "code": "C4", "text": "C4. Cỏ dại lan ra toàn bộ vùng nước mở đe dọa các tuyến đường đánh bắt cá (\"the plant began spreading in the open water, blocking fishing routes\")." }
+        ]
+      },
+      "correctTier1": "A",
+      "correctTier2": "A2"
+    }
+  ]
+}
