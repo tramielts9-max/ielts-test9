@@ -32,7 +32,7 @@
 
     .runner-container { max-width: 1040px; margin: 0 auto; }
 
-    /* HEADER PHÒNG THI */
+    /* HEADER PHÒNG THI STICKY */
     .runner-header {
       background: #FFFFFF; border: 2.5px solid var(--duo-border); border-bottom: 5px solid var(--duo-shadow);
       border-radius: 20px; padding: 12px 20px; margin-bottom: 18px; display: flex;
@@ -48,12 +48,10 @@
       background: #FAF7F2; border: 1.5px solid var(--duo-border); border-bottom: 3.5px solid var(--duo-shadow);
       padding: 7px 14px; border-radius: 12px; font-weight: 800; font-size: 13px; cursor: pointer;
       display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; color: #475569;
+      user-select: none; transition: all 0.1s ease;
     }
     .skill-tab-pill.active {
       background: var(--tram-red); color: #FFFFFF; border-color: var(--tram-red-shadow); border-bottom-width: 3.5px;
-    }
-    .skill-tab-pill.is-completed {
-      background: #DCFCE7; color: #166534; border-color: #86EFAC;
     }
 
     .timer-badge {
@@ -64,7 +62,7 @@
     /* VÙNG CHỨA CÂU HỎI (EXAM CARD) */
     .exam-section-card {
       background: #FFFFFF; border: 2.5px solid var(--duo-border); border-bottom: 6px solid var(--duo-shadow);
-      border-radius: 22px; padding: 24px; margin-bottom: 20px;
+      border-radius: 22px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.03);
     }
 
     .q-item-box {
@@ -76,7 +74,7 @@
     /* TWO-TIER STYLES */
     .tier-2-box {
       margin-top: 14px; padding: 14px 16px; background: #FFFBEB; border: 2px dashed #F59E0B;
-      border-radius: 12px; animation: slideDown 0.25s ease-out;
+      border-radius: 14px; animation: slideDown 0.25s ease-out;
     }
     @keyframes slideDown {
       from { opacity: 0; transform: translateY(-8px); }
@@ -88,18 +86,18 @@
     .option-label {
       display: flex; align-items: flex-start; gap: 10px; background: #FFFFFF; border: 1.5px solid #E2E8F0;
       border-radius: 10px; padding: 10px 14px; margin-top: 8px; cursor: pointer; font-size: 14px; font-weight: 700;
-      transition: all 0.1s ease;
+      transition: all 0.1s ease; user-select: none;
     }
     .option-label:hover { border-color: #0284C7; background: #F0F9FF; }
     .option-label input[type="radio"] { margin-top: 3px; }
 
-    /* AUDIO PLAYER */
+    /* AUDIO PLAYER CARD */
     .audio-player-card {
       background: #EFF6FF; border: 2px solid #BFDBFE; border-radius: 16px; padding: 16px;
       margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
     }
 
-    /* INPUT FIELDS */
+    /* INPUT & TEXTAREA */
     .diag-input {
       width: 100%; box-sizing: border-box; padding: 10px 14px; border: 2px solid var(--duo-border);
       border-radius: 10px; font-size: 14px; font-weight: 700; font-family: inherit; outline: none; margin-top: 6px;
@@ -112,7 +110,7 @@
     }
     .diag-textarea:focus { border-color: var(--tram-red); }
 
-    /* BUTTONS 3D */
+    /* 3D BUTTONS DUOLINGO */
     .btn-3d {
       border: none; border-radius: 14px; font-family: inherit; font-weight: 900; font-size: 14px;
       text-transform: uppercase; padding: 12px 24px; display: inline-flex; align-items: center;
@@ -121,6 +119,7 @@
     }
     .btn-3d:active { transform: translateY(2px); box-shadow: none !important; }
     .btn-3d-red { background: var(--tram-red); color: #FFFFFF !important; border-bottom: 4px solid var(--tram-red-shadow); }
+    .btn-3d-red:hover { background: var(--tram-red-hover); }
     .btn-3d-blue { background: #0284C7; color: #FFFFFF !important; border-bottom: 4px solid #0369A1; }
     .btn-3d-white { background: #FFFFFF; color: #261F1D !important; border: 2px solid var(--duo-border); border-bottom: 4px solid var(--duo-shadow); }
   </style>
@@ -135,7 +134,7 @@
       <a href="index-diag.html" class="btn-3d btn-3d-white" style="padding: 7px 12px; font-size: 12px;" onclick="return confirm('Em có chắc muốn tạm dừng bài thi chẩn đoán này?')">
         ✕ Thoát
       </a>
-      <span style="font-size: 14.5px; font-weight: 900; color: var(--tram-red);" id="currentTestTitle">
+      <span style="font-size: 15px; font-weight: 900; color: var(--tram-red);" id="currentTestTitle">
         ĐỀ THI CHẨN ĐOÁN
       </span>
     </div>
@@ -143,52 +142,54 @@
     <!-- 5 TAB KỸ NĂNG -->
     <div class="skill-tabs-nav" id="skillTabsBar">
       <div class="skill-tab-pill active" id="tabNav_grammar" onclick="window.switchSkillSection('grammar')">
-        1. Ngữ pháp & Dò lỗi
+        1. Ngữ pháp & Từ vựng
       </div>
       <div class="skill-tab-pill" id="tabNav_listening" onclick="window.switchSkillSection('listening')">
         2. Listening
       </div>
       <div class="skill-tab-pill" id="tabNav_reading" onclick="window.switchSkillSection('reading')">
-        3. Reading Two-Tier
+        3. Reading
       </div>
       <div class="skill-tab-pill" id="tabNav_writing" onclick="window.switchSkillSection('writing')">
-        4. Writing Dịch
+        4. Writing
       </div>
       <div class="skill-tab-pill" id="tabNav_speaking" onclick="window.switchSkillSection('speaking')">
         5. Speaking
       </div>
     </div>
 
-    <!-- ĐỒNG HỒ ĐẾM NGƯỢC -->
+    <!-- ĐỒNG HỒ ĐẾM NGƯỢC TỔNG THỂ -->
     <div class="timer-badge" id="sectionTimerBadge">
       <i class="fa-solid fa-clock"></i> <span id="sectionTimerDisplay">00:00</span>
     </div>
   </div>
 
   <!-- =========================================================================
-       PHẦN 1: NGỮ PHÁP & DÒ LỖI SCANNING (15 CÂU + 5 PHÚT DÒ LỖI)
+       PHẦN 1: NGỮ PHÁP & TỪ VỰNG HỌC THUẬT
        ========================================================================= -->
   <div id="section_grammar" class="exam-section-card">
-    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #F4EFEB; padding-bottom: 12px; margin-bottom: 16px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #F4EFEB; padding-bottom: 12px; margin-bottom: 16px; flex-wrap: wrap; gap: 8px;">
       <div>
         <h3 style="margin: 0; color: #059669; font-size: 18px; font-weight: 900;">
-          <i class="fa-solid fa-shapes"></i> PHẦN 1: NGỮ PHÁP TRỌNG TÂM & QUÉT LỖI SAI (SCANNING)
+          <i class="fa-solid fa-shapes"></i> PHẦN 1: NGỮ PHÁP TRỌNG TÂM & TỪ VỰNG HỌC THUẬT
         </h3>
         <p style="margin: 4px 0 0 0; font-size: 13px; font-weight: 700; color: #64748B;">
-          Đo tốc độ phản xạ nhận diện thì và cấu trúc câu. Mỗi câu có 20 giây phản xạ.
+          Đo tốc độ phản xạ nhận diện ngữ pháp và vốn từ học thuật. Hãy chọn đáp án nhanh và chính xác nhất.
         </p>
       </div>
       <span style="font-size: 12px; font-weight: 900; background: #DCFCE7; color: #166534; padding: 4px 10px; border-radius: 10px;">
-        15 Câu trắc nghiệm
+        Phần 1/5
       </span>
     </div>
 
     <div id="grammarQuestionsMount">
-      <!-- CÁC CÂU HỎI NGỮ PHÁP SẼ ĐƯỢC RENDER TỰ ĐỘNG -->
-      <div style="text-align: center; padding: 25px; font-weight: 800; color: #64748B;">⏳ Đang tải ngân hàng câu hỏi ngữ pháp...</div>
+      <!-- CÁC CÂU HỎI NGỮ PHÁP & TỪ VỰNG SẼ ĐƯỢC RENDER TỰ ĐỘNG BỞI DIAG-ENGINE.JS -->
+      <div style="text-align: center; padding: 30px; font-weight: 800; color: #64748B;">
+        ⏳ Đang chuẩn bị ngân hàng câu hỏi...
+      </div>
     </div>
 
-    <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
+    <div style="display: flex; justify-content: flex-end; margin-top: 24px;">
       <button type="button" onclick="window.switchSkillSection('listening')" class="btn-3d btn-3d-blue">
         Tiếp tục sang phần Listening &rarr;
       </button>
@@ -204,30 +205,30 @@
         <i class="fa-solid fa-headphones"></i> PHẦN 2: KIỂM TRA PHẢN XẠ ÂM THANH (LISTENING)
       </h3>
       <p style="margin: 4px 0 0 0; font-size: 13px; font-weight: 700; color: #64748B;">
-        Nghe audio và điền trực tiếp thông tin vào các chỗ trống. Mỗi audio phát liên tục.
+        Nghe audio và chọn đáp án trắc nghiệm hoặc điền thông tin vào chỗ trống.
       </p>
     </div>
 
-    <!-- KHUNG AUDIO PLAYER TỰ ĐỘNG CHUẨN HOÁ TỪ ARCHIVE.ORG -->
+    <!-- KHUNG AUDIO PLAYER TỰ ĐỘNG CHUẨN HOÁ -->
     <div class="audio-player-card">
-      <div style="display: flex; align-items: center; gap: 10px;">
-        <div style="width: 40px; height: 40px; border-radius: 12px; background: #0284C7; color: white; display: flex; align-items: center; justify-content: center; font-size: 18px;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="width: 44px; height: 44px; border-radius: 14px; background: #0284C7; color: white; display: flex; align-items: center; justify-content: center; font-size: 20px;">
           <i class="fa-solid fa-volume-high"></i>
         </div>
         <div>
-          <b style="font-size: 14px; color: #0C4A6E;" id="currentAudioLabel">Audio 1: Hotel Reservation (A2)</b>
-          <div style="font-size: 12px; color: #0284C7; font-weight: 700;">Băng nghe chuẩn khảo thí quốc tế</div>
+          <b style="font-size: 14.5px; color: #0C4A6E;" id="currentAudioLabel">Audio Bài Nghe</b>
+          <div style="font-size: 12px; color: #0284C7; font-weight: 700;">Băng nghe chuẩn khảo thí IELTS</div>
         </div>
       </div>
 
-      <audio id="diagAudioPlayer" controls style="height: 38px; outline: none;"></audio>
+      <audio id="diagAudioPlayer" controls style="height: 40px; outline: none;"></audio>
     </div>
 
     <div id="listeningQuestionsMount">
-      <!-- CÂU HỎI LISTENING RENDER TẠI ĐÂY -->
+      <!-- CÂU HỎI LISTENING RENDER TỰ ĐỘNG TẠI ĐÂY -->
     </div>
 
-    <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+    <div style="display: flex; justify-content: space-between; margin-top: 24px;">
       <button type="button" onclick="window.switchSkillSection('grammar')" class="btn-3d btn-3d-white">
         &larr; Quay lại Ngữ pháp
       </button>
@@ -238,16 +239,16 @@
   </div>
 
   <!-- =========================================================================
-       PHẦN 3: READING TWO-TIER (CHỐNG ĐOÁN MÒ - TẦNG 1 + TẦNG 2 CĂN CỨ)
+       PHẦN 3: READING (TWO-TIER HOẶC CHUẨN CAMBRIDGE 21)
        ========================================================================= -->
   <div id="section_reading" class="exam-section-card" style="display: none;">
     <div style="border-bottom: 2px solid #F4EFEB; padding-bottom: 12px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
       <div>
         <h3 style="margin: 0; color: var(--tram-red); font-size: 18px; font-weight: 900;">
-          <i class="fa-solid fa-book-open"></i> PHẦN 3: READING TWO-TIER (2 TẦNG NHẬN THỨC)
+          <i class="fa-solid fa-book-open"></i> PHẦN 3: READING CHẨN ĐOÁN (NẠP ĐỘNG TỪ FILE JSON)
         </h3>
         <p style="margin: 4px 0 0 0; font-size: 13px; font-weight: 700; color: #64748B;">
-          Chọn đáp án ở Tầng 1, hệ thống sẽ mở Tầng 2 để em chọn câu trích dẫn chứng minh trong bài.
+          Đọc kỹ đoạn trích dẫn và trả lời. Ở dạng Two-Tier, bắt buộc chọn đúng cả 2 tầng mới tính điểm.
         </p>
       </div>
       <span style="font-size: 12px; font-weight: 900; background: #FEE2E2; color: #991B1B; padding: 4px 10px; border-radius: 10px; border: 1px solid #FCA5A5;">
@@ -255,11 +256,14 @@
       </span>
     </div>
 
+    <!-- MOUNT CONTAINER CHO READING ĐƯỢC ĐIỀU KHIỂN BỞI DIAG-READING.JS -->
     <div id="readingQuestionsMount">
-      <!-- 12 CÂU READING TWO-TIER (SET 1, 2, 3 XOAY TUA) -->
+      <div style="text-align: center; padding: 30px; font-weight: 800; color: #64748B;">
+        ⏳ Đang nạp dữ liệu bài đọc...
+      </div>
     </div>
 
-    <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+    <div style="display: flex; justify-content: space-between; margin-top: 24px;">
       <button type="button" onclick="window.switchSkillSection('listening')" class="btn-3d btn-3d-white">
         &larr; Quay lại Listening
       </button>
@@ -278,7 +282,7 @@
         <i class="fa-solid fa-pen-nib"></i> PHẦN 4: KHẢO SÁT NĂNG LỰC VIẾT (WRITING)
       </h3>
       <p style="margin: 4px 0 0 0; font-size: 13px; font-weight: 700; color: #64748B;">
-        Gồm 2 chặng: 2 phút lập dàn ý/brainstorm tiếng Việt + 3-8 phút viết dịch tiếng Anh.
+        Thực hiện viết dịch câu tổng quan và triển khai luận điểm. Toàn bộ chữ em viết sẽ được lưu và AI chấm chi tiết.
       </p>
     </div>
 
@@ -287,7 +291,7 @@
       <div style="font-size: 15px; font-weight: 900; color: #1E40AF; margin-bottom: 8px;">
         📊 TASK 1: Dịch Câu Tổng Quan (Overview)
       </div>
-      <div style="font-size: 13.5px; color: #475569; font-weight: 700; background: #FFFFFF; border: 1.5px solid #CBD5E1; padding: 12px; border-radius: 10px; margin-bottom: 12px;" id="wt1PromptBox">
+      <div style="font-size: 13.5px; color: #475569; font-weight: 700; background: #FFFFFF; border: 1.5px solid #CBD5E1; padding: 12px 14px; border-radius: 12px; margin-bottom: 12px;" id="wt1PromptBox">
         <b>Đề bài:</b> "The graph below shows the average house prices in 3 countries between 1997–2014."<br>
         <i>Gợi ý tiếng Việt:</i> "Nhìn chung, giá nhà ở cả 3 nước đều tăng qua các năm, trong đó giá nhà ở Country A luôn ở mức cao nhất và Country C ở mức thấp nhất."
       </div>
@@ -302,7 +306,7 @@
       <div style="font-size: 15px; font-weight: 900; color: #7C3AED; margin-bottom: 8px;">
         📝 TASK 2: Triển Khai Luận Điểm PEEL (Topic & Explanation)
       </div>
-      <div style="font-size: 13.5px; color: #475569; font-weight: 700; background: #FFFFFF; border: 1.5px solid #CBD5E1; padding: 12px; border-radius: 10px; margin-bottom: 12px;" id="wt2PromptBox">
+      <div style="font-size: 13.5px; color: #475569; font-weight: 700; background: #FFFFFF; border: 1.5px solid #CBD5E1; padding: 12px 14px; border-radius: 12px; margin-bottom: 12px;" id="wt2PromptBox">
         <b>Đề bài:</b> University students focus only on job subjects vs. study a wide range of subjects.<br>
         <i>Gợi ý viết Đoạn 1:</i><br>
         - Câu 1 (Topic): Học môn chuyên ngành giúp sinh viên có kiến thức sâu để chuẩn bị cho công việc.<br>
@@ -314,7 +318,7 @@
       <div style="text-align: right; font-size: 12px; font-weight: 800; color: #64748B; margin-top: 4px;" id="wt2WordCount">0 từ</div>
     </div>
 
-    <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+    <div style="display: flex; justify-content: space-between; margin-top: 24px;">
       <button type="button" onclick="window.switchSkillSection('reading')" class="btn-3d btn-3d-white">
         &larr; Quay lại Reading
       </button>
@@ -333,13 +337,13 @@
         <i class="fa-solid fa-microphone"></i> PHẦN 5: PHẢN XẠ NÓI TIẾNG ANH (SPEAKING)
       </h3>
       <p style="margin: 4px 0 0 0; font-size: 13px; font-weight: 700; color: #64748B;">
-        Bấm micro và trả lời trực tiếp bằng tiếng Anh. Mỗi câu trả lời trong khoảng 30-45 giây.
+        Bấm micro và trả lời trực tiếp bằng tiếng Anh. Transcript câu trả lời sẽ được lưu và chấm điểm AI.
       </p>
     </div>
 
     <div class="q-item-box">
-      <div style="font-size: 14.5px; font-weight: 900; color: #92400E; margin-bottom: 10px;">
-        Câu hỏi 1: "Do you work or are you a student? What do you like most about it?"
+      <div style="font-size: 14.5px; font-weight: 900; color: #92400E; margin-bottom: 10px;" id="spkQ1Title">
+        Câu hỏi 1: "Do you work or are you a student? What do you like most about your studies or career?"
       </div>
 
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
@@ -353,7 +357,7 @@
     </div>
 
     <div class="q-item-box" style="margin-top: 18px;">
-      <div style="font-size: 14.5px; font-weight: 900; color: #92400E; margin-bottom: 10px;">
+      <div style="font-size: 14.5px; font-weight: 900; color: #92400E; margin-bottom: 10px;" id="spkQ2Title">
         Câu hỏi 2: "How often do you use English in your daily life or studies?"
       </div>
 
@@ -368,12 +372,12 @@
     </div>
 
     <!-- NÚT NỘP BÀI TỔNG THỂ -->
-    <div style="margin-top: 26px; border-top: 2px dashed #E8E2D8; padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+    <div style="margin-top: 28px; border-top: 2px dashed #E8E2D8; padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
       <button type="button" onclick="window.switchSkillSection('writing')" class="btn-3d btn-3d-white">
         &larr; Quay lại Writing
       </button>
 
-      <button type="button" id="btnSubmitFullDiagnostic" onclick="window.submitDiagnosticExam()" class="btn-3d btn-3d-red" style="padding: 14px 28px; font-size: 15px;">
+      <button type="button" id="btnSubmitFullDiagnostic" onclick="window.submitDiagnosticExam()" class="btn-3d btn-3d-red" style="padding: 14px 28px; font-size: 15px; box-shadow: 0 4px 14px rgba(139, 21, 24, 0.35);">
         🏁 HOÀN THÀNH & NỘP BÀI CHẨN ĐOÁN
       </button>
     </div>
@@ -381,7 +385,7 @@
 
 </div>
 
-<!-- SCRIPT ĐỘNG CƠ CHẨN ĐOÁN VÀ ĐO ĐỘ TRỄ PHẢN XẠ -->
+<!-- MODULE ĐIỀU KHIỂN CHÍNH -->
 <script type="module" src="js-diag/diag-engine.js"></script>
 </body>
 </html>
