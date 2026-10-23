@@ -610,10 +610,29 @@
 
   const currentStudentId = getOrCreateStudentId();
 
-  function isStudentUnlocked() {
+function isStudentUnlocked() {
     const user = stateManager.getUser();
     if (checkIsAdmin(user.email)) return true;
     return localStorage.getItem('tram_access_status') === 'active';
+  }
+
+  // Tự động kiểm tra trên Cloud xem Thầy đã duyệt mã này từ xa chưa
+  async function checkCloudUnlockStatus() {
+    if (localStorage.getItem('tram_access_status') === 'active') return;
+    if (!CONFIG.DRIVE_STORAGE_URL) return;
+
+    try {
+      const res = await fetch(CONFIG.DRIVE_STORAGE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ action: "check_student_access", studentId: currentStudentId })
+      });
+      const data = await res.json();
+      if (data && data.isUnlocked) {
+        localStorage.setItem('tram_access_status', 'active');
+        location.reload();
+      }
+    } catch(e) {}
   }
 
   window.openZaloModal = (featureTitle = 'Bài học & AI Chấm') => {
@@ -636,7 +655,6 @@
     });
   };
 
-  // Khởi động Floating Admin Toolbar nếu có ?admin=...
   function initFloatingAdminToolbar() {
     const params = new URLSearchParams(window.location.search);
     if (params.has('admin')) {
@@ -649,15 +667,32 @@
     }
   }
 
-  window.adminSetStatus = (status) => {
-    const code = document.getElementById('adminInputStudentCode')?.value.trim() || currentStudentId;
+  // Admin bấm duyệt từ xa -> bắn lệnh lên Google Drive
+  window.adminSetStatus = async (status) => {
+    const code = (document.getElementById('adminInputStudentCode')?.value || currentStudentId).toUpperCase().trim();
+    if (!code) {
+      alert("⚠️ Vui lòng nhập mã học viên cần thao tác!");
+      return;
+    }
+
+    // 1. Cập nhật trên máy hiện tại nếu trùng mã
     if (code === currentStudentId) {
       localStorage.setItem('tram_access_status', status);
-      alert(`Đã cập nhật mã [${code}] sang trạng thái: ${status.toUpperCase()}!`);
-      location.reload();
-    } else {
-      alert(`Đã lưu thay đổi cho mã [${code}] sang: ${status.toUpperCase()}`);
     }
+
+    // 2. Gửi lệnh duyệt từ xa lên Google Drive
+    if (CONFIG.DRIVE_STORAGE_URL) {
+      try {
+        await fetch(CONFIG.DRIVE_STORAGE_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ action: "admin_set_student_status", studentId: code, status: status })
+        });
+      } catch(e) {}
+    }
+
+    alert(`🎉 Thành công! Đã ${status === 'active' ? 'MỞ KHÓA' : 'KHÓA'} mã [${code}] từ xa lên Cloud!`);
+    location.reload();
   };
 
   // 2. ĐIỀU HƯỚNG NÚT "XEM LẠI" (HỖ TRỢ TOÀN BỘ PHÂN HỆ VÀ DIAGNOSTIC)
@@ -738,6 +773,7 @@
 
       loadModuleSettings();
       syncAndRenderHistory(user.email);
+      checkCloudUnlockStatus();
       curriculumUI.render('roadmapSectionMount');
       initFloatingAdminToolbar();
       bindModuleGateInterceptors();
