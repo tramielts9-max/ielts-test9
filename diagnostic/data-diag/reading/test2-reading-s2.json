@@ -1,0 +1,239 @@
+{
+  "testId": "test_02",
+  "version": 2,
+  "setName": "Set 2 (Phiên bản 2 - Mapungubwe)",
+  "title": "TEST 2.2 - 25P - READING PASSAGE 2 (16 CÂU CHUẨN CAMBRIDGE 21)",
+  "formatType": "CAM_STANDARD",
+  "passageTitle": "Mapungubwe: A Forgotten African Kingdom",
+  "passageText": "Located in southern Africa just below the Limpopo River, the kingdom of Mapungubwe flourished between the 11th and 13th century CE.\n\nParagraph A\nMapungubwe, which was one of the first states in southern Africa, was formed by Bantu-speaking peoples who were farmers. The area controlled by the rulers of Mapungubwe had at its heart a large sandstone plateau, which was easily defended due to its inaccessibility. As with other kingdoms in the region of southern Africa, cattle herding and other types of farming brought plenty of food and a surplus that could be traded for needed goods. Archaeology has revealed extensive layers of bones and manure, which indicate that from the 9th century CE there were large cattle herds, the traditional source of political power in southern African communities. The archaeological record for the 10th century shows a marked increase in the number of domesticated cattle in the area as well as cotton cultivation and weaving, as indicated by abundant finds of spindle whorls.\n\nParagraph B\nThe total population of Mapungubwe at its peak in the mid-13th century was around 5,000 people. The chief or king of Mapungubwe was likely the wealthiest individual in the society, and would have owned more cattle and precious materials than anyone else. The king and his advisers dwelt in a stone enclosure composed of stone walls and housing built on the highest level of the community's territory, a natural sandstone hill which is some 30 metres high and 100 metres in length. Occupation on the hill dates from the 11th century and the entire complex was surrounded by a wooden palisade, as indicated by postholes made in the rock. The rest of the community lived in mud and thatch housing spread out below the hill, although there is one stone structure here. This settlement, known as Babandyanalo, covers around 5 hectares (12.3 acres) and predates the hilltop structures.\n\nParagraph C\nThe kings of Mapungubwe were buried at the top of the hill site in a demarcated area away from the dwellings, while other members of the community were buried at the surrounding valley level. A wooden staircase connected the two levels, the sockets for the steps being clearly visible in the sandstone cliff face. There were some grander residences dotted around the outskirts of Babandyanalo, and these probably belonged to male relatives of the king. There are many other smaller but still impressive sites across the Mapungubwe plateau, which are located anywhere from 15 to 100 kilometres from the major hill site. Containing stone residences and walls, they likely belonged to local chiefs who acted as servants to the king.\n\nParagraph D\nThe Mapungubwe plateau has a very high number of carnivore animal remains and ivory splinters, suggesting that the skins of these large animals and ivory elephant tusks were accumulated, probably for trade with coastal areas reached by the Limpopo River. The presence of glass beads, almost certainly from India, indicate there was trade of some sort with other states on the coast who, in turn, traded with merchants travelling from India by sea. Mapungubwe also benefitted from locally-sourced copper and the gold trade as it passed from the kingdom of Great Zimbabwe (12-15th century), situated to the north of Mapungubwe, to the coastal city of Kosala. It is likely that trade links led to a strengthening of political authority in order to control and even monopolise these lucrative interregional connections.\n\nParagraph E\nArchaeological discoveries reveal that pottery was produced on a scale large enough to suggest the presence of professional potters, and is another indicator of the prosperity of Mapungubwe society. Archaeological finds include spherical vessels with short necks, beakers, and bowls, many of which have decorative stamps. There are also ceramic discs, and whistles. In addition, cattle, sheep, and goat figurines, and small figures of highly stylised humans with elongated bodies and short limbs have been found. The figures may have been used in ceremonies as offerings to ancestors, but their precise function is not known. Other discoveries include small jewellery items made from locally sourced copper.\n\nParagraph F\nBeautifully decorated artefacts made of gold have also been found at Mapungubwe. A type of decoration, found nowhere else except Great Zimbabwe, involved the crafting of gold into small rectangular sheets and carving geometrical patterns into it. These sheets were then used to cover wooden objects (which have not survived) using small tacks, also made of gold. One such object that has been discovered may have been a sceptre, while additional evidence of local gold-working is a rhinoceros figurine made from small hammered sheets, and thousands of small gold beads. These objects were all found at the royal burial site and date to c. 1150. They are the first known indicators that gold had an intrinsic value of its own (as opposed to that of a currency) in southern Africa.\n\nParagraph G\nThe kingdom of Mapungubwe was already in decline by the late 13th century, probably because overpopulation placed too much stress on local resources, a situation that may have been brought to a crisis point by a series of droughts. Trade routes may also have shifted northwards. Certainly, the areas that now prospered were to the north, such as Great Zimbabwe.",
+  "questions": [
+    {
+      "id": "Q01",
+      "type": "Matching Information",
+      "group": "Mid-tier",
+      "questionText": "Which paragraph contains a mention of the uncertainty regarding the purpose of certain objects?",
+      "options": [
+        "A. Paragraph A",
+        "B. Paragraph B",
+        "C. Paragraph C",
+        "D. Paragraph D",
+        "E. Paragraph E",
+        "F. Paragraph F",
+        "G. Paragraph G"
+      ],
+      "correctAnswer": "E",
+      "evidence": "The figures may have been used in ceremonies as offerings to ancestors, but their precise function is not known.",
+      "rubric": "Phải chỉ ra được cụm từ 'precise function is not known' ở đoạn E khớp hoàn toàn với 'uncertainty regarding the purpose'."
+    },
+    {
+      "id": "Q02",
+      "type": "Matching Information",
+      "group": "Mid-tier",
+      "questionText": "Which paragraph mentions the likelihood that a climatic factor increased the problems Mapungubwe faced?",
+      "options": [
+        "A. Paragraph A",
+        "B. Paragraph B",
+        "C. Paragraph C",
+        "D. Paragraph D",
+        "E. Paragraph E",
+        "F. Paragraph F",
+        "G. Paragraph G"
+      ],
+      "correctAnswer": "G",
+      "evidence": "...a situation that may have been brought to a crisis point by a series of droughts.",
+      "rubric": "Phải đối chiếu được 'climatic factor' chính là các đợt hạn hán 'droughts' làm trầm trọng khủng hoảng ở đoạn G."
+    },
+    {
+      "id": "Q03",
+      "type": "Matching Information",
+      "group": "Mid-tier",
+      "questionText": "Which paragraph contains a mention of the location where members of the king's family are thought to have lived?",
+      "options": [
+        "A. Paragraph A",
+        "B. Paragraph B",
+        "C. Paragraph C",
+        "D. Paragraph D",
+        "E. Paragraph E",
+        "F. Paragraph F",
+        "G. Paragraph G"
+      ],
+      "correctAnswer": "C",
+      "evidence": "There were some grander residences dotted around the outskirts of Babandyanalo, and these probably belonged to male relatives of the king.",
+      "rubric": "Phải nhận diện được 'grander residences' (dinh thự) thuộc về 'male relatives of the king' (họ hàng nam giới của vua) ở đoạn C."
+    },
+    {
+      "id": "Q04",
+      "type": "Matching Information",
+      "group": "Mid-tier",
+      "questionText": "Which paragraph contains a reference to people who brought goods by ship?",
+      "options": [
+        "A. Paragraph A",
+        "B. Paragraph B",
+        "C. Paragraph C",
+        "D. Paragraph D",
+        "E. Paragraph E",
+        "F. Paragraph F",
+        "G. Paragraph G"
+      ],
+      "correctAnswer": "D",
+      "evidence": "...traded with merchants travelling from India by sea.",
+      "rubric": "Quy đổi 'merchants travelling from India by sea' (thương gia đi đường biển) tương đương với 'people who brought goods by ship' ở đoạn D."
+    },
+    {
+      "id": "Q05",
+      "type": "True / False / Not Given",
+      "group": "Mid-tier",
+      "questionText": "The settlement of Babandyanalo was established after the structures on the hilltop were built.",
+      "options": [
+        "A. TRUE",
+        "B. FALSE",
+        "C. NOT GIVEN"
+      ],
+      "correctAnswer": "B",
+      "evidence": "This settlement, known as Babandyanalo, covers around 5 hectares (12.3 acres) and predates the hilltop structures.",
+      "rubric": "Từ 'predates' nghĩa là xuất hiện trước, mâu thuẫn trực tiếp với nhận định 'was established after' (được xây sau). Chọn FALSE."
+    },
+    {
+      "id": "Q06",
+      "type": "True / False / Not Given",
+      "group": "Mid-tier",
+      "questionText": "Mapungubwe's local chiefs living on smaller plateau sites acted as independent rulers with no loyalty to the king.",
+      "options": [
+        "A. TRUE",
+        "B. FALSE",
+        "C. NOT GIVEN"
+      ],
+      "correctAnswer": "B",
+      "evidence": "Containing stone residences and walls, they likely belonged to local chiefs who acted as servants to the king.",
+      "rubric": "Bài đọc chỉ rõ các tù trưởng địa phương đóng vai trò như bề tôi phục tùng vua ('acted as servants to the king'), trái ngược với 'independent rulers'. Chọn FALSE."
+    },
+    {
+      "id": "Q07",
+      "type": "True / False / Not Given",
+      "group": "Mid-tier",
+      "questionText": "Glass beads discovered at Mapungubwe were manufactured by local craftsmen using imported sand.",
+      "options": [
+        "A. TRUE",
+        "B. FALSE",
+        "C. NOT GIVEN"
+      ],
+      "correctAnswer": "C",
+      "evidence": "The presence of glass beads, almost certainly from India, indicate there was trade of some sort with other states on the coast...",
+      "rubric": "Bài đọc chỉ nêu hạt thủy tinh có nguồn gốc nhập khẩu từ Ấn Độ qua thương mại đường biển, hoàn toàn không nhắc tới việc thợ địa phương tự nung đúc từ cát. Chọn NOT GIVEN."
+    },
+    {
+      "id": "Q08",
+      "type": "True / False / Not Given",
+      "group": "Mid-tier",
+      "questionText": "Archaeological finds indicate that cotton weaving was practiced in Mapungubwe as early as the 10th century.",
+      "options": [
+        "A. TRUE",
+        "B. FALSE",
+        "C. NOT GIVEN"
+      ],
+      "correctAnswer": "A",
+      "evidence": "The archaeological record for the 10th century shows a marked increase in the number of domesticated cattle in the area as well as cotton cultivation and weaving, as indicated by abundant finds of spindle whorls.",
+      "rubric": "Bài đọc khẳng định hồ sơ khảo cổ thế kỷ thứ 10 ghi nhận rõ việc trồng bông và dệt vải ('cotton cultivation and weaving'). Khớp 100% -> Chọn TRUE."
+    },
+    {
+      "id": "Q09",
+      "type": "Summary Completion",
+      "group": "Mid-tier",
+      "questionText": "Complete the summary: The Mapungubwe community's _______________ is indicated by the amount of professionally made pottery discovered at the site.",
+      "options": null,
+      "correctAnswer": "prosperity",
+      "evidence": "...pottery was produced on a scale large enough to suggest the presence of professional potters, and is another indicator of the prosperity of Mapungubwe society.",
+      "rubric": "Điền đúng danh từ 'prosperity'. Phải trích dẫn được cụm 'another indicator of the prosperity of Mapungubwe society' ở đầu đoạn E."
+    },
+    {
+      "id": "Q10",
+      "type": "Summary Completion",
+      "group": "Mid-tier",
+      "questionText": "Complete the summary: In addition to beakers and bowls, archaeologists discovered round ceramic objects, _______________ and animal figurines.",
+      "options": null,
+      "correctAnswer": "whistles",
+      "evidence": "There are also ceramic discs, and whistles.",
+      "rubric": "Điền đúng danh từ số nhiều 'whistles' (giữ nguyên đuôi -s). Nêu được câu chứa 'ceramic discs, and whistles' ở đoạn E."
+    },
+    {
+      "id": "Q11",
+      "type": "Summary Completion",
+      "group": "Mid-tier",
+      "questionText": "Complete the summary: Human figurines uncovered by researchers were sculpted with elongated _______________ and short limbs.",
+      "options": null,
+      "correctAnswer": "bodies",
+      "evidence": "...and small figures of highly stylised humans with elongated bodies and short limbs have been found.",
+      "rubric": "Điền đúng danh từ 'bodies'. Đối chiếu cụm 'elongated bodies' tương đương với thân hình thon dài ở đoạn E."
+    },
+    {
+      "id": "Q12",
+      "type": "Summary Completion",
+      "group": "Mid-tier",
+      "questionText": "Complete the summary: Small items of _______________ made from locally sourced copper were also unearthed at the settlement.",
+      "options": null,
+      "correctAnswer": "jewellery",
+      "evidence": "Other discoveries include small jewellery items made from locally sourced copper.",
+      "rubric": "Điền đúng từ 'jewellery' (hoặc 'jewelry'). Trích dẫn được câu cuối đoạn E: 'small jewellery items made from locally sourced copper'."
+    },
+    {
+      "id": "Q13",
+      "type": "Multiple Choice",
+      "group": "Mid-tier",
+      "questionText": "What does the passage reveal about the gold artefacts found at Mapungubwe?",
+      "options": [
+        "A. Gold was widely used as a standard everyday currency for trading.",
+        "B. Items of gold were placed close to where Mapungubwe kings were buried.",
+        "C. The most valuable item ever discovered at the site was a gold sceptre.",
+        "D. Working with gold was exclusively reserved for foreign prisoners."
+      ],
+      "correctAnswer": "B",
+      "evidence": "These objects were all found at the royal burial site and date to c. 1150.",
+      "rubric": "Liên kết 'royal burial site' ở đoạn F với việc các vị vua được chôn cất ở đỉnh đồi (đoạn C) để chứng minh vàng được chôn gần nơi an táng của vua. Chọn B."
+    },
+    {
+      "id": "Q14",
+      "type": "Multiple Choice",
+      "group": "Mid-tier",
+      "questionText": "The geometric decoration carved into gold sheets at Mapungubwe was unique because",
+      "options": [
+        "A. it was only ever created to cover large stone palaces.",
+        "B. it was inspired directly by religious Buddhist scriptures.",
+        "C. it was also practised nowhere else except in Great Zimbabwe.",
+        "D. it was invented by European explorers visiting the coast."
+      ],
+      "correctAnswer": "C",
+      "evidence": "A type of decoration, found nowhere else except Great Zimbabwe, involved the crafting of gold into small rectangular sheets and carving geometrical patterns into it.",
+      "rubric": "Chỉ ra được câu 'found nowhere else except Great Zimbabwe' ở đoạn F chứng minh phong cách này chỉ có ở Mapungubwe và Great Zimbabwe. Chọn C."
+    },
+    {
+      "id": "Q15",
+      "type": "Multiple Choice",
+      "group": "Mid-tier",
+      "questionText": "What was the primary traditional source of political power in southern African communities like Mapungubwe?",
+      "options": [
+        "A. The possession of extensive herds of cattle.",
+        "B. The exclusive ownership of deep-sea trading vessels.",
+        "C. The manufacture of iron weaponry for warfare.",
+        "D. The monopoly over royal cotton spinning mills."
+      ],
+      "correctAnswer": "A",
+      "evidence": "Archaeology has revealed extensive layers of bones and manure, which indicate that from the 9th century CE there were large cattle herds, the traditional source of political power in southern African communities.",
+      "rubric": "Đối chiếu chính xác cụm 'large cattle herds, the traditional source of political power' ở đoạn A. Chọn A."
+    },
+    {
+      "id": "Q16",
+      "type": "Multiple Choice",
+      "group": "Mid-tier",
+      "questionText": "Which factor is cited by the author as a major contributor to the decline of Mapungubwe in the late 13th century?",
+      "options": [
+        "A. A devastating invasion by neighbouring maritime empires.",
+        "B. A catastrophic outbreak of infectious disease among cattle.",
+        "C. Overpopulation putting pressure on resources, worsened by severe droughts.",
+        "D. The total collapse of gold mines throughout the African continent."
+      ],
+      "correctAnswer": "C",
+      "evidence": "The kingdom of Mapungubwe was already in decline by the late 13th century, probably because overpopulation placed too much stress on local resources, a situation that may have been brought to a crisis point by a series of droughts.",
+      "rubric": "Liên kết hai yếu tố 'overpopulation placed too much stress on local resources' và 'brought to a crisis point by a series of droughts' ở đoạn G. Chọn C."
+    }
+  ]
+}
