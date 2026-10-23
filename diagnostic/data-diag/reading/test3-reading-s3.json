@@ -1,0 +1,271 @@
+{
+  "testId": "test_03",
+  "version": 3,
+  "setName": "Set 3 (Phiên bản 3)",
+  "title": "TEST 3.3 - 30P - PHIÊN BẢN 3: RETHINKING THE PAST (16 CÂU CAM 21)",
+  "formatType": "CAM_STANDARD",
+  "passageTitle": "Rethinking the Past",
+  "passageText": "Paragraph 1\nIt is by now a truism that the story of human evolution is being rethought. Discoveries have come thick and fast over the last decade or so, and these have forced us to rethink many crucial points, such as how old our species is - about 300,000 years old as opposed to 200,000 - and what extinct hominins, such as our cousins the Neanderthals, were really like. But because there are so many species and eras involved, it's hard to discern the common threads linking them.\n\nParagraph 2\nHowever, I do think it's possible to draw out some overall messages from the blizzard of archaeological finds in recent years. Two things stand out to me. One is the growing evidence that many supposedly 'advanced' behaviours, such as architecture and art, can be traced much further back in time than we thought, often to hominin species that existed before modern humans. And the other is that we have badly misunderstood gender roles in prehistoric societies, imposing patriarchal values onto cultures that had very different ideas about how women should behave.\n\nParagraph 3\nLet's start with architecture. At Kalambo Falls in Zambia, researchers found buried logs that had been shaped with stone tools so that they interlocked. They seem to have once been part of a larger structure, perhaps a building. This would be unsurprising if they weren't 476,000 years old. That's almost 200,000 years before our species, Homo sapiens, evolved. Extinct hominins also managed to settle in extreme places. For instance, we now know that extinct hominins such as the Denisovans lived on the frozen heights of high-altitude regions 200,000 years ago - upending the old notion that such environments were only settled by modern humans around 3,600 years ago.\n\nParagraph 4\nArt also seems to have been invented by older hominins. We have had evidence for a long time now that Neanderthals painted on cave walls. Even earlier species, such as Homo erectus, may also have made art, for example by engraving patterns on shells. By far the most contentious claim in this area is that Homo naledi made art. H. naledi lived around 250,000 years ago, making it a contemporary of our species. However, it had quite a small brain, typical of older hominins - and was therefore, according to palaeoanthropological dogma, incapable of complex behaviours. Nevertheless, in the Rising Star cave system in South Africa where the H. naledi remains were found, researchers have found what seem to be etchings - resembling rudimentary artwork - on the cave walls, though these have yet to be firmly dated.\n\nParagraph 5\nTo say these claims about H. naledi are controversial is to understate the situation. Many experts say the evidence presented so far is completely inadequate to support them. The dispute has only been heightened by the way the results were released, in a non-traditional journal that publishes peer reviews publicly alongside the paper. My views on the H. naledi controversy are complicated. I do think more evidence is needed: in particular with regard to the dating of the etchings. At the same time, I think the species' small brains are a distraction. Palaeoanthropologists got fixated on brain size because it was what they could see: if what you have is skeletons, then all you know about brains are their shapes and sizes. But other properties, such as the brain's internal wiring, are surely equally important and may explain how a species like H. naledi might have been capable of complex behaviours, despite their small brains.\n\nParagraph 6\nIn a sense, we shouldn't be surprised that so many of these behaviours had their origins in older, extinct hominins. Evolution usually works by incremental steps and so does technology. The first birds weren't great at flying, and the first mobile phones weren't great at, well, anything really. The idea that there was a sudden explosion of intelligence and creativity at some point in our evolution isn't inherently ridiculous: sometimes a system hits a tipping point and undergoes runaway change. But there was never that much evidence that human evolution worked this way. Instead, it seems the Neanderthals and many others all walked so we could run.\n\nParagraph 7\nOne way or another, the H. naledi story is going to be an example of letting our preconceptions get in the way of the evidence. The same is true for our ideas about gender in prehistory. Archaeology was invented by individuals with now unfashionably patriarchal views about gender, and those notions fed into their research. Today's researchers are trying to unpick this stuff, and there have been some significant steps in recent years.\n\nParagraph 8\nPerhaps the most dramatic was the demolition of 'Man the Hunter'. This was the idea, promoted for decades, that in most prehistoric societies the men went out to hunt and the women looked after the home. However, a meta-analysis published in June 2023 compiled data on several dozen foraging societies and found women hunted in 80 per cent of them. In line with this, it emerged that an ancient spear-throwing tool called an atlatl enables women to launch projectiles at the same speed as men. We have also seen growing evidence of women occupying positions of authority in ancient societies. The Viking queen Thyra may have helped unify Denmark in the 900s. Going further back, an Iberian leader from around 4000 years ago turned out to be female, not male as many had assumed, when proteins in her teeth were analysed.\n\nParagraph 9\nIt seems that the more we find out about past societies, the more our preconceptions about the ways society 'has to be' turn out to be wrong. Inequality, authoritarianism and patriarchy aren't inevitable. They're choices, and prehistory shows us that we can choose differently.",
+  "questions": [
+    {
+      "id": "Q01",
+      "questionNum": 1,
+      "type": "Multiple Choice",
+      "group": "Trắc nghiệm (MCQ)",
+      "questionText": "What is the writer doing in the second paragraph?",
+      "options": [
+        "A. pinpointing some key changes in our understanding of prehistory",
+        "B. outlining some aspects of prehistory which are still poorly understood",
+        "C. summarising some attitudes towards recent archaeological revelations",
+        "D. giving an overview of some current disagreements among archaeologists"
+      ],
+      "correctAnswer": "A",
+      "evidenceQuote": "Two things stand out to me. One is the growing evidence that many supposedly 'advanced' behaviours... can be traced much further back in time than we thought... And the other is that we have badly misunderstood gender roles in prehistoric societies...",
+      "rubricGuide": "Tác giả chỉ ra 2 sự thay đổi mang tính then chốt trong nhận thức về thời tiền sử ('growing evidence... traced much further back' và 'badly misunderstood gender roles') -> tương đương 'pinpointing some key changes in our understanding of prehistory' (A)."
+    },
+    {
+      "id": "Q02",
+      "questionNum": 2,
+      "type": "Multiple Choice",
+      "group": "Trắc nghiệm (MCQ)",
+      "questionText": "In the sixth paragraph, the writer mentions mobile phones to make the point that",
+      "options": [
+        "A. most developments happen in a gradual way.",
+        "B. innovation can come from a variety of sources.",
+        "C. not all technological advancements are positive.",
+        "D. the path of evolution can often be unpredictable."
+      ],
+      "correctAnswer": "A",
+      "evidenceQuote": "Evolution usually works by incremental steps and so does technology. The first birds weren't great at flying, and the first mobile phones weren't great at, well, anything really.",
+      "rubricGuide": "Tác giả nêu ví dụ về điện thoại di động đời đầu để minh họa cho nguyên lý 'evolution works by incremental steps' (tiến hóa diễn ra theo từng bước nhỏ tiệm tiến = 'developments happen in a gradual way') -> Chọn A."
+    },
+    {
+      "id": "Q03",
+      "questionNum": 3,
+      "type": "Multiple Choice",
+      "group": "Trắc nghiệm (MCQ)",
+      "questionText": "In the seventh paragraph, the phrase 'unpick this stuff' refers to the task of",
+      "options": [
+        "A. assessing the impact of certain recent research findings.",
+        "B. questioning the authenticity of evidence used in earlier research.",
+        "C. conducting research into how prehistoric societies were organised.",
+        "D. reevaluating research influenced by outdated beliefs about society."
+      ],
+      "correctAnswer": "D",
+      "evidenceQuote": "Archaeology was invented by individuals with now unfashionably patriarchal views about gender, and those notions fed into their research. Today's researchers are trying to unpick this stuff...",
+      "rubricGuide": "Cụm 'this stuff' thay thế cho các quan điểm gia trưởng lạc hậu ('patriarchal views'). 'Unpick' nghĩa là tháo gỡ/đánh giá lại -> tương đương 'reevaluating research influenced by outdated beliefs about society' (D)."
+    },
+    {
+      "id": "Q04",
+      "questionNum": 4,
+      "type": "Multiple Choice",
+      "group": "Trắc nghiệm (MCQ)",
+      "questionText": "What does the writer suggest in the final paragraph?",
+      "options": [
+        "A. Studying past societies could help us create a fairer society today.",
+        "B. We should not judge past societies by the standards of modern society.",
+        "C. We still have much to learn about how societies have evolved over history.",
+        "D. There is more than one way to interpret evidence about societies in prehistoric times."
+      ],
+      "correctAnswer": "A",
+      "evidenceQuote": "Inequality, authoritarianism and patriarchy aren't inevitable. They're choices, and prehistory shows us that we can choose differently.",
+      "rubricGuide": "Tác giả kết luận bất bình đẳng hay phụ hệ không phải tất yếu mà là sự lựa chọn, thời tiền sử cho thấy ta có thể chọn khác đi -> tương đương việc nghiên cứu tiền sử giúp tạo nên xã hội công bằng hơn ngày nay ('create a fairer society today') -> Chọn A."
+    },
+    {
+      "id": "Q05",
+      "questionNum": 5,
+      "type": "Matching Sentence Endings",
+      "group": "Nối hoàn thành câu",
+      "questionText": "The findings at Kalambo Falls revealed that [5] _______________.",
+      "options": [
+        "A. Homo sapiens emerged at an earlier point in time than experts previously believed.",
+        "B. previous assumptions about who had power in the prehistoric world were inaccurate.",
+        "C. gender roles in extinct hominin species were different from those in Homo sapiens societies.",
+        "D. experts may have been mistaken about who looked for food in early human communities.",
+        "E. Homo sapiens was probably not the only species capable of sophisticated workmanship.",
+        "F. other species managed to survive in harsh environments before the arrival of Homo sapiens."
+      ],
+      "correctAnswer": "E",
+      "evidenceQuote": "At Kalambo Falls in Zambia, researchers found buried logs that had been shaped with stone tools so that they interlocked... 476,000 years old. That's almost 200,000 years before our species, Homo sapiens, evolved.",
+      "rubricGuide": "Gỗ đẽo gọt lồng vào nhau 476.000 năm trước (trước cả khi Homo sapiens tiến hóa) chứng minh Homo sapiens không phải loài duy nhất biết chế tác tinh xảo ('not the only species capable of sophisticated workmanship') -> Chọn E."
+    },
+    {
+      "id": "Q06",
+      "questionNum": 6,
+      "type": "Matching Sentence Endings",
+      "group": "Nối hoàn thành câu",
+      "questionText": "Evidence from high-altitude regions suggests that [6] _______________.",
+      "options": [
+        "A. Homo sapiens emerged at an earlier point in time than experts previously believed.",
+        "B. previous assumptions about who had power in the prehistoric world were inaccurate.",
+        "C. gender roles in extinct hominin species were different from those in Homo sapiens societies.",
+        "D. experts may have been mistaken about who looked for food in early human communities.",
+        "E. Homo sapiens was probably not the only species capable of sophisticated workmanship.",
+        "F. other species managed to survive in harsh environments before the arrival of Homo sapiens."
+      ],
+      "correctAnswer": "F",
+      "evidenceQuote": "...extinct hominins such as the Denisovans lived on the frozen heights of high-altitude regions 200,000 years ago - upending the old notion that such environments were only settled by modern humans around 3,600 years ago.",
+      "rubricGuide": "Việc người Denisovans sống ở độ cao băng giá 200.000 năm trước chứng minh các loài khác đã sinh tồn ở môi trường khắc nghiệt trước khi Homo sapiens xuất hiện ('other species survived in harsh environments') -> Chọn F."
+    },
+    {
+      "id": "Q07",
+      "questionNum": 7,
+      "type": "Matching Sentence Endings",
+      "group": "Nối hoàn thành câu",
+      "questionText": "An academic publication from June 2023 shows that [7] _______________.",
+      "options": [
+        "A. Homo sapiens emerged at an earlier point in time than experts previously believed.",
+        "B. previous assumptions about who had power in the prehistoric world were inaccurate.",
+        "C. gender roles in extinct hominin species were different from those in Homo sapiens societies.",
+        "D. experts may have been mistaken about who looked for food in early human communities.",
+        "E. Homo sapiens was probably not the only species capable of sophisticated workmanship.",
+        "F. other species managed to survive in harsh environments before the arrival of Homo sapiens."
+      ],
+      "correctAnswer": "D",
+      "evidenceQuote": "However, a meta-analysis published in June 2023 compiled data on several dozen foraging societies and found women hunted in 80 per cent of them.",
+      "rubricGuide": "Nghiên cứu tháng 6/2023 cho thấy phụ nữ đi săn trong 80% xã hội hái lượm, làm sụp đổ quan niệm chuyên gia trước đó về việc ai đi tìm thức ăn ('mistaken about who looked for food') -> Chọn D."
+    },
+    {
+      "id": "Q08",
+      "questionNum": 8,
+      "type": "Matching Sentence Endings",
+      "group": "Nối hoàn thành câu",
+      "questionText": "Analysis of a 4000-year-old Iberian leader indicates that [8] _______________.",
+      "options": [
+        "A. Homo sapiens emerged at an earlier point in time than experts previously believed.",
+        "B. previous assumptions about who had power in the prehistoric world were inaccurate.",
+        "C. gender roles in extinct hominin species were different from those in Homo sapiens societies.",
+        "D. experts may have been mistaken about who looked for food in early human communities.",
+        "E. Homo sapiens was probably not the only species capable of sophisticated workmanship.",
+        "F. other species managed to survive in harsh environments before the arrival of Homo sapiens."
+      ],
+      "correctAnswer": "B",
+      "evidenceQuote": "...an Iberian leader from around 4000 years ago turned out to be female, not male as many had assumed, when proteins in her teeth were analysed.",
+      "rubricGuide": "Thủ lĩnh 4.000 năm tuổi hóa ra là phụ nữ chứ không phải đàn ông, chứng minh các giả định trước đây về người nắm quyền lực là không chính xác ('assumptions about who had power were inaccurate') -> Chọn B."
+    },
+    {
+      "id": "Q09",
+      "questionNum": 9,
+      "type": "Yes / No / Not Given",
+      "group": "Xác thực quan điểm (YNNG)",
+      "questionText": "It seems likely that the Neanderthals' cave paintings were the first examples of artwork ever created.",
+      "options": ["A. YES", "B. NO", "C. NOT GIVEN"],
+      "correctAnswer": "B",
+      "evidenceQuote": "We have had evidence for a long time now that Neanderthals painted on cave walls. Even earlier species, such as Homo erectus, may also have made art...",
+      "rubricGuide": "Đề khẳng định tranh của Neanderthals là tác phẩm đầu tiên từng được tạo ra ('first examples ever created'), bài đọc chỉ rõ có những loài còn sớm hơn (Homo erectus) cũng làm nghệ thuật -> Mâu thuẫn -> NO."
+    },
+    {
+      "id": "Q10",
+      "questionNum": 10,
+      "type": "Yes / No / Not Given",
+      "group": "Xác thực quan điểm (YNNG)",
+      "questionText": "It is very rare to find prehistoric artwork carved onto shells.",
+      "options": ["A. YES", "B. NO", "C. NOT GIVEN"],
+      "correctAnswer": "C",
+      "evidenceQuote": "Even earlier species, such as Homo erectus, may also have made art, for example by engraving patterns on shells.",
+      "rubricGuide": "Bài đọc chỉ lấy ví dụ khắc hình lên vỏ sò để chứng minh nghệ thuật sơ khai, hoàn toàn không đề cập việc tìm thấy chúng là 'rất hiếm' (very rare) hay phổ biến -> NOT GIVEN."
+    },
+    {
+      "id": "Q11",
+      "questionNum": 11,
+      "type": "Yes / No / Not Given",
+      "group": "Xác thực quan điểm (YNNG)",
+      "questionText": "It is unclear how old the etchings in the Rising Star cave system are.",
+      "options": ["A. YES", "B. NO", "C. NOT GIVEN"],
+      "correctAnswer": "A",
+      "evidenceQuote": "...researchers have found what seem to be etchings - resembling rudimentary artwork - on the cave walls, though these have yet to be firmly dated.",
+      "rubricGuide": "Cụm 'yet to be firmly dated' (chưa được xác định niên đại một cách chắc chắn) đồng nghĩa 100% với 'unclear how old' (chưa rõ niên đại/bao nhiêu tuổi) -> YES."
+    },
+    {
+      "id": "Q12",
+      "questionNum": 12,
+      "type": "Yes / No / Not Given",
+      "group": "Xác thực quan điểm (YNNG)",
+      "questionText": "The size of H. naledi brains is a key factor in the question of whether these hominins were able to produce art.",
+      "options": ["A. YES", "B. NO", "C. NOT GIVEN"],
+      "correctAnswer": "B",
+      "evidenceQuote": "At the same time, I think the species' small brains are a distraction... But other properties, such as the brain's internal wiring, are surely equally important...",
+      "rubricGuide": "Đề bảo kích thước não là 'yếu tố then chốt' ('key factor'), tác giả khẳng định bộ não nhỏ chỉ là 'sự xao nhãng không đúng trọng tâm' ('distraction') vì cấu trúc kết nối bên trong mới quan trọng -> Mâu thuẫn trực tiếp -> NO."
+    },
+    {
+      "id": "Q13",
+      "questionNum": 13,
+      "type": "Summary Completion with Box",
+      "group": "Điền từ có khung",
+      "questionText": "According to conventional palaeoanthropology, Homo naledi was considered unable to display complex behaviours due to its [13] _______________.",
+      "options": [
+        "A. small brain",
+        "B. etchings",
+        "C. non-traditional journal",
+        "D. internal wiring",
+        "E. extreme environment",
+        "F. stone tools",
+        "G. modern humans",
+        "H. hunting skills"
+      ],
+      "correctAnswer": "A",
+      "evidenceQuote": "However, it had quite a small brain, typical of older hominins - and was therefore, according to palaeoanthropological dogma, incapable of complex behaviours.",
+      "rubricGuide": "Quy đổi 'palaeoanthropological dogma' = 'conventional palaeoanthropology'; nguyên nhân được cho là do bộ não nhỏ ('small brain'). Chọn A."
+    },
+    {
+      "id": "Q14",
+      "questionNum": 14,
+      "type": "Summary Completion with Box",
+      "group": "Điền từ có khung",
+      "questionText": "However, putative [14] _______________ discovered on the walls of the Rising Star cave system challenged this belief.",
+      "options": [
+        "A. small brain",
+        "B. etchings",
+        "C. non-traditional journal",
+        "D. internal wiring",
+        "E. extreme environment",
+        "F. stone tools",
+        "G. modern humans",
+        "H. hunting skills"
+      ],
+      "correctAnswer": "B",
+      "evidenceQuote": "Nevertheless, in the Rising Star cave system... researchers have found what seem to be etchings - resembling rudimentary artwork - on the cave walls...",
+      "rubricGuide": "Vật thể phát hiện trên vách hang là các vết khắc nét vẽ ('etchings'). Chọn B."
+    },
+    {
+      "id": "Q15",
+      "questionNum": 15,
+      "type": "Summary Completion with Box",
+      "group": "Điền từ có khung",
+      "questionText": "Because the findings were published in a [15] _______________, the debate among specialists grew more intense.",
+      "options": [
+        "A. small brain",
+        "B. etchings",
+        "C. non-traditional journal",
+        "D. internal wiring",
+        "E. extreme environment",
+        "F. stone tools",
+        "G. modern humans",
+        "H. hunting skills"
+      ],
+      "correctAnswer": "C",
+      "evidenceQuote": "The dispute has only been heightened by the way the results were released, in a non-traditional journal that publishes peer reviews publicly...",
+      "rubricGuide": "'dispute has been heightened' = 'debate grew more intense'; nơi công bố kết quả là tạp chí phi truyền thống ('non-traditional journal'). Chọn C."
+    },
+    {
+      "id": "Q16",
+      "questionNum": 16,
+      "type": "Summary Completion with Box",
+      "group": "Điền từ có khung",
+      "questionText": "The author argues that focusing strictly on brain dimensions is a distraction, and that [16] _______________ might better explain cognitive capability.",
+      "options": [
+        "A. small brain",
+        "B. etchings",
+        "C. non-traditional journal",
+        "D. internal wiring",
+        "E. extreme environment",
+        "F. stone tools",
+        "G. modern humans",
+        "H. hunting skills"
+      ],
+      "correctAnswer": "D",
+      "evidenceQuote": "But other properties, such as the brain's internal wiring, are surely equally important and may explain how a species like H. naledi might have been capable of complex behaviours...",
+      "rubricGuide": "Yếu tố thay thế kích thước não để giải thích hành vi phức tạp là cấu trúc liên kết bên trong não ('internal wiring'). Chọn D."
+    }
+  ]
+}
