@@ -1,0 +1,247 @@
+{
+  "testId": "test_03",
+  "version": 1,
+  "setName": "Set 1 (Phiên bản 1)",
+  "title": "TEST 3.1 - 30P - PHIÊN BẢN 1: THE WORLD OF SUGAR (16 CÂU CAM 21)",
+  "formatType": "CAM_STANDARD",
+  "passageTitle": "Book review: The World of Sugar by Ulbe Bosma",
+  "passageText": "Paragraph 1\nUlbe Bosma's The World of Sugar is a genuinely global history. Bosma discusses all the sugar-growing places of the world, beginning with Cuba and Java, the largest exporters of the early 20th century. But this is a history not just of cane sugar but also of beet sugar, an equally important form of traded sugar over the last hundred years. Beet sugar is grown mainly in Europe and the United States. It has also been massively subsidised and sold at artificially low prices on world markets, threatening the livelihood of producers of cane sugar.\n\nParagraph 2\nBosma's discussion of the sugar market in Britain gives a sense of the book's range. The sweet-toothed British first bought cane sugar from their own slavery-dependent colonial plantations. Following the abolition of slavery in the British Empire, cane sugar was imported to Britain from places which retained the practice, such as Cuba and Brazil. Towards the end of the 19th century, the British started to import beet sugar from continental Europe. Only in the 20th century was there a move to develop a national beet sugar industry.\n\nParagraph 3\nThe book provides a global labour history, investigating the wide range of labour regimes associated with growing sugar. Contrary to popular belief, cane sugar production was never just restricted to large, dedicated plantations owned by rich men. For example, in Java, a huge exporter of sugar in the early 20th century, sugar cane was grown together with rice in an extraordinarily labour-intensive way by small farmers.\n\nParagraph 4\nThe World of Sugar is also a story of similarity and continuity in sugar cultivation. For example, imported labour has been used for much large-scale production. German beet fields employed Polish workers; Mexicans and many others, including Sicilians, were vital to US sugar production. Cane cutting, Bosma shows, remains a poorly paid and brutal business to this day in many places in the world. But as well as this, the book is about the continuity of the use of traditional methods on small farms. In the mid 20th-century, this type of sugar production dominated in South Asia and Latin America.\n\nParagraph 5\nThis is also a history of capitalists and sugar dynasties, as well as corporations that in some cases have remained influential over very long periods. Great firms and great interests have had profound influence on the policies of states. In many places - not just the British Caribbean but Cuba and the Philippines too - a powerful sugar bourgeoisie played a major role in politics and their interests were consequently protected by trade barriers and subsidies. In the battle for control of the industry, it was inevitably the poor countries which came off worse. All this is explored by Bosma with wonderful subtlety and control.\n\nParagraph 6\nBut sugar production was never just a matter of agriculture. It also involved the extraction, close to the place of harvest, of sucrose from the sugar plant, a process which required machinery powered by humans, animals, wind or steam. Further processes involved boiling (from the 19th century, this often involved vacuum systems) and the separation of sugar from other materials in a process known as refinement. From very early on, sugar production was an energy-intensive industrial process, mostly taking place in the countryside and in refineries in centres of consumption, both small and large. The growth of the industry entailed a very rapid diffusion of ideas and techniques from one country to another. Cuba, for example, developed an extraordinarily dense system of railways to transport workers and cane, as well as steam-powered sugar factories. Particular varieties of cane sugar and beet sugar spread very rapidly across the world, in accordance with local needs and demands.\n\nParagraph 7\nWhere once only tiny quantities of sugar could be produced, now new techniques, varieties, fertilisers, irrigation systems and much more have turned gleaming white sugar into a ubiquitous chemical. Over the same time, there has been a massive increase in consumption. Once regarded as a luxury, sugar came to be promoted as a valuable source of energy. But as the consumption of sugar has increased, so has the harm it does, whether to people's teeth or weight. In the face of appalling obstruction from the sugar industry to attempts to reduce consumption, some countries have been forced to tax sugar in order to bring that about. The sugar industry has a history of attacking its critics and, when it comes to obesity, of trying to blame fats, and lack of exercise and self-control. And the recent past has seen worrying new developments in mass sweetening. High-fructose corn syrup made from maize using an enzymatic process invented in Japan in the 1960s has a similar number of calories to table sugar but is far cheaper to produce. It is now widely consumed, having been adopted in the making of soft drinks and a large number of processed foods, and is regarded as a leading cause of obesity.\n\nParagraph 8\nThis is a wonderfully rich book, a model of global history, the history of production and the history of capitalism. Bosma avoids outbursts of emotion, celebratory or critical, even if they might have made his analysis of the multiple tragedies involving sugar all the more powerful. He shows that we could always have done without sugar and that today we have many alternative sources of sweetness. Yet many of the poorest people in the world still depend on it to make a living.",
+  "questions": [
+    {
+      "id": "Q01",
+      "questionNum": 1,
+      "type": "Multiple Choice",
+      "group": "Trắc nghiệm (MCQ)",
+      "questionText": "What does the reviewer suggest about the cultivation and trading of sugar in the first paragraph?",
+      "options": [
+        "A. Sugar has played a major role in international relations.",
+        "B. Beet sugar has been made more internationally competitive.",
+        "C. Cane sugar is thought to be of superior quality to beet sugar.",
+        "D. New locations for cultivating sugar have increased production."
+      ],
+      "correctAnswer": "B",
+      "evidenceQuote": "It has also been massively subsidised and sold at artificially low prices on world markets, threatening the livelihood of producers of cane sugar.",
+      "rubricGuide": "Phải giải thích được: việc trợ cấp khổng lồ và bán giá thấp nhân tạo đã làm đường củ cải tăng sức cạnh tranh quốc tế ('more internationally competitive')."
+    },
+    {
+      "id": "Q02",
+      "questionNum": 2,
+      "type": "Multiple Choice",
+      "group": "Trắc nghiệm (MCQ)",
+      "questionText": "In the second paragraph, when discussing the sugar market in Britain, the reviewer stresses",
+      "options": [
+        "A. how the sources used changed over time.",
+        "B. how developments in agriculture affected trade.",
+        "C. the increased demand for sugar over the years.",
+        "D. the growing support for ethical methods of cultivation."
+      ],
+      "correctAnswer": "A",
+      "evidenceQuote": "The sweet-toothed British first bought cane sugar from their own slavery-dependent colonial plantations. Following the abolition... imported... from places which retained the practice... started to import beet sugar... Only in the 20th century... national beet sugar industry.",
+      "rubricGuide": "Phải nhận ra cấu trúc đoạn 2 diễn tả các mốc lịch sử nối tiếp nhau, cho thấy nguồn cung cấp đường cho nước Anh đã liên tục thay đổi theo thời gian."
+    },
+    {
+      "id": "Q03",
+      "questionNum": 3,
+      "type": "Multiple Choice",
+      "group": "Trắc nghiệm (MCQ)",
+      "questionText": "What is the reviewer doing in the third paragraph?",
+      "options": [
+        "A. describing an efficient approach to sugar cultivation",
+        "B. explaining why the use of sugar plantations declined",
+        "C. addressing a misconception about the growing of sugar cane",
+        "D. evaluating different approaches to the cultivation of sugar cane"
+      ],
+      "correctAnswer": "C",
+      "evidenceQuote": "Contrary to popular belief, cane sugar production was never just restricted to large, dedicated plantations owned by rich men.",
+      "rubricGuide": "Phải chỉ ra cụm 'Contrary to popular belief' chính là hành động giải quyết một quan niệm sai lầm phổ biến ('addressing a misconception')."
+    },
+    {
+      "id": "Q04",
+      "questionNum": 4,
+      "type": "Multiple Choice",
+      "group": "Trắc nghiệm (MCQ)",
+      "questionText": "In the final paragraph, what does the reviewer suggest is the overall message of Bosma's book?",
+      "options": [
+        "A. Sugar is a harmful and unnecessary product.",
+        "B. Economic pressure is needed to control sugar production.",
+        "C. Conditions for workers in sugar production should be improved.",
+        "D. Intensive marketing of sugar has had disastrous consequences."
+      ],
+      "correctAnswer": "A",
+      "evidenceQuote": "He shows that we could always have done without sugar and that today we have many alternative sources of sweetness.",
+      "rubricGuide": "Phải liên kết được nhận định 'con người hoàn toàn có thể sống không cần đường' với việc đường là sản phẩm không cần thiết ('unnecessary product')."
+    },
+    {
+      "id": "Q05",
+      "questionNum": 5,
+      "type": "Summary Completion with Box",
+      "group": "Điền từ (Summary Box)",
+      "questionText": "The book The World of Sugar points out the similarities in the way that sugar was cultivated around the world. In the big industries in both Germany and the US, sugar farming depended on [5] _______________.",
+      "options": [
+        "A. trade barriers",
+        "B. poor countries",
+        "C. migrant workers",
+        "D. domestic consumers",
+        "E. traditional methods",
+        "F. chemical fertilisers",
+        "G. small farmers",
+        "H. steam engines",
+        "I. slave labor"
+      ],
+      "correctAnswer": "C",
+      "evidenceQuote": "For example, imported labour has been used for much large-scale production. German beet fields employed Polish workers; Mexicans and many others...",
+      "rubricGuide": "Học sinh phải quy đổi được cụm từ 'imported labour' / các công nhân nước ngoài sang khái niệm 'migrant workers' (mã C)."
+    },
+    {
+      "id": "Q06",
+      "questionNum": 6,
+      "type": "Summary Completion with Box",
+      "group": "Điền từ (Summary Box)",
+      "questionText": "However, in other parts of the world such as South Asia and Latin America, [6] _______________ continued.",
+      "options": [
+        "A. trade barriers",
+        "B. poor countries",
+        "C. migrant workers",
+        "D. domestic consumers",
+        "E. traditional methods",
+        "F. chemical fertilisers",
+        "G. small farmers",
+        "H. steam engines",
+        "I. slave labor"
+      ],
+      "correctAnswer": "E",
+      "evidenceQuote": "But as well as this, the book is about the continuity of the use of traditional methods on small farms. In the mid 20th-century, this type of sugar production dominated in South Asia and Latin America.",
+      "rubricGuide": "Phải nhặt đúng cụm từ 'traditional methods' (mã E) gắn liền với vùng Nam Á và Mỹ Latinh."
+    },
+    {
+      "id": "Q07",
+      "questionNum": 7,
+      "type": "Summary Completion with Box",
+      "group": "Điền từ (Summary Box)",
+      "questionText": "Sugar production has also involved powerful dynasties who were eager to protect their commercial dominance. To support the interests of sugar producers, [7] _______________ were established by governments.",
+      "options": [
+        "A. trade barriers",
+        "B. poor countries",
+        "C. migrant workers",
+        "D. domestic consumers",
+        "E. traditional methods",
+        "F. chemical fertilisers",
+        "G. small farmers",
+        "H. steam engines",
+        "I. slave labor"
+      ],
+      "correctAnswer": "A",
+      "evidenceQuote": "...a powerful sugar bourgeoisie played a major role in politics and their interests were consequently protected by trade barriers and subsidies.",
+      "rubricGuide": "Phải nhận diện được lợi ích của giới chủ đường được chính phủ bảo hộ bằng 'trade barriers' (mã A)."
+    },
+    {
+      "id": "Q08",
+      "questionNum": 8,
+      "type": "Summary Completion with Box",
+      "group": "Điền từ (Summary Box)",
+      "questionText": "As an inevitable consequence of this protectionism, [8] _______________ were severely penalised.",
+      "options": [
+        "A. trade barriers",
+        "B. poor countries",
+        "C. migrant workers",
+        "D. domestic consumers",
+        "E. traditional methods",
+        "F. chemical fertilisers",
+        "G. small farmers",
+        "H. steam engines",
+        "I. slave labor"
+      ],
+      "correctAnswer": "B",
+      "evidenceQuote": "In the battle for control of the industry, it was inevitably the poor countries which came off worse.",
+      "rubricGuide": "Phải đối chiếu được thành ngữ 'came off worse' (chịu thiệt hại nặng nhất) đồng nghĩa với 'were penalised', nhặt mã B ('poor countries')."
+    },
+    {
+      "id": "Q09",
+      "questionNum": 9,
+      "type": "Matching Information",
+      "group": "Nối thông tin (Matching)",
+      "questionText": "Which paragraph contains an explanation of how the sugar industry attempted to redirect responsibility for obesity onto other lifestyle and dietary causes?",
+      "options": ["A. Paragraph 1", "B. Paragraph 3", "C. Paragraph 5", "D. Paragraph 7", "E. Paragraph 8"],
+      "correctAnswer": "D",
+      "evidenceQuote": "The sugar industry has a history of attacking its critics and, when it comes to obesity, of trying to blame fats, and lack of exercise and self-control.",
+      "rubricGuide": "Phải xác định đoạn 7 chứa thông tin ngành đường đổ lỗi béo phì cho chất béo (fats) và thiếu luyện tập/tự chủ."
+    },
+    {
+      "id": "Q10",
+      "questionNum": 10,
+      "type": "Matching Information",
+      "group": "Nối thông tin (Matching)",
+      "questionText": "Which paragraph contains details of early mechanized refinement techniques, including vacuum boiling and dense transport systems?",
+      "options": ["A. Paragraph 2", "B. Paragraph 4", "C. Paragraph 6", "D. Paragraph 7", "E. Paragraph 8"],
+      "correctAnswer": "C",
+      "evidenceQuote": "Further processes involved boiling (from the 19th century, this often involved vacuum systems)... Cuba, for example, developed an extraordinarily dense system of railways...",
+      "rubricGuide": "Phải chỉ ra đoạn 6 là đoạn duy nhất nói về máy móc kỹ thuật: hệ thống chân không, đường sắt vận chuyển và nhà máy hơi nước."
+    },
+    {
+      "id": "Q11",
+      "questionNum": 11,
+      "type": "Matching Information",
+      "group": "Nối thông tin (Matching)",
+      "questionText": "Which paragraph contains an example of intercropping where cash crops were cultivated simultaneously with staple grain crops by local smallholders?",
+      "options": ["A. Paragraph 1", "B. Paragraph 2", "C. Paragraph 3", "D. Paragraph 4", "E. Paragraph 5"],
+      "correctAnswer": "C",
+      "evidenceQuote": "...in Java, a huge exporter of sugar in the early 20th century, sugar cane was grown together with rice in an extraordinarily labour-intensive way by small farmers.",
+      "rubricGuide": "Phải nhận diện chi tiết nông dân trồng mía xen kẽ với lúa ('grown together with rice') nằm ở đoạn 3."
+    },
+    {
+      "id": "Q12",
+      "questionNum": 12,
+      "type": "Matching Information",
+      "group": "Nối thông tin (Matching)",
+      "questionText": "Which paragraph contains a historical reference to national legislation ending unpaid, forced labor and its immediate impact on sugar import channels?",
+      "options": ["A. Paragraph 1", "B. Paragraph 2", "C. Paragraph 3", "D. Paragraph 4", "E. Paragraph 5"],
+      "correctAnswer": "B",
+      "evidenceQuote": "Following the abolition of slavery in the British Empire, cane sugar was imported to Britain from places which retained the practice...",
+      "rubricGuide": "Phải đối chiếu điều luật xóa bỏ chế độ nô lệ ('abolition of slavery') tại Anh và việc chuyển hướng nhập khẩu nằm ở đoạn 2."
+    },
+    {
+      "id": "Q13",
+      "questionNum": 13,
+      "type": "Yes / No / Not Given",
+      "group": "Xác thực quan điểm (YNNG)",
+      "questionText": "Sugar has now become available in large quantities due to a range of agricultural developments.",
+      "options": ["A. YES", "B. NO", "C. NOT GIVEN"],
+      "correctAnswer": "A",
+      "evidenceQuote": "Where once only tiny quantities of sugar could be produced, now new techniques, varieties, fertilisers, irrigation systems and much more have turned gleaming white sugar into a ubiquitous chemical.",
+      "rubricGuide": "Học sinh phải đối chiếu các yếu tố: phân bón, tưới tiêu, kỹ thuật mới ('agricultural developments') đã giúp đường có sản lượng dồi dào khắp nơi ('large quantities')."
+    },
+    {
+      "id": "Q14",
+      "questionNum": 14,
+      "type": "Yes / No / Not Given",
+      "group": "Xác thực quan điểm (YNNG)",
+      "questionText": "Advertisers initially marketed sugar as a luxury product.",
+      "options": ["A. YES", "B. NO", "C. NOT GIVEN"],
+      "correctAnswer": "C",
+      "evidenceQuote": "Once regarded as a luxury, sugar came to be promoted as a valuable source of energy.",
+      "rubricGuide": "Phải phân biệt rõ: bài chỉ nói đường 'từng được coi là xa xỉ' (regarded as a luxury), chứ không hề đề cập đến việc 'các nhà quảng cáo ban đầu tiếp thị nó như một sản phẩm xa xỉ' hay không."
+    },
+    {
+      "id": "Q15",
+      "questionNum": 15,
+      "type": "Yes / No / Not Given",
+      "group": "Xác thực quan điểm (YNNG)",
+      "questionText": "The invention of high-fructose corn syrup was a positive development.",
+      "options": ["A. YES", "B. NO", "C. NOT GIVEN"],
+      "correctAnswer": "B",
+      "evidenceQuote": "And the recent past has seen worrying new developments in mass sweetening. High-fructose corn syrup... is regarded as a leading cause of obesity.",
+      "rubricGuide": "Tác giả gọi đây là diễn biến đáng lo ngại ('worrying developments') và là nguyên nhân hàng đầu gây béo phì, mâu thuẫn hoàn toàn với nhận định 'positive development'."
+    },
+    {
+      "id": "Q16",
+      "questionNum": 16,
+      "type": "Yes / No / Not Given",
+      "group": "Xác thực quan điểm (YNNG)",
+      "questionText": "High-fructose corn syrup is an ingredient in many processed foods.",
+      "options": ["A. YES", "B. NO", "C. NOT GIVEN"],
+      "correctAnswer": "A",
+      "evidenceQuote": "It is now widely consumed, having been adopted in the making of soft drinks and a large number of processed foods...",
+      "rubricGuide": "Bài đọc khẳng định trực tiếp si-rô bắp được dùng trong sản xuất rất nhiều loại thực phẩm chế biến sẵn ('large number of processed foods')."
+    }
+  ]
+}
