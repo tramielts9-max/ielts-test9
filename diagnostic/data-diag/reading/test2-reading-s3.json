@@ -1,0 +1,203 @@
+{
+  "testId": "test_02",
+  "version": 3,
+  "setName": "Set 3 (Phiên bản 3)",
+  "title": "TEST 2.3 - 25P - PHIÊN BẢN 3: DAR ES SALAAM (16 CÂU CAM 21)",
+  "formatType": "CAM_STANDARD",
+  "passageTitle": "The problems of getting around the city of Dar es Salaam",
+  "passageText": "Paragraph 1\nDar es Salaam in Tanzania is one of the fastest growing cities in Africa. Its population has increased eightfold since 1980 and swells by half a million people every year. United Nations projections anticipate it will become a megacity within seven years as its population passes 10 million, reaching 13.4 million by 2035. Daniel Hoornweg for the Global Cities Institute forecasts the city could be home to an incredible 73.7 million people by 2100.\n\nParagraph 2\nToday, four out of five of its people live in single-storey informal settlements on the spreading edges of the city, where the journey to and from the centre regularly takes over two hours. It can be longer if rain turns the dirt roads to mud.\n\nParagraph 3\nEven in the middle of the day, traffic frequently slows to a stop without warning. It is not unusual for cars and minibuses to queue for 20 minutes at a key intersection. A single suburban rail line serves residents in a few areas to the south but is tiny in the context of the wider city. Outside the centre many rely on boda boda (motorbike taxis) to navigate the narrow side streets and potholed mud roads that make up much of the metropolis. Their safety record is scandalous.\n\nParagraph 4\nDar es Salaam's reliance on four arterial roads into the city is a legacy of the colonial government that planned the city at the start of the 20th century to cater for a population of 35,000. Most of the current growth is made up of young people arriving from the countryside to find work, and as the population has exploded, Dar es Salaam has grown around those four highways. Nearly all the expansion is happening on the periphery, and nearly all takes place informally without any agreed strategy.\n\nParagraph 5\nBut Dar es Salaam is pinning its hopes on a solution that could offer a different model for Africa's megacities, giving them an alternative to a future controlled by the private car. Unlike many cities on the continent, Dar es Salaam isn't trying to build a metro. It has chosen a less exciting but cheaper and more achievable method: the bus.\n\nParagraph 6\nThe DART bus rapid transit (BRT) system runs on bus lanes separated from other traffic, mostly in the middle of the road to reduce stoppages. Ticket purchase and control takes place at stations prior to boarding and the buses are step-free, which means the entire route is accessible to people using wheelchairs or who are travelling with baby buggies.\n\nParagraph 7\n'The new buses are much, much better,' says Paulas George, a young IT worker. He takes the bus every day and it has cut his journey time by two-thirds. He says it is not perfect, though, complaining that drivers often refuse to turn on the air conditioning to save fuel.\n\nParagraph 8\nThat is not the only problem. A shortage of buses after a serious flood at the main depot during the rainy season means the system is carrying 200,000 people a day - half the expected capacity. Smartcards can't be used as the mechanical readers aren't working either, forcing passengers to buy individual paper tickets for every journey. Each is printed with a scannable QR code, but there are no scanners. Staff stand by the gates and tear tickets as people enter. As a result, queues are considerable at peak times.\n\nParagraph 9\nMorogoro Road to the north-west of the city was phase I of the BRT project. Phases II and III will install bus lanes along Nyerere Road to the south-west and Kilwa Road to the south. Construction on both routes is due to start imminently. Phase IV, towards Bagamoyo in the north, is in the preliminary design stage. 'Much of the city will have access to a world-class transport system within the space of a few years,' says Chris Kost, the Africa director of ITDP (the Institute for Transportation and Development Policy). All phases are being planned to high standards and, once complete, a third of city residents will be within a short walk of the BRT network.\n\nParagraph 10\nThe ITDP regrets Africa's obsession with metros. 'With a metro, an international firm will often just parachute in its own system,' says Kost. 'Bus rapid transit allows existing stakeholders to get involved. That's what we did in Dar es Salaam and what we're planning in Nairobi, where the bus bodies will be built in the city and local operators will look after tickets, fare collection and IT... Bus rapid transit has been transformational for Dar es Salaam. For millions of people in African cities, this is their best hope of ever being connected.'",
+  "questions": [
+    {
+      "id": "Q01",
+      "questionNum": 1,
+      "type": "True / False / Not Given",
+      "group": "Xác thực (TFNG)",
+      "questionText": "The population of Dar es Salaam is rising more rapidly than was previously predicted.",
+      "options": ["A. TRUE", "B. FALSE", "C. NOT GIVEN"],
+      "correctAnswer": "C",
+      "evidenceQuote": "United Nations projections anticipate it will become a megacity within seven years as its population passes 10 million, reaching 13.4 million by 2035. Daniel Hoornweg for the Global Cities Institute forecasts the city could be home to an incredible 73.7 million people by 2100.",
+      "rubricGuide": "Bài đọc chỉ nêu các con số dự báo trong tương lai, không hề so sánh tốc độ tăng trưởng thực tế có nhanh hơn mức từng dự đoán trong quá khứ hay không -> NOT GIVEN."
+    },
+    {
+      "id": "Q02",
+      "questionNum": 2,
+      "type": "True / False / Not Given",
+      "group": "Xác thực (TFNG)",
+      "questionText": "Most of the residents of Dar es Salaam live in high-rise blocks on the edge of the city.",
+      "options": ["A. TRUE", "B. FALSE", "C. NOT GIVEN"],
+      "correctAnswer": "B",
+      "evidenceQuote": "Today, four out of five of its people live in single-storey informal settlements on the spreading edges of the city...",
+      "rubricGuide": "Đề bảo sống trong nhà cao tầng ('high-rise blocks'), nhưng bài đọc chỉ rõ 4/5 người dân sống trong nhà 1 tầng ('single-storey') -> Mâu thuẫn trực tiếp -> FALSE."
+    },
+    {
+      "id": "Q03",
+      "questionNum": 3,
+      "type": "True / False / Not Given",
+      "group": "Xác thực (TFNG)",
+      "questionText": "The majority of the present residential development in Dar es Salaam is unplanned.",
+      "options": ["A. TRUE", "B. FALSE", "C. NOT GIVEN"],
+      "correctAnswer": "A",
+      "evidenceQuote": "Nearly all the expansion is happening on the periphery, and nearly all takes place informally without any agreed strategy.",
+      "rubricGuide": "Cụm 'takes place informally without any agreed strategy' (tự phát, không có chiến lược thống nhất) đồng nghĩa 100% với 'unplanned' (không theo quy hoạch) -> TRUE."
+    },
+    {
+      "id": "Q04",
+      "questionNum": 4,
+      "type": "True / False / Not Given",
+      "group": "Xác thực (TFNG)",
+      "questionText": "Dar es Salaam's authorities have decided to follow the public transport plan adopted by a large number of African cities.",
+      "options": ["A. TRUE", "B. FALSE", "C. NOT GIVEN"],
+      "correctAnswer": "B",
+      "evidenceQuote": "Unlike many cities on the continent, Dar es Salaam isn't trying to build a metro. It has chosen a less exciting but cheaper and more achievable method: the bus.",
+      "rubricGuide": "Đề bảo 'làm theo' (follow) số đông các thành phố châu Phi khác, nhưng bài đọc khẳng định 'không giống' (unlike) vì Dar es Salaam chọn xe buýt thay vì cố xây metro -> FALSE."
+    },
+    {
+      "id": "Q05",
+      "questionNum": 5,
+      "type": "Note Completion",
+      "group": "Điền từ (Notes)",
+      "questionText": "The buses use designated [5] _______________ to cut down on delays.",
+      "correctAnswer": "LANES",
+      "evidenceQuote": "The DART bus rapid transit (BRT) system runs on bus lanes separated from other traffic, mostly in the middle of the road to reduce stoppages.",
+      "rubricGuide": "Nhặt đúng danh từ số nhiều 'lanes' đứng sau 'bus' tương ứng với 'designated lanes' để giảm ùn tắc ('reduce stoppages' = 'cut down on delays')."
+    },
+    {
+      "id": "Q06",
+      "questionNum": 6,
+      "type": "Note Completion",
+      "group": "Điền từ (Notes)",
+      "questionText": "Passengers pay fares before [6] _______________.",
+      "correctAnswer": "BOARDING",
+      "evidenceQuote": "Ticket purchase and control takes place at stations prior to boarding...",
+      "rubricGuide": "Quy đổi 'pay fares' = 'ticket purchase'; 'before' = 'prior to'. Từ duy nhất đứng sau là danh động từ 'boarding' (lên xe)."
+    },
+    {
+      "id": "Q07",
+      "questionNum": 7,
+      "type": "Note Completion",
+      "group": "Điền từ (Notes)",
+      "questionText": "Passengers in [7] _______________ can use every part of the system.",
+      "correctAnswer": "WHEELCHAIRS",
+      "evidenceQuote": "...the buses are step-free, which means the entire route is accessible to people using wheelchairs or who are travelling with baby buggies.",
+      "rubricGuide": "Cụm 'the entire route is accessible' = 'can use every part of the system'. Đối tượng đi xe là 'wheelchairs' (người dùng xe lăn)."
+    },
+    {
+      "id": "Q08",
+      "questionNum": 8,
+      "type": "Note Completion",
+      "group": "Điền từ (Notes)",
+      "questionText": "Insufficient number of vehicles are available due to the effects of a severe [8] _______________.",
+      "correctAnswer": "FLOOD",
+      "evidenceQuote": "A shortage of buses after a serious flood at the main depot during the rainy season means the system is carrying 200,000 people a day...",
+      "rubricGuide": "Cụm 'insufficient number of vehicles' = 'shortage of buses'; 'severe' = 'serious'. Danh từ chỉ thiên tai là 'flood' (trận lũ lụt)."
+    },
+    {
+      "id": "Q09",
+      "questionNum": 9,
+      "type": "Matching Information",
+      "group": "Nối thông tin (Matching)",
+      "questionText": "Which paragraph contains an explanation of why historical urban planning fails to accommodate present population levels?",
+      "options": ["A. Paragraph 1", "B. Paragraph 2", "C. Paragraph 3", "D. Paragraph 4", "E. Paragraph 5"],
+      "correctAnswer": "D",
+      "evidenceQuote": "Dar es Salaam's reliance on four arterial roads into the city is a legacy of the colonial government that planned the city at the start of the 20th century to cater for a population of 35,000.",
+      "rubricGuide": "Đoạn 4 giải thích quy hoạch thời thuộc địa chỉ thiết kế cho 35.000 dân, dẫn đến việc quá tải khi dân số hiện tại bùng nổ."
+    },
+    {
+      "id": "Q10",
+      "questionNum": 10,
+      "type": "Matching Information",
+      "group": "Nối thông tin (Matching)",
+      "questionText": "Which paragraph contains a complaint regarding commuter comfort compromises made to cut running costs?",
+      "options": ["A. Paragraph 6", "B. Paragraph 7", "C. Paragraph 8", "D. Paragraph 9", "E. Paragraph 10"],
+      "correctAnswer": "B",
+      "evidenceQuote": "He says it is not perfect, though, complaining that drivers often refuse to turn on the air conditioning to save fuel.",
+      "rubricGuide": "Đoạn 7 trích dẫn lời phàn nàn của Paulas George về việc tài xế từ chối bật điều hòa để tiết kiệm nhiên liệu ('save fuel' = cut running costs)."
+    },
+    {
+      "id": "Q11",
+      "questionNum": 11,
+      "type": "Matching Information",
+      "group": "Nối thông tin (Matching)",
+      "questionText": "Which paragraph contains a projection of the long-term demographic expansion of the city over several decades?",
+      "options": ["A. Paragraph 1", "B. Paragraph 2", "C. Paragraph 3", "D. Paragraph 4", "E. Paragraph 5"],
+      "correctAnswer": "A",
+      "evidenceQuote": "United Nations projections anticipate it will become a megacity within seven years as its population passes 10 million... could be home to an incredible 73.7 million people by 2100.",
+      "rubricGuide": "Đoạn 1 nêu rõ các số liệu dự báo bùng nổ dân số kéo dài đến tận năm 2100 ('projections / forecasts')."
+    },
+    {
+      "id": "Q12",
+      "questionNum": 12,
+      "type": "Matching Information",
+      "group": "Nối thông tin (Matching)",
+      "questionText": "Which paragraph contains details of future infrastructural phases that will extend the transit network across the metropolis?",
+      "options": ["A. Paragraph 6", "B. Paragraph 7", "C. Paragraph 8", "D. Paragraph 9", "E. Paragraph 10"],
+      "correctAnswer": "D",
+      "evidenceQuote": "Phases II and III will install bus lanes along Nyerere Road to the south-west and Kilwa Road to the south... Phase IV, towards Bagamoyo in the north...",
+      "rubricGuide": "Đoạn 9 liệt kê chi tiết các giai đoạn mở rộng tiếp theo của dự án BRT (Phase II, III, IV)."
+    },
+    {
+      "id": "Q13",
+      "questionNum": 13,
+      "type": "Multiple Choice",
+      "group": "Trắc nghiệm (MCQ)",
+      "questionText": "What does the writer emphasize about informal settlements on the city's outskirts in paragraph 2?",
+      "options": [
+        "A. They are constructed using modern flood-resistant materials.",
+        "B. Daily commutes from these areas entail significant travel time.",
+        "C. Municipal services have recently paved all dirt roads.",
+        "D. Most residents refuse to travel into the urban centre."
+      ],
+      "correctAnswer": "B",
+      "evidenceQuote": "...where the journey to and from the centre regularly takes over two hours. It can be longer if rain turns the dirt roads to mud.",
+      "rubricGuide": "Tác giả nhấn mạnh thời gian đi lại vào trung tâm thường xuyên mất hơn 2 tiếng đồng hồ ('takes over two hours' = significant travel time)."
+    },
+    {
+      "id": "Q14",
+      "questionNum": 14,
+      "type": "Multiple Choice",
+      "group": "Trắc nghiệm (MCQ)",
+      "questionText": "In the third paragraph, what concern is highlighted regarding motorbike taxis (boda boda)?",
+      "options": [
+        "A. Their operational costs are higher than standard buses.",
+        "B. Excessive fares are demanded during evening rush hours.",
+        "C. Their passenger safety record is notoriously poor.",
+        "D. They frequently break down at busy road junctions."
+      ],
+      "correctAnswer": "C",
+      "evidenceQuote": "Outside the centre many rely on boda boda (motorbike taxis) to navigate the narrow side streets... Their safety record is scandalous.",
+      "rubricGuide": "Từ 'scandalous' (đáng hổ thẹn/tai tiếng) mô tả hồ sơ an toàn của xe ôm boda boda đồng nghĩa với 'notoriously poor safety record'."
+    },
+    {
+      "id": "Q15",
+      "questionNum": 15,
+      "type": "Multiple Choice",
+      "group": "Trắc nghiệm (MCQ)",
+      "questionText": "According to Chris Kost in the final paragraph, what distinct advantage does the BRT system offer compared to metro networks?",
+      "options": [
+        "A. Complete funding provided by international financial institutions.",
+        "B. Active involvement and economic empowerment of local stakeholders and operators.",
+        "C. The total elimination of all privately owned passenger cars.",
+        "D. Shorter construction deadlines across all infrastructural phases."
+      ],
+      "correctAnswer": "B",
+      "evidenceQuote": "'Bus rapid transit allows existing stakeholders to get involved. That's what we did in Dar es Salaam and what we're planning in Nairobi, where the bus bodies will be built in the city and local operators will look after tickets...'",
+      "rubricGuide": "Kost giải thích BRT cho phép các bên liên quan tại địa phương tham gia (đóng thùng xe trong thành phố, đơn vị địa phương quản lý vé và IT)."
+    },
+    {
+      "id": "Q16",
+      "questionNum": 16,
+      "type": "Multiple Choice",
+      "group": "Trắc nghiệm (MCQ)",
+      "questionText": "Which statement best captures the overriding message and purpose of the entire passage?",
+      "options": [
+        "A. The inevitable collapse of civic transport systems across sub-Saharan Africa.",
+        "B. How a rapid bus transit system offers a pragmatic, cost-effective solution for a fast-growing African megacity.",
+        "C. The undeniable superiority of private automobile ownership in developing economies.",
+        "D. Why suburban rail networks should replace all road-based public transit."
+      ],
+      "correctAnswer": "B",
+      "evidenceQuote": "For millions of people in African cities, this is their best hope of ever being connected... a cheaper and more achievable method: the bus.",
+      "rubricGuide": "Thông điệp bao quát toàn bài: BRT là giải pháp rẻ hơn, thực tế và khả thi ('cheaper and more achievable') giúp giải quyết bài toán giao thông cho đô thị bùng nổ dân số."
+    }
+  ]
+}
