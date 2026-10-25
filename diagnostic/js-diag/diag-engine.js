@@ -1,11 +1,12 @@
 /**
  * diagnostic/js-diag/diag-engine.js
  * BỘ MÁY ĐIỀU PHỐI KHẢO THÍ CHẨN ĐOÁN THÍCH ỨNG MASTER (TEST 1, 2, 3 & 3 SET XOAY TUA)
- * BẢN FULL ĐẦY ĐỦ 100% - TÍCH HỢP BÀI NGHE JSON NGOÀI CHO TEST 2 & 3, NHẢY GIÂY AUDIO THEO PART,
- * KÉO THẢ MATCHING, BẢN ĐỒ MAP LABELLING, CHẤM TWO-TIER, CHẤM AI WRITING & SPEAKING
+ * BẢN FULL ĐẦY ĐỦ 100% - ĐIỀU PHỐI DIAG-READING VÀ DIAG-LISTENING,
+ * CHẤM TWO-TIER, CHẤM AI WRITING & SPEAKING, DASHBOARD BÁO CÁO CÂU SAI
  */
 
 import { diagReadingEngine } from './diag-reading.js';
+import { diagListeningEngine } from './diag-listening.js';
 
 // =========================================================================
 // 1. MÃ HÓA 3 API KEY RIÊNG BIỆT CHO TỪNG KỸ NĂNG (BẢO MẬT CHỐNG F12)
@@ -33,12 +34,10 @@ function getSpeakingKey() { return _SPEAKING_SEEDS.map(c => String.fromCharCode(
 const CLOUD_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyNErQQFdciAQM0k9KUrACtpX7rxKkopjChYAC2Ubwj5MGzFOeekDEGs8C1n7P9cNR6vg/exec";
 
 // =========================================================================
-// 2. NGÂN HÀNG DỮ LIỆU ĐỀ THI CHO CÁC PHẦN NGỮ PHÁP, TỪ VỰNG, WRITING, SPEAKING
+// 2. NGÂN HÀNG DỮ LIỆU ĐỀ THI CHO TEST 1, 2, 3
 // =========================================================================
 const DIAGNOSTIC_DATABASE = {
-  // -----------------------------------------------------------------------
-  // TEST 1 (45 PHÚT - BAND 0 ➔ 5.0): LISTENING CƠ BẢN A2 & B2
-  // -----------------------------------------------------------------------
+  // TEST 1 (45 PHÚT - BAND 0 ➔ 5.0)
   test_01: {
     title: "TEST 1: KHẢO SÁT NỀN TẢNG (45 PHÚT)",
     targetBand: "0 - 5.0",
@@ -65,7 +64,7 @@ const DIAGNOSTIC_DATABASE = {
       1: {
         audioA2: {
           url: "https://archive.org/download/lisb2-3/lisa2-1.mp3",
-          title: "Audio 1 (A2): Hotel Reservation (Đặt phòng khách sạn)",
+          title: "Audio 1 (A2): Hotel Reservation",
           questions: [
             { id: "lis_s1_01", q: "1. What is the guest's surname?", options: ["A. Berardelli", "B. Bernard", "C. Baradelli"], answer: "A" },
             { id: "lis_s1_02", q: "2. What type of room was booked for one night?", options: ["A. Double room", "B. Single room", "C. Suite room"], answer: "B" },
@@ -76,7 +75,7 @@ const DIAGNOSTIC_DATABASE = {
         },
         audioB2: {
           url: "https://archive.org/download/lisb2-3/lisb2-1.mp3",
-          title: "Audio 2 (B2): Working in the Film Industry (Ngành điện ảnh)",
+          title: "Audio 2 (B2): Working in the Film Industry",
           questions: [
             { id: "lis_s1_06", q: "6. How long has the speaker worked in the film industry?", options: ["A. 3 years", "B. 8 years", "C. 10 years"], answer: "B" },
             { id: "lis_s1_07", q: "7. What do people in junior roles spend most of their time doing on set?", options: ["A. Writing script ideas", "B. Standing and waiting", "C. Talking with directors"], answer: "B" },
@@ -99,9 +98,7 @@ const DIAGNOSTIC_DATABASE = {
     }
   },
 
-  // -----------------------------------------------------------------------
-  // TEST 2 (100 PHÚT - BAND 5.0 ➔ 6.5): LISTENING PART 1 & 2 TỪ JSON NGOÀI
-  // -----------------------------------------------------------------------
+  // TEST 2 (100 PHÚT - BAND 5.0 ➔ 6.5)
   test_02: {
     title: "TEST 2: KHẢO THÍ CHUẨN HÓA (100 PHÚT)",
     targetBand: "5.0 - 6.5",
@@ -135,9 +132,7 @@ const DIAGNOSTIC_DATABASE = {
     }
   },
 
-  // -----------------------------------------------------------------------
-  // TEST 3 (105 PHÚT - BAND 6.5+): LISTENING PART 3 & 4 TỪ JSON NGOÀI
-  // -----------------------------------------------------------------------
+  // TEST 3 (105 PHÚT - BAND 6.5+)
   test_03: {
     title: "TEST 3: THỬ THÁCH ĐỈNH CAO (105 PHÚT)",
     targetBand: "6.5 - 7.5+",
@@ -158,7 +153,7 @@ const DIAGNOSTIC_DATABASE = {
 };
 
 // =========================================================================
-// 3. ĐỘNG CƠ ĐIỀU PHỐI KHẢO THÍ CHÍNH (DIAGNOSTIC ENGINE MASTER)
+// 3. ĐỘNG CƠ ĐIỀU PHỐI KHẢO THÍ CHÍNH
 // =========================================================================
 class DiagnosticEngineMaster {
   constructor() {
@@ -167,21 +162,12 @@ class DiagnosticEngineMaster {
     this.setNum = 1;
     this.activeData = null;
 
-    // Dữ liệu Listening nạp động từ JSON
-    this.listeningJsonData = null;
-    this.activeListeningPartIndex = 0;
-    this.listeningAnswers = {};
-
-    // Telemetry phản xạ
     this.metrics = {};
     this.timerSeconds = 0;
     this.timerInterval = null;
 
-    // Trạng thái ghi âm
     this.speechRecognition = null;
     this.isRecording = false;
-
-    // Trạng thái Review
     this.isReviewMode = false;
   }
 
@@ -199,32 +185,31 @@ class DiagnosticEngineMaster {
       titleEl.innerText = `${this.activeData.title} • Set ${this.setNum}`;
     }
 
-    // 1. Render Ngữ pháp / Từ vựng
+    // 1. Render Ngữ pháp & Từ vựng
     this.renderGrammarAndVocabSection();
 
-    // 2. Nạp dữ liệu Listening từ JSON ngoài (cho Test 2 & Test 3) hoặc DB nội bộ (Test 1)
-    await this.initListeningData();
+    // 2. NẠP LISTENING QUA DIAG-LISTENING.JS (TEST 2 & TEST 3 DÙNG JSON NGOÀI)
+    await this.initListeningSection();
 
-    // 3. Nạp Reading từ file JSON riêng biệt
+    // 3. NẠP READING QUA DIAG-READING.JS
     await this.initReadingFromJson();
 
-    // 4. Khởi tạo Writing & Speaking
+    // 4. Khởi tạo Writing, Speaking & Timer
     this.setupWritingAndSpeaking();
     this.initSpeechRecognition();
     this.startTimer();
 
-    // 5. Kiểm tra Review Mode nếu có attemptId
+    // 5. Kiểm tra Review Mode
     const attemptId = urlParams.get('attemptId');
     if (attemptId) {
       this.restoreReviewMode(attemptId);
     }
   }
 
-  // --- NẠP DỮ LIỆU READING TỪ FILE JSON ---
+  // --- NẠP READING TỪ FILE JSON RIÊNG BIỆT ---
   async initReadingFromJson() {
     const testNum = this.testId.replace('test_0', '').replace('test_', '');
     const jsonPath = `data-diag/reading/test${testNum}-reading-s${this.setNum}.json`;
-
     console.log(`[DiagEngine] Đang nạp Reading JSON: ${jsonPath}`);
     const success = await diagReadingEngine.loadTestFromJson(jsonPath);
     if (success) {
@@ -232,320 +217,25 @@ class DiagnosticEngineMaster {
     }
   }
 
-  // --- NẠP DỮ LIỆU LISTENING TỪ FILE JSON RIÊNG BIỆT ---
-  async initListeningData() {
+  // --- NẠP LISTENING TỪ FILE JSON QUA DIAG-LISTENING.JS ---
+  async initListeningSection() {
     const testNum = this.testId.replace('test_0', '').replace('test_', '');
 
     if (this.testId === 'test_02' || this.testId === 'test_03') {
       const jsonPath = `data-diag/listening/test${testNum}-listening-s${this.setNum}.json`;
-      console.log(`[DiagEngine] Đang nạp Listening JSON: ${jsonPath}`);
-
-      try {
-        const res = await fetch(jsonPath);
-        if (res.ok) {
-          this.listeningJsonData = await res.json();
-          this.renderAdvancedListeningSection();
-          return;
-        }
-      } catch (err) {
-        console.warn(`[DiagEngine] Không thể nạp ${jsonPath}, dùng fallback nội bộ:`, err);
+      console.log(`[DiagEngine] Đang nạp Listening JSON qua diagListeningEngine: ${jsonPath}`);
+      const success = await diagListeningEngine.loadTestFromJson(jsonPath);
+      if (success) {
+        diagListeningEngine.render();
+        return;
       }
     }
 
-    // Fallback cho Test 1
-    this.renderBasicListeningSection();
+    // Fallback bài nghe A2/B2 cho Test 1
+    this.renderBasicListeningTest1();
   }
 
-  // =========================================================================
-  // 4. GIAO DIỆN & TÍNH NĂNG LISTENING CAO CẤP (CHUẨN MODULE LISTENING/)
-  // =========================================================================
-  renderAdvancedListeningSection() {
-    const mount = document.getElementById('listeningQuestionsMount');
-    const audioEl = document.getElementById('diagAudioPlayer');
-    const labelEl = document.getElementById('currentAudioLabel');
-    if (!mount || !this.listeningJsonData) return;
-
-    const data = this.listeningJsonData;
-    const parts = data.parts || [];
-    if (parts.length === 0) return;
-
-    if (audioEl && data.audioUrl) {
-      audioEl.src = data.audioUrl;
-      audioEl.preload = "auto";
-    }
-
-    let html = `
-      <!-- THANH SUB-TAB CHUYỂN PART VỚI MỐC GIÂY -->
-      <div style="display:flex; gap:10px; margin-bottom:18px; flex-wrap:wrap; align-items:center; background:#FFFFFF; border:2px solid #E8E2D8; border-radius:16px; padding:8px 12px;">
-        <span style="font-size:12.5px; font-weight:900; color:#0369A1; text-transform:uppercase; margin-right:4px;">
-          Chọn Phần Nghe:
-        </span>
-        ${parts.map((p, idx) => `
-          <button type="button" 
-                  id="btnPartTab_${idx}" 
-                  class="btn-3d ${idx === this.activeListeningPartIndex ? 'btn-3d-blue' : 'btn-3d-white'}" 
-                  style="padding:8px 16px; font-size:13px;"
-                  onclick="window.switchListeningPart(${idx}, true)">
-            Part ${p.partNum} (Bắt đầu: ${this.formatSecondsToTime(p.startTime)})
-          </button>
-        `).join('')}
-      </div>
-
-      <!-- KHUNG BÀI LÀM CỦA PART ĐANG CHỌN -->
-      <div id="activePartContainer"></div>
-
-      <!-- KHUNG TRANSCRIPT (ẨN KHI LÀM, HIỆN KHI XEM LẠI REVIEW MODE) -->
-      <div id="listeningTranscriptContainer" style="display:none; margin-top:24px; background:#FFFFFF; border:2px solid #BAE6FD; border-left:6px solid #0284C7; border-radius:16px; padding:18px 22px; max-height:450px; overflow-y:auto; line-height:1.75; font-size:14px;">
-        <h4 style="margin:0 0 10px 0; color:#0284C7; font-size:16px; font-weight:900;">
-          📜 BĂNG KÝ ÂM TRANSCRIPT (BẤM VÀO TỪNG CÂU ĐỂ TUA AUDIO ĐẾN ĐOẠN ĐÓ):
-        </h4>
-        <div id="transcriptLinesMount"></div>
-      </div>
-    `;
-
-    mount.innerHTML = html;
-    this.switchListeningPart(this.activeListeningPartIndex, false);
-  }
-
-  switchListeningPart(partIndex, shouldSeekAndPlay = true) {
-    if (!this.listeningJsonData || !this.listeningJsonData.parts[partIndex]) return;
-
-    this.activeListeningPartIndex = partIndex;
-    const part = this.listeningJsonData.parts[partIndex];
-
-    // 1. Cập nhật giao diện nút Tab
-    this.listeningJsonData.parts.forEach((_, idx) => {
-      const btn = document.getElementById(`btnPartTab_${idx}`);
-      if (btn) {
-        btn.className = `btn-3d ${idx === partIndex ? 'btn-3d-blue' : 'btn-3d-white'}`;
-      }
-    });
-
-    // 2. Nhảy giây Audio theo đúng startTime của Part
-    const audioEl = document.getElementById('diagAudioPlayer');
-    const labelEl = document.getElementById('currentAudioLabel');
-    if (labelEl) {
-      labelEl.innerText = `${part.title} (Từ ${this.formatSecondsToTime(part.startTime)})`;
-    }
-
-    if (audioEl && shouldSeekAndPlay && part.startTime !== undefined) {
-      audioEl.currentTime = parseFloat(part.startTime);
-      audioEl.play().catch(() => {});
-    }
-
-    // 3. Render câu hỏi của Part
-    const container = document.getElementById('activePartContainer');
-    if (container) {
-      container.innerHTML = this.buildPartQuestionsHtml(part);
-      this.restoreListeningInputsUI(part);
-    }
-
-    // 4. Cập nhật transcript nếu đang mở
-    const tMount = document.getElementById('transcriptLinesMount');
-    if (tMount && part.transcriptHtml) {
-      tMount.innerHTML = part.transcriptHtml;
-      this.bindTranscriptClickEvents();
-    }
-  }
-
-  buildPartQuestionsHtml(part) {
-    let html = `
-      <div style="border-bottom:2px solid #E8E2D8; padding-bottom:10px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-        <b style="font-size:16px; color:#0C4A6E;">${part.title}</b>
-        <button type="button" class="btn-3d btn-3d-white" style="padding:6px 12px; font-size:12px;" onclick="window.seekDiagAudio(${part.startTime})">
-          ▶ Phát lại từ đầu Part này (${this.formatSecondsToTime(part.startTime)})
-        </button>
-      </div>
-    `;
-
-    (part.groups || []).forEach(group => {
-      html += `<div style="font-size:15px; font-weight:900; color:#1E293B; margin:16px 0 6px 0;">${group.title}</div>`;
-      if (group.instructions) {
-        html += `<div style="background:#FAF7F2; border:1.5px solid #E8E2D8; border-radius:10px; padding:8px 12px; font-size:13px; font-weight:700; color:#475569; margin-bottom:12px;">${group.instructions}</div>`;
-      }
-
-      // A. Dạng bảng (Table) hoặc Điền từ (Notes)
-      if (group.type === 'table' || group.type === 'notes' || group.tableHtml || group.template) {
-        let contentBody = group.tableHtml || group.template || '';
-        (group.questionIds || []).forEach(qId => {
-          const q = part.questions[qId];
-          const width = q?.inputWidth || "120px";
-          const audioTimeBtn = q?.time ? `<button type="button" class="btn-3d btn-3d-white" style="padding:2px 7px; font-size:11px; margin-left:4px;" onclick="window.seekDiagAudio(${q.time})">▶ ${this.formatSecondsToTime(q.time)}</button>` : '';
-
-          const inputHtml = `
-            <span style="display:inline-block; vertical-align:middle; margin:2px 0;">
-              <input type="text" 
-                     id="inp_${qId}" 
-                     class="diag-input" 
-                     style="width:${width}; padding:5px 8px; text-align:center; font-weight:800; color:#0284C7; display:inline-block;" 
-                     placeholder="[Câu ${q?.num || qId}]"
-                     oninput="window.syncDiagAnswer('${qId}', this.value)">
-              ${audioTimeBtn}
-              <div id="fb_${qId}" style="display:none; font-size:12px; font-weight:800; padding:2px 6px; border-radius:4px; margin-top:2px;"></div>
-            </span>
-          `;
-          contentBody = contentBody.replace(new RegExp(`{{${qId}}}`, 'g'), inputHtml);
-        });
-        html += `<div style="margin-bottom:18px; font-size:14px; line-height:1.8;">${contentBody}</div>`;
-
-      // B. Dạng Bản đồ (Map Labelling)
-      } else if (group.type === 'map' || group.imageUrl) {
-        const optsLetters = ['A','B','C','D','E','F','G','H','I'].slice(0, group.optionsCount || 9);
-        const imgPath = group.imageUrl || '../listening/data-l/images/cam21-t2-p2-map.png';
-
-        html += `
-          <div style="background:#FFFFFF; border:2px solid #E8E2D8; border-radius:14px; padding:12px; text-align:center; margin-bottom:14px;">
-            <img src="${imgPath}" alt="Map" style="max-width:100%; height:auto; border-radius:8px; border:1px solid #CBD5E1;">
-          </div>
-          <table style="width:100%; border-collapse:collapse; background:#FFFFFF; border:2px solid #E8E2D8; border-radius:12px; overflow:hidden; margin-bottom:18px;">
-            <thead>
-              <tr style="background:#FAF7F2;">
-                <th style="padding:8px 12px; text-align:left; font-size:13px;">Địa điểm câu hỏi</th>
-                ${optsLetters.map(l => `<th style="padding:8px 4px; text-align:center; font-size:12.5px;">${l}</th>`).join('')}
-              </tr>
-            </thead>
-            <tbody>
-              ${(group.questionIds || []).map(qId => {
-                const q = part.questions[qId];
-                return `
-                  <tr style="border-top:1px solid #E8E2D8;" id="row_${qId}">
-                    <td style="padding:8px 12px; font-weight:800; font-size:13px;">
-                      Câu ${q?.num || qId}: ${q?.text || ''}
-                      ${q?.time ? `<button type="button" class="btn-3d btn-3d-white" style="padding:2px 6px; font-size:11px; margin-left:4px;" onclick="window.seekDiagAudio(${q.time})">▶</button>` : ''}
-                      <div id="fb_${qId}" style="display:none; font-size:12px; font-weight:800; margin-top:2px;"></div>
-                    </td>
-                    ${optsLetters.map(letter => `
-                      <td style="text-align:center; padding:4px;">
-                        <input type="radio" name="ans_${qId}" value="${letter}" onchange="window.syncDiagAnswer('${qId}', '${letter}')" style="cursor:pointer; width:16px; height:16px;">
-                      </td>
-                    `).join('')}
-                  </tr>
-                `;
-              }).join('')}
-            </tbody>
-          </table>
-        `;
-
-      // C. Dạng Nối thông tin (Matching)
-      } else if (group.type === 'matching' && Array.isArray(group.options)) {
-        html += `
-          <div style="display:flex; gap:16px; margin-bottom:18px; flex-wrap:wrap;">
-            <div style="flex:1.4; min-width:280px; display:flex; flex-direction:column; gap:8px;">
-              ${(group.questionIds || []).map(qId => {
-                const q = part.questions[qId];
-                return `
-                  <div class="q-item-box" id="box_${qId}" style="margin-bottom:0; padding:12px 14px;">
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
-                      <b style="font-size:13.5px; color:#1E293B;">Câu ${q?.num || qId}: ${q?.text || ''}</b>
-                      ${q?.time ? `<button type="button" class="btn-3d btn-3d-white" style="padding:2px 6px; font-size:11px;" onclick="window.seekDiagAudio(${q.time})">▶ ${this.formatSecondsToTime(q.time)}</button>` : ''}
-                    </div>
-                    <div style="display:flex; gap:8px; align-items:center; margin-top:8px;">
-                      <span style="font-size:12.5px; font-weight:800; color:#64748B;">Đáp án chọn:</span>
-                      <select id="sel_${qId}" class="diag-input" style="width:auto; min-width:180px; padding:6px 10px; font-size:13px;" onchange="window.syncDiagAnswer('${qId}', this.value)">
-                        <option value="">-- Chọn đáp án A-H --</option>
-                        ${group.options.map(opt => `<option value="${opt.key}">${opt.key}. ${opt.text}</option>`).join('')}
-                      </select>
-                    </div>
-                    <div id="fb_${qId}" style="display:none; font-size:12px; font-weight:800; margin-top:4px;"></div>
-                  </div>
-                `;
-              }).join('')}
-            </div>
-
-            <!-- Ngân hàng đáp án bên phải -->
-            <div style="flex:1; min-width:240px; background:#FFFFFF; border:2px solid #E8E2D8; border-radius:14px; padding:12px; align-self:flex-start;">
-              <b style="font-size:13px; color:#0369A1; display:block; margin-bottom:8px;">📋 ${group.optionsTitle || 'Danh mục lựa chọn'}:</b>
-              <div style="display:flex; flex-direction:column; gap:6px;">
-                ${group.options.map(opt => `
-                  <div style="background:#FAF7F2; border:1px solid #CBD5E1; border-radius:8px; padding:6px 10px; font-size:12.5px; font-weight:700;">
-                    <span style="background:#0284C7; color:white; padding:1px 6px; border-radius:4px; font-weight:900;">${opt.key}</span>
-                    <span style="color:#1E293B; margin-left:4px;">${opt.text}</span>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-          </div>
-        `;
-
-      // D. Dạng Trắc nghiệm (MCQ)
-      } else {
-        (group.questionIds || []).forEach(qId => {
-          const q = part.questions[qId];
-          if (!q) return;
-
-          html += `
-            <div class="q-item-box" id="box_${qId}">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                <b style="font-size:14px; color:#1E293B;">Câu ${q.num || qId}: ${q.text || ''}</b>
-                ${q.time ? `<button type="button" class="btn-3d btn-3d-white" style="padding:2px 7px; font-size:11px;" onclick="window.seekDiagAudio(${q.time})">▶ ${this.formatSecondsToTime(q.time)}</button>` : ''}
-              </div>
-              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:8px;">
-                ${(q.options || []).map(opt => {
-                  const letter = opt.charAt(0);
-                  return `
-                    <label class="option-label" onclick="window.syncDiagAnswer('${qId}', '${letter}')">
-                      <input type="radio" name="ans_${qId}" value="${letter}">
-                      <span>${opt}</span>
-                    </label>
-                  `;
-                }).join('')}
-              </div>
-              <div id="fb_${qId}" style="display:none; font-size:12px; font-weight:800; margin-top:6px;"></div>
-            </div>
-          `;
-        });
-      }
-    });
-
-    return html;
-  }
-
-  restoreListeningInputsUI(part) {
-    Object.entries(this.listeningAnswers).forEach(([qId, val]) => {
-      // Input text
-      const inp = document.getElementById(`inp_${qId}`);
-      if (inp) inp.value = val;
-
-      // Select matching
-      const sel = document.getElementById(`sel_${qId}`);
-      if (sel) sel.value = val;
-
-      // Radio MCQ hoặc Map
-      const radio = document.querySelector(`input[name="ans_${qId}"][value="${val}"]`);
-      if (radio) radio.checked = true;
-    });
-  }
-
-  bindTranscriptClickEvents() {
-    document.querySelectorAll('#transcriptLinesMount .transcript-line[data-time]').forEach(line => {
-      line.style.cursor = 'pointer';
-      line.title = 'Bấm để nghe từ đoạn này';
-      line.onclick = () => {
-        const t = line.getAttribute('data-time');
-        if (t) window.seekDiagAudio(parseFloat(t));
-      };
-    });
-  }
-
-  seekAudio(seconds) {
-    const audio = document.getElementById('diagAudioPlayer');
-    if (audio && seconds !== undefined) {
-      audio.currentTime = parseFloat(seconds);
-      audio.play().catch(() => {});
-    }
-  }
-
-  formatSecondsToTime(sec) {
-    if (!sec && sec !== 0) return "00:00";
-    const m = Math.floor(sec / 60);
-    const s = Math.floor(sec % 60);
-    return `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
-  }
-
-  // =========================================================================
-  // 5. GIAO DIỆN LISTENING TEST 1 (CƠ BẢN A2 & B2)
-  // =========================================================================
-  renderBasicListeningSection() {
+  renderBasicListeningTest1() {
     const mount = document.getElementById('listeningQuestionsMount');
     const audioEl = document.getElementById('diagAudioPlayer');
     const labelEl = document.getElementById('currentAudioLabel');
@@ -563,12 +253,9 @@ class DiagnosticEngineMaster {
           </b>
           ${setLis.audioA2.questions.map(q => this.renderBasicListeningItem(q)).join('')}
         </div>
-
         <div style="margin-top:24px; border-top:2px dashed #E8E2D8; padding-top:18px;">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
-            <b style="font-size:14.5px; color:#8B1518;">
-              🎧 BÀI NGHE 2 (LEVEL B2): ${setLis.audioB2.title}
-            </b>
+            <b style="font-size:14.5px; color:#8B1518;">🎧 BÀI NGHE 2 (LEVEL B2): ${setLis.audioB2.title}</b>
             <button type="button" class="btn-3d btn-3d-white" style="padding:6px 12px; font-size:12px;" onclick="document.getElementById('diagAudioPlayer').src='${setLis.audioB2.url}'; document.getElementById('currentAudioLabel').innerText='${setLis.audioB2.title}'; document.getElementById('diagAudioPlayer').play();">
               ▶ Bật Audio B2 này
             </button>
@@ -605,7 +292,6 @@ class DiagnosticEngineMaster {
 
     const gList = (this.activeData.grammarSets && this.activeData.grammarSets[this.setNum]) || 
                   (this.activeData.grammarSets && this.activeData.grammarSets[1]) || [];
-    
     const vList = (this.activeData.vocabSets && this.activeData.vocabSets[this.setNum]) || 
                   (this.activeData.vocabSets && this.activeData.vocabSets[1]) || [];
 
@@ -664,29 +350,18 @@ class DiagnosticEngineMaster {
     mount.innerHTML = html;
   }
 
-  // --- CẤU HÌNH WRITING & SPEAKING ---
   setupWritingAndSpeaking() {
     const wData = this.activeData.writing;
     const wt1Box = document.getElementById('wt1PromptBox');
     const wt2Box = document.getElementById('wt2PromptBox');
 
-    if (wt1Box && wData) {
-      wt1Box.innerHTML = `<b>Đề bài Task 1:</b> "${wData.task1Prompt}"<br><i>${wData.task1Guide || ''}</i>`;
-    }
-    if (wt2Box && wData) {
-      wt2Box.innerHTML = `<b>Đề bài Task 2:</b> "${wData.task2Prompt}"<br><i>${wData.task2Guide || ''}</i>`;
-    }
+    if (wt1Box && wData) wt1Box.innerHTML = `<b>Đề bài Task 1:</b> "${wData.task1Prompt}"<br><i>${wData.task1Guide || ''}</i>`;
+    if (wt2Box && wData) wt2Box.innerHTML = `<b>Đề bài Task 2:</b> "${wData.task2Prompt}"<br><i>${wData.task2Guide || ''}</i>`;
   }
 
-  // --- TELEMETRY PHẢN XẠ & ĐỔI ĐÁP ÁN ---
   initQuestionMetric(qId) {
     if (!this.metrics[qId]) {
-      this.metrics[qId] = {
-        renderTime: Date.now(),
-        firstInteractionTime: null,
-        hesitationCount: 0,
-        chosenValues: []
-      };
+      this.metrics[qId] = { renderTime: Date.now(), firstInteractionTime: null, hesitationCount: 0, chosenValues: [] };
     }
   }
 
@@ -694,17 +369,14 @@ class DiagnosticEngineMaster {
     if (this.isReviewMode) return;
     if (!this.metrics[qId]) this.initQuestionMetric(qId);
     const m = this.metrics[qId];
-
     const now = Date.now();
     if (!m.firstInteractionTime) m.firstInteractionTime = now - m.renderTime;
-
     if (m.chosenValues.length > 0 && m.chosenValues[m.chosenValues.length - 1] !== val) {
       m.hesitationCount++;
     }
     m.chosenValues.push(val);
   }
 
-  // --- CHUYỂN TAB & TIMER ---
   switchSection(skillKey) {
     ['grammar', 'listening', 'reading', 'writing', 'speaking'].forEach(s => {
       const tab = document.getElementById(`tabNav_${s}`);
@@ -730,7 +402,6 @@ class DiagnosticEngineMaster {
     }, 1000);
   }
 
-  // --- MICRO SPEAKING ---
   initSpeechRecognition() {
     window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!window.SpeechRecognition) return;
@@ -753,7 +424,6 @@ class DiagnosticEngineMaster {
         this.speechRecognition.start();
         this.isRecording = true;
         if (btn) btn.innerHTML = `<i class="fa-solid fa-stop"></i> Đang nghe... Bấm dừng`;
-
         this.speechRecognition.onresult = (e) => {
           let str = '';
           for (let i = 0; i < e.results.length; ++i) str += e.results[i][0].transcript + ' ';
@@ -770,7 +440,7 @@ class DiagnosticEngineMaster {
   }
 
   // =========================================================================
-  // 6. CHẤM BÀI TOÀN DIỆN & XUẤT BÁO CÁO DASHBOARD
+  // 4. CHẤM BÀI TOÀN DIỆN & XUẤT DASHBOARD
   // =========================================================================
   async submitFullExam() {
     if (!confirm("Em có chắc chắn muốn nộp bài thi để hệ thống phân tích phản xạ, đối soát câu chữ và chấm điểm AI không?")) {
@@ -785,7 +455,7 @@ class DiagnosticEngineMaster {
 
     clearInterval(this.timerInterval);
 
-    // 1. Chấm Ngữ pháp & Từ vựng
+    // 1. Chấm Ngữ pháp
     let gCorrect = 0;
     const gWrongList = [];
     const gList = (this.activeData.grammarSets && this.activeData.grammarSets[this.setNum]) || (this.activeData.grammarSets && this.activeData.grammarSets[1]) || [];
@@ -795,76 +465,35 @@ class DiagnosticEngineMaster {
       if (chosen === item.answer) {
         gCorrect++;
       } else {
-        gWrongList.push({
-          num: idx + 1,
-          q: item.q,
-          chosen: chosen || "Bỏ trống",
-          expected: item.answer,
-          topic: item.topic
-        });
+        gWrongList.push({ num: idx + 1, q: item.q, chosen: chosen || "Bỏ trống", expected: item.answer, topic: item.topic });
       }
     });
 
-    // 2. Chấm Listening (Hỗ trợ cả Test 1 DB nội bộ và Test 2/3 nạp JSON ngoài)
+    // 2. Chấm Listening: GỌI QUA DIAG-LISTENING NẾU LÀ TEST 2 HOẶC 3
     let lCorrect = 0;
-    let lTotal = 0;
-    const lWrongList = [];
+    let lTotal = 10;
+    let lWrongList = [];
+    let listeningSnapshot = {};
 
-    if (this.listeningJsonData && (this.testId === 'test_02' || this.testId === 'test_03')) {
-      const parts = this.listeningJsonData.parts || [];
-      parts.forEach(part => {
-        const answersMap = part.answers || {};
-        const qKeys = Object.keys(answersMap);
-        lTotal += qKeys.length;
-
-        qKeys.forEach(qId => {
-          const expected = answersMap[qId];
-          const userVal = (this.listeningAnswers[qId] || '').trim();
-          let isCorrect = false;
-
-          if (userVal && expected) {
-            if (Array.isArray(expected)) {
-              isCorrect = expected.map(a => a.toLowerCase().trim()).includes(userVal.toLowerCase());
-            } else {
-              isCorrect = userVal.toLowerCase() === String(expected).toLowerCase().trim();
-            }
-          }
-
-          if (isCorrect) {
-            lCorrect++;
-          } else {
-            const expStr = Array.isArray(expected) ? expected.join(' / ') : expected;
-            const qTitle = part.questions[qId]?.text || part.questions[qId]?.q || `Câu ${part.questions[qId]?.num || qId}`;
-            lWrongList.push({
-              num: part.questions[qId]?.num || qId,
-              q: `${part.title} - ${qTitle}`,
-              chosen: userVal || "Bỏ trống",
-              expected: expStr
-            });
-          }
-        });
-      });
-    } else if (this.testId === 'test_01' && this.activeData.listeningSets) {
+    if (this.testId === 'test_02' || this.testId === 'test_03') {
+      const lisEval = diagListeningEngine.evaluate();
+      lCorrect = lisEval.score;
+      lTotal = lisEval.total || 20;
+      lWrongList = lisEval.wrongList;
+      listeningSnapshot = lisEval.answersSnapshot;
+    } else {
+      // Test 1 fallback
       const setLis = this.activeData.listeningSets[this.setNum] || this.activeData.listeningSets[1];
       const allLisQ = [...setLis.audioA2.questions, ...setLis.audioB2.questions];
       lTotal = allLisQ.length;
-
       allLisQ.forEach((item, idx) => {
         const chosen = document.querySelector(`input[name="ans_${item.id}"]:checked`)?.value;
-        if (chosen === item.answer) {
-          lCorrect++;
-        } else {
-          lWrongList.push({
-            num: idx + 1,
-            q: item.q,
-            chosen: chosen || "Bỏ trống",
-            expected: item.answer
-          });
-        }
+        if (chosen === item.answer) lCorrect++;
+        else lWrongList.push({ num: idx + 1, q: item.q, chosen: chosen || "Bỏ trống", expected: item.answer });
       });
     }
 
-    // 3. Chấm Reading thông qua DiagReadingEngine
+    // 3. Chấm Reading qua DiagReadingEngine
     const readingResult = diagReadingEngine.evaluate();
 
     // 4. Gọi AI chấm Writing & Speaking
@@ -895,7 +524,7 @@ class DiagnosticEngineMaster {
         if (m) speakingBand = parseFloat(m[1]);
       }
     } catch(e) {
-      console.warn("Lỗi gọi AI chấm Writing/Speaking:", e);
+      console.warn("Lỗi AI Writing/Speaking:", e);
     }
 
     // 5. Tính toán Band tổng
@@ -907,7 +536,6 @@ class DiagnosticEngineMaster {
     
     let estimatedBand = "4.5";
     let bandReason = "";
-
     if (overallScore < 35) {
       estimatedBand = "3.0 - 3.5";
       bandReason = "Hổng kiến thức thì cơ bản và từ vựng nhận diện. Độ trễ phản xạ đọc hiểu cao, cần tập trung xây gốc Ngữ pháp & Dictation nghe bắt âm A1/A2.";
@@ -947,7 +575,7 @@ class DiagnosticEngineMaster {
         gWrongList,
         lWrongList,
         rDetails: readingResult.details,
-        listeningAnswers: this.listeningAnswers,
+        listeningSnapshot,
         wt1Text, wt2Text, spk1Text, spk2Text,
         aiWritingFeedback,
         aiSpeakingFeedback,
@@ -971,7 +599,7 @@ class DiagnosticEngineMaster {
       body: JSON.stringify({ action: "save_attempt", attempt: attemptSnapshot })
     }).catch(() => {});
 
-    // 7. Hiển thị Dashboard
+    // 7. Render Dashboard
     this.renderComprehensiveDashboard(attemptSnapshot);
   }
 
@@ -985,12 +613,11 @@ class DiagnosticEngineMaster {
     return d.candidates?.[0]?.content?.parts?.[0]?.text || "Đã ghi nhận bài làm.";
   }
 
-  // --- RENDER BẢNG KẾT QUẢ TOÀN DIỆN ---
+  // --- RENDER BẢNG BÁO CÁO DASHBOARD ---
   renderComprehensiveDashboard(attempt) {
     const d = attempt.details;
     let wrongQuestionsHtml = '';
 
-    // A. Sai Ngữ pháp
     if (d.gWrongList && d.gWrongList.length > 0) {
       wrongQuestionsHtml += `
         <div style="margin-bottom:16px;">
@@ -1007,7 +634,6 @@ class DiagnosticEngineMaster {
       `;
     }
 
-    // B. Sai Listening
     if (d.lWrongList && d.lWrongList.length > 0) {
       wrongQuestionsHtml += `
         <div style="margin-bottom:16px;">
@@ -1024,7 +650,6 @@ class DiagnosticEngineMaster {
       `;
     }
 
-    // C. Sai Reading
     const rWrongList = (d.rDetails || []).filter(item => !item.isCorrect);
     if (rWrongList.length > 0) {
       wrongQuestionsHtml += `
@@ -1136,17 +761,15 @@ class DiagnosticEngineMaster {
         }
       });
 
-      // 2. Khôi phục bài nghe & mở Transcript
-      if (d.listeningAnswers) {
-        this.listeningAnswers = d.listeningAnswers;
-        if (this.listeningJsonData) {
-          this.switchListeningPart(0, false);
-          const tBox = document.getElementById('listeningTranscriptContainer');
-          if (tBox) tBox.style.display = 'block';
-        }
+      // 2. Khôi phục bài nghe qua DiagListeningEngine
+      if (this.testId === 'test_02' || this.testId === 'test_03') {
+        diagListeningEngine.renderReviewMode({
+          answersSnapshot: d.listeningSnapshot || {},
+          details: d.lDetails || []
+        });
       }
 
-      // 3. Tô màu Reading
+      // 3. Tô màu Reading qua DiagReadingEngine
       if (d.rDetails) {
         diagReadingEngine.renderReviewMode({ details: d.rDetails });
       }
@@ -1171,16 +794,11 @@ class DiagnosticEngineMaster {
 }
 
 // =========================================================================
-// 7. GẮN BIẾN TOÀN CỤC & SỰ KIỆN WINDOW
+// 5. GẮN BIẾN TOÀN CỤC & SỰ KIỆN WINDOW
 // =========================================================================
 export const diagEngine = new DiagnosticEngineMaster();
 window.diagEngine = diagEngine;
 window.switchSkillSection = (s) => diagEngine.switchSection(s);
-window.switchListeningPart = (idx, shouldPlay) => diagEngine.switchListeningPart(idx, shouldPlay);
-window.seekDiagAudio = (seconds) => diagEngine.seekAudio(seconds);
-window.syncDiagAnswer = (qId, val) => {
-  diagEngine.listeningAnswers[qId] = val;
-};
 window.toggleDiagSpeech = (t, b) => diagEngine.toggleSpeech(t, b);
 window.submitDiagnosticExam = () => diagEngine.submitFullExam();
 
