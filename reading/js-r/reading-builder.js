@@ -1,6 +1,6 @@
 /**
  * reading/js-r/reading-builder.js - Module dựng cấu trúc giao diện câu hỏi Reading
- * (BẢN FULL ĐẦY ĐỦ 100% - KHÔNG THIẾU BẤT KỲ HÀM NÀO)
+ * (BẢN FULL ĐẦY ĐỦ 100% - ĐÃ FIX TRIỆT ĐỂ LỖI THIẾU CỘT G TRONG MATCHING INFORMATION)
  */
 
 // 1. CÁC HÀM SOCRATIC GỐC (GIỮ NGUYÊN 100% KHÔNG CẮT BỚT)
@@ -168,13 +168,47 @@ export function buildReadingHtml(data) {
     const isTFNG = gType.includes('tfng') || gMeta.includes('true/false/not given');
     const isYNNG = gType.includes('ynng') || gMeta.includes('yes/no/not given');
 
-    const isMatchingParagraphs = gType.includes('matching_info') || gType.includes('matching_paragraphs') || gMeta.includes('which paragraph') || gMeta.includes('contains the following information');
+    const isMatchingParagraphs = gType.includes('matching_info') || gType.includes('matching_paragraphs') || gMeta.includes('which paragraph') || gMeta.includes('contains the following information') || gMeta.includes('which section');
     const isChooseTwo = gMeta.includes('choose two') || gMeta.includes('choose 2') || (group.questionIds && group.questionIds.length === 2 && Array.isArray(group.options) && group.options.length >= 4);
 
-    if (isMatchingParagraphs && (group.options || group.paragraphs || ['A','B','C','D','E','F'])) {
+    if (isMatchingParagraphs) {
+      // TỰ ĐỘNG XÁC ĐỊNH CHÍNH XÁC DANH SÁCH ĐOẠN (A ĐẾN G HOẶC H)
+      let paras = null;
+
+      // 1. Kiểm tra nếu group có khai báo trực tiếp
+      if (Array.isArray(group.paragraphs) && group.paragraphs.length > 0) {
+        paras = group.paragraphs;
+      } else if (Array.isArray(group.options) && group.options.length > 0) {
+        paras = group.options.map(o => typeof o === 'string' ? o.charAt(0).toUpperCase() : (o.key || o));
+      }
+
+      // 2. Nếu group không có, lấy trực tiếp từ options của câu hỏi con đầu tiên (như q14: ["A", "B", ... "G"])
+      if (!paras && group.questionIds && group.questionIds.length > 0) {
+        const firstQ = data.questions[group.questionIds[0]];
+        if (firstQ && Array.isArray(firstQ.options) && firstQ.options.length > 0) {
+          paras = firstQ.options.map(o => typeof o === 'string' ? o.charAt(0).toUpperCase() : (o.key || o));
+        }
+      }
+
+      // 3. Nếu vẫn chưa có, quét regex từ hướng dẫn đề bài (ví dụ "A-G", "A–G", "A-H")
+      if (!paras || paras.length === 0) {
+        const instrMatch = (group.instructions || '').match(/\b([A-C])\s*[-–—]\s*([E-J])\b/i);
+        if (instrMatch) {
+          const startCode = instrMatch[1].toUpperCase().charCodeAt(0);
+          const endCode = instrMatch[2].toUpperCase().charCodeAt(0);
+          paras = [];
+          for (let code = startCode; code <= endCode; code++) {
+            paras.push(String.fromCharCode(code));
+          }
+        }
+      }
+
+      // 4. Fallback an toàn (mặc định đầy đủ từ A tới G)
+      if (!paras || paras.length === 0) {
+        paras = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+      }
+
       // BẢNG MA TRẬN RADIO GRID CHUẨN THI CHÍNH THỨC
-      const paras = group.paragraphs || (Array.isArray(group.options) ? group.options.map(o => typeof o === 'string' ? o.charAt(0) : o.key) : ['A','B','C','D','E','F']);
-      
       paperHtml += `
         <div class="rd-matrix-table-wrap">
           <table class="rd-matrix-table">
