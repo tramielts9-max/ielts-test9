@@ -1,0 +1,81 @@
+{
+  "testId": "test_03",
+  "set": 1,
+  "level": "Thử thách đỉnh cao - Mức độ 3 (Tổng: 40 phút)",
+  "task1": {
+    "title": "WRITING TASK 1 (15 PHÚT): VIẾT 2 ĐOẠN THÂN BÀI (BODY PARAGRAPHS)",
+    "type": "Line Graph",
+    "imageUrl": "../writing task 1/images_task1/task1_img_104.jpeg",
+    "promptEn": "The graph below shows the price of different kinds of bread, in dollars, from 2001 to 2005. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "instructions": "Viết 2 đoạn Thân bài (Body 1 & Body 2) hoàn chỉnh mô tả diễn biến số liệu cụ thể của 4 loại bánh mì. Chọn lọc các số liệu đắt giá nhất và thực hiện so sánh đối chiếu (Yêu cầu khoảng 90 - 120 từ).",
+    "dataGroupingStrategy": {
+      "body1Focus": "Nhóm tăng trưởng ổn định: Bánh mì nâu (Brown) & Bánh mì trắng (White).",
+      "body2Focus": "Nhóm biến động đột biến & đi ngang ở đáy: Bánh mì nguyên cám (Wholegrain) & Bánh mì lúa mạch đen (Rye)."
+    },
+    "keyDataPoints": [
+      "Năm 2001: Bánh mì nâu và trắng có cùng điểm xuất phát ở mức $0.60.",
+      "Bánh mì nâu: Tăng vọt lên gần $1.60 năm 2002, giảm nhẹ năm 2004 trước khi đạt đỉnh cao kỷ lục $1.60 năm 2005.",
+      "Bánh mì trắng: Tăng đều đặn qua các năm để đạt xấp xỉ $1.30 vào cuối kỳ.",
+      "Bánh mì nguyên cám: Tăng dựng đứng lên đỉnh cao nhất toàn biểu đồ $1.80 (2002), sau đó lao dốc về $0.70 (2004) và kết thúc ở $0.80.",
+      "Bánh mì lúa mạch đen: Luôn giữ vị trí rẻ nhất, dao động tối thiểu trong biên độ hẹp $0.50 - $0.70."
+    ],
+    "band7Formulas": [
+      "Starting at an identical price point of [X], [Đối tượng A] and [Đối tượng B] exhibited distinct upward trajectories...",
+      "Experiencing the most pronounced surge, [Đối tượng C] peaked at [X] before plummeting precipitously to [Y]...",
+      "In sharp contrast, [Đối tượng D] remained largely static, hovering consistently between [X] and [Y] throughout the survey."
+    ],
+    "sections": [
+      {
+        "id": "wt1_body1",
+        "title": "Đoạn Body 1: Phân tích Bánh mì nâu và Bánh mì trắng",
+        "placeholder": "Viết đoạn Body 1 hoàn chỉnh (khoảng 45-60 từ)..."
+      },
+      {
+        "id": "wt1_body2",
+        "title": "Đoạn Body 2: Phân tích Bánh mì nguyên cám và Bánh mì lúa mạch đen",
+        "placeholder": "Viết đoạn Body 2 hoàn chỉnh (khoảng 45-60 từ)..."
+      }
+    ]
+  },
+  "task2": {
+    "title": "WRITING TASK 2 (25 PHÚT): VIẾT 2 ĐOẠN THÂN BÀI CHUẨN PEEL",
+    "promptEn": "The typical teaching situation between students and teachers in the classroom will be gone by the year 2050. To what extent do you agree or disagree?",
+    "promptVi": "(Một số người dự đoán mô hình lớp học truyền thống giữa học sinh và giáo viên sẽ biến mất hoàn toàn vào năm 2050. Bạn đồng ý hay không đồng ý?)",
+    "instructions": "Viết 2 đoạn Thân bài hoàn chỉnh (khoảng 150 - 180 từ) chứng minh quan điểm: Công nghệ và AI sẽ nâng cấp công cụ học tập nhưng không thể xóa bỏ lớp học truyền thống.",
+    "peelFramework": {
+      "body1": {
+        "theme": "Vai trò định hướng đạo đức và cảm xúc của người thầy (Human mentorship)",
+        "p_point": "Giáo viên mang lại sự đồng cảm và động viên tinh thần mà thuật toán AI không thể sao chép.",
+        "e_explanation": "Giáo dục chân chính không chỉ là truyền tải dữ liệu thô mà là khơi dậy sự tò mò và truyền cảm hứng.",
+        "e_example": "Trong giai đoạn học trực tuyến khẩn cấp, hàng triệu học sinh bị suy giảm tương tác và mất động lực do thiếu vắng sự hiện diện trực tiếp của thầy cô.",
+        "l_link": "Do đó, sự dìu dắt trực tiếp của con người vẫn là linh hồn không thể thay thế."
+      },
+      "body2": {
+        "theme": "Lớp học là môi trường rèn luyện kỹ năng xã hội (Socialization & Community)",
+        "p_point": "Lớp học trực tiếp phục vụ mục đích xã hội học cốt lõi: dạy người trẻ hòa nhập cộng đồng đa dạng.",
+        "e_explanation": "Chia sẻ không gian học tập dạy trẻ em kỹ năng thỏa hiệp, thấu hiểu bạn bè và xử lý xung đột trong thời gian thực.",
+        "e_example": "Nếu chỉ học qua màn hình máy tính cá nhân, thế hệ tương lai sẽ đối mặt với nguy cơ cô lập và khiếm khuyết kỹ năng giao tiếp.",
+        "l_link": "Vì vậy, công nghệ năm 2050 sẽ cải tiến phương tiện giảng dạy thay vì loại bỏ lớp học vật lý."
+      }
+    },
+    "band7Collocations": [
+      "conventional classroom dynamic (mối tương tác lớp học truyền thống)",
+      "pedagogical mentorship (sự dẫn dắt sư phạm)",
+      "technological disruption (sự đột phá công nghệ)",
+      "irreplaceable emotional empathy (sự thấu cảm cảm xúc không thể thay thế)",
+      "social congregation of learners (sự hội tụ xã hội của người học)"
+    ],
+    "sections": [
+      {
+        "id": "wt2_body1",
+        "title": "Đoạn Body 1 (PEEL 1): Vai trò cảm xúc và đạo đức của người thầy",
+        "placeholder": "Viết đoạn Body 1 hoàn chỉnh theo chuẩn PEEL (khoảng 70-90 từ)..."
+      },
+      {
+        "id": "wt2_body2",
+        "title": "Đoạn Body 2 (PEEL 2): Lớp học là môi trường xã hội hóa cốt lõi",
+        "placeholder": "Viết đoạn Body 2 hoàn chỉnh theo chuẩn PEEL (khoảng 70-90 từ)..."
+      }
+    ]
+  }
+}
