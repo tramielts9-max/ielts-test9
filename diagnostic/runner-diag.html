@@ -128,10 +128,7 @@
     .btn-3d-white { background: #FFFFFF; color: #261F1D !important; border: 2px solid var(--duo-border); border-bottom: 4px solid var(--duo-shadow); }
     .btn-3d-white:hover { background: #FAF7F2; }
 
-    /* ========================================================
-       BỘ CSS BỔ SUNG CHO CÂU HỎI LISTENING CAMBRIDGE 21
-       ======================================================== */
-    /* Dạng bảng Table Question */
+    /* BẢNG BIỂU TABLE QUESTION CHO LISTENING */
     .table-question {
       width: 100%; border-collapse: collapse; background: #FFFFFF; border: 2px solid var(--duo-border);
       border-radius: 14px; overflow: hidden; margin: 12px 0 16px 0; font-size: 13.5px;
@@ -145,23 +142,17 @@
       font-weight: 600; line-height: 1.6;
     }
 
-    /* Băng ký âm Transcript với mốc thời gian data-time */
+    /* BĂNG KÝ ÂM TRANSCRIPT */
     .transcript-line {
       padding: 6px 10px; border-radius: 8px; margin-bottom: 4px; transition: background 0.12s ease;
     }
-    .transcript-line:hover {
-      background: #F0F9FF;
-    }
+    .transcript-line:hover { background: #F0F9FF; }
     .time-stamp-tag {
       font-family: monospace; font-size: 11.5px; font-weight: 900; background: #E0F2FE;
       color: #0284C7; padding: 2px 6px; border-radius: 5px; margin-right: 8px; user-select: none;
     }
-    .transcript-line .kw {
-      background: #FEF08A; font-weight: 800; padding: 0 4px; border-radius: 4px;
-    }
-    .transcript-line.active-audio-line {
-      background: #FEF9C3; border-left: 4px solid #EAB308;
-    }
+    .transcript-line .kw { background: #FEF08A; font-weight: 800; padding: 0 4px; border-radius: 4px; }
+    .transcript-line.active-audio-line { background: #FEF9C3; border-left: 4px solid #EAB308; }
   </style>
 </head>
 <body>
@@ -315,46 +306,14 @@
   </div>
 
   <!-- =========================================================================
-       PHẦN 4: WRITING DỊCH THUẬT & DÀN Ý (TASK 1 & TASK 2)
+       PHẦN 4: WRITING DỊCH THUẬT & DÀN Ý (ĐIỀU KHIỂN BỞI DIAG-WRITING.JS)
        ========================================================================= -->
   <div id="section_writing" class="exam-section-card" style="display: none;">
-    <div style="border-bottom: 2px solid #F4EFEB; padding-bottom: 12px; margin-bottom: 16px;">
-      <h3 style="margin: 0; color: #2563EB; font-size: 18px; font-weight: 900;">
-        <i class="fa-solid fa-pen-nib"></i> PHẦN 4: KHẢO SÁT NĂNG LỰC VIẾT (WRITING)
-      </h3>
-      <p style="margin: 4px 0 0 0; font-size: 13px; font-weight: 700; color: #64748B;">
-        Thực hiện viết dịch câu tổng quan và triển khai luận điểm. Toàn bộ bài làm sẽ được AI chấm chi tiết.
-      </p>
-    </div>
-
-    <div class="q-item-box">
-      <div style="font-size: 15px; font-weight: 900; color: #1E40AF; margin-bottom: 8px;">
-        📊 TASK 1: Dịch Câu Tổng Quan (Overview)
+    <!-- CONTAINER MOUNT ĐỘNG DO DIAG-WRITING.JS RENDER -->
+    <div id="writingMountContainer">
+      <div style="text-align: center; padding: 30px; font-weight: 800; color: #64748B;">
+        ⏳ Đang nạp dữ liệu bài thi Viết...
       </div>
-      <div style="font-size: 13.5px; color: #475569; font-weight: 700; background: #FFFFFF; border: 1.5px solid #CBD5E1; padding: 12px 14px; border-radius: 12px; margin-bottom: 12px;" id="wt1PromptBox">
-        <b>Đề bài:</b> "The graph below shows the average house prices in 3 countries between 1997–2014."<br>
-        <i>Gợi ý tiếng Việt:</i> "Nhìn chung, giá nhà ở cả 3 nước đều tăng qua các năm, trong đó giá nhà ở Country A luôn ở mức cao nhất và Country C ở mức thấp nhất."
-      </div>
-
-      <label style="font-size: 13px; font-weight: 800; color: #1E293B; display: block;">✍️ Bản dịch tiếng Anh của em (Không đưa số liệu chi tiết vào câu này):</label>
-      <textarea id="diag_wt1_input" class="diag-textarea" placeholder="Viết 1 câu Overview hoàn chỉnh bằng tiếng Anh tại đây..."></textarea>
-      <div style="text-align: right; font-size: 12px; font-weight: 800; color: #64748B; margin-top: 4px;" id="wt1WordCount">0 từ</div>
-    </div>
-
-    <div class="q-item-box" style="margin-top: 20px;">
-      <div style="font-size: 15px; font-weight: 900; color: #7C3AED; margin-bottom: 8px;">
-        📝 TASK 2: Triển Khai Luận Điểm PEEL (Topic & Explanation)
-      </div>
-      <div style="font-size: 13.5px; color: #475569; font-weight: 700; background: #FFFFFF; border: 1.5px solid #CBD5E1; padding: 12px 14px; border-radius: 12px; margin-bottom: 12px;" id="wt2PromptBox">
-        <b>Đề bài:</b> University students focus only on job subjects vs. study a wide range of subjects.<br>
-        <i>Gợi ý viết Đoạn 1:</i><br>
-        - Câu 1 (Topic): Học môn chuyên ngành giúp sinh viên có kiến thức sâu để chuẩn bị cho công việc.<br>
-        - Câu 2 (Explain): Nhờ đó, họ sẽ dễ dàng tìm được việc làm tốt sau khi ra trường.
-      </div>
-
-      <label style="font-size: 13px; font-weight: 800; color: #1E293B; display: block;">✍️ Viết 2 câu tiếng Anh (1 Topic + 1 Explanation):</label>
-      <textarea id="diag_wt2_input" class="diag-textarea" placeholder="Viết 2 câu tiếng Anh chuẩn mạch tư duy tại đây..."></textarea>
-      <div style="text-align: right; font-size: 12px; font-weight: 800; color: #64748B; margin-top: 4px;" id="wt2WordCount">0 từ</div>
     </div>
 
     <div style="display: flex; justify-content: space-between; margin-top: 24px;">
