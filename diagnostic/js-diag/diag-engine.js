@@ -1,12 +1,13 @@
 /**
  * diagnostic/js-diag/diag-engine.js
  * BỘ MÁY ĐIỀU PHỐI KHẢO THÍ CHẨN ĐOÁN THÍCH ỨNG MASTER (TEST 1, 2, 3 & 3 SET XOAY TUA)
- * BẢN FULL ĐẦY ĐỦ 100% - ĐIỀU PHỐI DIAG-READING VÀ DIAG-LISTENING,
- * CHẤM TWO-TIER, CHẤM AI WRITING & SPEAKING, DASHBOARD BÁO CÁO CÂU SAI
+ * BẢN FULL ĐẦY ĐỦ 100% - ĐIỀU PHỐI ĐỒNG BỘ CẢ 3 BỘ MÁY: READING, LISTENING VÀ WRITING
+ * CHẤM TWO-TIER, CHẤM AI WRITING & SPEAKING, ĐO TTFI VÀ BÁO CÁO CÂU SAI CHI TIẾT
  */
 
 import { diagReadingEngine } from './diag-reading.js';
 import { diagListeningEngine } from './diag-listening.js';
+import { diagWritingEngine } from './diag-writing.js';
 
 // =========================================================================
 // 1. MÃ HÓA 3 API KEY RIÊNG BIỆT CHO TỪNG KỸ NĂNG (BẢO MẬT CHỐNG F12)
@@ -34,7 +35,7 @@ function getSpeakingKey() { return _SPEAKING_SEEDS.map(c => String.fromCharCode(
 const CLOUD_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyNErQQFdciAQM0k9KUrACtpX7rxKkopjChYAC2Ubwj5MGzFOeekDEGs8C1n7P9cNR6vg/exec";
 
 // =========================================================================
-// 2. NGÂN HÀNG DỮ LIỆU ĐỀ THI CHO TEST 1, 2, 3
+// 2. NGÂN HÀNG DỮ LIỆU ĐỀ THI CHO TEST 1, 2, 3 (NGỮ PHÁP & SPEAKING)
 // =========================================================================
 const DIAGNOSTIC_DATABASE = {
   // TEST 1 (45 PHÚT - BAND 0 ➔ 5.0)
@@ -86,12 +87,6 @@ const DIAGNOSTIC_DATABASE = {
         }
       }
     },
-    writing: {
-      task1Prompt: "The graph below shows the average house prices in 3 countries between 1997–2014.",
-      task1Guide: "Gợi ý: 'Nhìn chung, giá nhà ở cả 3 nước đều tăng qua các năm, trong đó giá nhà ở Country A luôn ở mức cao nhất và Country C ở mức thấp nhất.'",
-      task2Prompt: "Some people think that university students should focus only on subjects related to their future jobs. Others believe that they should study a wide range of subjects. Discuss both views.",
-      task2Guide: "Gợi ý viết Đoạn 1: (1) Học môn chuyên ngành giúp sinh viên có kiến thức sâu cho công việc. (2) Nhờ đó họ dễ tìm việc tốt sau tốt nghiệp."
-    },
     speaking: {
       q1: "Do you work or are you a student? What do you like most about your studies or career?",
       q2: "How often do you use English in your daily life or studies?"
@@ -120,12 +115,6 @@ const DIAGNOSTIC_DATABASE = {
         { id: "v05", q: "A 'precursor' is something that:", options: ["A. Comes after an event", "B. Comes before and influences", "C. Stops an action"], answer: "B" }
       ]
     },
-    writing: {
-      task1Prompt: "The bar chart illustrates the quantity of waste disposed of by six nations over twenty years.",
-      task1Guide: "Từ khóa định hướng: xu hướng tăng tổng thể / so sánh quốc gia cao nhất ↔ thấp nhất.",
-      task2Prompt: "Some people argue that technological development increases the gap between rich and poor. To what extent do you agree or disagree?",
-      task2Guide: "Viết 2 đoạn thân bài PEEL: Đoạn 1 (Cơ hội việc làm công nghệ) - Đoạn 2 (Bất bình đẳng tiếp cận số)."
-    },
     speaking: {
       q1: "Let's talk about your hometown. Has it changed much in recent years?",
       q2: "Describe a useful piece of electronic equipment that you use regularly (Cue Card Part 2)."
@@ -141,10 +130,6 @@ const DIAGNOSTIC_DATABASE = {
         { id: "t3_g01", q: "Under no circumstances ______ confidential data be shared.", options: ["A. should", "B. must not", "C. it should"], answer: "A", topic: "Đảo ngữ phủ định" },
         { id: "t3_g02", q: "______ for his timely intervention, the project would have collapsed.", options: ["A. Were it not", "B. Had it not been", "C. If it wasn't"], answer: "B", topic: "Đảo ngữ điều kiện loại 3" }
       ]
-    },
-    writing: {
-      task1Prompt: "Writing Task 1 Body: Write two body paragraphs describing the key groupings of the chart.",
-      task2Prompt: "Writing Task 2 Body: Write two complete PEEL paragraphs evaluating whether artificial intelligence poses existential threats to human employment."
     },
     speaking: {
       q1: "Do you believe artificial intelligence will eventually replace human decision-making in legal and ethical matters? (Part 3 Deep Discussion)"
@@ -188,18 +173,20 @@ class DiagnosticEngineMaster {
     // 1. Render Ngữ pháp & Từ vựng
     this.renderGrammarAndVocabSection();
 
-    // 2. NẠP LISTENING QUA DIAG-LISTENING.JS (TEST 2 & TEST 3 DÙNG JSON NGOÀI)
+    // 2. NẠP LISTENING QUA DIAG-LISTENING.JS
     await this.initListeningSection();
 
     // 3. NẠP READING QUA DIAG-READING.JS
     await this.initReadingFromJson();
 
-    // 4. Khởi tạo Writing, Speaking & Timer
-    this.setupWritingAndSpeaking();
+    // 4. NẠP WRITING QUA DIAG-WRITING.JS (MỚI KẾT NỐI)
+    await this.initWritingFromJson();
+
+    // 5. Khởi tạo Speaking, Mic & Timer
     this.initSpeechRecognition();
     this.startTimer();
 
-    // 5. Kiểm tra Review Mode
+    // 6. Kiểm tra Review Mode nếu có attemptId
     const attemptId = urlParams.get('attemptId');
     if (attemptId) {
       this.restoreReviewMode(attemptId);
@@ -285,6 +272,17 @@ class DiagnosticEngineMaster {
     `;
   }
 
+  // --- NẠP WRITING QUA DIAG-WRITING.JS ---
+  async initWritingFromJson() {
+    const testNum = this.testId.replace('test_0', '').replace('test_', '');
+    const jsonPath = `data-diag/writing/test${testNum}-writing-s${this.setNum}.json`;
+    console.log(`[DiagEngine] Đang nạp Writing JSON qua diagWritingEngine: ${jsonPath}`);
+    const success = await diagWritingEngine.loadTestFromJson(jsonPath);
+    if (success) {
+      diagWritingEngine.render();
+    }
+  }
+
   // --- RENDER NGỮ PHÁP & TỪ VỰNG ---
   renderGrammarAndVocabSection() {
     const mount = document.getElementById('grammarQuestionsMount');
@@ -348,15 +346,6 @@ class DiagnosticEngineMaster {
     }
 
     mount.innerHTML = html;
-  }
-
-  setupWritingAndSpeaking() {
-    const wData = this.activeData.writing;
-    const wt1Box = document.getElementById('wt1PromptBox');
-    const wt2Box = document.getElementById('wt2PromptBox');
-
-    if (wt1Box && wData) wt1Box.innerHTML = `<b>Đề bài Task 1:</b> "${wData.task1Prompt}"<br><i>${wData.task1Guide || ''}</i>`;
-    if (wt2Box && wData) wt2Box.innerHTML = `<b>Đề bài Task 2:</b> "${wData.task2Prompt}"<br><i>${wData.task2Guide || ''}</i>`;
   }
 
   initQuestionMetric(qId) {
@@ -482,7 +471,6 @@ class DiagnosticEngineMaster {
       lWrongList = lisEval.wrongList;
       listeningSnapshot = lisEval.answersSnapshot;
     } else {
-      // Test 1 fallback
       const setLis = this.activeData.listeningSets[this.setNum] || this.activeData.listeningSets[1];
       const allLisQ = [...setLis.audioA2.questions, ...setLis.audioB2.questions];
       lTotal = allLisQ.length;
@@ -496,9 +484,12 @@ class DiagnosticEngineMaster {
     // 3. Chấm Reading qua DiagReadingEngine
     const readingResult = diagReadingEngine.evaluate();
 
-    // 4. Gọi AI chấm Writing & Speaking
-    const wt1Text = document.getElementById('diag_wt1_input')?.value.trim() || '';
-    const wt2Text = document.getElementById('diag_wt2_input')?.value.trim() || '';
+    // 4. LẤY BÀI VIẾT TỰ LUẬN TỪ DIAG-WRITING.JS VÀ GỌI AI CHẤM
+    const writingSubData = diagWritingEngine.getWritingSubmissionData();
+    const wt1Text = writingSubData.task1Text || document.getElementById('diag_wt1_input')?.value.trim() || '';
+    const wt2Text = writingSubData.task2Text || document.getElementById('diag_wt2_input')?.value.trim() || '';
+    const writingAnswersSnapshot = writingSubData.answersSnapshot || {};
+
     const spk1Text = document.getElementById('diag_spk_1')?.value.trim() || '';
     const spk2Text = document.getElementById('diag_spk_2')?.value.trim() || '';
 
@@ -576,6 +567,7 @@ class DiagnosticEngineMaster {
         lWrongList,
         rDetails: readingResult.details,
         listeningSnapshot,
+        writingAnswersSnapshot,
         wt1Text, wt2Text, spk1Text, spk2Text,
         aiWritingFeedback,
         aiSpeakingFeedback,
@@ -774,14 +766,19 @@ class DiagnosticEngineMaster {
         diagReadingEngine.renderReviewMode({ details: d.rDetails });
       }
 
-      // 4. Khôi phục text Writing & Speaking
-      const wt1 = document.getElementById('diag_wt1_input');
-      const wt2 = document.getElementById('diag_wt2_input');
+      // 4. Khôi phục Writing qua DiagWritingEngine
+      if (d.writingAnswersSnapshot) {
+        diagWritingEngine.renderReviewMode(d.writingAnswersSnapshot);
+      } else {
+        const wt1 = document.getElementById('diag_wt1_input');
+        const wt2 = document.getElementById('diag_wt2_input');
+        if (wt1 && d.wt1Text) { wt1.value = d.wt1Text; wt1.disabled = true; }
+        if (wt2 && d.wt2Text) { wt2.value = d.wt2Text; wt2.disabled = true; }
+      }
+
+      // 5. Khôi phục Speaking
       const spk1 = document.getElementById('diag_spk_1');
       const spk2 = document.getElementById('diag_spk_2');
-
-      if (wt1 && d.wt1Text) { wt1.value = d.wt1Text; wt1.disabled = true; }
-      if (wt2 && d.wt2Text) { wt2.value = d.wt2Text; wt2.disabled = true; }
       if (spk1 && d.spk1Text) { spk1.value = d.spk1Text; spk1.disabled = true; }
       if (spk2 && d.spk2Text) { spk2.value = d.spk2Text; spk2.disabled = true; }
 
