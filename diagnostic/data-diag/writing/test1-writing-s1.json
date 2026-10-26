@@ -1,0 +1,93 @@
+{
+  "testId": "test_01",
+  "set": 1,
+  "level": "Cơ bản - Nền tảng (10 phút)",
+  "task1": {
+    "title": "WRITING TASK 1 (5 PHÚT): BIẾN ĐỘNG GIÁ BÁNH MÌ",
+    "type": "Line Graph",
+    "imageUrl": "../writing task 1/images_task1/task1_img_104.jpeg",
+    "promptEn": "The graph below shows the price of different kinds of bread, in dollars, from 2001 to 2005.",
+    "stage1": {
+      "title": "Chặng 1: Kiểm tra tư duy Brainstorm (2 phút)",
+      "guide": "Nhìn vào biểu đồ đường trên màn hình và điền nhanh các ý bằng tiếng Việt theo mẫu ngắn gọn dưới đây (chỉ ghi ý chính):",
+      "questions": [
+        {
+          "id": "t1_s1_q1",
+          "label": "Câu 1: Nhìn tổng quát cả biểu đồ (Overview)",
+          "example": "[Xu hướng chung]: Bánh mì nâu và trắng tăng giá; lúa mạch đen ổn định.\n[Đặc điểm nổi bật]: Bánh mì nâu đắt nhất cuối kỳ, bánh mì lúa mạch đen luôn rẻ nhất.",
+          "fields": [
+            { "key": "trend", "placeholder": "Điền [Xu hướng chung] tại đây..." },
+            { "key": "feature", "placeholder": "Điền [Đặc điểm nổi bật] tại đây..." }
+          ]
+        },
+        {
+          "id": "t1_s1_q2",
+          "label": "Câu 2: Chia 2 đoạn thân bài (Body)",
+          "example": "Body 1: Viết về Bánh mì nâu và Bánh mì trắng (xu hướng tăng).\nBody 2: Viết về Bánh mì nguyên cám và Bánh mì lúa mạch đen.",
+          "fields": [
+            { "key": "body1", "placeholder": "Điền nội dung Body 1..." },
+            { "key": "body2", "placeholder": "Điền nội dung Body 2..." }
+          ]
+        },
+        {
+          "id": "t1_s1_q3",
+          "label": "Câu 3: Chọn mốc thời gian để tả đường Bánh mì nâu (Brown bread)",
+          "example": "Năm 2001 (bắt đầu $0.6), năm 2002 (tăng vọt lên $1.6), năm 2005 (kết thúc đỉnh $1.6).",
+          "fields": [
+            { "key": "milestones", "placeholder": "Điền các mốc thời gian bạn chọn..." }
+          ]
+        }
+      ]
+    },
+    "stage2": {
+      "title": "Chặng 2: Kiểm tra năng lực Viết tiếng Anh (3 phút)",
+      "guide": "Hãy dịch câu tóm tắt tiếng Việt đơn giản sau đây thành 1 câu Overview hoàn chỉnh bằng tiếng Anh (tuyệt đối không viết số tiền cụ thể vào câu này):",
+      "viSentence": "\"Nhìn chung, giá bánh mì nâu và bánh mì trắng đều tăng trong giai đoạn này, trong khi bánh mì nâu đắt nhất vào năm cuối và bánh mì lúa mạch đen luôn giữ mức rẻ nhất.\"",
+      "formula": "Overall, while the prices of [Đối tượng 1] and [Đối tượng 2] increased over the period, [Đối tượng 1] was the most expensive in the final year, and [Đối tượng 3] remained the cheapest throughout.",
+      "placeholder": "Viết câu Overview tiếng Anh hoàn chỉnh tại đây..."
+    }
+  },
+  "task2": {
+    "title": "WRITING TASK 2 (5 PHÚT): LỚP HỌC TRUYỀN THỐNG 2050",
+    "promptEn": "The typical teaching situation between students and teachers in the classroom will be gone by the year 2050. To what extent do you agree or disagree?",
+    "promptVi": "(Một số người dự đoán rằng mô hình lớp học truyền thống giữa học sinh và giáo viên sẽ biến mất hoàn toàn vào năm 2050. Bạn đồng ý hay không đồng ý?)",
+    "stage1": {
+      "title": "Chặng 1: Kiểm tra tư duy Brainstorm (2 phút)",
+      "guide": "Nêu 1 lý do bằng tiếng Việt cho mỗi quan điểm bên dưới:",
+      "questions": [
+        {
+          "id": "t2_s1_q1",
+          "label": "Quan điểm 1: Tại sao công nghệ trực tuyến/AI khó thay thế được người thầy?",
+          "placeholder": "Điền 1 lý do chính bằng tiếng Việt..."
+        },
+        {
+          "id": "t2_s1_q2",
+          "label": "Quan điểm 2: Tại sao học sinh vẫn cần đến lớp học thể chất trực tiếp?",
+          "placeholder": "Điền 1 lý do chính bằng tiếng Việt..."
+        }
+      ]
+    },
+    "stage2": {
+      "title": "Chặng 2: Kiểm tra năng lực Viết tiếng Anh (3 phút)",
+      "guide": "Dịch và hoàn thiện 2 câu (1 Topic + 1 Explanation) cho mỗi đoạn bằng tiếng Anh dựa trên gợi ý tiếng Việt dưới đây:",
+      "sections": [
+        {
+          "sectionTitle": "Đoạn 1: Vai trò tình cảm và đạo đức của người thầy",
+          "hints": [
+            "Câu 1 (Ý chính): Lớp học truyền thống sẽ tiếp tục tồn tại vì giáo viên mang lại sự định hướng đạo đức và cảm xúc mà máy móc không có.",
+            "Câu 2 (Giải thích): Trí tuệ nhân tạo có thể giải bài tập, nhưng không thể thấu hiểu khi nào một học sinh đang cảm thấy chán nản hay lo âu."
+          ],
+          "placeholder": "Viết 2 câu tiếng Anh cho Đoạn 1 tại đây..."
+        },
+        {
+          "sectionTitle": "Đoạn 2: Lớp học là môi trường rèn luyện kỹ năng xã hội",
+          "hints": [
+            "Câu 1 (Ý chính): Hơn nữa, việc học trực tiếp tại trường giúp học sinh rèn luyện kỹ năng làm việc nhóm và giao tiếp thực tế.",
+            "Câu 2 (Giải thích): Nếu chỉ học qua màn hình máy tính ở nhà, thế hệ trẻ sẽ trở nên cô lập và thiếu hụt khả năng tương tác xã hội."
+          ],
+          "placeholder": "Viết 2 câu tiếng Anh cho Đoạn 2 tại đây..."
+        }
+      ]
+    }
+  }
+}
