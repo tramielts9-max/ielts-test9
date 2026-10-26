@@ -1,0 +1,83 @@
+{
+  "testId": "test_03",
+  "set": 3,
+  "level": "Thử thách đỉnh cao - Mức độ 3 (Tổng: 40 phút)",
+  "task1": {
+    "title": "WRITING TASK 1 (15 PHÚT): VIẾT 2 ĐOẠN THÂN BÀI (BODY PARAGRAPHS)",
+    "type": "Pie Chart",
+    "imageUrl": "../writing task 1/images_task1/task1_img_158.jpeg",
+    "promptEn": "The charts below show the percentage of students on an adult education center taking various courses offered in 1985 and this year. Summarize the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "instructions": "Viết 2 đoạn Thân bài (Body 1 & Body 2) hoàn chỉnh phân tích sự thay đổi trong cơ cấu môn học của trung tâm giáo dục thường xuyên giữa năm 1985 và năm nay (Yêu cầu khoảng 90 - 120 từ).",
+    "dataGroupingStrategy": {
+      "body1Focus": "Các môn có biến động mang tính bước ngoặt: Môn mới xuất hiện (IT) và hai môn bị khai tử (Lịch sử địa phương & Cảm thụ âm nhạc).",
+      "body2Focus": "Bốn môn học duy trì liên tục xuyên suốt 2 thời kỳ: Khiêu vũ & thể dục, Nấu ăn, Ngoại ngữ hiện đại, và Nghệ thuật."
+    },
+    "keyDataPoints": [
+      "Công nghệ thông tin (IT): Không tồn tại trong chương trình năm 1985 nhưng bứt phá chiếm vị trí dẫn đầu tuyệt đối ở mức 27% hiện nay.",
+      "Lịch sử địa phương (Local history): Chiếm 15% năm 1985 nhưng đã bị ngừng giảng dạy hoàn toàn (0%).",
+      "Cảm thụ âm nhạc (Music appreciation): Từng chiếm 8% năm 1985 và cũng đã biến mất khỏi chương trình học.",
+      "Thể hình & khiêu vũ (Fitness & dance): Duy trì tỷ lệ bất biến chính xác 22% trong cả hai năm.",
+      "Nấu ăn (Cookery): Tăng trưởng từ 14% lên 19%.",
+      "Ngoại ngữ (Modern languages): Từng là môn học đông nhất năm 1985 (24%), nay giảm xuống còn 17%.",
+      "Nghệ thuật (Art): Giảm nhẹ từ 17% xuống 15%."
+    ],
+    "band7Formulas": [
+      "In the contemporary period, IT emerged as the primary subject, capturing [27%] of all registrations, despite having no presence in [1985]...",
+      "Conversely, both local history and music appreciation, which previously constituted [15%] and [8%] respectively, were completely phased out...",
+      "Among the continuous offerings, fitness and dance maintained an unwavering share of [22%], whereas cookery expanded moderately to [19%]."
+    ],
+    "sections": [
+      {
+        "id": "wt1_body1",
+        "title": "Đoạn Body 1: Phân tích môn mới (IT) và các môn bị loại bỏ",
+        "placeholder": "Viết đoạn Body 1 hoàn chỉnh (khoảng 45-60 từ)..."
+      },
+      {
+        "id": "wt1_body2",
+        "title": "Đoạn Body 2: Phân tích 4 môn học duy trì liên tục",
+        "placeholder": "Viết đoạn Body 2 hoàn chỉnh (khoảng 45-60 từ)..."
+      }
+    ]
+  },
+  "task2": {
+    "title": "WRITING TASK 2 (25 PHÚT): VIẾT 2 ĐOẠN THÂN BÀI CHUẨN PEEL",
+    "promptEn": "In some countries, young people are encouraged to work or travel for a year between finishing high school and starting university studies. Discuss the advantages and disadvantages for young people who decide to do this.",
+    "promptVi": "(Ở một số quốc gia, giới trẻ được khuyến khích đi làm hoặc đi du lịch một năm sau khi tốt nghiệp cấp 3 trước khi vào đại học. Bàn luận ưu và nhược điểm.)",
+    "instructions": "Viết 2 đoạn Thân bài hoàn chỉnh (khoảng 150 - 180 từ) phân tích sâu sắc cả hai mặt: Lợi ích về sự tự lập và định hướng nghề nghiệp vs. Nguy cơ mất đà học tập và bẫy thu nhập ngắn hạn.",
+    "peelFramework": {
+      "body1": {
+        "theme": "Lợi ích: Trưởng thành thực tế và định hướng tương lai vững chắc",
+        "p_point": "Lợi thế hàng đầu của một năm nghỉ phép (gap year) nằm ở việc tích lũy kinh nghiệm sống và sự sáng suốt về nghề nghiệp.",
+        "e_explanation": "Tự sinh sống xa gia đình hoặc làm các công việc sơ cấp rèn luyện cho thanh niên kỹ năng quản lý tài chính, giải quyết xung đột và sự thích nghi.",
+        "e_example": "Khi tương tác với các môi trường làm việc thực tế, giới trẻ khám phá được sở trường thực sự, tránh việc chọn sai ngành học và lãng phí học phí đại học đắt đỏ.",
+        "l_link": "Do đó, một năm nghỉ ngơi được hoạch định bài bản biến những thiếu niên phụ thuộc thành những sinh viên tự chủ và chững chạc."
+      },
+      "body2": {
+        "theme": "Bất lợi: Gián đoạn nhịp học và cạm bẫy tài chính trước mắt",
+        "p_point": "Ngược lại, việc tạm dừng học vấn mang lại rủi ro lớn nếu người trẻ thiếu tính kỷ luật cá nhân.",
+        "e_explanation": "Khác với các bạn đồng trang lứa vào thẳng đại học, học sinh nghỉ gap year dễ đánh mất thói quen đọc sách, phản xạ tư duy và sự tập trung học thuật.",
+        "e_example": "Việc có được tiền lương sớm dễ khiến nhiều bạn trẻ bị cám dỗ bởi thu nhập ngắn hạn, dẫn đến việc trì hoãn hoặc từ bỏ hoàn toàn kế hoạch học tiếp đại học.",
+        "l_link": "Như vậy, một năm gap year vô định hướng sẽ trở thành chướng ngại cản trở sự nghiệp học thuật lâu dài."
+      }
+    },
+    "band7Collocations": [
+      "sabbatical year (năm nghỉ phép chuyển tiếp)",
+      "practical self-reliance and career clarity (sự tự lập thực tế và định hướng nghề nghiệp rõ ràng)",
+      "loss of academic momentum (sự mất đà học thuật)",
+      "short-term income temptation (cám dỗ thu nhập ngắn hạn)",
+      "unstructured distraction (sự phân tâm vô định hướng)"
+    ],
+    "sections": [
+      {
+        "id": "wt2_body1",
+        "title": "Đoạn Body 1 (PEEL 1): Ưu điểm về sự trưởng thành và tự lập",
+        "placeholder": "Viết đoạn Body 1 hoàn chỉnh theo chuẩn PEEL (khoảng 70-90 từ)..."
+      },
+      {
+        "id": "wt2_body2",
+        "title": "Đoạn Body 2 (PEEL 2): Nhược điểm về mất đà học tập và cạm bẫy tài chính",
+        "placeholder": "Viết đoạn Body 2 hoàn chỉnh theo chuẩn PEEL (khoảng 70-90 từ)..."
+      }
+    ]
+  }
+}
