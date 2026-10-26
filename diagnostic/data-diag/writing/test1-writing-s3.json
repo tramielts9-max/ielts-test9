@@ -1,0 +1,93 @@
+{
+  "testId": "test_01",
+  "set": 3,
+  "level": "Cơ bản - Nền tảng (10 phút)",
+  "task1": {
+    "title": "WRITING TASK 1 (5 PHÚT): KHÓA HỌC DÀNH CHO NGƯỜI LỚN",
+    "type": "Pie Chart",
+    "imageUrl": "../writing task 1/images_task1/task1_img_158.jpeg",
+    "promptEn": "The charts below show the percentage of students on an adult education center taking various courses offered in 1985 and this year.",
+    "stage1": {
+      "title": "Chặng 1: Kiểm tra tư duy Brainstorm (2 phút)",
+      "guide": "Nhìn vào hai biểu đồ tròn trên màn hình và điền nhanh các ý bằng tiếng Việt theo mẫu ngắn gọn dưới đây (chỉ ghi ý chính):",
+      "questions": [
+        {
+          "id": "t1_s3_q1",
+          "label": "Câu 1: Nhìn tổng quát cả biểu đồ (Overview)",
+          "example": "[Xu hướng chung]: Môn Tin học (IT) xuất hiện và chiếm tỷ lệ cao nhất; Môn Lịch sử và Âm nhạc biến mất.\n[Đặc điểm nổi bật]: Môn Thể dục và khiêu vũ giữ nguyên 22% không đổi qua 2 năm.",
+          "fields": [
+            { "key": "trend", "placeholder": "Điền [Xu hướng chung] tại đây..." },
+            { "key": "feature", "placeholder": "Điền [Đặc điểm nổi bật] tại đây..." }
+          ]
+        },
+        {
+          "id": "t1_s3_q2",
+          "label": "Câu 2: Chia 2 đoạn thân bài (Body)",
+          "example": "Body 1: Tả môn IT mới xuất hiện và hai môn bị loại bỏ (Lịch sử, Âm nhạc).\nBody 2: Tả 4 môn học duy trì liên tục (Khiêu vũ, Nấu ăn, Ngoại ngữ, Nghệ thuật).",
+          "fields": [
+            { "key": "body1", "placeholder": "Điền nội dung Body 1..." },
+            { "key": "body2", "placeholder": "Điền nội dung Body 2..." }
+          ]
+        },
+        {
+          "id": "t1_s3_q3",
+          "label": "Câu 3: Chọn đặc điểm của môn Thể dục và khiêu vũ (Fitness & dance)",
+          "example": "Giữ nguyên chính xác tỷ lệ 22% trong cả năm 1985 và năm nay.",
+          "fields": [
+            { "key": "milestones", "placeholder": "Điền đặc điểm bạn chọn..." }
+          ]
+        }
+      ]
+    },
+    "stage2": {
+      "title": "Chặng 2: Kiểm tra năng lực Viết tiếng Anh (3 phút)",
+      "guide": "Hãy dịch câu tóm tắt tiếng Việt sau thành 1 câu Overview hoàn chỉnh bằng tiếng Anh (tuyệt đối không đưa số liệu cụ thể vào câu này):",
+      "viSentence": "\"Nhìn chung, Tin học đã trở thành môn học phổ biến nhất hiện nay dù không xuất hiện vào năm 1985, trong khi môn Thể dục và khiêu vũ duy trì tỷ lệ hoàn toàn không đổi.\"",
+      "formula": "Overall, IT emerged as the most favored subject today despite being absent in 1985, while Fitness and dance retained an identical share in both years.",
+      "placeholder": "Viết câu Overview tiếng Anh hoàn chỉnh tại đây..."
+    }
+  },
+  "task2": {
+    "title": "WRITING TASK 2 (5 PHÚT): TRẢI NGHIỆM NGHỈ 1 NĂM (GAP YEAR)",
+    "promptEn": "In some countries, young people are encouraged to work or travel for a year between finishing high school and starting university studies. Discuss the advantages and disadvantages for young people who decide to do this.",
+    "promptVi": "(Ở một số quốc gia, giới trẻ được khuyến khích đi làm hoặc đi du lịch một năm sau khi tốt nghiệp cấp 3 trước khi vào đại học. Bàn luận ưu và nhược điểm.)",
+    "stage1": {
+      "title": "Chặng 1: Kiểm tra tư duy Brainstorm (2 phút)",
+      "guide": "Nêu 1 lý do bằng tiếng Việt cho mỗi mặt bên dưới:",
+      "questions": [
+        {
+          "id": "t2_s3_q1",
+          "label": "Mặt tích cực (Advantage): Lợi ích lớn nhất khi nghỉ 1 năm là gì?",
+          "placeholder": "Điền 1 lợi ích chính bằng tiếng Việt..."
+        },
+        {
+          "id": "t2_s3_q2",
+          "label": "Mặt tiêu cực (Disadvantage): Nguy cơ lớn nhất khi nghỉ 1 năm là gì?",
+          "placeholder": "Điền 1 nguy cơ chính bằng tiếng Việt..."
+        }
+      ]
+    },
+    "stage2": {
+      "title": "Chặng 2: Kiểm tra năng lực Viết tiếng Anh (3 phút)",
+      "guide": "Dịch và hoàn thiện 2 câu (1 Topic + 1 Explanation) cho mỗi đoạn bằng tiếng Anh dựa trên gợi ý tiếng Việt dưới đây:",
+      "sections": [
+        {
+          "sectionTitle": "Đoạn 1: Lợi thế về kỹ năng sống và định hướng",
+          "hints": [
+            "Câu 1 (Ý chính): Một mặt, trải nghiệm một năm nghỉ ngơi giúp học sinh tích lũy kinh nghiệm sống thực tế và tự lập.",
+            "Câu 2 (Giải thích): Bằng việc đi làm hoặc đi du lịch, các bạn trẻ có thể khám phá đam mê thực sự và đưa ra lựa chọn ngành học sáng suốt."
+          ],
+          "placeholder": "Viết 2 câu tiếng Anh cho Đoạn 1 tại đây..."
+        },
+        {
+          "sectionTitle": "Đoạn 2: Nguy cơ mất đà học tập và gián đoạn kiến thức",
+          "hints": [
+            "Câu 1 (Ý chính): Mặt khác, việc tạm ngừng việc học có thể khiến học sinh mất đi thói quen và sự tập trung học tập.",
+            "Câu 2 (Giải thích): Một số thanh niên bị cám dỗ bởi thu nhập kiếm được ngay trước mắt và quyết định từ bỏ con đường học đại học."
+          ],
+          "placeholder": "Viết 2 câu tiếng Anh cho Đoạn 2 tại đây..."
+        }
+      ]
+    }
+  }
+}
