@@ -1,0 +1,109 @@
+{
+  "testId": "test_02",
+  "set": 1,
+  "level": "Chuẩn hóa - Mức độ 2 (Tổng: 20 phút)",
+  "task1": {
+    "title": "WRITING TASK 1 (10 PHÚT): BIẾN ĐỘNG GIÁ BÁNH MÌ",
+    "type": "Line Graph",
+    "imageUrl": "../writing task 1/images_task1/task1_img_104.jpeg",
+    "promptEn": "The graph below shows the price of different kinds of bread, in dollars, from 2001 to 2005. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "stage1": {
+      "title": "Chặng 1: Kiểm tra tư duy Brainstorm (2 phút)",
+      "guide": "Nhìn vào biểu đồ đường trên màn hình và điền nhanh các ý bằng tiếng Việt theo mẫu ngắn gọn dưới đây (chỉ ghi ý chính):",
+      "questions": [
+        {
+          "id": "t2_t1_s1_q1",
+          "label": "Câu 1: Nhìn tổng quát cả biểu đồ (Overview)",
+          "example": "[Xu hướng chung]: Tất cả các đối tượng đều tăng qua các năm.\n[Đặc điểm nổi bật]: Đối tượng A luôn giữ mức cao nhất.",
+          "fields": [
+            { "key": "trend", "placeholder": "Điền [Xu hướng chung] tại đây..." },
+            { "key": "feature", "placeholder": "Điền [Đặc điểm nổi bật] tại đây..." }
+          ]
+        },
+        {
+          "id": "t2_t1_s1_q2",
+          "label": "Câu 2: Chia 2 đoạn thân bài (Body)",
+          "example": "Body 1: Viết về đối tượng A và B từ đầu đến cuối.\nBody 2: Viết về đối tượng C và D từ đầu đến cuối.",
+          "fields": [
+            { "key": "body1", "placeholder": "Điền phân chia Body 1..." },
+            { "key": "body2", "placeholder": "Điền phân chia Body 2..." }
+          ]
+        },
+        {
+          "id": "t2_t1_s1_q3",
+          "label": "Câu 3: Chọn mốc thời gian để tả đường Country A / Loại bánh nổi bật",
+          "example": "Năm 2001 (bắt đầu), năm 2002 (lên cao nhất đợt 1), năm 2005 (kết thúc).",
+          "fields": [
+            { "key": "milestones", "placeholder": "Điền các mốc bạn chọn..." }
+          ]
+        }
+      ]
+    },
+    "stage2": {
+      "title": "Chặng 2: Kiểm tra năng lực Viết tiếng Anh (8 phút)",
+      "guide": "Tự liên kết các từ khóa định hướng bên dưới để viết thành 1 câu Overview hoàn chỉnh bằng tiếng Anh (tự xây dựng ngữ pháp, từ nối và tuyệt đối không đưa số liệu chi tiết):",
+      "keywords": [
+        "Xu hướng: bánh mì nâu & bánh mì trắng / tăng giá tổng thể / bánh mì lúa mạch đen / ổn định hầu như không đổi.",
+        "So sánh đối lập: bánh mì nâu / đắt đỏ nhất vào cuối kỳ ↔ bánh mì lúa mạch đen / luôn là lựa chọn rẻ nhất."
+      ],
+      "academicVocabSuggestions": [
+        "while / whereas (trong khi đó - nối 2 vế đối lập)",
+        "experienced an upward trend (trải qua xu hướng tăng)",
+        "remained largely static / stable (duy trì sự ổn định)",
+        "concluded the period as the most costly (kết thúc kỳ là loại đắt nhất)"
+      ],
+      "placeholder": "Tự viết 1 câu Overview hoàn chỉnh bằng tiếng Anh dựa trên từ khóa định hướng..."
+    }
+  },
+  "task2": {
+    "title": "WRITING TASK 2 (10 PHÚT): LỚP HỌC TRUYỀN THỐNG 2050",
+    "promptEn": "The typical teaching situation between students and teachers in the classroom will be gone by the year 2050. To what extent do you agree or disagree?",
+    "promptVi": "(Một số người cho rằng mô hình lớp học truyền thống giữa học sinh và giáo viên sẽ biến mất hoàn toàn vào năm 2050. Bạn đồng ý hay không đồng ý?)",
+    "stage1": {
+      "title": "Chặng 1: Kiểm tra tư duy Brainstorm (2 phút)",
+      "guide": "Nêu 1 lý do bằng tiếng Việt cho mỗi quan điểm bên dưới:",
+      "questions": [
+        {
+          "id": "t2_t2_s1_q1",
+          "label": "Quan điểm 1: Tại sao công nghệ trực tuyến/AI không thể thay thế hoàn toàn vai trò của người thầy?",
+          "placeholder": "Nêu 1 lý do chính bằng tiếng Việt..."
+        },
+        {
+          "id": "t2_t2_s1_q2",
+          "label": "Quan điểm 2: Tại sao lớp học thể chất trực tiếp vẫn là nhu cầu xã hội không thể bỏ?",
+          "placeholder": "Nêu 1 lý do chính bằng tiếng Việt..."
+        }
+      ]
+    },
+    "stage2": {
+      "title": "Chặng 2: Kiểm tra năng lực Viết tiếng Anh (8 phút)",
+      "guide": "Dựa vào các cụm từ khóa gợi ý, tự thiết lập câu hoàn chỉnh để viết 1 câu Topic Sentence và 1 câu Explanation bằng tiếng Anh cho mỗi đoạn:",
+      "sections": [
+        {
+          "sectionTitle": "Đoạn 1: Vai trò đồng cảm và định hướng đạo đức của giáo viên",
+          "keywordPrompts": [
+            "Gợi ý từ khóa Câu 1 (Topic): lớp học truyền thống tiếp tục tồn tại → giáo viên mang lại sự đồng cảm cảm xúc / hướng dẫn đạo đức mà phần mềm không thể có.",
+            "Gợi ý từ khóa Câu 2 (Explain): trí tuệ nhân tạo giải toán / chấm bài → không thể nhận biết học sinh lo âu / mất động lực."
+          ],
+          "academicVocabSuggestions": [
+            "provide moral guidance and emotional empathy",
+            "cannot sense when a student is depressed or unmotivated"
+          ],
+          "placeholder": "Viết 2 câu tiếng Anh (1 Topic + 1 Explain) dựa vào từ khóa Đoạn 1..."
+        },
+        {
+          "sectionTitle": "Đoạn 2: Môi trường rèn luyện kỹ năng xã hội và cộng đồng",
+          "keywordPrompts": [
+            "Gợi ý từ khóa Câu 1 (Topic): trường học trực tiếp → môi trường rèn luyện kỹ năng làm việc nhóm / sự thấu hiểu cộng đồng.",
+            "Gợi ý từ khóa Câu 2 (Explain): giam mình trước màn hình tại nhà → thế hệ trẻ cô lập / suy giảm kỹ năng giao tiếp thực tế."
+          ],
+          "academicVocabSuggestions": [
+            "serve an essential sociological purpose",
+            "confined entirely to private home screens → socially isolated"
+          ],
+          "placeholder": "Viết 2 câu tiếng Anh (1 Topic + 1 Explain) dựa vào từ khóa Đoạn 2..."
+        }
+      ]
+    }
+  }
+}
