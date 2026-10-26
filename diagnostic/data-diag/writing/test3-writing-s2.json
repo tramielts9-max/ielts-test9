@@ -1,0 +1,79 @@
+{
+  "testId": "test_03",
+  "set": 2,
+  "level": "Thử thách đỉnh cao - Mức độ 3 (Tổng: 40 phút)",
+  "task1": {
+    "title": "WRITING TASK 1 (15 PHÚT): VIẾT 2 ĐOẠN THÂN BÀI (BODY PARAGRAPHS)",
+    "type": "Bar Chart",
+    "imageUrl": "../writing task 1/images_task1/task1_img_119.jpeg",
+    "promptEn": "The graph below shows the three different kinds of emission sources (oil / coal / gas) of greenhouse gas in the UK. Summarize the information by selecting and reporting the main features and make comparisons where relevant.",
+    "instructions": "Viết 2 đoạn Thân bài (Body 1 & Body 2) hoàn chỉnh phân tích số liệu phát thải của 3 loại nhiên liệu hóa thạch tại Anh trong giai đoạn 1990 - 2010 (Yêu cầu khoảng 90 - 120 từ).",
+    "dataGroupingStrategy": {
+      "body1Focus": "Nguồn phát thải tăng trưởng duy nhất: Khí đốt (Gas).",
+      "body2Focus": "Hai nguồn phát thải có xu hướng suy giảm: Than đá (Coal) & Dầu mỏ (Oil)."
+    },
+    "keyDataPoints": [
+      "Khí đốt (Gas): Khởi điểm thấp nhất ở mức 220 triệu tấn năm 1990, tăng đều đặn lên 270 triệu tấn (1995), 300 triệu tấn (2000) và lập đỉnh ở 330 triệu tấn vào năm 2010.",
+      "Than đá (Coal): Ban đầu là nguồn gây ô nhiễm lớn nhất với hơn 310 triệu tấn năm 1990, giảm dần đến năm 2005 trước khi sụp đổ dốc đứng xuống chỉ còn 50 triệu tấn vào năm 2010.",
+      "Dầu mỏ (Oil): Khởi đầu ở mức 270 triệu tấn, biến động nhẹ với xu hướng giảm ròng để kết thúc ở mức 225 triệu tấn vào năm 2010."
+    ],
+    "band7Formulas": [
+      "Accounting for the lowest emission volume of [X] initially, gas underwent a persistent upward climb, culminating at [Y]...",
+      "In sharp contrast, coal emissions suffered a catastrophic decline, plunging precipitously from [X] to a negligible [Y] by the close of the period...",
+      "Meanwhile, oil exhibited moderate downward fluctuations, drifting gradually from [X] to [Y]."
+    ],
+    "sections": [
+      {
+        "id": "wt1_body1",
+        "title": "Đoạn Body 1: Phân tích sự tăng trưởng vượt bậc của Khí đốt (Gas)",
+        "placeholder": "Viết đoạn Body 1 hoàn chỉnh (khoảng 45-60 từ)..."
+      },
+      {
+        "id": "wt1_body2",
+        "title": "Đoạn Body 2: Phân tích sự suy giảm của Than đá (Coal) và Dầu mỏ (Oil)",
+        "placeholder": "Viết đoạn Body 2 hoàn chỉnh (khoảng 45-60 từ)..."
+      }
+    ]
+  },
+  "task2": {
+    "title": "WRITING TASK 2 (25 PHÚT): VIẾT 2 ĐOẠN THÂN BÀI CHUẨN PEEL",
+    "promptEn": "Some people think that the best way to become successful in life is to get a university education, whereas others say this is no longer true. Discuss both these views and give your own opinion.",
+    "promptVi": "(Một số người cho rằng học đại học là con đường tốt nhất để thành công, trong khi số khác cho rằng điều này không còn đúng nữa. Bàn luận cả hai quan điểm.)",
+    "instructions": "Viết 2 đoạn Thân bài hoàn chỉnh (khoảng 150 - 180 từ) cân bằng giữa: Giá trị pháp lý chuyên môn của bằng đại học vs. Ưu thế thực chiến của kỹ năng trong nền kinh tế số.",
+    "peelFramework": {
+      "body1": {
+        "theme": "Bằng đại học vẫn là lộ trình thiết yếu cho các ngành chuyên môn cao",
+        "p_point": "Sở hữu bằng cấp đại học tiếp tục cung cấp nền tảng vững chắc cho các sự nghiệp danh giá.",
+        "e_explanation": "Các ngành nghề được luật pháp quy định khắt khe như phẫu thuật y khoa hay luật doanh nghiệp bắt buộc phải có bằng chính quy.",
+        "e_example": "Ngoài ra, các tập đoàn đa quốc gia vẫn sử dụng bằng đại học làm bộ lọc đầu vào để thẩm định tính kỷ luật và năng lực trí tuệ của ứng viên.",
+        "l_link": "Do đó, giáo dục bậc cao vẫn là lộ trình an toàn nhất hướng tới sự ổn định tài chính cho hàng triệu người trẻ."
+      },
+      "body2": {
+        "theme": "Kinh tế hiện đại mở ra nhiều con đường thành công không cần bằng cấp",
+        "p_point": "Mặt khác, nền kinh tế số đã mở ra vô số lối đi thay thế để đạt được thành tựu xuất chúng.",
+        "e_explanation": "Các ngành phát triển phần mềm và truyền thông sáng tạo ưu tiên hồ sơ năng lực thực tế (portfolio) hơn là các tấm bằng học thuật.",
+        "e_example": "Các nhà sáng lập công nghệ tiên phong như Bill Gates hay Mark Zuckerberg tạo nên đột phá lịch sử nhờ theo đuổi đổi mới sáng tạo thực chiến.",
+        "l_link": "Vì thị trường lao động trả thưởng cho năng lực giải quyết vấn đề thực tế, bằng đại học không còn là thước đo thành công duy nhất."
+      }
+    },
+    "band7Collocations": [
+      "tertiary qualification (bằng cấp giáo dục đại học)",
+      "regulated professions (các ngành nghề có quản chế nghiêm ngặt)",
+      "initial screening filter (bộ lọc sàng lọc ban đầu)",
+      "portfolio evidence and practical capability (bằng chứng hồ sơ thực tế và năng lực thực hành)",
+      "sole benchmark for success (thước đo thành công duy nhất)"
+    ],
+    "sections": [
+      {
+        "id": "wt2_body1",
+        "title": "Đoạn Body 1 (PEEL 1): Giá trị bắt buộc của bằng đại học trong ngành chuyên môn",
+        "placeholder": "Viết đoạn Body 1 hoàn chỉnh theo chuẩn PEEL (khoảng 70-90 từ)..."
+      },
+      {
+        "id": "wt2_body2",
+        "title": "Đoạn Body 2 (PEEL 2): Con đường thành công từ năng lực thực chiến",
+        "placeholder": "Viết đoạn Body 2 hoàn chỉnh theo chuẩn PEEL (khoảng 70-90 từ)..."
+      }
+    ]
+  }
+}
