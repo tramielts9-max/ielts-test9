@@ -1,0 +1,110 @@
+{
+  "testId": "test_02",
+  "set": 2,
+  "level": "Chuẩn hóa - Mức độ 2 (Tổng: 20 phút)",
+  "task1": {
+    "title": "WRITING TASK 1 (10 PHÚT): PHÁT THẢI TỪ 3 NHIÊN LIỆU HÓA THẠCH",
+    "type": "Bar Chart",
+    "imageUrl": "../writing task 1/images_task1/task1_img_119.jpeg",
+    "promptEn": "The graph below shows the three different kinds of emission sources (oil / coal / gas) of greenhouse gas in the UK. Summarize the information by selecting and reporting the main features and make comparisons where relevant.",
+    "stage1": {
+      "title": "Chặng 1: Kiểm tra tư duy Brainstorm (2 phút)",
+      "guide": "Nhìn vào biểu đồ cột trên màn hình và điền nhanh các ý bằng tiếng Việt theo mẫu ngắn gọn dưới đây (chỉ ghi ý chính):",
+      "questions": [
+        {
+          "id": "t2_t1_s2_q1",
+          "label": "Câu 1: Nhìn tổng quát cả biểu đồ (Overview)",
+          "example": "[Xu hướng chung]: Khí đốt tăng trưởng; than đá giảm sút nghiêm trọng.\n[Đặc điểm nổi bật]: Khí đốt soán ngôi than đá để trở thành nguồn phát thải lớn nhất năm 2010.",
+          "fields": [
+            { "key": "trend", "placeholder": "Điền [Xu hướng chung] tại đây..." },
+            { "key": "feature", "placeholder": "Điền [Đặc điểm nổi bật] tại đây..." }
+          ]
+        },
+        {
+          "id": "t2_t1_s2_q2",
+          "label": "Câu 2: Chia 2 đoạn thân bài (Body)",
+          "example": "Body 1: Nhóm Khí đốt (Gas) - tăng liên tục qua từng mốc 5 năm.\nBody 2: Nhóm Than đá (Coal) và Dầu mỏ (Oil) - xu hướng giảm.",
+          "fields": [
+            { "key": "body1", "placeholder": "Điền phân chia Body 1..." },
+            { "key": "body2", "placeholder": "Điền phân chia Body 2..." }
+          ]
+        },
+        {
+          "id": "t2_t1_s2_q3",
+          "label": "Câu 3: Chọn mốc số liệu nổi bật của Than đá (Coal)",
+          "example": "Khởi đầu cao nhất năm 1990 (310 triệu tấn), rơi tự do năm 2010 (50 triệu tấn).",
+          "fields": [
+            { "key": "milestones", "placeholder": "Điền các mốc bạn chọn..." }
+          ]
+        }
+      ]
+    },
+    "stage2": {
+      "title": "Chặng 2: Kiểm tra năng lực Viết tiếng Anh (8 phút)",
+      "guide": "Tự liên kết các từ khóa định hướng bên dưới để viết thành 1 câu Overview hoàn chỉnh bằng tiếng Anh (tự xây dựng ngữ pháp, từ nối và tuyệt đối không đưa số liệu chi tiết):",
+      "keywords": [
+        "Xu hướng: Khí đốt / nguồn nhiên liệu duy nhất tăng trưởng liên tục / Than đá / sụp đổ thảm hại.",
+        "So sánh đối lập: Khí đốt / vươn lên thành nguồn gây ô nhiễm lớn nhất năm 2010 ↔ Than đá / tụt xuống mức thấp nhất."
+      ],
+      "academicVocabSuggestions": [
+        "record a steady rise in emissions (ghi nhận mức tăng đều đặn)",
+        "become the largest contributor / primary polluter (trở thành nguồn xả thải lớn nhất)",
+        "in stark contrast (trái ngược hoàn toàn)",
+        "experienced a dramatic collapse (trải qua sự sụt giảm nghiêm trọng)"
+      ],
+      "placeholder": "Tự viết 1 câu Overview hoàn chỉnh bằng tiếng Anh dựa trên từ khóa định hướng..."
+    }
+  },
+  "task2": {
+    "title": "WRITING TASK 2 (10 PHÚT): BẰNG ĐẠI HỌC VÀ CON ĐƯỜNG THÀNH CÔNG",
+    "promptEn": "Some people think that the best way to become successful in life is to get a university education, whereas others say this is no longer true. Discuss both these views and give your own opinion.",
+    "promptVi": "(Một số người cho rằng học đại học là con đường tốt nhất để thành công, trong khi số khác cho rằng điều này không còn đúng nữa. Bàn luận cả hai quan điểm.)",
+    "stage1": {
+      "title": "Chặng 1: Kiểm tra tư duy Brainstorm (2 phút)",
+      "guide": "Nêu 1 lý do bằng tiếng Việt cho mỗi quan điểm bên dưới:",
+      "questions": [
+        {
+          "id": "t2_t2_s2_q1",
+          "label": "Quan điểm 1: Tại sao bằng cấp đại học vẫn là lộ trình đáng tin cậy nhất?",
+          "placeholder": "Nêu 1 lý do chính bằng tiếng Việt..."
+        },
+        {
+          "id": "t2_t2_s2_q2",
+          "label": "Quan điểm 2: Tại sao thị trường hiện đại cho phép thành công mà không cần học đại học?",
+          "placeholder": "Nêu 1 lý do chính bằng tiếng Việt..."
+        }
+      ]
+    },
+    "stage2": {
+      "title": "Chặng 2: Kiểm tra năng lực Viết tiếng Anh (8 phút)",
+      "guide": "Dựa vào các cụm từ khóa gợi ý, tự thiết lập câu hoàn chỉnh để viết 1 câu Topic Sentence và 1 câu Explanation bằng tiếng Anh cho mỗi đoạn:",
+      "sections": [
+        {
+          "sectionTitle": "Đoạn 1: Giá trị nền tảng và pháp lý của bằng đại học",
+          "keywordPrompts": [
+            "Gợi ý từ khóa Câu 1 (Topic): bằng cấp đại học → nền tảng pháp lý bắt buộc / tiêu chuẩn sàng lọc nghề nghiệp chuyên môn (y tế, kỹ thuật, luật).",
+            "Gợi ý từ khóa Câu 2 (Explain): tập đoàn đa quốc gia → sử dụng bằng cấp làm bộ lọc đánh giá năng lực tư duy / tính kỷ luật của ứng viên."
+          ],
+          "academicVocabSuggestions": [
+            "provide a dependable foundation for prestigious careers",
+            "mandate formal university credentials to practice",
+            "initial screening filter for intellectual competence"
+          ],
+          "placeholder": "Viết 2 câu tiếng Anh (1 Topic + 1 Explain) dựa vào từ khóa Đoạn 1..."
+        },
+        {
+          "sectionTitle": "Đoạn 2: Ưu thế của kỹ năng thực tế và tư duy đổi mới",
+          "keywordPrompts": [
+            "Gợi ý từ khóa Câu 1 (Topic): nền kinh tế số → mở ra nhiều con đường thành công ngoài con đường đại học truyền thống.",
+            "Gợi ý từ khóa Câu 2 (Explain): các ngành công nghệ và truyền thông → ưu tiên sản phẩm thực tế (portfolio) / kỹ năng giải quyết vấn đề hơn chứng chỉ lý thuyết."
+          ],
+          "academicVocabSuggestions": [
+            "opened diverse alternative avenues to achieve success",
+            "prioritize portfolio evidence and practical capability over academic certificates"
+          ],
+          "placeholder": "Viết 2 câu tiếng Anh (1 Topic + 1 Explain) dựa vào từ khóa Đoạn 2..."
+        }
+      ]
+    }
+  }
+}
