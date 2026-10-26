@@ -1,0 +1,110 @@
+{
+  "testId": "test_02",
+  "set": 3,
+  "level": "Chuẩn hóa - Mức độ 2 (Tổng: 20 phút)",
+  "task1": {
+    "title": "WRITING TASK 1 (10 PHÚT): KHÓA HỌC DÀNH CHO NGƯỜI LỚN",
+    "type": "Pie Chart",
+    "imageUrl": "../writing task 1/images_task1/task1_img_158.jpeg",
+    "promptEn": "The charts below show the percentage of students on an adult education center taking various courses offered in 1985 and this year. Summarize the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "stage1": {
+      "title": "Chặng 1: Kiểm tra tư duy Brainstorm (2 phút)",
+      "guide": "Nhìn vào hai biểu đồ tròn trên màn hình và điền nhanh các ý bằng tiếng Việt theo mẫu ngắn gọn dưới đây (chỉ ghi ý chính):",
+      "questions": [
+        {
+          "id": "t2_t1_s3_q1",
+          "label": "Câu 1: Nhìn tổng quát cả biểu đồ (Overview)",
+          "example": "[Xu hướng chung]: Môn IT xuất hiện và chiếm tỷ lệ cao nhất; Lịch sử và Âm nhạc bị xóa bỏ hoàn toàn.\n[Đặc điểm nổi bật]: Môn Thể dục & khiêu vũ giữ nguyên 22% không đổi.",
+          "fields": [
+            { "key": "trend", "placeholder": "Điền [Xu hướng chung] tại đây..." },
+            { "key": "feature", "placeholder": "Điền [Đặc điểm nổi bật] tại đây..." }
+          ]
+        },
+        {
+          "id": "t2_t1_s3_q2",
+          "label": "Câu 2: Chia 2 đoạn thân bài (Body)",
+          "example": "Body 1: Các môn thay đổi lớn (IT mới xuất hiện chiếm 27%, Lịch sử và Âm nhạc bị xóa bỏ).\nBody 2: Bốn môn học duy trì liên tục qua 2 năm (Khiêu vũ, Nấu ăn, Ngoại ngữ, Nghệ thuật).",
+          "fields": [
+            { "key": "body1", "placeholder": "Điền phân chia Body 1..." },
+            { "key": "body2", "placeholder": "Điền phân chia Body 2..." }
+          ]
+        },
+        {
+          "id": "t2_t1_s3_q3",
+          "label": "Câu 3: Chọn đặc điểm của môn Thể dục & khiêu vũ (Fitness and dance)",
+          "example": "Tỷ lệ duy trì bất biến chính xác 22% trong cả 2 thời kỳ.",
+          "fields": [
+            { "key": "milestones", "placeholder": "Điền đặc điểm bạn chọn..." }
+          ]
+        }
+      ]
+    },
+    "stage2": {
+      "title": "Chặng 2: Kiểm tra năng lực Viết tiếng Anh (8 phút)",
+      "guide": "Tự liên kết các từ khóa định hướng bên dưới để viết thành 1 câu Overview hoàn chỉnh bằng tiếng Anh (tự xây dựng ngữ pháp, từ nối và tuyệt đối không đưa số liệu chi tiết):",
+      "keywords": [
+        "Xu hướng: môn Tin học (IT) / xuất hiện bứt phá và trở thành môn học phổ biến nhất hiện nay / Lịch sử địa phương & Âm nhạc / bị ngừng giảng dạy hoàn toàn.",
+        "So sánh: môn Thể dục và khiêu vũ / duy trì thị phần hoàn toàn giống nhau qua cả hai năm."
+      ],
+      "academicVocabSuggestions": [
+        "emerged as the most popular course (nổi lên như môn học được ưa chuộng nhất)",
+        "despite not being offered in 1985 (dù không hề được giảng dạy năm 1985)",
+        "retained an identical share across both periods (duy trì thị phần hoàn toàn giống nhau)",
+        "were completely discontinued (bị ngừng giảng dạy hoàn toàn)"
+      ],
+      "placeholder": "Tự viết 1 câu Overview hoàn chỉnh bằng tiếng Anh dựa trên từ khóa định hướng..."
+    }
+  },
+  "task2": {
+    "title": "WRITING TASK 2 (10 PHÚT): TRẢI NGHIỆM NGHỈ 1 NĂM (GAP YEAR)",
+    "promptEn": "In some countries, young people are encouraged to work or travel for a year between finishing high school and starting university studies. Discuss the advantages and disadvantages for young people who decide to do this.",
+    "promptVi": "(Ở một số quốc gia, giới trẻ được khuyến khích đi làm hoặc đi du lịch một năm sau khi tốt nghiệp cấp 3 trước khi vào đại học. Bàn luận ưu và nhược điểm.)",
+    "stage1": {
+      "title": "Chặng 1: Kiểm tra tư duy Brainstorm (2 phút)",
+      "guide": "Nêu 1 lý do bằng tiếng Việt cho mỗi mặt bên dưới:",
+      "questions": [
+        {
+          "id": "t2_t2_s3_q1",
+          "label": "Mặt tích cực (Advantage): Lợi ích thực tế lớn nhất khi trải nghiệm Gap Year là gì?",
+          "placeholder": "Nêu 1 lợi ích chính bằng tiếng Việt..."
+        },
+        {
+          "id": "t2_t2_s3_q2",
+          "label": "Mặt tiêu cực (Disadvantage): Rủi ro lớn nhất về mặt học tập khi nghỉ 1 năm là gì?",
+          "placeholder": "Nêu 1 nguy cơ chính bằng tiếng Việt..."
+        }
+      ]
+    },
+    "stage2": {
+      "title": "Chặng 2: Kiểm tra năng lực Viết tiếng Anh (8 phút)",
+      "guide": "Dựa vào các cụm từ khóa gợi ý, tự thiết lập câu hoàn chỉnh để viết 1 câu Topic Sentence và 1 câu Explanation bằng tiếng Anh cho mỗi đoạn:",
+      "sections": [
+        {
+          "sectionTitle": "Đoạn 1: Rèn luyện tính tự lập và định hướng nghề nghiệp",
+          "keywordPrompts": [
+            "Gợi ý từ khóa Câu 1 (Topic): trải nghiệm gap year → tích lũy kinh nghiệm sống thực tế / định hình sự tự lập.",
+            "Gợi ý từ khóa Câu 2 (Explain): va chạm công việc thực tế → khám phá đam mê thực sự / tránh chọn sai ngành và lãng phí học phí đại học."
+          ],
+          "academicVocabSuggestions": [
+            "gaining practical life experience and career clarity",
+            "fosters real-world maturity and problem-solving",
+            "avoid wrong career choices and wasted university tuition fees"
+          ],
+          "placeholder": "Viết 2 câu tiếng Anh (1 Topic + 1 Explain) dựa vào từ khóa Đoạn 1..."
+        },
+        {
+          "sectionTitle": "Đoạn 2: Nguy cơ mất đà học tập và phân tâm tài chính",
+          "keywordPrompts": [
+            "Gợi ý từ khóa Câu 1 (Topic): thiếu tính kỷ luật → gián đoạn nghiêm trọng thói quen học tập / mất kiến thức nền tảng.",
+            "Gợi ý từ khóa Câu 2 (Explain): làm quen với tiền lương kiếm được sớm → bị cám dỗ từ bỏ hoàn toàn kế hoạch học vấn bậc cao."
+          ],
+          "academicVocabSuggestions": [
+            "lose study habits and academic momentum",
+            "tempted by short-term income → abandon higher education plans altogether"
+          ],
+          "placeholder": "Viết 2 câu tiếng Anh (1 Topic + 1 Explain) dựa vào từ khóa Đoạn 2..."
+        }
+      ]
+    }
+  }
+}
