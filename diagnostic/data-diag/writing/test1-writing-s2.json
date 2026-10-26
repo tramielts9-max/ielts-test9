@@ -1,0 +1,93 @@
+{
+  "testId": "test_01",
+  "set": 2,
+  "level": "Cơ bản - Nền tảng (10 phút)",
+  "task1": {
+    "title": "WRITING TASK 1 (5 PHÚT): PHÁT THẢI TỪ 3 NHIÊN LIỆU HÓA THẠCH",
+    "type": "Bar Chart",
+    "imageUrl": "../writing task 1/images_task1/task1_img_119.jpeg",
+    "promptEn": "The graph below shows the three different kinds of emission sources (oil / coal / gas) of greenhouse gas in the UK.",
+    "stage1": {
+      "title": "Chặng 1: Kiểm tra tư duy Brainstorm (2 phút)",
+      "guide": "Nhìn vào biểu đồ cột trên màn hình và điền nhanh các ý bằng tiếng Việt theo mẫu ngắn gọn dưới đây (chỉ ghi ý chính):",
+      "questions": [
+        {
+          "id": "t1_s2_q1",
+          "label": "Câu 1: Nhìn tổng quát cả biểu đồ (Overview)",
+          "example": "[Xu hướng chung]: Khí đốt tăng liên tục; than đá giảm mạnh; dầu mỏ giảm nhẹ.\n[Đặc điểm nổi bật]: Khí đốt từ thấp nhất vươn lên dẫn đầu, than đá từ số 1 rơi xuống đáy.",
+          "fields": [
+            { "key": "trend", "placeholder": "Điền [Xu hướng chung] tại đây..." },
+            { "key": "feature", "placeholder": "Điền [Đặc điểm nổi bật] tại đây..." }
+          ]
+        },
+        {
+          "id": "t1_s2_q2",
+          "label": "Câu 2: Chia 2 đoạn thân bài (Body)",
+          "example": "Body 1: Tả riêng Khí đốt (Gas) - nguồn duy nhất tăng trưởng.\nBody 2: Tả Than đá (Coal) và Dầu mỏ (Oil) - hai nguồn suy giảm.",
+          "fields": [
+            { "key": "body1", "placeholder": "Điền nội dung Body 1..." },
+            { "key": "body2", "placeholder": "Điền nội dung Body 2..." }
+          ]
+        },
+        {
+          "id": "t1_s2_q3",
+          "label": "Câu 3: Chọn mốc số liệu nổi bật của Than đá (Coal)",
+          "example": "Năm 1990 (đứng đầu với 310 triệu tấn), năm 2010 (sụp đổ xuống còn 50 triệu tấn).",
+          "fields": [
+            { "key": "milestones", "placeholder": "Điền các mốc thời gian bạn chọn..." }
+          ]
+        }
+      ]
+    },
+    "stage2": {
+      "title": "Chặng 2: Kiểm tra năng lực Viết tiếng Anh (3 phút)",
+      "guide": "Hãy dịch câu tóm tắt tiếng Việt sau thành 1 câu Overview hoàn chỉnh bằng tiếng Anh (tuyệt đối không đưa số liệu cụ thể vào câu này):",
+      "viSentence": "\"Nhìn chung, khí đốt là loại nhiên liệu duy nhất có lượng phát thải tăng và trở thành nguồn gây ô nhiễm lớn nhất vào năm 2010, trái ngược với sự sụt giảm nghiêm trọng của than đá.\"",
+      "formula": "Overall, gas was the only fossil fuel to see an increase in emissions, becoming the largest contributor by 2010, in stark contrast to the dramatic decline of coal.",
+      "placeholder": "Viết câu Overview tiếng Anh hoàn chỉnh tại đây..."
+    }
+  },
+  "task2": {
+    "title": "WRITING TASK 2 (5 PHÚT): BẰNG ĐẠI HỌC VÀ CON ĐƯỜNG THÀNH CÔNG",
+    "promptEn": "Some people think that the best way to become successful in life is to get a university education, whereas others say this is no longer true. Discuss both these views and give your own opinion.",
+    "promptVi": "(Một số người cho rằng học đại học là con đường tốt nhất để thành công, trong khi số khác cho rằng điều này không còn đúng nữa. Bàn luận cả hai quan điểm.)",
+    "stage1": {
+      "title": "Chặng 1: Kiểm tra tư duy Brainstorm (2 phút)",
+      "guide": "Nêu 1 lý do bằng tiếng Việt cho mỗi quan điểm bên dưới:",
+      "questions": [
+        {
+          "id": "t2_s2_q1",
+          "label": "Quan điểm 1: Tại sao bằng đại học vẫn là nền tảng đáng tin cậy để thành công?",
+          "placeholder": "Điền 1 lý do chính bằng tiếng Việt..."
+        },
+        {
+          "id": "t2_s2_q2",
+          "label": "Quan điểm 2: Tại sao ngày nay nhiều người thành công không cần bằng đại học?",
+          "placeholder": "Điền 1 lý do chính bằng tiếng Việt..."
+        }
+      ]
+    },
+    "stage2": {
+      "title": "Chặng 2: Kiểm tra năng lực Viết tiếng Anh (3 phút)",
+      "guide": "Dịch và hoàn thiện 2 câu (1 Topic + 1 Explanation) cho mỗi đoạn bằng tiếng Anh dựa trên gợi ý tiếng Việt dưới đây:",
+      "sections": [
+        {
+          "sectionTitle": "Đoạn 1: Lợi thế của bằng cấp giáo dục đại học",
+          "hints": [
+            "Câu 1 (Ý chính): Một mặt, sở hữu bằng đại học vẫn cung cấp nền tảng vững chắc cho các công việc chuyên môn cao.",
+            "Câu 2 (Giải thích): Các ngành nghề như bác sĩ phẫu thuật hay luật sư đều bắt buộc có bằng cấp chính quy trước khi được hành nghề."
+          ],
+          "placeholder": "Viết 2 câu tiếng Anh cho Đoạn 1 tại đây..."
+        },
+        {
+          "sectionTitle": "Đoạn 2: Cơ hội từ nền kinh tế số và kỹ năng thực tế",
+          "hints": [
+            "Câu 1 (Ý chính): Mặt khác, nền kinh tế hiện đại mở ra nhiều con đường mới để thành công mà không cần học đại học.",
+            "Câu 2 (Giải thích): Các lĩnh vực công nghệ hay sáng tạo nội dung coi trọng sản phẩm thực tế và năng lực giải quyết vấn đề hơn là các chứng chỉ học thuật."
+          ],
+          "placeholder": "Viết 2 câu tiếng Anh cho Đoạn 2 tại đây..."
+        }
+      ]
+    }
+  }
+}
