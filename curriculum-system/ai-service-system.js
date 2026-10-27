@@ -91,16 +91,20 @@ Nhiệm vụ: Đọc kỹ thông tin năng lực học sinh dưới đây (do h�
 ${studentInputText}
 """
 
-HÃY ĐỐI CHIẾU VÀ ÁNH XẠ NĂNG LỰC CỦA HỌC SINH VÀO KHO BÀI TẬP (GỒM CÁC TAGS):
+HÃY PHÂN TÍCH VÀ TRÍCH XUẤT CÁC MỤC SAU:
+1. "estimated_band": Điểm hiện tại của học sinh (từ 0.0 đến 6.5).
+2. "target_band": Điểm mục tiêu mà học sinh mong muốn đạt được (Ví dụ: học sinh nói "lên band 7" hoặc "mục tiêu 7.0" thì lấy đúng 7.0. Nếu học sinh không nói rõ mục tiêu thì mặc định lấy 7.0. Trần tối đa khóa học là 7.0).
+3. ĐỐI CHIẾU VÀ ÁNH XẠ NĂNG LỰC CỦA HỌC SINH VÀO KHO BÀI TẬP (GỒM CÁC TAGS):
 - Ngữ pháp: G_NOUNS, G_PRES_SIMPLE, G_PAST_SIMPLE, G_FUTURE_SIMPLE, G_ARTICLES, G_PREP_BASIC, G_PAST_CONT, G_PRES_PERF, G_PAST_PERF, G_CONDITIONALS, G_PASSIVE_VOICE, G_COMPARISON, G_RELATIVE_CLAUSE, G_PREP_ADV, G_WORD_FORM.
 - Kỹ năng cơ bản: VOCAB_U01_U04, PRE_LIS_A1_A2, PRE_READ_A1_A2, PRE_SPK_A1.
 - Kỹ năng nâng cao: WT1_LINE, WT1_BAR, WT1_TABLE, WT1_PIE, WT1_MAP, WT1_PROCESS, WT2_OPINION, WT2_DISCUSSION, WT2_OUTWEIGH, WT2_CAUSE_SOLUTION, SPK_P1, SPK_P2, SPK_P3, READ_UNPROMPTED, LIS_UNPROMPTED.
 
 TRẢ VỀ DUY NHẤT 1 CHUỖI JSON THUẦN (KHÔNG DÙNG MARKDOWN, KHÔNG \`\`\`json):
 {
-  "estimated_band": 4.5,
+  "estimated_band": 5.5,
+  "target_band": 7.0,
   "recommended_speed": "normal",
-  "recommended_daily_hours": 1.0,
+  "recommended_daily_hours": 1.5,
   "academic_summary": "Nhận xét ngắn gọn 2-3 câu về điểm mạnh và lỗ hổng kiến thức cốt lõi.",
   "mastered_tags": ["Danh", "sach", "tags", "hoc", "sinh", "da", "vung", "de", "got", "bo"],
   "weak_tags": ["Danh", "sach", "tags", "hoc", "sinh", "yeu", "can", "uu", "tien"]
@@ -108,6 +112,6 @@ TRẢ VỀ DUY NHẤT 1 CHUỖI JSON THUẦN (KHÔNG DÙNG MARKDOWN, KHÔNG \`\`
 `;
 
   const result = await callGeminiDiagnostic(prompt);
-  let cleanJson = result.rawText.replace(/^```json/, "").replace(/```$/, "").trim();
+  let cleanJson = result.rawText.replace(/^```json/i, "").replace(/```$/i, "").trim();
   return JSON.parse(cleanJson);
 }
