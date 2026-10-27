@@ -207,7 +207,11 @@ class CurriculumUISystem {
       resBox.style.display = 'block';
 
       const startB = parseFloat(result.estimated_band) || 2.0;
-      const targetB = Math.min(7.0, parseFloat(result.target_band) || 6.5);
+      
+      // LẤY TARGET BAND TỪ AI GEMINI, NẾU KHÔNG CÓ THÌ MẶC ĐỊNH LÀ 7.0 (TRẦN CAO NHẤT KHÓA HỌC)
+      const parsedTarget = parseFloat(result.target_band);
+      const targetB = Math.min(7.0, !isNaN(parsedTarget) ? parsedTarget : 7.0);
+
       const pruned = curriculumEngineSystem.pruneCurriculumByBands(startB, targetB, result.weak_tags || []);
       const savedCount = MASTER_CURRICULUM_SYSTEM.length - pruned.length;
       const stats = curriculumEngineSystem.calculateSessionsByBands(startB, targetB);
