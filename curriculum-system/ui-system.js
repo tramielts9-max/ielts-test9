@@ -2,7 +2,7 @@
  * curriculum-system/ui-system.js
  * GIAO DIỆN LỘ TRÌNH, LỊCH CHUYÊN CẦN & BANNER LỊCH SỬ PASTEL ĐỔI MÀU THEO HỌC PHẦN
  * (BẢN ĐẦY ĐỦ 100% - KHÔNG CẮT BỚT BẤT KỲ TÍNH NĂNG NÀO)
- * GIAI ĐOẠN 3: TÍCH HỢP THANH ADMIN PANEL, GÁN LỘ TRÌNH THEO EMAIL & ĐỒNG BỘ CLOUD HAI CHIỀU
+ * GIAI ĐOẠN 1: CÁCH LY LỊCH SỬ HỌC VIÊN & ĐỒNG BỘ BÀI NỘP THẬT TỪ CLOUD
  */
 
 import { curriculumEngineSystem } from './engine-system.js';
@@ -26,6 +26,7 @@ class CurriculumUISystem {
     this.selectedDateStr = this.getFormattedDate(new Date());
     this.isListCollapsed = false;
     this.targetStudentEmail = ''; // Email học sinh mà Admin đang can thiệp
+    this.studentHistoryCache = {}; // Ngăn chứa lịch sử riêng biệt cho từng email học sinh
     this.initSpeechSTT();
   }
 
@@ -55,6 +56,11 @@ class CurriculumUISystem {
   getStorageKey(email) {
     const clean = (email || localStorage.getItem('ielts_student_email') || 'guest').toLowerCase().trim();
     return `ielts_roadmap_data_${clean}`;
+  }
+
+  getStudentHistoryStorageKey(email) {
+    const clean = (email || localStorage.getItem('ielts_student_email') || 'guest').toLowerCase().trim();
+    return `ielts_history_${clean}`;
   }
 
   getSavedRoadmap(email) {
@@ -105,6 +111,56 @@ class CurriculumUISystem {
     return null;
   }
 
+  // TỰ ĐỘNG TẢI LỊCH SỬ LÀM BÀI THẬT CỦA HỌC SINH TỪ CLOUD VỀ
+  async fetchStudentHistoryFromCloud(email) {
+    const cleanEmail = (email || '').toLowerCase().trim();
+    if (!CLOUD_SCRIPT_URL || !cleanEmail || cleanEmail === 'guest') return [];
+
+    try {
+      const response = await fetch(`${CLOUD_SCRIPT_URL}?action=get_student_history&studentEmail=${encodeURIComponent(cleanEmail)}`);
+      if (response.ok) {
+        const resData = await response.json();
+        const historyList = Array.isArray(resData) ? resData : (resData?.history || []);
+        this.studentHistoryCache[cleanEmail] = historyList;
+        localStorage.setItem(this.getStudentHistoryStorageKey(cleanEmail), JSON.stringify(historyList));
+        return historyList;
+      }
+    } catch(e) {}
+
+    // Fallback: đọc từ cache máy nếu có
+    try {
+      const local = localStorage.getItem(this.getStudentHistoryStorageKey(cleanEmail));
+      const parsed = local ? JSON.parse(local) : [];
+      this.studentHistoryCache[cleanEmail] = parsed;
+      return parsed;
+    } catch(e) {
+      return [];
+    }
+  }
+
+  // LẤY DANH SÁCH BÀI LÀM ĐÃ ĐƯỢC CÁCH LY RIÊNG CHO EMAIL NÀY
+  getIsolatedHistoryForStudent(email) {
+    const cleanEmail = (email || this.getActiveWorkingEmail()).toLowerCase().trim();
+    const isAdmin = this.checkIsAdmin();
+    const isTargetingOther = isAdmin && this.targetStudentEmail && this.targetStudentEmail !== (localStorage.getItem('ielts_student_email') || '').toLowerCase().trim();
+
+    // Nếu Admin đang chọn học sinh khác -> CHỈ ĐỌC LỊCH SỬ CỦA HỌC SINH ĐÓ, TUYỆT ĐỐI KHÔNG ĐỌC LỊCH SỬ ADMIN
+    if (isTargetingOther) {
+      if (this.studentHistoryCache[cleanEmail]) {
+        return this.studentHistoryCache[cleanEmail];
+      }
+      try {
+        const cached = localStorage.getItem(this.getStudentHistoryStorageKey(cleanEmail));
+        return cached ? JSON.parse(cached) : [];
+      } catch(e) {
+        return [];
+      }
+    }
+
+    // Nếu học sinh tự mở máy nó, hoặc Admin đang tự xem máy mình
+    return stateManager.getLocalHistory();
+  }
+
   checkIsAdmin() {
     const email = (localStorage.getItem('ielts_student_email') || '').toLowerCase().trim();
     return email.includes('admin') || (CONFIG?.ADMIN_EMAILS || []).map(e => e.toLowerCase()).includes(email);
@@ -118,15 +174,20 @@ class CurriculumUISystem {
     return (localStorage.getItem('ielts_student_email') || 'guest').toLowerCase().trim();
   }
 
-  setTargetStudentEmail(email) {
+  async setTargetStudentEmail(email) {
     this.targetStudentEmail = (email || '').toLowerCase().trim();
+    if (this.targetStudentEmail) {
+      // Khi chọn học sinh, lập tức tải trước lịch sử thật của học sinh đó từ Cloud về
+      await this.fetchStudentHistoryFromCloud(this.targetStudentEmail);
+    }
     this.render();
   }
 
-  // ĐỐI SOÁT TẤT CẢ CÁC LẦN NỘP BÀI (HỖ TRỢ NHIỀU ATTEMPTS)
-  getNodeCompletionInfo(node) {
+  // ĐỐI SOÁT TẤT CẢ CÁC LẦN NỘP BÀI (ĐÃ CÁCH LY CHỐNG ĐÈ LỊCH SỬ CỦA ADMIN)
+  getNodeCompletionInfo(node, studentEmail = null) {
     try {
-      const history = stateManager.getLocalHistory();
+      const email = studentEmail || this.getActiveWorkingEmail();
+      const history = this.getIsolatedHistoryForStudent(email);
       
       const matches = history.filter(item => {
         if (!item) return false;
@@ -169,8 +230,8 @@ class CurriculumUISystem {
     return { isCompleted: false, totalAttempts: 0 };
   }
 
-  isNodeCompletedInHistory(node) {
-    return this.getNodeCompletionInfo(node).isCompleted;
+  isNodeCompletedInHistory(node, studentEmail = null) {
+    return this.getNodeCompletionInfo(node, studentEmail).isCompleted;
   }
 
   getModuleTheme(moduleType, url = '', title = '') {
@@ -393,7 +454,7 @@ class CurriculumUISystem {
     `;
   }
 
-  // RENDER GIAO DIỆN LỘ TRÌNH MÀN HÌNH CHÍNH
+  // RENDER GIAO DIỆN LỘ TRÌNH MÀN HÌNH CHÍNH (ĐÃ CÁCH LY LỊCH SỬ THẬT CỦA HỌC SINH)
   async render(targetContainerId = 'roadmapSectionMount') {
     let container = document.getElementById(targetContainerId);
     if (!container) return;
@@ -404,6 +465,11 @@ class CurriculumUISystem {
     // NẾU HỌC SINH MỞ MÁY MỚI CHƯA CÓ LOCALSTORAGE -> THỬ TẢI TỪ CLOUD VỀ
     if (!data && email !== 'guest') {
       data = await this.fetchStudentRoadmapFromCloud(email);
+    }
+
+    // ĐẢM BẢO LỊCH SỬ BÀI LÀM CỦA ĐÚNG HỌC SINH NÀY ĐÃ ĐƯỢC TẢI VỀ
+    if (this.targetStudentEmail && !this.studentHistoryCache[this.targetStudentEmail]) {
+      await this.fetchStudentHistoryFromCloud(this.targetStudentEmail);
     }
 
     const adminBarHtml = this.renderAdminControlBar();
@@ -492,9 +558,12 @@ class CurriculumUISystem {
       return;
     }
 
+    // ĐỐI SOÁT LẠI TIẾN ĐỘ THEO ĐÚNG LỊCH SỬ THẬT CỦA HỌC SINH (KHÔNG LẤY CỦA ADMIN)
+    data.completedNodeIds = [];
     data.schedule.forEach(day => {
       day.nodes.forEach(node => {
-        if (!data.completedNodeIds.includes(node.id) && this.isNodeCompletedInHistory(node)) {
+        const comp = this.getNodeCompletionInfo(node, email);
+        if (comp.isCompleted && !data.completedNodeIds.includes(node.id)) {
           data.completedNodeIds.push(node.id);
         }
       });
@@ -577,10 +646,10 @@ class CurriculumUISystem {
           </div>
         </div>
 
-        <!-- DANH SÁCH BÀI TẬP HÔM NAY -->
+        <!-- DANH SÁCH BÀI TẬP HÔM NAY (HIỂN THỊ ĐÚNG THEO BÀI LÀM CỦA HỌC SINH ĐÍCH) -->
         <div class="cs-task-list">
           ${currentDayPlan.nodes.map(node => {
-            const compInfo = this.getNodeCompletionInfo(node);
+            const compInfo = this.getNodeCompletionInfo(node, email);
             const isDone = compInfo.isCompleted;
 
             return `
@@ -743,7 +812,7 @@ class CurriculumUISystem {
 
     const dateCountMap = {};
     attempts.forEach(att => {
-      const m = att.timestamp?.match(/(\d{2})\/(\d{2})\/(\d{4})/);
+      const m = att.timestamp?.match(/(\d{2}\/\d{2}\/\d{4})/);
       if (m && parseInt(m[2], 10) === (month + 1) && parseInt(m[3], 10) === year) {
         const d = parseInt(m[1], 10);
         dateCountMap[d] = (dateCountMap[d] || 0) + 1;
