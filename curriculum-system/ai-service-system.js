@@ -1,7 +1,7 @@
 /**
  * curriculum-system/ai-service-system.js
- * DỊCH VỤ AI GEMINI CHẨN ĐOÁN LỘ TRÌNH & ĐIỀU PHỐI ĐỐT SỐNG (GIAI ĐOẠN 1 HOÀN CHỈNH)
- * ĐÃ TÍCH HỢP LỆNH ĐIỀU PHỐI KỸ THUẬT: CHẾ ĐỘ CHẶNG TUẦN TỰ & 100% KHO TỪ VỰNG
+ * DỊCH VỤ AI GEMINI CHẨN ĐOÁN LỘ TRÌNH & ĐIỀU PHỐI ĐỐT SỐNG (MASTER PROMPT PHIÊN BẢN ĐỈNH CAO)
+ * ĐÃ TÍCH HỢP 4 BỘ LUẬT SƯ PHẠM: KHÓA HẠN NGẠCH 75% ĐỀ THI THẬT, CHẶN BÀI A1 & VÒNG LẶP ÔN TẬP 3 NGÀY
  */
 
 // 1. MÃ HÓA KEY THEO ĐÚNG QUY LUẬT CỦA API-T1.JS
@@ -85,48 +85,51 @@ export async function callGeminiDiagnostic(promptText) {
  */
 export async function analyzeStudentDiagnostic(studentInputText) {
   const prompt = `
-Bạn là Giám Đốc Học Thuật IELTS cấp cao kiêm Kiến Trúc Sư Điều Phối Chương Trình.
-Nhiệm vụ: Đọc và phân tích sâu sắc toàn bộ hồ sơ năng lực học thuật cùng các mệnh lệnh sư phạm đặc biệt dưới đây:
+Bạn là Giám Đốc Học Thuật IELTS cấp cao kiêm Kiến Trúc Sư Điều Phối Chương Trình Học Cá Nhân Hóa.
+Nhiệm vụ tối thượng: Phân tích sâu sắc hồ sơ năng lực học thuật và các yêu cầu sư phạm đầu vào của học sinh dưới đây:
 """
 ${studentInputText}
 """
 
-HỆ THỐNG KHO BÀI TẬP HIỆN CÓ CỦA TRUNG TÂM (858 BÀI ĐÃ MÃ HÓA ID):
-1. DOMAINS CHÍNH:
-   - GRAMMAR: Ngữ pháp lý thuyết & bài tập thực hành (S1_GRAM, S2_GRAM).
-   - VOCABULARY: Toàn bộ 10 Unit bộ 300 từ (S1_VOCAB_01..04, S2_VOCAB_300_05..10) và 18 Unit bộ 540 từ (S2_VOCAB_540_01..06, S3_VOCAB_540_07..18) = Tổng cộng 28 Unit.
-   - PRE_LISTENING: Luyện nghe bắt âm nối, số liệu, tên riêng A1, A2, B1, B2.
-   - PRE_READING: Scanning, Sentence Stripping câu đơn, câu phức A1, A2, B1, B2.
-   - PRE_SPEAKING: Shadowing nhại giọng bản ngữ A1, A2, B1, B2, C1.
-   - PRE_WRITING_T1: Dịch câu số liệu biểu đồ 3 mốc Band Task 1.
-   - PRE_WRITING_T2: Dịch câu tư duy lập luận PEEL Task 2.
-   - READING: Luyện đề Cam 17 - Cam 21 (có mớm từ khóa và tự làm không mớm).
-   - LISTENING: Luyện đề Cam 19 - Cam 21 (có mớm và tốc độ 1.1x).
-   - WRITING_T1: Viết bài 150 từ hoàn chỉnh Task 1 (Line, Bar, Table, Pie, Map, Process, Floor, Mixed).
-   - WRITING_T2: Viết luận 250 từ chuẩn PEEL Task 2 (Opinion, Discussion, Outweigh, Cause-Solution, Two-part).
-   - SPEAKING: Luyện nói Forecast Part 1, Part 2, Part 3.
-   - MOCK_TEST: Đề thi thử áp lực 3 tiếng.
+HỆ THỐNG KHO BÀI TẬP HIỆN CÓ CỦA TRUNG TÂM (858 BÀI ĐÃ ĐƯỢC MÃ HÓA ID):
+1. GRAMMAR (S1_GRAM, S2_GRAM): 18 chuyên đề từ thì cơ bản đến câu phức, đảo ngữ, bị động, mệnh đề quan hệ.
+2. VOCABULARY: Trọn vẹn 28 Unit gồm:
+   - 10 Unit bộ 300 từ học thuật (S1_VOCAB_01..04, S2_VOCAB_300_05..10).
+   - 18 Unit bộ 540 từ chuyên ngành nâng cao (S2_VOCAB_540_01..06, S3_VOCAB_540_07..18).
+3. READING: Cam 17 đến Cam 21 (có mớm từ khóa và tự lực không mớm bấm giờ chuẩn phòng thi).
+4. LISTENING: Pre-Listening (A1, A2/B1, B2/C1) và Cam 19 đến Cam 21 (bắt âm nối, bẫy trôi băng, tốc độ 1.1x).
+5. WRITING:
+   - Pre-Writing: Dịch câu số liệu biểu đồ Task 1 (S2_PWT1) & Dịch câu tư duy lập luận PEEL Task 2 (S2_PWT2).
+   - Đề thi thật: Viết hoàn chỉnh Task 1 (S3_WT1, S4_WT1) & Viết luận Task 2 250 từ (S3_WT2, S4_WT2).
+6. SPEAKING:
+   - Pre-Speaking: Shadowing nhại giọng bản ngữ A1, A2/B1, B2.2, C1.
+   - Đề thi thật Forecast: Part 1 phản xạ AREA (S3_SPK_P1), Part 2 Cue Card 2 phút (S3_SPK_P2, S4_SPK_P2), Part 3 phản biện chuyên sâu (S4_SPK_P3).
+7. MOCK_TEST: 12 đề thi thử áp lực phòng thi liên tục 3 tiếng.
 
-QUY TẮC NHẬN DIỆN MỆNH LỆNH SƯ PHẠM VÀ ĐIỀU PHỐI CHẶNG:
-1. "schedule_mode":
-   - Nếu trong văn bản có yêu cầu về thứ tự học (ví dụ: "thứ tự bắt buộc", "học ngữ pháp đầu tiên", "rồi tới reading", "speaking ở cuối", "theo nhóm kỹ năng")... BẮT BUỘC TRẢ VỀ: "SEQUENTIAL_PHASES".
-   - Nếu không có yêu cầu thứ tự thì trả về: "SPIRAL_MIXED".
-2. "phase_order": Mảng định danh thứ tự các chặng khi schedule_mode là "SEQUENTIAL_PHASES".
-   Ví dụ người dùng yêu cầu: Ngữ pháp -> Reading song song Từ vựng -> Listening -> Writing -> Speaking thì trả về chính xác:
-   ["PHASE_1_GRAMMAR", "PHASE_2_READING_VOCAB", "PHASE_3_LISTENING", "PHASE_4_WRITING", "PHASE_5_SPEAKING"]
-3. "vocab_requirement":
-   - Nếu có yêu cầu "học hết toàn bộ cái 300 và 540 không bỏ phần gì hết", BẮT BUỘC TRẢ VỀ: "FULL_100_PERCENT".
-   - Mặc định bình thường: "STANDARD".
-4. "estimated_band" & "target_band": Band hiện tại (0.0 - 6.5) và Band mục tiêu (tối đa 7.0).
-5. "skill_scores": Điểm chi tiết từng kỹ năng bóc tách từ báo cáo (reading, listening, writing, speaking).
-6. "bottleneck_skill": Kỹ năng yếu nhất (Ví dụ: SPEAKING nếu điểm 4.5).
-7. "pruned_domains": Các domain cần GỌT BỎ HOÀN TOÀN (Ví dụ: PRE_READING nếu học sinh đã yêu cầu bỏ hoặc Reading đã 6.5).
-8. "pruned_tags": Các tags râu ria đã vững cần lược bỏ.
-9. "retained_weak_tags": Các tags bài tập mà học sinh bị sai sót nghiêm trọng BẮT BUỘC PHẢI GIỮ LẠI (Ví dụ: G_IRREG_V2, G_IRREG_V3, G_PASSIVE_VOICE, PRE_SPK_A1, PWT1_CORE, PWT2_CORE...).
-10. "intensity_weights": Bảng trọng số điều phối cho các kỹ năng.
-11. "pedagogical_constraints": 2 - 3 dòng chỉ thị sư phạm răn đe hành vi học tập (cấm ngâm bài mẫu 50 phút, luyện Shadowing ngắt câu ngắn trị câu dây thừng...).
+BỐN BỘ LUẬT SƯ PHẠM BẮT BUỘC BẠN PHẢI TUÂN THỦ KHI ĐIỀU PHỐI:
 
-TRẢ VỀ DUY NHẤT 1 CHUỖI JSON THUẦN (KHÔNG DÙNG MARKDOWN, KHÔNG \`\`\`json):
+LUẬT 1: LỌC TRÌNH ĐỘ THÔNG MINH (TRÁNH BẪY HỌC VỠ LÒNG)
+- Nếu học sinh xuất phát Band >= 5.0: BẮT BUỘC LOẠI BỎ 100% các bài Pre-Listening A1 (nghe số đếm, tên riêng) và Pre-Speaking A1 (chào hỏi đời sống). Tuyệt đối không để học sinh khá học lại kiến thức vỡ lòng A1.
+- Nếu học sinh xuất phát Band >= 6.0: Loại bỏ toàn bộ bài có mớm từ khóa, đẩy thẳng vào đề thi Cam không mớm và Shadowing C1.
+
+LUẬT 2: KHÓA HẠN NGẠCH BÀI TẬP (TRIỆT TIÊU BỆNH "PRE NUỐT TRỌN ĐỀ THI THẬT")
+- Phần PRE (dịch câu, shadowing) chỉ là đòn bẩy lót đường, chiếm TỐI ĐA 20% - 25% tổng thời lượng của kỹ năng đó.
+- TỐI THIỂU 75% - 80% thời lượng của Chặng Writing và Speaking BẮT BUỘC PHẢI LÀ ĐỀ THI THẬT:
+  + Writing: Phải có bài viết Task 1 hoàn chỉnh và bài luận Task 2 (250 từ chuẩn PEEL). Cấm tình trạng cả chặng chỉ toàn dịch câu mà không có đề Task 2.
+  + Speaking: Phải có đề thi Forecast Part 1, Part 2 (nói 2 phút) và Part 3. Shadowing chỉ làm ấm giọng 15 phút.
+
+LUẬT 3: THIẾT LẬP 5 CHẶNG TUẦN TỰ THEO MỆNH LỆNH
+Nếu học sinh có yêu cầu về thứ tự học, phân bổ chính xác 5 Chặng nối tiếp nhau:
+- CHẶNG 1: Nền tảng Ngữ pháp trọng tâm (đặc trị các lỗi sai chia thì, bị động, câu phức). Tuyệt đối không có Nói/Viết chen ngang.
+- CHẶNG 2: Reading thực chiến song song QUÉT SẠCH 100% KHO TỪ VỰNG (Học đủ 28 Unit: 10 Unit bộ 300 từ + 18 Unit bộ 540 từ, không được bỏ rơi bất kỳ Unit nào).
+- CHẶNG 3: Chiến thuật Listening phòng thi (trị bẫy mất dấu băng Part 2, Part 3).
+- CHẶNG 4: Thực chiến Writing Task 1 & Task 2 (Cai nghiện ngâm bài mẫu 50 phút).
+- CHẶNG 5: Về đích bùng nổ Speaking & Shadowing (Dồn toàn lực kéo điểm nghẽn lên 7.0).
+
+LUẬT 4: VÒNG LẶP ÔN TẬP DUY TRÌ 3 NGÀY (SPACED REPETITION)
+- Tại Chặng 4 (Writing) và Chặng 5 (Speaking): Cứ cách 3 ngày một lần (Ngày 3, Ngày 6, Ngày 9...), hệ thống phải tự động chèn 1 đề thi Reading hoặc Listening Cambridge của các chặng trước vào để giải đề bấm giờ, duy trì phản xạ phòng thi liên tục.
+
+HÃY TRẢ VỀ DUY NHẤT 1 CHUỖI JSON THUẦN (KHÔNG DÙNG MARKDOWN, KHÔNG ```json):
 {
   "estimated_band": 5.5,
   "target_band": 7.0,
@@ -146,29 +149,37 @@ TRẢ VỀ DUY NHẤT 1 CHUỖI JSON THUẦN (KHÔNG DÙNG MARKDOWN, KHÔNG \`\`
     "PHASE_5_SPEAKING"
   ],
   "vocab_requirement": "FULL_100_PERCENT",
-  "academic_summary": "Điểm nghẽn nghiêm trọng nhất là Speaking 4.5. Lộ trình được thiết lập theo đúng mệnh lệnh tuần tự 5 chặng: Triệt tiêu lỗ hổng Ngữ pháp đầu tiên, tiếp đến Reading song song 100% kho 28 Unit từ vựng, chuyển tiếp sang Listening, Writing và dồn toàn lực bứt phá Speaking ở chặng về đích.",
+  "quota_policy": {
+    "max_pre_skill_ratio": 0.25,
+    "min_official_exam_ratio": 0.75,
+    "prohibited_levels": ["A1"],
+    "review_interval_days": 3,
+    "review_skills": ["READING", "LISTENING"]
+  },
+  "academic_summary": "Phân tích 3 dòng: Điểm nghẽn nghiêm trọng nhất là Speaking 4.5. Lộ trình tuân thủ tuyệt đối 5 chặng tuần tự: Khắc phục Ngữ pháp trước, cày sạch 100% kho 28 Unit từ vựng song song Reading, tiếp đến Listening, Writing và dồn lực bùng nổ Speaking ở chặng về đích. Đã kích hoạt cơ chế 3 ngày ôn 1 đề Cam cũ và ép 75% đề thi thật.",
   "pruned_domains": ["PRE_READING"],
-  "pruned_tags": ["G_PRES_SIMPLE", "G_FUTURE_SIMPLE", "G_NOUNS", "G_ARTICLES"],
-  "retained_weak_tags": ["G_IRREG_V2", "G_IRREG_V3", "G_PASSIVE_VOICE", "PRE_SPK_A1", "PRE_SPK_INTER", "PWT1_CORE", "PWT2_CORE"],
+  "pruned_tags": ["PRE_LIS_A1", "PRE_SPK_A1", "G_PRES_SIMPLE", "G_FUTURE_SIMPLE"],
+  "retained_weak_tags": ["G_IRREG_V2", "G_IRREG_V3", "G_PASSIVE_VOICE", "PRE_SPK_B2", "PWT1_CORE", "PWT2_CORE"],
   "intensity_weights": {
     "SPEAKING": 2.5,
-    "PRE_SPEAKING": 2.5,
+    "PRE_SPEAKING": 1.5,
     "WRITING_T1": 1.8,
-    "WRITING_T2": 1.8,
-    "LISTENING": 1.0,
+    "WRITING_T2": 2.0,
+    "LISTENING": 1.2,
     "READING": 1.0,
-    "GRAMMAR": 1.5,
+    "GRAMMAR": 1.2,
     "VOCABULARY": 2.0
   },
   "pedagogical_constraints": [
-    "Thực thi đúng trình tự 5 chặng tuần tự: Ngữ pháp ➔ Reading + 100% Từ vựng 300/540 ➔ Listening ➔ Writing ➔ Speaking",
-    "Khóa tài liệu gợi ý Writing sau 5 phút để ép học viên tự lên dàn ý PEEL độc lập",
-    "Luyện Shadowing ngắt câu ngắn dứt khoát để trị tật câu dây thừng, nuốt âm đuôi và lỗi đổi thì lung tung trong Speaking"
+    "Thực thi đúng trình tự 5 chặng: Ngữ pháp ➔ Reading + 100% Từ vựng (28 Unit) ➔ Listening ➔ Writing ➔ Speaking",
+    "Cấm học bài Pre-A1 vỡ lòng đối với học viên Band 5.5. Dành tối thiểu 75% thời lượng cho Đề thi chính thức",
+    "Cứ cách 3 ngày ở Chặng Viết và Nói phải giải 1 đề Reading/Listening Cambridge để duy trì phong độ",
+    "Khóa tài liệu gợi ý Writing sau 5 phút để ép tư duy tự lập luận PEEL độc lập"
   ],
   "excluded_domains": ["PRE_READING"],
-  "focus_domains": ["GRAMMAR", "VOCABULARY", "READING", "LISTENING", "WRITING_T1", "WRITING_T2", "SPEAKING", "PRE_SPEAKING"],
-  "mastered_tags": ["G_PRES_SIMPLE", "G_FUTURE_SIMPLE", "G_NOUNS", "G_ARTICLES"],
-  "weak_tags": ["G_IRREG_V2", "G_IRREG_V3", "G_PASSIVE_VOICE", "PRE_SPK_A1", "PRE_SPK_INTER", "PWT1_CORE", "PWT2_CORE"]
+  "focus_domains": ["GRAMMAR", "VOCABULARY", "READING", "LISTENING", "WRITING_T1", "WRITING_T2", "SPEAKING"],
+  "mastered_tags": ["PRE_LIS_A1", "PRE_SPK_A1", "G_PRES_SIMPLE", "G_FUTURE_SIMPLE"],
+  "weak_tags": ["G_IRREG_V2", "G_IRREG_V3", "G_PASSIVE_VOICE", "PRE_SPK_B2", "PWT1_CORE", "PWT2_CORE"]
 }
 `;
 
