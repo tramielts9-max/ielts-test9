@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bản Đồ Toàn Cảnh Lộ Trình - Trạm IELTS</title>
+  <title>Bản Đồ Toàn Cảnh Lộ Trình 5 Chặng - Trạm IELTS</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,6 +48,18 @@
       align-items: center; flex-wrap: wrap; gap: 10px; font-weight: 800; font-size: 13px; color: #1E293B;
     }
 
+    /* BANNER CỘT MỐC 5 CHẶNG TUẦN TỰ */
+    .phase-milestone-banner {
+      background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+      color: #FFFFFF;
+      border-radius: 18px;
+      padding: 18px 24px;
+      margin: 28px 0 16px 0;
+      border: 2px solid #334155;
+      border-bottom: 5px solid #0284C7;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    }
+
     .day-card {
       background: #FFFFFF; border: 2.5px solid #E8E2D8; border-bottom: 5px solid #D3CBC0;
       border-radius: 18px; margin-bottom: 18px; overflow: hidden; transition: transform 0.15s ease;
@@ -72,7 +84,7 @@
   <div class="top-nav">
     <a href="../index.html" class="btn-back">⬅ Quay lại Màn hình chính</a>
     <div style="font-size: 18px; font-weight: 900; color: #8B1518;">
-      🗺️ BẢN ĐỒ TOÀN CẢNH LỘ TRÌNH CHI TIẾT
+      🗺️ BẢN ĐỒ TOÀN CẢNH LỘ TRÌNH 5 CHẶNG CHI TIẾT
     </div>
     <div id="roadmapTargetBadge" style="font-size: 13px; font-weight: 900; background: #FFF4E5; color: #D97706; padding: 4px 12px; border-radius: 12px; border: 1px solid #FCD34D;">
       Đang tải...
@@ -85,7 +97,7 @@
   <!-- THANH NHẢY NHANH NGÀY HỌC -->
   <div id="roadmapQuickJumpMount"></div>
 
-  <!-- DANH SÁCH TOÀN BỘ CÁC NGÀY HỌC -->
+  <!-- DANH SÁCH TOÀN BỘ CÁC NGÀY HỌC PHÂN CHIA THEO 5 CHẶNG -->
   <div id="fullRoadmapMount">
     <div style="text-align: center; padding: 40px; font-weight: 800; color: #756D68;">
       ⏳ Đang tải toàn bộ dữ liệu lộ trình học tập...
@@ -107,7 +119,6 @@
   }
 
   function renderFullPageRoadmap() {
-    // 1. LẤY EMAIL HỌC SINH TỪ URL HOẶC TỪ PHIÊN ĐÓNG VAI
     const urlParams = new URLSearchParams(window.location.search);
     const paramEmail = urlParams.get('studentEmail');
     const email = (paramEmail || curriculumUI.getActiveWorkingEmail()).toLowerCase().trim();
@@ -119,7 +130,6 @@
     const jumpMount = document.getElementById('roadmapQuickJumpMount');
     const floatMount = document.getElementById('roadmapFloatingMount');
 
-    // NẾU LÀ ADMIN ĐANG ĐÓNG VAI THÌ HIỆN THANH THOÁT
     if (curriculumUI.isImpersonating()) {
       floatMount.innerHTML = `
         <div style="position:fixed; bottom:16px; right:16px; z-index:99999; background:#DC2626; color:white; padding:12px 20px; border-radius:16px; box-shadow:0 8px 24px rgba(0,0,0,0.3); border:2px solid #FEF2F2; display:flex; align-items:center; gap:14px; font-weight:800; font-size:13px;">
@@ -148,25 +158,28 @@
     const isLocked = !!data.isLockedByAdmin;
     badge.innerText = `Chặng: Band ${data.startBand || 0.0} ➔ ${data.targetBand || 7.0} (${totalDays} ngày - ${data.totals?.totalLiveSessions || 42} buổi)`;
 
-    // 2. RENDER BANNER HỒ SƠ HỌC THUẬT & ĐƠN THUỐC ĐIỀU PHỐI TỪ AI
+    // 1. RENDER BANNER HỒ SƠ HỌC THUẬT & ĐƠN THUỐC ĐIỀU PHỐI TỪ AI
     const ai = data.aiDiagnosticData;
     if (ai) {
       let badges = '';
+      if (ai.schedule_mode === 'SEQUENTIAL_PHASES') {
+        badges += `<span style="background:#dbeafe; color:#1d4ed8; padding:4px 10px; border-radius:8px; font-weight:900; font-size:12px;">📚 LỘ TRÌNH 5 CHẶNG TUẦN TỰ</span> `;
+      }
+      if (ai.vocab_requirement === 'FULL_100_PERCENT') {
+        badges += `<span style="background:#dcfce7; color:#15803d; padding:4px 10px; border-radius:8px; font-weight:900; font-size:12px;">📖 HỌC SẠCH 100% TỪ VỰNG (28 UNIT)</span> `;
+      }
       if (ai.bottleneck_skill) {
         badges += `<span style="background:#fee2e2; color:#b91c1c; padding:4px 10px; border-radius:8px; font-weight:900; font-size:12px;">🚨 Điểm nghẽn ưu tiên: ${ai.bottleneck_skill}</span> `;
       }
       if (ai.pruned_domains?.length > 0) {
         badges += `<span style="background:#f1f5f9; color:#475569; padding:4px 10px; border-radius:8px; font-weight:800; font-size:12px;">✂️ Gọt bỏ: ${ai.pruned_domains.join(', ')}</span> `;
       }
-      if (ai.focus_domains?.length > 0) {
-        badges += `<span style="background:#fef3c7; color:#b45309; padding:4px 10px; border-radius:8px; font-weight:900; font-size:12px;">🔥 Tăng cường trọng số: ${ai.focus_domains.join(', ')}</span> `;
-      }
 
       let constraintsList = '';
       if (ai.pedagogical_constraints?.length > 0) {
         constraintsList = `
           <div style="background:#fffbeb; border:1.5px solid #fde68a; border-radius:12px; padding:10px 14px; margin-top:12px; font-size:13px; color:#92400e; font-weight:700;">
-            <div style="font-weight:900; margin-bottom:4px;">📌 CHỈ THỊ SƯ PHẠM ĐẶC TRỊ:</div>
+            <div style="font-weight:900; margin-bottom:4px;">📌 CHỈ THỊ SƯ PHẠM ĐẶC TRỊ TỪ GEMINI:</div>
             <ul style="margin:0 0 0 18px; padding:0; line-height:1.5;">
               ${ai.pedagogical_constraints.map(c => `<li>${c}</li>`).join('')}
             </ul>
@@ -201,24 +214,42 @@
       `;
     }
 
-    // 3. THANH NHẢY NHANH
+    // 2. THANH NHẢY NHANH
     jumpMount.innerHTML = `
       <div class="quick-jump-bar">
-        <span>📍 Đang xem lộ trình của: <b>${email}</b> (${totalDays} ngày học tập)</span>
+        <span>📍 Đang xem lộ trình 5 chặng của: <b>${email}</b> (${totalDays} ngày học tập)</span>
         <div style="display:flex; align-items:center; gap:8px;">
           <label style="font-size:12.5px; font-weight:800; color:#64748B;">Nhảy nhanh đến:</label>
           <select onchange="const el = document.getElementById('day-card-' + this.value); if(el) el.scrollIntoView({behavior: 'smooth'});" style="padding:5px 10px; border-radius:8px; border:1px solid #CBD5E1; font-weight:800; font-size:12.5px; color:#1E293B;">
-            ${data.schedule.map(d => `<option value="${d.dayNumber}">Ngày ${d.dayNumber}</option>`).join('')}
+            ${data.schedule.map(d => `<option value="${d.dayNumber}">Ngày ${d.dayNumber}${d.phaseName ? ' - ' + d.phaseName.split(':')[0] : ''}</option>`).join('')}
           </select>
         </div>
       </div>
     `;
 
-    // 4. DANH SÁCH NGÀY HỌC: ĐỐI SOÁT CHUẨN XÁC THEO LỊCH SỬ THẬT CỦA HỌC SINH
+    // 3. DANH SÁCH 91 NGÀY HỌC PHÂN BỔ THEO 5 KHỐI CHẶNG
     let html = '';
+    let lastRenderedPhaseId = '';
+
     data.schedule.forEach(day => {
       const isToday = day.dayNumber === data.currentDay;
       const isPast = day.dayNumber < data.currentDay;
+
+      // NẾU BẮT ĐẦU CHẶNG MỚI -> RENDER BANNER CỘT MỐC CHẶNG
+      if (day.phaseId && day.phaseId !== lastRenderedPhaseId) {
+        lastRenderedPhaseId = day.phaseId;
+        html += `
+          <div class="phase-milestone-banner">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+              <span style="font-size:22px;">🚩</span>
+              <b style="font-size:17px; color:#FCD34D;">${day.phaseName || 'CHẶNG MỚI'}</b>
+            </div>
+            <div style="font-size:13px; opacity:0.9; line-height:1.4;">
+              ${day.phaseDesc || 'Hoàn thành các mục tiêu cốt lõi của giai đoạn này.'}
+            </div>
+          </div>
+        `;
+      }
 
       html += `
         <div id="day-card-${day.dayNumber}" class="day-card" style="${isToday ? 'border-color: #8B1518; box-shadow: 0 4px 0 #5E0C0E;' : ''}">
@@ -233,7 +264,7 @@
       `;
 
       day.nodes.forEach(node => {
-        // Truyền chính xác email học sinh để không bị lấy nhầm bài nộp của Admin
+        // CÔ LẬP LỊCH SỬ THỰC TẾ: CHỈ ĐỌC BÀI CỦA ĐÚNG HỌC VIÊN ĐÓ
         const compInfo = curriculumUI.getNodeCompletionInfo(node, email);
         const isDone = compInfo.isCompleted;
         const taskUrl = resolvePath(node.url);
