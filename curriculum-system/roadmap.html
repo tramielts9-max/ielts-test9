@@ -10,9 +10,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-<link rel="stylesheet" href="../css/base.css">
-<link rel="stylesheet" href="../css/components.css">
-<link rel="stylesheet" href="style-system.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="style-system.css">
 
   <style>
     body {
@@ -27,7 +27,7 @@
     
     .top-nav {
       background: #FFFFFF; border: 2.5px solid #E8E2D8; border-bottom: 5px solid #D3CBC0;
-      border-radius: 20px; padding: 14px 22px; margin-bottom: 24px; display: flex;
+      border-radius: 20px; padding: 14px 22px; margin-bottom: 20px; display: flex;
       justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
     }
     .btn-back {
@@ -37,9 +37,20 @@
     }
     .btn-back:hover { background: #FAF7F2; }
 
+    .ai-summary-card {
+      background: #FFFFFF; border: 2.5px solid #E8E2D8; border-bottom: 5px solid #D3CBC0;
+      border-radius: 20px; padding: 20px 24px; margin-bottom: 22px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+
+    .quick-jump-bar {
+      background: #FAF7F2; border: 2px solid #E8E2D8; border-radius: 14px;
+      padding: 10px 16px; margin-bottom: 20px; display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 10px; font-weight: 800; font-size: 13px; color: #1E293B;
+    }
+
     .day-card {
       background: #FFFFFF; border: 2.5px solid #E8E2D8; border-bottom: 5px solid #D3CBC0;
-      border-radius: 18px; margin-bottom: 18px; overflow: hidden;
+      border-radius: 18px; margin-bottom: 18px; overflow: hidden; transition: transform 0.15s ease;
     }
     .day-card-header {
       padding: 12px 20px; background: #FAF7F2; display: flex; justify-content: space-between;
@@ -68,9 +79,16 @@
     </div>
   </div>
 
+  <!-- KHUNG TỔNG KẾT ĐƠN THUỐC ĐIỀU PHỐI CỦA AI GEMINI -->
+  <div id="roadmapAISummaryMount"></div>
+
+  <!-- THANH NHẢY NHANH NGÀY HỌC -->
+  <div id="roadmapQuickJumpMount"></div>
+
+  <!-- DANH SÁCH TOÀN BỘ CÁC NGÀY HỌC -->
   <div id="fullRoadmapMount">
     <div style="text-align: center; padding: 40px; font-weight: 800; color: #756D68;">
-      ⏳ Đang tải toàn bộ dữ liệu 70 ngày học tập...
+      ⏳ Đang tải toàn bộ dữ liệu lộ trình học tập...
     </div>
   </div>
 
@@ -79,37 +97,114 @@
 <script type="module">
   import { curriculumUI } from './ui-system.js';
 
+  function resolvePath(url) {
+    if (!url) return '#';
+    if (url.startsWith('http') || url.startsWith('../')) return url;
+    return '../' + url;
+  }
+
   function renderFullPageRoadmap() {
-    const email = localStorage.getItem('ielts_student_email') || 'guest';
+    const email = curriculumUI.getActiveWorkingEmail();
     const data = curriculumUI.getSavedRoadmap(email);
     const container = document.getElementById('fullRoadmapMount');
     const badge = document.getElementById('roadmapTargetBadge');
+    const aiMount = document.getElementById('roadmapAISummaryMount');
+    const jumpMount = document.getElementById('roadmapQuickJumpMount');
 
-    if (!data || !data.schedule) {
+    if (!data || !data.schedule || data.schedule.length === 0) {
       container.innerHTML = `
         <div style="text-align: center; padding: 50px 20px; background: #FFFFFF; border-radius: 20px; border: 2.5px solid #E8E2D8;">
-          <h3 style="color: #8B1518; font-size: 20px;">⚠️ Em chưa tạo lộ trình học tập!</h3>
-          <p style="color: #756D68; font-size: 14px; margin-bottom: 20px;">Hãy quay lại trang chủ và chọn mốc điểm mục tiêu để tạo lộ trình nhé.</p>
-          <a href="index.html" class="btn-back">Quay lại trang chủ</a>
+          <h3 style="color: #8B1518; font-size: 20px;">⚠️ Chưa có lộ trình học tập cho tài khoản này!</h3>
+          <p style="color: #756D68; font-size: 14px; margin-bottom: 20px;">Hãy quay lại trang chủ để Giáo viên hoặc AI thiết lập lộ trình nhé.</p>
+          <a href="../index.html" class="btn-back">Quay lại trang chủ</a>
         </div>
       `;
       return;
     }
 
-    badge.innerText = `Chặng: Band ${data.startBand || 0.0} ➔ ${data.targetBand || 7.0} (${data.schedule.length} ngày)`;
+    const totalDays = data.schedule.length;
+    const isLocked = !!data.isLockedByAdmin;
+    badge.innerText = `Chặng: Band ${data.startBand || 0.0} ➔ ${data.targetBand || 7.0} (${totalDays} ngày - ${data.totals?.totalLiveSessions || 42} buổi)`;
 
+    // 1. RENDER BANNER CHỈ THỊ SƯ PHẠM CỦA AI NẾU CÓ DỮ LIỆU
+    const ai = data.aiDiagnosticData;
+    if (ai) {
+      let badges = '';
+      if (ai.bottleneck_skill) {
+        badges += `<span style="background:#fee2e2; color:#b91c1c; padding:4px 10px; border-radius:8px; font-weight:900; font-size:12px;">🚨 Điểm nghẽn ưu tiên: ${ai.bottleneck_skill}</span> `;
+      }
+      if (ai.pruned_domains?.length > 0) {
+        badges += `<span style="background:#f1f5f9; color:#475569; padding:4px 10px; border-radius:8px; font-weight:800; font-size:12px;">✂️ Gọt bỏ: ${ai.pruned_domains.join(', ')}</span> `;
+      }
+      if (ai.focus_domains?.length > 0) {
+        badges += `<span style="background:#fef3c7; color:#b45309; padding:4px 10px; border-radius:8px; font-weight:900; font-size:12px;">🔥 Tăng cường trọng số: ${ai.focus_domains.join(', ')}</span> `;
+      }
+
+      let constraintsList = '';
+      if (ai.pedagogical_constraints?.length > 0) {
+        constraintsList = `
+          <div style="background:#fffbeb; border:1.5px solid #fde68a; border-radius:12px; padding:10px 14px; margin-top:12px; font-size:13px; color:#92400e; font-weight:700;">
+            <div style="font-weight:900; margin-bottom:4px;">📌 CHỈ THỊ SƯ PHẠM ĐẶC TRỊ:</div>
+            <ul style="margin:0 0 0 18px; padding:0; line-height:1.5;">
+              ${ai.pedagogical_constraints.map(c => `<li>${c}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }
+
+      aiMount.innerHTML = `
+        <div class="ai-summary-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-size:20px;">🎯</span>
+              <b style="font-size:16px; color:#166534;">HỒ SƠ HỌC THUẬT & ĐƠN THUỐC ĐIỀU PHỐI TỪ AI GEMINI</b>
+            </div>
+            ${isLocked ? `<span style="background:#DCFCE7; color:#166534; font-size:12px; font-weight:900; padding:4px 10px; border-radius:20px;">🔒 LỘ TRÌNH ĐÃ KHÓA BẢO VỆ</span>` : ''}
+          </div>
+
+          <div style="font-size:13px; color:#64748B; font-weight:700; margin:6px 0;">
+            Học viên: <b style="color:#1E293B;">${data.studentEmail}</b> • Xuất phát: <b>Band ${data.startBand}</b> ➔ Đích đến: <b>Band ${data.targetBand}</b>
+          </div>
+
+          <p style="font-size:13.5px; color:#1e293b; line-height:1.5; margin:8px 0; font-weight:600;">
+            <b>Nhận xét học thuật:</b> ${ai.academic_summary}
+          </p>
+
+          <div style="margin-top:10px; display:flex; flex-wrap:wrap; gap:6px;">
+            ${badges}
+          </div>
+
+          ${constraintsList}
+        </div>
+      `;
+    }
+
+    // 2. RENDER THANH NHẢY NHANH
+    jumpMount.innerHTML = `
+      <div class="quick-jump-bar">
+        <span>📍 Đang xem toàn bộ <b>${totalDays} ngày học tập</b></span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <label style="font-size:12.5px; font-weight:800; color:#64748B;">Nhảy nhanh đến:</label>
+          <select onchange="const el = document.getElementById('day-card-' + this.value); if(el) el.scrollIntoView({behavior: 'smooth'});" style="padding:5px 10px; border-radius:8px; border:1px solid #CBD5E1; font-weight:800; font-size:12.5px; color:#1E293B;">
+            ${data.schedule.map(d => `<option value="${d.dayNumber}">Ngày ${d.dayNumber}</option>`).join('')}
+          </select>
+        </div>
+      </div>
+    `;
+
+    // 3. RENDER DANH SÁCH 91 NGÀY BTVN CHI TIẾT
     let html = '';
     data.schedule.forEach(day => {
       const isToday = day.dayNumber === data.currentDay;
       const isPast = day.dayNumber < data.currentDay;
 
       html += `
-        <div class="day-card" style="${isToday ? 'border-color: #8B1518; box-shadow: 0 4px 0 #5E0C0E;' : ''}">
+        <div id="day-card-${day.dayNumber}" class="day-card" style="${isToday ? 'border-color: #8B1518; box-shadow: 0 4px 0 #5E0C0E;' : ''}">
           <div class="day-card-header ${isToday ? 'is-today' : ''}">
             <div style="display: flex; align-items: center; gap: 8px;">
               <span>📅 NGÀY ${day.dayNumber} ${isToday ? '👈 (HÔM NAY)' : (isPast ? '✓ (ĐÃ QUA)' : '')}</span>
             </div>
-            <span style="font-size: 12px; font-weight: 700; color: #756D68;">⏱️ Dự kiến: ${day.totalMinutes} phút</span>
+            <span style="font-size: 12px; font-weight: 700; color: #756D68;">⏱️ Tổng: ${day.totalMinutes} phút</span>
           </div>
 
           <div>
@@ -118,6 +213,7 @@
       day.nodes.forEach(node => {
         const compInfo = curriculumUI.getNodeCompletionInfo(node);
         const isDone = compInfo.isCompleted;
+        const taskUrl = resolvePath(node.url);
 
         html += `
           <div class="node-row" style="background: ${isDone ? '#F0FDF4' : '#FFFFFF'};">
@@ -125,18 +221,18 @@
               <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
                 <span style="font-family: monospace; font-size: 11px; font-weight: 800; background: #1E293B; color: white; padding: 2px 6px; border-radius: 4px;">${node.id}</span>
                 <span style="font-size: 11px; font-weight: 800; background: #FDEDEE; color: #8B1518; padding: 2px 8px; border-radius: 8px;">${node.domain}</span>
-                <span style="font-size: 12px; color: #756D68;">⏱️ ${node.assignedDurationMinutes}p</span>
+                <span style="font-size: 12px; color: #756D68; font-weight: 700;">⏱️ ${node.assignedDurationMinutes} phút</span>
               </div>
               <b style="font-size: 14.5px; color: ${isDone ? '#166534' : '#261F1D'};">
                 ${isDone ? '✓ ' : ''}${node.title}
               </b>
               ${isDone ? `
                 <div style="font-size: 12px; font-weight: 800; color: #166534; margin-top: 4px;">
-                  🎯 Điểm: <b>${compInfo.score}</b> • ⏱️ Thời gian: <b>${compInfo.timeSpent}</b> • 📅 Nộp: ${compInfo.timestamp}
+                  🎯 Điểm: <b>${compInfo.firstAttempt.score}</b> • ⏱️ Thời gian: <b>${compInfo.firstAttempt.timeSpent}</b> • 📅 Nộp: ${compInfo.firstAttempt.timestamp}
                 </div>
               ` : `
-                <div style="font-size: 12px; color: #756D68; margin-top: 4px;">
-                  💡 ${node.benefit || 'Củng cố phản xạ ngôn ngữ.'}
+                <div style="font-size: 12px; color: #756D68; margin-top: 4px; font-weight: 700;">
+                  💡 ${node.benefit || 'Củng cố phản xạ ngôn ngữ và kỹ năng học thuật.'}
                 </div>
               `}
             </div>
@@ -147,7 +243,7 @@
                   <i class="fa-solid fa-check"></i> Đã xong
                 </span>
               ` : `
-                <a href="${node.url}" target="_blank" style="background: #8B1518; color: white; text-decoration: none; padding: 8px 16px; border-radius: 10px; font-weight: 900; font-size: 13px; display: inline-block;">
+                <a href="${taskUrl}" target="_blank" style="background: #8B1518; color: white; text-decoration: none; padding: 8px 16px; border-radius: 10px; font-weight: 900; font-size: 13px; display: inline-block;">
                   🚀 Vào học &rarr;
                 </a>
               `}
