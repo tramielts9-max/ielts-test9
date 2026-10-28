@@ -161,15 +161,26 @@
     // 1. RENDER BANNER HỒ SƠ HỌC THUẬT & ĐƠN THUỐC ĐIỀU PHỐI TỪ AI
     const ai = data.aiDiagnosticData;
     if (ai) {
+      const quota = ai.quota_policy || {};
       let badges = '';
+
       if (ai.schedule_mode === 'SEQUENTIAL_PHASES') {
         badges += `<span style="background:#dbeafe; color:#1d4ed8; padding:4px 10px; border-radius:8px; font-weight:900; font-size:12px;">📚 LỘ TRÌNH 5 CHẶNG TUẦN TỰ</span> `;
       }
       if (ai.vocab_requirement === 'FULL_100_PERCENT') {
         badges += `<span style="background:#dcfce7; color:#15803d; padding:4px 10px; border-radius:8px; font-weight:900; font-size:12px;">📖 HỌC SẠCH 100% TỪ VỰNG (28 UNIT)</span> `;
       }
+      if (quota.min_official_exam_ratio) {
+        badges += `<span style="background:#fef3c7; color:#b45309; padding:4px 10px; border-radius:8px; font-weight:900; font-size:12px;">🛡️ HẠN NGẠCH ${Math.round(quota.min_official_exam_ratio * 100)}% ĐỀ THI THẬT</span> `;
+      }
+      if (quota.review_interval_days) {
+        badges += `<span style="background:#f3e8ff; color:#7e22ce; padding:4px 10px; border-radius:8px; font-weight:900; font-size:12px;">🔄 ÔN TẬP DUY TRÌ: ${quota.review_interval_days} NGÀY/ĐỀ CAM</span> `;
+      }
+      if (quota.prohibited_levels && quota.prohibited_levels.length > 0) {
+        badges += `<span style="background:#fee2e2; color:#b91c1c; padding:4px 10px; border-radius:8px; font-weight:900; font-size:12px;">🚫 ĐÃ CHẶN BÀI VỠ LÒNG: ${quota.prohibited_levels.join(', ')}</span> `;
+      }
       if (ai.bottleneck_skill) {
-        badges += `<span style="background:#fee2e2; color:#b91c1c; padding:4px 10px; border-radius:8px; font-weight:900; font-size:12px;">🚨 Điểm nghẽn ưu tiên: ${ai.bottleneck_skill}</span> `;
+        badges += `<span style="background:#fee2e2; color:#b91c1c; padding:4px 10px; border-radius:8px; font-weight:900; font-size:12px;">🚨 Điểm nghẽn: ${ai.bottleneck_skill}</span> `;
       }
       if (ai.pruned_domains?.length > 0) {
         badges += `<span style="background:#f1f5f9; color:#475569; padding:4px 10px; border-radius:8px; font-weight:800; font-size:12px;">✂️ Gọt bỏ: ${ai.pruned_domains.join(', ')}</span> `;
@@ -268,16 +279,18 @@
         const compInfo = curriculumUI.getNodeCompletionInfo(node, email);
         const isDone = compInfo.isCompleted;
         const taskUrl = resolvePath(node.url);
+        const isMaintenanceTask = (node.title || '').includes('ÔN TẬP DUY TRÌ');
 
         html += `
-          <div class="node-row" style="background: ${isDone ? '#F0FDF4' : '#FFFFFF'};">
+          <div class="node-row" style="background: ${isDone ? '#F0FDF4' : (isMaintenanceTask ? '#FAF5FF' : '#FFFFFF')};">
             <div style="flex: 1; min-width: 260px;">
-              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px; flex-wrap: wrap;">
                 <span style="font-family: monospace; font-size: 11px; font-weight: 800; background: #1E293B; color: white; padding: 2px 6px; border-radius: 4px;">${node.id}</span>
                 <span style="font-size: 11px; font-weight: 800; background: #FDEDEE; color: #8B1518; padding: 2px 8px; border-radius: 8px;">${node.domain}</span>
+                ${isMaintenanceTask ? `<span style="font-size: 11px; font-weight: 900; background: #F3E8FF; color: #7E22CE; padding: 2px 8px; border-radius: 8px;">🔄 ĐỀ ÔN DUY TRÌ</span>` : ''}
                 <span style="font-size: 12px; color: #756D68; font-weight: 700;">⏱️ ${node.assignedDurationMinutes} phút</span>
               </div>
-              <b style="font-size: 14.5px; color: ${isDone ? '#166534' : '#261F1D'};">
+              <b style="font-size: 14.5px; color: ${isDone ? '#166534' : (isMaintenanceTask ? '#6B21A8' : '#261F1D')};">
                 ${isDone ? '✓ ' : ''}${node.title}
               </b>
               ${isDone ? `
