@@ -1,7 +1,8 @@
 /**
  * curriculum-system/engine-system.js
  * BỘ MÁY ĐIỀU PHỐI TÍNH XUÔI THEO SỐ BUỔI HỌC (300K/BUỔI - 12 BUỔI/NỬA BAND + LŨY TIẾN)
- * GIAI ĐOẠN 2 HOÀN CHỈNH: THUẬT TOÁN BĂM 5 KHỐI CHẶNG TUẦN TỰ & QUÉT SẠCH 100% KHO TỪ VỰNG
+ * GIAI ĐOẠN 2 HOÀN CHỈNH: BỘ MÁY THAM SỐ HÓA ĐỘNG (PARAMETERIZED ENGINE) THEO LỆNH AI
+ * THI CÔNG: 75% ĐỀ THI THẬT, CHẶN PRE-A1, 100% TỪ VỰNG (28 UNIT) & VÒNG LẶP ÔN TẬP 3 NGÀY
  */
 
 export class CurriculumEngineSystem {
@@ -83,7 +84,7 @@ export class CurriculumEngineSystem {
   }
 
   /**
-   * LỌC KHO BÀI TẬP: BẢO TỒN 100% TỪ VỰNG KHI CÓ YÊU CẦU & GIẢI CỨU ĐỐT NỀN TẢNG
+   * LỌC KHO BÀI TẬP THÔNG MINH: CHẶN BÀI VỠ LÒNG THEO HẠN NGẠCH CỦA AI
    */
   pruneCurriculumByBands(startBand = 0.0, targetBand = 7.0, aiOptions = {}) {
     const sBand = parseFloat(startBand) || 0.0;
@@ -94,40 +95,51 @@ export class CurriculumEngineSystem {
     const excludedDomains = (aiOptions.pruned_domains || aiOptions.excluded_domains || []).map(d => d.toUpperCase());
     const focusDomains = (aiOptions.focus_domains || []).map(d => d.toUpperCase());
     const isFullVocab = (aiOptions.vocab_requirement === 'FULL_100_PERCENT');
+    const prohibitedLevels = aiOptions.quota_policy?.prohibited_levels || [];
 
     return this.allNodes.filter((node, idx) => {
       const d = (node.domain || '').toUpperCase();
       const nodeTags = node.tags || [];
       const stg = node.stage || 'S1';
       const titleLower = (node.title || '').toLowerCase();
+      const idUpper = (node.id || '').toUpperCase();
 
-      // 1. NẾU YÊU CẦU HỌC 100% TỪ VỰNG -> BẢO TỒN TOÀN BỘ 28 UNIT TỪ VỰNG KHÔNG CẮT BẤT KỲ BÀI NÀO
+      // 1. LUẬT LỌC TRÌNH ĐỘ CỦA AI: CHẶN CÁC BÀI VỠ LÒNG NẾU THUỘC PROHIBITED LEVELS
+      if (prohibitedLevels.includes("A1")) {
+        const isA1Content = idUpper.includes('_A1') || titleLower.includes(' a1') || nodeTags.some(t => t.includes('_A1'));
+        // Nếu là bài A1 vỡ lòng và không nằm trong danh mục yếu đặc trị -> LOẠI BỎ NGAY LẬP TỨC
+        if (isA1Content && !nodeTags.some(tag => weakTags.includes(tag))) {
+          return false;
+        }
+      }
+
+      // 2. BẢO TỒN 100% KHO TỪ VỰNG 28 UNIT KHI CÓ CHỈ ĐẠO
       if (isFullVocab && d === 'VOCABULARY') {
         return true;
       }
 
-      // 2. GIẢI CỨU BÀI NỀN TẢNG YẾU (VÍ DỤ: G_IRREG_V2, G_PASSIVE_VOICE, PRE_SPK_A1)
+      // 3. GIẢI CỨU CÁC BÀI NỀN TẢNG YẾU (QUÁ KHỨ BẤT QUY TẮC, CÂU BỊ ĐỘNG...)
       if (weakTags.length > 0 && nodeTags.some(tag => weakTags.includes(tag))) {
         return true;
       }
 
-      // 3. CẮT BỎ CÁC DOMAIN BỊ LOẠI TRỪ (VÍ DỤ: PRE_READING)
+      // 4. CẮT BỎ CÁC DOMAIN BỊ AI LOẠI TRỪ (VÍ DỤ: PRE_READING)
       if (excludedDomains.some(ex => d === ex || d.startsWith(ex) || ex.includes(d))) {
         return false;
       }
 
-      // 4. CẮT BỎ CÁC TAGS RÂU RIA AI ĐÃ ĐÁNH GIÁ VỮNG
+      // 5. CẮT BỎ CÁC TAGS RÂU RIA AI ĐÁNH GIÁ ĐÃ VỮNG
       if (prunedTags.length > 0 && nodeTags.length > 0 && nodeTags.every(t => prunedTags.includes(t))) {
         return false;
       }
 
-      // 5. BẢO VỆ CÁC DOMAIN TRỌNG TÂM ĐỂ DÀNH NGUYÊN LIỆU CHO 5 CHẶNG
+      // 6. BẢO VỆ CÁC DOMAIN TRỌNG TÂM ĐỂ DÀNH NGUYÊN LIỆU CHO CÁC CHẶNG
       if (focusDomains.some(fc => d === fc || d.includes(fc))) {
         if (tBand <= 5.5 && stg === 'S4') return false;
         return true;
       }
 
-      // 6. CẮT ĐẦU THEO BAND XUẤT PHÁT (HEAD-CUT)
+      // 7. CẮT ĐẦU THEO BAND XUẤT PHÁT (HEAD-CUT)
       if (sBand >= 3.5 && stg === 'S1') return false;
       if (sBand >= 4.5 && stg === 'S1') return false;
       if (sBand >= 5.0 && stg === 'S2' && !d.includes('PRE_WRITING')) return false;
@@ -135,7 +147,7 @@ export class CurriculumEngineSystem {
       if (sBand >= 6.0 && stg === 'S3' && (titleLower.includes('có mớm') || d.includes('PRE_'))) return false;
       if (sBand >= 6.5 && stg === 'S3') return false;
 
-      // 7. CẮT ĐUÔI THEO BAND MỤC TIÊU (TAIL-CUT)
+      // 8. CẮT ĐUÔI THEO BAND MỤC TIÊU (TAIL-CUT)
       if (tBand <= 5.0 && (stg === 'S3' || stg === 'S4')) return false;
       if (tBand <= 5.5 && stg === 'S4') return false;
       if (tBand <= 6.0 && stg === 'S4') return false;
@@ -161,35 +173,39 @@ export class CurriculumEngineSystem {
   }
 
   // =========================================================================
-  // BỘ ĐIỀU PHỐI CHÍNH: TỰ ĐỘNG CHUYỂN GIỮA "CHẶNG TUẦN TỰ" VÀ "DÀN TRẢI"
+  // ĐIỀU PHỐI LỘ TRÌNH DỰA THEO BLUEPRINT CỦA AI
   // =========================================================================
   generateDailyCalendar(retainedNodes, speedProfile = 'normal', dailyHours = 1.5, startBand = 0.0, targetBand = 7.0, aiOptions = {}) {
     const stats = this.calculateSessionsByBands(startBand, targetBand);
     const targetDays = stats.days; // 91 ngày chuẩn cho mốc 5.5 -> 7.0
     const dailyTargetMinutes = Math.round(dailyHours * 60); // 90 phút/ngày
 
-    // NẾU CÓ LỆNH THỨ TỰ BẮT BUỘC TỪ AI -> KÍCH HOẠT THUẬT TOÁN 5 CHẶNG TUẦN TỰ
     if (aiOptions.schedule_mode === 'SEQUENTIAL_PHASES') {
       return this.generateSequentialPhasesCalendar(retainedNodes, targetDays, dailyTargetMinutes, speedProfile, stats, aiOptions);
     }
 
-    // NẾU KHÔNG CÓ YÊU CẦU THỨ TỰ -> CHẠY THUẬT TOÁN XOAY VÒNG TIÊU CHUẨN
     return this.generateStandardSpiralCalendar(retainedNodes, targetDays, dailyTargetMinutes, speedProfile, stats, aiOptions);
   }
 
   // =========================================================================
-  // THUẬT TOÁN 1: BĂM 5 KHỐI CHẶNG TUẦN TỰ (ĐÚNG THEO LỆNH CỦA BẠN 100%)
+  // THUẬT TOÁN BĂM 5 CHẶNG TUẦN TỰ ĐỘNG: 75% ĐỀ THI THẬT & VÒNG LẶP 3 NGÀY
   // =========================================================================
   generateSequentialPhasesCalendar(retainedNodes, targetDays, dailyTargetMinutes, speedProfile, stats, aiOptions) {
     const calendarDays = [];
+    const quota = aiOptions.quota_policy || {};
+    const reviewInterval = quota.review_interval_days || 3;
 
-    // 1. Phân loại toàn bộ kho bài vào các ngăn tủ chuyên biệt
+    // 1. Phân loại bài tập chi tiết: Tách riêng bài Pre và Đề Thi Thật Chính Thức
     const qGrammar = [];
     const qVocab = [];
     const qReading = [];
-    const qListening = [];
-    const qWriting = [];
-    const qSpeaking = [];
+    const qPreListening = [];
+    const qOfficialListening = [];
+    const qPreWriting = [];
+    const qOfficialWritingT1 = [];
+    const qOfficialWritingT2 = [];
+    const qPreSpeaking = [];
+    const qOfficialSpeaking = [];
 
     // Sắp xếp bài từ vựng đúng thứ tự Unit 1 -> 10 (300 từ) rồi đến Unit 1 -> 18 (540 từ)
     const rawVocab = retainedNodes.filter(n => (n.domain || '').toUpperCase() === 'VOCABULARY');
@@ -203,26 +219,39 @@ export class CurriculumEngineSystem {
       const d = (node.domain || '').toUpperCase();
       const nWithBenefit = { ...node, benefit: node.benefit || this.generateBenefit(node) };
 
-      if (d === 'GRAMMAR') qGrammar.push(nWithBenefit);
-      else if (d === 'READING' || d === 'PRE_READING') qReading.push(nWithBenefit);
-      else if (d === 'LISTENING' || d === 'PRE_LISTENING') qListening.push(nWithBenefit);
-      else if (d.includes('WRITING')) qWriting.push(nWithBenefit);
-      else if (d.includes('SPEAKING')) qSpeaking.push(nWithBenefit);
+      if (d === 'GRAMMAR') {
+        qGrammar.push(nWithBenefit);
+      } else if (d === 'READING' || d === 'PRE_READING') {
+        qReading.push(nWithBenefit);
+      } else if (d === 'PRE_LISTENING') {
+        qPreListening.push(nWithBenefit);
+      } else if (d === 'LISTENING') {
+        qOfficialListening.push(nWithBenefit);
+      } else if (d.includes('PRE_WRITING')) {
+        qPreWriting.push(nWithBenefit);
+      } else if (d === 'WRITING_T1') {
+        qOfficialWritingT1.push(nWithBenefit);
+      } else if (d === 'WRITING_T2') {
+        qOfficialWritingT2.push(nWithBenefit);
+      } else if (d === 'PRE_SPEAKING') {
+        qPreSpeaking.push(nWithBenefit);
+      } else if (d === 'SPEAKING') {
+        qOfficialSpeaking.push(nWithBenefit);
+      }
     });
 
-    // 2. Tính toán phân bổ số ngày cho từng Chặng (Tổng cộng chuẩn 91 ngày)
-    // Chặng 1 (Ngữ pháp): khoảng 8 ngày
-    const daysPhase1 = Math.min(10, Math.max(6, Math.ceil(qGrammar.length / 2)));
-    // Chặng 2 (Reading + 100% Từ vựng): 28 ngày (đủ đúng 28 Unit từ vựng)
-    const daysPhase2 = qVocab.length > 0 ? qVocab.length : 28;
-    // Chặng 3 (Listening): 16 ngày
-    const daysPhase3 = 16;
-    // Chặng 4 (Writing): 19 ngày
-    const daysPhase4 = 19;
-    // Chặng 5 (Speaking bứt phá về đích): Số ngày còn lại (91 - 8 - 28 - 16 - 19 = 20 ngày)
-    const daysPhase5 = targetDays - (daysPhase1 + daysPhase2 + daysPhase3 + daysPhase4);
+    // Kho lưu trữ đề thi đã học để phục vụ Vòng lặp Ôn tập Spaced Repetition
+    const reviewPoolReading = [...qReading];
+    const reviewPoolListening = [...qOfficialListening];
 
-    const pickFromQueue = (queue, maxMins = 50) => {
+    // 2. Tính toán phân bổ số ngày cho từng Chặng (Tổng cộng chuẩn targetDays = 91 ngày)
+    const daysPhase1 = Math.min(10, Math.max(6, Math.ceil(qGrammar.length / 2))); // ~8 ngày
+    const daysPhase2 = qVocab.length > 0 ? qVocab.length : 28;                   // Đúng 28 ngày cho 28 Unit từ vựng
+    const daysPhase3 = 16;                                                       // 16 ngày Listening
+    const daysPhase4 = 19;                                                       // 19 ngày Writing
+    const daysPhase5 = targetDays - (daysPhase1 + daysPhase2 + daysPhase3 + daysPhase4); // Còn lại cho Speaking
+
+    const pickFromQueue = (queue) => {
       if (!queue || queue.length === 0) return null;
       const task = queue.shift();
       const dur = task.duration?.[speedProfile] || task.duration?.normal || 25;
@@ -239,7 +268,7 @@ export class CurriculumEngineSystem {
       let mins = 0;
 
       while (mins < dailyTargetMinutes && qGrammar.length > 0) {
-        const task = pickFromQueue(qGrammar, 40);
+        const task = pickFromQueue(qGrammar);
         if (task) {
           dayTasks.push(task);
           mins += task.assignedDurationMinutes;
@@ -270,21 +299,21 @@ export class CurriculumEngineSystem {
     }
 
     // -----------------------------------------------------------------------
-    // CHẶNG 2: READING & 100% KHO TỪ VỰNG (MỖI NGÀY 1 UNIT TỪ VỰNG + 1 BÀI READING)
+    // CHẶNG 2: READING & 100% KHO TỪ VỰNG (28 UNIT CHẠY SẠCH SẼ TỪNG NGÀY)
     // -----------------------------------------------------------------------
     for (let i = 0; i < daysPhase2 && currentDayNum <= targetDays; i++) {
       const dayTasks = [];
       let mins = 0;
 
-      // 1. Đúng 1 Unit từ vựng tuần tự từ Unit 1 đến Unit 28
-      const vTask = pickFromQueue(qVocab, 30);
+      // 1. Đúng 1 Unit từ vựng tuần tự (Unit 1 đến 28)
+      const vTask = pickFromQueue(qVocab);
       if (vTask) {
         dayTasks.push(vTask);
         mins += vTask.assignedDurationMinutes;
       }
 
       // 2. Chạy song song 1 bài Reading Cambridge
-      const rTask = pickFromQueue(qReading, 45);
+      const rTask = pickFromQueue(qReading);
       if (rTask) {
         dayTasks.push(rTask);
         mins += rTask.assignedDurationMinutes;
@@ -312,18 +341,22 @@ export class CurriculumEngineSystem {
     }
 
     // -----------------------------------------------------------------------
-    // CHẶNG 3: CHIẾN THUẬT LISTENING PHÒNG THI
+    // CHẶNG 3: LISTENING THỰC CHIẾN (CHẶN A1, ĐẨY NHANH VÀO ĐỀ CAMBRIDGE)
     // -----------------------------------------------------------------------
     for (let i = 0; i < daysPhase3 && currentDayNum <= targetDays; i++) {
       const dayTasks = [];
       let mins = 0;
 
-      while (mins < dailyTargetMinutes && qListening.length > 0) {
-        const lTask = pickFromQueue(qListening, 35);
-        if (lTask) {
-          dayTasks.push(lTask);
-          mins += lTask.assignedDurationMinutes;
-        }
+      // Pre-listening chỉ làm đòn bẩy ngắn (tối đa 1 bài lót đường)
+      if (qPreListening.length > 0 && i < 5) {
+        const pTask = pickFromQueue(qPreListening);
+        if (pTask) { dayTasks.push(pTask); mins += pTask.assignedDurationMinutes; }
+      }
+
+      // Còn lại là Đề thi thật Listening Cambridge
+      while (mins < dailyTargetMinutes && qOfficialListening.length > 0) {
+        const lTask = pickFromQueue(qOfficialListening);
+        if (lTask) { dayTasks.push(lTask); mins += lTask.assignedDurationMinutes; }
       }
 
       if (dayTasks.length === 0) {
@@ -350,28 +383,50 @@ export class CurriculumEngineSystem {
     }
 
     // -----------------------------------------------------------------------
-    // CHẶNG 4: THỰC CHIẾN WRITING TASK 1 & TASK 2 (CAI NGHIỆN BÀI MẪU)
+    // CHẶNG 4: THỰC CHIẾN WRITING (75% ĐỀ THI THẬT TASK 1/TASK 2 + ÔN TẬP 3 NGÀY)
     // -----------------------------------------------------------------------
     for (let i = 0; i < daysPhase4 && currentDayNum <= targetDays; i++) {
       const dayTasks = [];
       let mins = 0;
+      const isReviewDay = (reviewInterval > 0 && (i + 1) % reviewInterval === 0);
 
-      while (mins < dailyTargetMinutes && qWriting.length > 0) {
-        const wTask = pickFromQueue(qWriting, 50);
-        if (wTask) {
-          dayTasks.push(wTask);
-          mins += wTask.assignedDurationMinutes;
-        }
+      // CỨ ĐÚNG CHU KỲ 3 NGÀY: CHÈN 1 ĐỀ READING CAMBRIDGE ĐỂ ÔN TẬP DUY TRÌ
+      if (isReviewDay) {
+        const revTask = reviewPoolReading.length > 0 
+          ? { ...reviewPoolReading[(i * 2) % reviewPoolReading.length], assignedDurationMinutes: 40, title: `[🔄 ÔN TẬP DUY TRÌ] ${reviewPoolReading[(i * 2) % reviewPoolReading.length].title}` }
+          : {
+            id: `REV_READ_MAINT_${currentDayNum}`, stage: "S4", domain: "READING", type: "TEST",
+            title: `[🔄 ÔN TẬP DUY TRÌ] Giải Đề Reading Cam Bấm Giờ 40 Phút`,
+            benefit: "Giữ tay định vị từ khóa và phản xạ làm bài thi đọc hiểu dưới áp lực thời gian.",
+            assignedDurationMinutes: 40, url: "reading/reading.html"
+          };
+        dayTasks.push(revTask);
+        mins += revTask.assignedDurationMinutes;
+      }
+
+      // Pre-writing dịch câu PEEL: Chỉ chiếm tối đa 4 ngày đầu chặng làm quen
+      if (qPreWriting.length > 0 && i < 4 && mins < dailyTargetMinutes) {
+        const pwTask = pickFromQueue(qPreWriting);
+        if (pwTask) { dayTasks.push(pwTask); mins += pwTask.assignedDurationMinutes; }
+      }
+
+      // TOÀN BỘ CÒN LẠI LÀ ĐỀ THI THẬT: LUÔN ƯU TIÊN VIẾT LUẬN TASK 2 & BIỂU ĐỒ TASK 1
+      if (qOfficialWritingT2.length > 0 && mins < dailyTargetMinutes) {
+        const wt2Task = pickFromQueue(qOfficialWritingT2);
+        if (wt2Task) { dayTasks.push(wt2Task); mins += wt2Task.assignedDurationMinutes; }
+      }
+
+      if (qOfficialWritingT1.length > 0 && mins < dailyTargetMinutes) {
+        const wt1Task = pickFromQueue(qOfficialWritingT1);
+        if (wt1Task) { dayTasks.push(wt1Task); mins += wt1Task.assignedDurationMinutes; }
       }
 
       if (dayTasks.length === 0) {
         dayTasks.push({
-          id: `REV_WRT2_${currentDayNum}`,
-          stage: "S4", domain: "WRITING_T2", type: "PRACTICE",
+          id: `REV_WRT2_FINAL_${currentDayNum}`, stage: "S4", domain: "WRITING_T2", type: "PRACTICE",
           title: `Writing Task 2 Độc Lập: Viết luận 250 từ chuẩn PEEL (Bấm giờ 40 phút)`,
-          benefit: "Tự lên dàn ý và triển khai câu luận điểm độc lập, không tra cứu tài liệu gợi ý.",
-          assignedDurationMinutes: 50,
-          url: "writing task 2/index-t2.html"
+          benefit: "Tự lên dàn ý và triển khai luận điểm độc lập, cai nghiện hoàn toàn thói quen ngâm bài mẫu.",
+          assignedDurationMinutes: 50, url: "writing task 2/index-t2.html"
         });
         mins = 50;
       }
@@ -381,45 +436,62 @@ export class CurriculumEngineSystem {
         totalMinutes: mins,
         phaseId: "PHASE_4_WRITING",
         phaseName: "Chặng 4: Thực Chiến Writing Task 1 & Task 2 (Cai Nghiện Bài Mẫu)",
-        phaseDesc: "Ép thời gian viết 20 phút Task 1 và 40 phút Task 2, cấm tuyệt đối việc ngâm tài liệu gợi ý.",
+        phaseDesc: "Tối thiểu 75% thời lượng viết bài luận Task 2 và biểu đồ Task 1 bấm giờ, kết hợp ôn đề Reading mỗi 3 ngày.",
         nodes: dayTasks
       });
       currentDayNum++;
     }
 
     // -----------------------------------------------------------------------
-    // CHẶNG 5: VỀ ĐÍCH BÙNG NỔ SPEAKING (KÉO TỪ 4.5 LÊN 7.0)
+    // CHẶNG 5: VỀ ĐÍCH BÙNG NỔ SPEAKING (100% ĐỀ THI FORECAST + ÔN TẬP 3 NGÀY)
     // -----------------------------------------------------------------------
+    let dayInPhase5 = 1;
     while (currentDayNum <= targetDays) {
       const dayTasks = [];
       let mins = 0;
+      const isReviewDay = (reviewInterval > 0 && dayInPhase5 % reviewInterval === 0);
 
-      while (mins < dailyTargetMinutes && qSpeaking.length > 0) {
-        const sTask = pickFromQueue(qSpeaking, 35);
-        if (sTask) {
-          dayTasks.push(sTask);
-          mins += sTask.assignedDurationMinutes;
+      // CỨ ĐÚNG CHU KỲ 3 NGÀY: CHÈN 1 ĐỀ LISTENING CAMBRIDGE ĐỂ TAI KHÔNG BỊ MẤT PHẢN XẠ
+      if (isReviewDay) {
+        const revLisTask = reviewPoolListening.length > 0
+          ? { ...reviewPoolListening[(dayInPhase5 * 3) % reviewPoolListening.length], assignedDurationMinutes: 30, title: `[🔄 ÔN TẬP DUY TRÌ] ${reviewPoolListening[(dayInPhase5 * 3) % reviewPoolListening.length].title}` }
+          : {
+            id: `REV_LIS_MAINT_${currentDayNum}`, stage: "S4", domain: "LISTENING", type: "TEST",
+            title: `[🔄 ÔN TẬP DUY TRÌ] Nghe Lại 1 Đề Listening Cam 1.1x Bấm Giờ 30 Phút`,
+            benefit: "Duy trì phản xạ bắt âm thanh và độ nhạy bám dấu câu hỏi trước ngày thi thật.",
+            assignedDurationMinutes: 30, url: "listening/listening.html"
+          };
+        dayTasks.push(revLisTask);
+        mins += revLisTask.assignedDurationMinutes;
+      }
+
+      // Pre-Speaking Shadowing B2/C1: Chỉ làm bài khởi động ấm giọng 15 phút
+      if (qPreSpeaking.length > 0 && mins < dailyTargetMinutes) {
+        const psTask = pickFromQueue(qPreSpeaking);
+        if (psTask) {
+          psTask.assignedDurationMinutes = 20; // Giới hạn tối đa 20 phút warm-up
+          dayTasks.push(psTask);
+          mins += psTask.assignedDurationMinutes;
         }
       }
 
-      if (dayTasks.length === 0) {
+      // TẬP TRUNG TOÀN LỰC VÀO ĐỀ THI THẬT FORECAST PART 1, PART 2 (CUE CARD) VÀ PART 3
+      while (mins < dailyTargetMinutes && qOfficialSpeaking.length > 0) {
+        const spkTask = pickFromQueue(qOfficialSpeaking);
+        if (spkTask) {
+          dayTasks.push(spkTask);
+          mins += spkTask.assignedDurationMinutes;
+        }
+      }
+
+      if (dayTasks.length <= 1) {
         dayTasks.push({
-          id: `REV_SPK_P3_${currentDayNum}`,
-          stage: "S4", domain: "SPEAKING", type: "PRACTICE",
-          title: `Speaking Part 3 Phản Biện Chuyên Sâu: Trả lời 4 bước AREA không ngập ngừng`,
-          benefit: "Rèn phản xạ kéo dài câu trả lời mạch lạc, triệt tiêu tật đệm 'like', 'yeah' và câu run-on.",
-          assignedDurationMinutes: 35,
-          url: "speaking/index-s.html"
+          id: `REV_SPK_FORECAST_${currentDayNum}`, stage: "S4", domain: "SPEAKING", type: "PRACTICE",
+          title: `Speaking Part 2 & Part 3 Forecast: Nói liên tục 2 phút theo chủ đề thi thật`,
+          benefit: "Rèn phản xạ kéo dài câu trả lời dứt khoát, triệt tiêu tật đệm 'like', 'yeah' và lỗi nhảy thì lung tung.",
+          assignedDurationMinutes: 35, url: "speaking/index-s.html"
         });
-        dayTasks.push({
-          id: `REV_SHAD_FINAL_${currentDayNum}`,
-          stage: "S4", domain: "PRE_SPEAKING", type: "PRACTICE",
-          title: `Shadowing Diễn Thuyết C1: Bật rõ âm đuôi (-s, -ed) & Ngữ điệu bản ngữ`,
-          benefit: "Chuẩn hóa cơ miệng phát âm, trị dứt điểm tật nuốt âm đuôi gây hiểu nhầm từ vựng.",
-          assignedDurationMinutes: 30,
-          url: "pre-speaking/index-ps.html"
-        });
-        mins = 65;
+        mins += 35;
       }
 
       calendarDays.push({
@@ -427,10 +499,11 @@ export class CurriculumEngineSystem {
         totalMinutes: mins,
         phaseId: "PHASE_5_SPEAKING",
         phaseName: "Chặng 5: Về Đích - Đột Phá Speaking & Shadowing Toàn Diện",
-        phaseDesc: "Dồn toàn lực giải quyết điểm nghẽn 4.5: Trị dứt điểm câu dây thừng, nuốt âm đuôi và lỗi nhảy thì.",
+        phaseDesc: "100% các ngày luyện đề thi thật Forecast Part 1/2/3, Shadowing ấm giọng và ôn đề Listening định kỳ 3 ngày.",
         nodes: dayTasks
       });
       currentDayNum++;
+      dayInPhase5++;
     }
 
     return {
@@ -441,7 +514,7 @@ export class CurriculumEngineSystem {
   }
 
   // =========================================================================
-  // THUẬT TOÁN 2: XOAY VÒNG TIÊU CHUẨN (CHO HỌC VIÊN KHÔNG YÊU CẦU THỨ TỰ)
+  // THUẬT TOÁN XOAY VÒNG TIÊU CHUẨN (KHI KHÔNG YÊU CẦU THỨ TỰ BẮT BUỘC)
   // =========================================================================
   generateStandardSpiralCalendar(retainedNodes, targetDays, dailyTargetMinutes, speedProfile, stats, aiOptions) {
     const calendarDays = [];
