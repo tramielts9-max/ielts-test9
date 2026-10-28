@@ -2,7 +2,7 @@
  * curriculum-system/ui-system.js
  * GIAO DIỆN LỘ TRÌNH, LỊCH CHUYÊN CẦN & BANNER LỊCH SỬ PASTEL ĐỔI MÀU THEO HỌC PHẦN
  * (BẢN ĐẦY ĐỦ 100% - KHÔNG CẮT BỚT BẤT KỲ TÍNH NĂNG NÀO)
- * ĐÃ FIX TRIỆT ĐỂ: QUYỀN ADMIN TOÀN NĂNG & NÚT ĐẶT LẠI NHẢY THẲNG VỀ FORM THIẾT LẬP
+ * GIAI ĐOẠN 3 HOÀN CHỈNH: KẾT NỐI AI 5 CHẶNG TUẦN TỰ, QUYỀN ADMIN TỐI CAO & CÔ LẬP LỊCH SỬ HỌC VIÊN
  */
 
 import { curriculumEngineSystem } from './engine-system.js';
@@ -32,8 +32,8 @@ class CurriculumUISystem {
     this.selectedDateStr = this.getFormattedDate(new Date());
     this.isListCollapsed = false;
     this.targetStudentEmail = '';
-    this.suppressCloudFetchForEmail = ''; // Cờ chặn Cloud kéo ngược lại khi vừa bấm Đặt lại
-    this.isForceEditing = false; // Cờ ép mở lại form chỉnh sửa cho Admin
+    this.suppressCloudFetchForEmail = ''; // Cờ chặn Cloud tự động kéo ngược về khi vừa bấm Đặt lại
+    this.isForceEditing = false; // Cờ mở lại form điều chỉnh cho Admin
     this.initSpeechSTT();
   }
 
@@ -68,14 +68,12 @@ class CurriculumUISystem {
   }
 
   getOriginalAdminEmail() {
-    return localStorage.getItem('ielts_admin_backup_email') || '';
+    return localStorage.getItem('ielts_admin_backup_email') || 'tramielts9@gmail.com';
   }
 
   checkIsAdmin() {
-    // 1. Đang đóng vai thì luôn nhớ gốc là Admin
     if (this.isImpersonating()) return true;
 
-    // 2. Kiểm tra email đang đăng nhập hiện tại và email gốc dự phòng
     const currentEmail = (localStorage.getItem('ielts_student_email') || '').toLowerCase().trim();
     const backupEmail = (localStorage.getItem('ielts_admin_backup_email') || '').toLowerCase().trim();
 
@@ -108,7 +106,6 @@ class CurriculumUISystem {
     this.render();
   }
 
-  // BẬT FORM CHỈNH SỬA / SOẠN LẠI LỘ TRÌNH CHO ADMIN
   triggerEditRoadmap() {
     this.isForceEditing = true;
     this.render();
@@ -136,7 +133,7 @@ class CurriculumUISystem {
   }
 
   stopImpersonation() {
-    const backup = this.getOriginalAdminEmail() || 'tramielts9@gmail.com';
+    const backup = this.getOriginalAdminEmail();
     localStorage.setItem('ielts_student_email', backup);
     localStorage.removeItem('ielts_impersonating_email');
     localStorage.removeItem('ielts_admin_backup_email');
@@ -215,12 +212,18 @@ class CurriculumUISystem {
     return [];
   }
 
+  // ĐỐI SOÁT BÀI LÀM: CÔ LẬP HOÀN TOÀN, TUYỆT ĐỐI KHÔNG ĐỂ ADMIN ĐÈ LÊN HỌC SINH
   getNodeCompletionInfo(node, specifiedEmail = null) {
     try {
       const activeEmail = (specifiedEmail || this.getActiveWorkingEmail()).toLowerCase().trim();
+      const adminEmail = (localStorage.getItem('ielts_admin_backup_email') || 'tramielts9@gmail.com').toLowerCase().trim();
       
       let history = [];
-      if (this.isImpersonating() || (this.checkIsAdmin() && this.targetStudentEmail)) {
+      const isViewingStudent = this.isImpersonating() || 
+                               (this.checkIsAdmin() && this.targetStudentEmail && this.targetStudentEmail !== adminEmail) ||
+                               (specifiedEmail && specifiedEmail !== adminEmail);
+
+      if (isViewingStudent) {
         const studentRaw = localStorage.getItem(`ielts_history_${activeEmail}`);
         history = studentRaw ? JSON.parse(studentRaw) : [];
       } else {
@@ -320,6 +323,9 @@ class CurriculumUISystem {
     reader.readAsText(file);
   }
 
+  // =========================================================================
+  // 3. CHẨN ĐOÁN AI & TRUYỀN LỆNH KỸ THUẬT 5 CHẶNG SANG ENGINE
+  // =========================================================================
   async runAIDiagnostic() {
     const text = document.getElementById('diagTextInput')?.value.trim();
     if (!text) {
@@ -328,7 +334,7 @@ class CurriculumUISystem {
     }
     const btn = document.getElementById('btnStartAIAnalyze');
     btn.disabled = true;
-    btn.innerHTML = `⏳ AI Gemini đang phân tích năng lực & bù trừ bài học...`;
+    btn.innerHTML = `⏳ AI Gemini đang băm lộ trình 5 chặng tuần tự...`;
 
     try {
       const result = await analyzeStudentDiagnostic(text);
@@ -342,6 +348,7 @@ class CurriculumUISystem {
       const parsedTarget = parseFloat(result.target_band);
       const targetB = Math.min(7.0, !isNaN(parsedTarget) ? parsedTarget : 7.0);
 
+      // TRUYỀN TOÀN BỘ LỆNH ĐIỀU PHỐI (CHẶNG TUẦN TỰ, 100% TỪ VỰNG) SANG ENGINE
       const pruned = curriculumEngineSystem.pruneCurriculumByBands(startB, targetB, result);
       const savedCount = MASTER_CURRICULUM_SYSTEM.length - pruned.length;
       const stats = curriculumEngineSystem.calculateSessionsByBands(startB, targetB);
@@ -350,22 +357,25 @@ class CurriculumUISystem {
       const isAdmin = this.checkIsAdmin();
 
       let badgesHtml = '';
+      if (result.schedule_mode === 'SEQUENTIAL_PHASES') {
+        badgesHtml += `<span style="background:#dbeafe; color:#1d4ed8; padding:4px 10px; border-radius:8px; font-weight:900; font-size:12px;">📚 LỘ TRÌNH 5 CHẶNG TUẦN TỰ</span> `;
+      }
+      if (result.vocab_requirement === 'FULL_100_PERCENT') {
+        badgesHtml += `<span style="background:#dcfce7; color:#15803d; padding:4px 10px; border-radius:8px; font-weight:900; font-size:12px;">📖 HỌC SẠCH 100% TỪ VỰNG (28 UNIT)</span> `;
+      }
       if (result.bottleneck_skill) {
-        badgesHtml += `<span style="background:#fee2e2; color:#b91c1c; padding:3px 8px; border-radius:6px; font-weight:800; font-size:12px;">🚨 Điểm nghẽn cần cứu: ${result.bottleneck_skill}</span> `;
+        badgesHtml += `<span style="background:#fee2e2; color:#b91c1c; padding:4px 10px; border-radius:8px; font-weight:900; font-size:12px;">🚨 Điểm nghẽn ưu tiên: ${result.bottleneck_skill}</span> `;
       }
       if (result.pruned_domains && result.pruned_domains.length > 0) {
-        badgesHtml += `<span style="background:#f1f5f9; color:#475569; padding:3px 8px; border-radius:6px; font-weight:800; font-size:12px;">✂️ Gọt bỏ: ${result.pruned_domains.join(', ')}</span> `;
-      }
-      if (result.focus_domains && result.focus_domains.length > 0) {
-        badgesHtml += `<span style="background:#fef3c7; color:#b45309; padding:3px 8px; border-radius:6px; font-weight:800; font-size:12px;">🔥 Trọng tâm đẩy mạnh: ${result.focus_domains.join(', ')}</span>`;
+        badgesHtml += `<span style="background:#f1f5f9; color:#475569; padding:4px 10px; border-radius:8px; font-weight:800; font-size:12px;">✂️ Gọt bỏ: ${result.pruned_domains.join(', ')}</span> `;
       }
 
       let constraintsHtml = '';
       if (result.pedagogical_constraints && result.pedagogical_constraints.length > 0) {
         constraintsHtml = `
-          <div style="background:#fffbeb; border:1px solid #fde68a; border-radius:8px; padding:8px 12px; margin:8px 0; font-size:12.5px; color:#92400e;">
-            <b>📌 Chỉ thị sư phạm đặc trị:</b>
-            <ul style="margin:4px 0 0 16px; padding:0;">
+          <div style="background:#fffbeb; border:1px solid #fde68a; border-radius:10px; padding:10px 14px; margin:10px 0; font-size:13px; color:#92400e;">
+            <b>📌 Chỉ thị sư phạm đặc trị từ Gemini:</b>
+            <ul style="margin:4px 0 0 16px; padding:0; line-height:1.5;">
               ${result.pedagogical_constraints.map(c => `<li>${c}</li>`).join('')}
             </ul>
           </div>
@@ -375,15 +385,15 @@ class CurriculumUISystem {
       resBox.innerHTML = `
         <div class="cs-ai-report-card">
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-            <b style="color:#166534; font-size:15px;">🎯 KẾT QUẢ PHÂN TÍCH TỪ AI GEMINI</b>
+            <b style="color:#166534; font-size:15px;">🎯 KẾT QUẢ ĐIỀU PHỐI TỪ AI GEMINI</b>
             <span style="background:#e0f2fe; color:#0369a1; padding:3px 10px; border-radius:20px; font-weight:800; font-size:12px;">
               Band ước lượng: ~${startB} ➔ Mục tiêu: ${targetB}
             </span>
           </div>
           
           ${isAdmin ? `
-            <div style="background:#e0f2fe; color:#0369a1; padding:6px 10px; border-radius:8px; font-size:12.5px; font-weight:800; margin-top:8px;">
-              👤 Đang thiết lập cho học viên: <u>${targetEmail}</u>
+            <div style="background:#e0f2fe; color:#0369a1; padding:6px 12px; border-radius:8px; font-size:13px; font-weight:800; margin-top:8px;">
+              👤 Đang thiết lập lộ trình riêng cho học viên: <u>${targetEmail}</u>
             </div>
           ` : ''}
 
@@ -400,7 +410,7 @@ class CurriculumUISystem {
             <span>⏱️ BTVN: <b>${stats.days} ngày</b> (${stats.hours}h tự cày)</span>
           </div>
 
-          <button type="button" onclick="window.curriculumUI.applyBandRoadmap(${startB}, ${targetB}, ${JSON.stringify(result).replace(/"/g, '&quot;')})" style="background:#16a34a; color:white; border:none; padding:10px 18px; border-radius:10px; font-weight:800; font-size:14px; cursor:pointer; width:100%;">
+          <button type="button" onclick="window.curriculumUI.applyBandRoadmap(${startB}, ${targetB}, ${JSON.stringify(result).replace(/"/g, '&quot;')})" style="background:#16a34a; color:white; border:none; padding:12px 18px; border-radius:12px; font-weight:900; font-size:14px; cursor:pointer; width:100%; box-shadow:0 3px 0 #15803d;">
             🚀 Phê Duyệt & Kích Hoạt Lộ Trình Này Cho [${targetEmail}]
           </button>
         </div>
@@ -423,6 +433,7 @@ class CurriculumUISystem {
     }
 
     const isAdmin = this.checkIsAdmin();
+    // BỘ MÁY ENGINE THỰC THI CHÍNH XÁC LỆNH 5 CHẶNG TUẦN TỰ
     const retainedNodes = curriculumEngineSystem.pruneCurriculumByBands(sBand, tBand, aiData || {});
     const totals = curriculumEngineSystem.calculateTotals(retainedNodes, 'normal', 1.5, sBand, tBand);
     const scheduleData = curriculumEngineSystem.generateDailyCalendar(retainedNodes, 'normal', 1.5, sBand, tBand, aiData || {});
@@ -444,36 +455,27 @@ class CurriculumUISystem {
 
     this.saveRoadmap(targetEmail, payload);
     this.isForceEditing = false;
-    alert(`✅ Đã phê duyệt và kích hoạt lộ trình chuẩn ${totals.totalLiveSessions} buổi (${totals.totalDays} ngày) cho học viên: ${targetEmail}!`);
+    this.suppressCloudFetchForEmail = '';
+    alert(`✅ Đã phê duyệt và kích hoạt lộ trình 5 chặng (${totals.totalLiveSessions} buổi - ${totals.totalDays} ngày) cho học viên: ${targetEmail}!`);
     this.render();
   }
 
-  // =========================================================================
-  // FIX TRIỆT ĐỂ: NÚT ĐẶT LẠI XÓA SẠCH VÀ NHẢY VỀ FORM THIẾT LẬP BAN ĐẦU
-  // =========================================================================
+  // NÚT ĐẶT LẠI: XÓA SẠCH VÀ NHẢY VỀ FORM THIẾT LẬP
   resetRoadmap() {
     const email = this.getActiveWorkingEmail();
     const isAdmin = this.checkIsAdmin();
     const data = this.getSavedRoadmap(email);
 
-    // Học sinh thường thì bị khóa
     if (data?.isLockedByAdmin && !isAdmin) {
       alert("🔒 Lộ trình này đã được Giáo viên phê duyệt và khóa bảo vệ. Em không thể tự ý đặt lại!");
       return;
     }
 
     if (confirm(`⚠️ Bạn có chắc muốn XÓA LỘ TRÌNH và thiết lập lại từ đầu cho [${email}] không?`)) {
-      // 1. Xóa trong bộ nhớ máy
       localStorage.removeItem(this.getStorageKey(email));
-
-      // 2. Xóa trên Cloud Google Drive
       this.syncRoadmapToCloud(email, null);
-
-      // 3. Đặt cờ chặn không cho Cloud tự kéo ngược về lại
       this.suppressCloudFetchForEmail = email;
       this.isForceEditing = true;
-
-      // 4. Render lại ngay lập tức -> Nhảy thẳng về form thiết lập!
       this.render();
     }
   }
@@ -542,7 +544,6 @@ class CurriculumUISystem {
     const email = this.getActiveWorkingEmail();
     let data = this.getSavedRoadmap(email);
 
-    // Chỉ tự động kéo từ Cloud nếu email KHÔNG PHẢI là email vừa bị bấm Đặt lại
     if (!data && email !== 'guest' && this.suppressCloudFetchForEmail !== email) {
       data = await this.fetchStudentRoadmapFromCloud(email);
     }
@@ -551,7 +552,6 @@ class CurriculumUISystem {
     const floatingBarHtml = this.renderFloatingImpersonationBar();
     const isAdmin = this.checkIsAdmin();
 
-    // NẾU CHƯA CÓ LỘ TRÌNH HOẶC ADMIN ĐANG YÊU CẦU SOẠN LẠI (isForceEditing)
     if (!data || this.isForceEditing) {
       container.innerHTML = `
         <div class="cs-container">
@@ -607,8 +607,8 @@ class CurriculumUISystem {
             <div class="cs-diag-box">
               <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
                 <div>
-                  <b style="color:#0369a1; font-size:14px;"><i class="fa-solid fa-wand-magic-sparkles"></i> CHẨN ĐOÁN & TỰ ĐỘNG BÙ TRỪ TRỌNG SỐ BẰNG AI GEMINI</b>
-                  <div style="font-size:12.5px; color:#64748b; margin-top:2px; font-weight:700;">Dán báo cáo điểm chi tiết hoặc nói tự thuật, AI sẽ gọt bài thừa & dồn bài vào môn yếu:</div>
+                  <b style="color:#0369a1; font-size:14px;"><i class="fa-solid fa-wand-magic-sparkles"></i> CHẨN ĐOÁN & BĂM 5 CHẶNG TUẦN TỰ BẰNG AI GEMINI</b>
+                  <div style="font-size:12.5px; color:#64748b; margin-top:2px; font-weight:700;">Dán báo cáo điểm chi tiết hoặc nói tự thuật, AI sẽ băm đúng 5 Chặng tuần tự:</div>
                 </div>
                 <button type="button" id="btnDiagMic" class="cs-diag-mic-btn" onclick="window.curriculumUI.toggleMicrophone()">
                   <i class="fa-solid fa-microphone"></i> Bấm để nói tự thuật trình độ
@@ -627,7 +627,7 @@ class CurriculumUISystem {
                 </div>
 
                 <button type="button" id="btnStartAIAnalyze" onclick="window.curriculumUI.runAIDiagnostic()" style="background:#0284c7; color:white; border:none; padding:10px 20px; border-radius:10px; font-weight:800; font-size:13.5px; cursor:pointer;">
-                  ⚡ Gửi AI Phân Tích & Bù Trừ Lộ Trình
+                  ⚡ Gửi AI Phân Tích & Băm Lộ Trình 5 Chặng
                 </button>
               </div>
 
@@ -671,10 +671,10 @@ class CurriculumUISystem {
               <span style="font-size: 13.5px; opacity: 0.95; font-weight: 700;">(1.5h BTVN/ngày)</span>
             </div>
             <h3 style="margin: 6px 0 0 0; font-size: 22px; font-weight: 900; color: #FFFFFF;">
-              🗺️ LỘ TRÌNH ĐẶC TRỊ: ${email} (${totalDaysCount} NGÀY)
+              🗺️ LỘ TRÌNH 5 CHẶNG TUẦN TỰ: ${email} (${totalDaysCount} NGÀY)
             </h3>
             <p style="margin: 5px 0 0 0; font-size: 13.5px; opacity: 0.95; font-weight: 700;">
-              Lộ trình đã được tối ưu hóa trọng số: Cắt bài thừa, bù đắp bài tập trung vào các kỹ năng trọng yếu.
+              Lộ trình được thiết lập tuần tự: Ngữ pháp ➔ Reading + 100% Từ vựng ➔ Listening ➔ Writing ➔ Bùng nổ Speaking.
             </p>
           </div>
           
