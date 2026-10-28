@@ -2,6 +2,7 @@
  * curriculum-system/ui-system.js
  * GIAO DIỆN LỘ TRÌNH, LỊCH CHUYÊN CẦN & BANNER LỊCH SỬ PASTEL ĐỔI MÀU THEO HỌC PHẦN
  * (BẢN ĐẦY ĐỦ 100% - KHÔNG CẮT BỚT BẤT KỲ TÍNH NĂNG NÀO)
+ * GIAI ĐOẠN 3: TÍCH HỢP THANH ADMIN PANEL, GÁN LỘ TRÌNH THEO EMAIL & ĐỒNG BỘ CLOUD HAI CHIỀU
  */
 
 import { curriculumEngineSystem } from './engine-system.js';
@@ -24,6 +25,7 @@ class CurriculumUISystem {
     this.cachedEmail = '';
     this.selectedDateStr = this.getFormattedDate(new Date());
     this.isListCollapsed = false;
+    this.targetStudentEmail = ''; // Email học sinh mà Admin đang can thiệp
     this.initSpeechSTT();
   }
 
@@ -57,7 +59,8 @@ class CurriculumUISystem {
 
   getSavedRoadmap(email) {
     try {
-      const raw = localStorage.getItem(this.getStorageKey(email));
+      const target = (email || this.getActiveWorkingEmail()).toLowerCase().trim();
+      const raw = localStorage.getItem(this.getStorageKey(target));
       return raw ? JSON.parse(raw) : null;
     } catch(e) {
       return null;
@@ -65,8 +68,9 @@ class CurriculumUISystem {
   }
 
   saveRoadmap(email, data) {
-    localStorage.setItem(this.getStorageKey(email), JSON.stringify(data));
-    this.syncRoadmapToCloud(email, data);
+    const target = (email || this.getActiveWorkingEmail()).toLowerCase().trim();
+    localStorage.setItem(this.getStorageKey(target), JSON.stringify(data));
+    this.syncRoadmapToCloud(target, data);
   }
 
   syncRoadmapToCloud(email, roadmapData) {
@@ -85,9 +89,38 @@ class CurriculumUISystem {
     } catch(e) {}
   }
 
+  // TỰ ĐỘNG TẢI LỘ TRÌNH TỪ CLOUD NẾU HỌC SINH MỞ MÁY MỚI
+  async fetchStudentRoadmapFromCloud(email) {
+    if (!CLOUD_SCRIPT_URL || !email || email === 'guest') return null;
+    try {
+      const response = await fetch(`${CLOUD_SCRIPT_URL}?action=get_student_roadmap&studentEmail=${encodeURIComponent(email)}`);
+      if (response.ok) {
+        const cloudData = await response.json();
+        if (cloudData && cloudData.roadmap) {
+          localStorage.setItem(this.getStorageKey(email), JSON.stringify(cloudData.roadmap));
+          return cloudData.roadmap;
+        }
+      }
+    } catch(e) {}
+    return null;
+  }
+
   checkIsAdmin() {
     const email = (localStorage.getItem('ielts_student_email') || '').toLowerCase().trim();
     return email.includes('admin') || (CONFIG?.ADMIN_EMAILS || []).map(e => e.toLowerCase()).includes(email);
+  }
+
+  // LẤY EMAIL ĐANG LÀM VIỆC (NẾU ADMIN ĐANG CHỌN HỌC SINH THÌ LẤY HỌC SINH ĐÓ)
+  getActiveWorkingEmail() {
+    if (this.checkIsAdmin() && this.targetStudentEmail) {
+      return this.targetStudentEmail.toLowerCase().trim();
+    }
+    return (localStorage.getItem('ielts_student_email') || 'guest').toLowerCase().trim();
+  }
+
+  setTargetStudentEmail(email) {
+    this.targetStudentEmail = (email || '').toLowerCase().trim();
+    this.render();
   }
 
   // ĐỐI SOÁT TẤT CẢ CÁC LẦN NỘP BÀI (HỖ TRỢ NHIỀU ATTEMPTS)
@@ -196,7 +229,7 @@ class CurriculumUISystem {
     }
     const btn = document.getElementById('btnStartAIAnalyze');
     btn.disabled = true;
-    btn.innerHTML = `⏳ AI Gemini đang phân tích năng lực & gọt bài thừa...`;
+    btn.innerHTML = `⏳ AI Gemini đang phân tích năng lực & bù trừ bài học...`;
 
     try {
       const result = await analyzeStudentDiagnostic(text);
@@ -207,33 +240,69 @@ class CurriculumUISystem {
       resBox.style.display = 'block';
 
       const startB = parseFloat(result.estimated_band) || 2.0;
-      
-      // LẤY TARGET BAND TỪ AI GEMINI, NẾU KHÔNG CÓ THÌ MẶC ĐỊNH LÀ 7.0 (TRẦN CAO NHẤT KHÓA HỌC)
       const parsedTarget = parseFloat(result.target_band);
       const targetB = Math.min(7.0, !isNaN(parsedTarget) ? parsedTarget : 7.0);
 
-      const pruned = curriculumEngineSystem.pruneCurriculumByBands(startB, targetB, result.weak_tags || []);
+      const pruned = curriculumEngineSystem.pruneCurriculumByBands(startB, targetB, result);
       const savedCount = MASTER_CURRICULUM_SYSTEM.length - pruned.length;
       const stats = curriculumEngineSystem.calculateSessionsByBands(startB, targetB);
+
+      const targetEmail = this.getActiveWorkingEmail();
+      const isAdmin = this.checkIsAdmin();
+
+      let badgesHtml = '';
+      if (result.bottleneck_skill) {
+        badgesHtml += `<span style="background:#fee2e2; color:#b91c1c; padding:3px 8px; border-radius:6px; font-weight:800; font-size:12px;">🚨 Điểm nghẽn cần cứu: ${result.bottleneck_skill}</span> `;
+      }
+      if (result.pruned_domains && result.pruned_domains.length > 0) {
+        badgesHtml += `<span style="background:#f1f5f9; color:#475569; padding:3px 8px; border-radius:6px; font-weight:800; font-size:12px;">✂️ Gọt bỏ: ${result.pruned_domains.join(', ')}</span> `;
+      }
+      if (result.focus_domains && result.focus_domains.length > 0) {
+        badgesHtml += `<span style="background:#fef3c7; color:#b45309; padding:3px 8px; border-radius:6px; font-weight:800; font-size:12px;">🔥 Trọng tâm đẩy mạnh: ${result.focus_domains.join(', ')}</span>`;
+      }
+
+      let constraintsHtml = '';
+      if (result.pedagogical_constraints && result.pedagogical_constraints.length > 0) {
+        constraintsHtml = `
+          <div style="background:#fffbeb; border:1px solid #fde68a; border-radius:8px; padding:8px 12px; margin:8px 0; font-size:12.5px; color:#92400e;">
+            <b>📌 Chỉ thị sư phạm đặc trị:</b>
+            <ul style="margin:4px 0 0 16px; padding:0;">
+              ${result.pedagogical_constraints.map(c => `<li>${c}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }
 
       resBox.innerHTML = `
         <div class="cs-ai-report-card">
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-            <b style="color:#166534; font-size:15px;">🎯 KẾT QUẢ CHẨN ĐOÁN TỪ AI GEMINI</b>
+            <b style="color:#166534; font-size:15px;">🎯 KẾT QUẢ PHÂN TÍCH TỪ AI GEMINI</b>
             <span style="background:#e0f2fe; color:#0369a1; padding:3px 10px; border-radius:20px; font-weight:800; font-size:12px;">
               Band ước lượng: ~${startB} ➔ Mục tiêu: ${targetB}
             </span>
           </div>
+          
+          ${isAdmin ? `
+            <div style="background:#e0f2fe; color:#0369a1; padding:6px 10px; border-radius:8px; font-size:12.5px; font-weight:800; margin-top:8px;">
+              👤 Đang thiết lập cho học viên: <u>${targetEmail}</u>
+            </div>
+          ` : ''}
+
           <p style="font-size:13.5px; color:#1e293b; margin:10px 0; line-height:1.5;">
             <b>Nhận xét:</b> ${result.academic_summary}
           </p>
+
+          ${badgesHtml ? `<div style="margin-bottom:8px; display:flex; flex-wrap:wrap; gap:6px;">${badgesHtml}</div>` : ''}
+          ${constraintsHtml}
+
           <div style="display:flex; gap:12px; font-size:13px; color:#64748b; flex-wrap:wrap; margin-bottom:12px;">
             <span>✂️ Gọt bỏ: <b>${savedCount} bài thừa</b></span>
-            <span>🏫 Lớp học: <b>${stats.sessions} buổi</b> (${stats.months} tháng)</span>
-            <span>⏱️ BTVN: <b>1.5h/ngày</b> (${stats.hours}h tự cày)</span>
+            <span>🏫 Khóa học: <b>${stats.sessions} buổi</b> (${stats.months} tháng)</span>
+            <span>⏱️ BTVN: <b>${stats.days} ngày</b> (${stats.hours}h tự cày)</span>
           </div>
+
           <button type="button" onclick="window.curriculumUI.applyBandRoadmap(${startB}, ${targetB}, ${JSON.stringify(result).replace(/"/g, '&quot;')})" style="background:#16a34a; color:white; border:none; padding:10px 18px; border-radius:10px; font-weight:800; font-size:14px; cursor:pointer; width:100%;">
-            🚀 Phê Duyệt & Kích Hoạt Lộ Trình Này Ngay
+            🚀 Phê Duyệt & Kích Hoạt Lộ Trình Này Cho [${targetEmail}]
           </button>
         </div>
       `;
@@ -245,7 +314,7 @@ class CurriculumUISystem {
   }
 
   applyBandRoadmap(startBand, targetBand, aiData = null) {
-    const email = localStorage.getItem('ielts_student_email') || 'guest';
+    const targetEmail = this.getActiveWorkingEmail();
     const sBand = parseFloat(startBand) || 0.0;
     const tBand = Math.min(7.0, parseFloat(targetBand) || 7.0);
 
@@ -254,13 +323,14 @@ class CurriculumUISystem {
       return;
     }
 
-    const retainedNodes = curriculumEngineSystem.pruneCurriculumByBands(sBand, tBand, aiData?.weak_tags || []);
+    const isAdmin = this.checkIsAdmin();
+    const retainedNodes = curriculumEngineSystem.pruneCurriculumByBands(sBand, tBand, aiData || {});
     const totals = curriculumEngineSystem.calculateTotals(retainedNodes, 'normal', 1.5, sBand, tBand);
-    const scheduleData = curriculumEngineSystem.generateDailyCalendar(retainedNodes, 'normal', 1.5, sBand, tBand);
+    const scheduleData = curriculumEngineSystem.generateDailyCalendar(retainedNodes, 'normal', 1.5, sBand, tBand, aiData || {});
 
     const payload = {
       createdAt: new Date().toISOString(),
-      studentEmail: email,
+      studentEmail: targetEmail,
       startBand: sBand,
       targetBand: tBand,
       speedProfile: 'normal',
@@ -270,42 +340,88 @@ class CurriculumUISystem {
       schedule: scheduleData.dailySchedule,
       completedNodeIds: [],
       aiDiagnosticData: aiData,
-      isLockedByAdmin: false
+      isLockedByAdmin: isAdmin // Khóa cứng nếu do Giáo viên/Admin trực tiếp phê duyệt
     };
 
-    this.saveRoadmap(email, payload);
+    this.saveRoadmap(targetEmail, payload);
+    alert(`✅ Đã phê duyệt và kích hoạt lộ trình chuẩn ${totals.totalLiveSessions} buổi (${totals.totalDays} ngày) cho học viên: ${targetEmail}!`);
     this.render();
   }
 
   resetRoadmap() {
-    const email = localStorage.getItem('ielts_student_email') || 'guest';
-    if (confirm("⚠️ Em có chắc muốn xóa lộ trình hiện tại để thiết lập lại từ đầu không?")) {
+    const email = this.getActiveWorkingEmail();
+    const data = this.getSavedRoadmap(email);
+
+    if (data?.isLockedByAdmin && !this.checkIsAdmin()) {
+      alert("🔒 Lộ trình này đã được Giáo viên/Admin phê duyệt và khóa bảo vệ. Em không thể tự ý đặt lại!");
+      return;
+    }
+
+    if (confirm(`⚠️ Bạn có chắc muốn xóa lộ trình hiện tại của [${email}] để thiết lập lại từ đầu không?`)) {
       localStorage.removeItem(this.getStorageKey(email));
       this.render();
     }
   }
 
+  // RENDER THANH ADMIN NẾU LÀ TÀI KHOẢN QUẢN TRỊ
+  renderAdminControlBar() {
+    if (!this.checkIsAdmin()) return '';
+
+    const currentTarget = this.targetStudentEmail || 'Chính mình (Mặc định)';
+    return `
+      <div style="background:#8B1518; color:white; border-radius:14px; padding:12px 18px; margin-bottom:18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; box-shadow:0 3px 0 #5E0C0E;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:18px;">👑</span>
+          <div>
+            <b style="font-size:14px;">BẢNG ĐIỀU PHỐI GIÁO VIÊN / ADMIN</b>
+            <div style="font-size:12px; opacity:0.9;">Đang can thiệp lộ trình cho: <b style="color:#FCD34D;">${currentTarget}</b></div>
+          </div>
+        </div>
+        
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+          <input type="email" id="adminTargetEmailInput" placeholder="Nhập email học sinh (vd: phongchau2.205@gmail.com)" value="${this.targetStudentEmail}" style="padding:7px 12px; border-radius:8px; border:none; font-size:13px; font-weight:700; width:260px; color:#1e293b;">
+          <button type="button" onclick="window.curriculumUI.setTargetStudentEmail(document.getElementById('adminTargetEmailInput').value)" style="background:#FCD34D; color:#8B1518; border:none; padding:7px 14px; border-radius:8px; font-weight:900; font-size:12.5px; cursor:pointer;">
+            🎯 Chọn Học Sinh Này
+          </button>
+          ${this.targetStudentEmail ? `
+            <button type="button" onclick="window.curriculumUI.setTargetStudentEmail('')" style="background:rgba(255,255,255,0.2); color:white; border:1px solid rgba(255,255,255,0.4); padding:7px 10px; border-radius:8px; font-size:12px; cursor:pointer;">
+              ✕ Thoát học sinh
+            </button>
+          ` : ''}
+        </div>
+      </div>
+    `;
+  }
+
   // RENDER GIAO DIỆN LỘ TRÌNH MÀN HÌNH CHÍNH
-  render(targetContainerId = 'roadmapSectionMount') {
+  async render(targetContainerId = 'roadmapSectionMount') {
     let container = document.getElementById(targetContainerId);
     if (!container) return;
 
-    const email = localStorage.getItem('ielts_student_email') || 'guest';
-    const data = this.getSavedRoadmap(email);
+    const email = this.getActiveWorkingEmail();
+    let data = this.getSavedRoadmap(email);
+
+    // NẾU HỌC SINH MỞ MÁY MỚI CHƯA CÓ LOCALSTORAGE -> THỬ TẢI TỪ CLOUD VỀ
+    if (!data && email !== 'guest') {
+      data = await this.fetchStudentRoadmapFromCloud(email);
+    }
+
+    const adminBarHtml = this.renderAdminControlBar();
 
     if (!data) {
       container.innerHTML = `
         <div class="cs-container">
+          ${adminBarHtml}
           <div style="text-align:center; padding:10px;">
             <h3 style="margin:0 0 6px 0; font-size:22px; font-weight:900; color:#8B1518;">🎯 THIẾT LẬP LỘ TRÌNH HỌC TẬP CÁ NHÂN HÓA</h3>
             <p style="margin:0 auto 16px auto; max-width:650px; font-size:14px; color:#64748b; font-weight:700;">
-              Chọn Điểm xuất phát và Mục tiêu mong muốn, hệ thống sẽ tự động băm lộ trình theo số buổi học:
+              Lộ trình tính xuôi theo số buổi học (300k/buổi - 12 buổi/tháng) hoặc phân tích tự động bằng AI Gemini:
             </p>
 
             <div style="background:#FAF7F2; border:2px solid #E8E2D8; border-radius:18px; padding:20px; max-width:620px; margin:0 auto 20px auto; display:flex; flex-direction:column; gap:14px;">
               <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; text-align:left;">
                 <div>
-                  <label style="font-size:13px; font-weight:800; color:#1e293b; display:block; margin-bottom:5px;">📍 1. Điểm hiện tại của em:</label>
+                  <label style="font-size:13px; font-weight:800; color:#1e293b; display:block; margin-bottom:5px;">📍 1. Điểm hiện tại:</label>
                   <select id="matrixStartBandSelect" class="border border-slate-300 rounded p-2 text-sm w-full font-bold">
                     <option value="0.0">0.0 (Mất gốc hoàn toàn)</option>
                     <option value="2.0">2.0 (Biết bập bõm, mất gốc)</option>
@@ -344,15 +460,15 @@ class CurriculumUISystem {
             <div class="cs-diag-box">
               <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
                 <div>
-                  <b style="color:#0369a1; font-size:14px;"><i class="fa-solid fa-wand-magic-sparkles"></i> HOẶC CHẨN ĐOÁN TỰ ĐỘNG BẰNG AI (SPEECH-TO-TEXT)</b>
-                  <div style="font-size:12.5px; color:#64748b; margin-top:2px; font-weight:700;">Bấm Micro để nói tự thuật trình độ, AI sẽ tự động tính toán lộ trình:</div>
+                  <b style="color:#0369a1; font-size:14px;"><i class="fa-solid fa-wand-magic-sparkles"></i> CHẨN ĐOÁN & TỰ ĐỘNG BÙ TRỪ TRỌNG SỐ BẰNG AI GEMINI</b>
+                  <div style="font-size:12.5px; color:#64748b; margin-top:2px; font-weight:700;">Dán báo cáo điểm chi tiết hoặc nói tự thuật, AI sẽ gọt bài thừa & dồn bài vào môn yếu:</div>
                 </div>
                 <button type="button" id="btnDiagMic" class="cs-diag-mic-btn" onclick="window.curriculumUI.toggleMicrophone()">
                   <i class="fa-solid fa-microphone"></i> Bấm để nói tự thuật trình độ
                 </button>
               </div>
 
-              <textarea id="diagTextInput" class="cs-diag-textarea" placeholder="Ví dụ: Em đang ở band 5.0 muốn học lên 6.5..."></textarea>
+              <textarea id="diagTextInput" class="cs-diag-textarea" placeholder="Dán toàn bộ bản phân tích điểm hoặc gõ tự thuật..."></textarea>
 
               <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
                 <div style="display:flex; align-items:center; gap:8px;">
@@ -364,7 +480,7 @@ class CurriculumUISystem {
                 </div>
 
                 <button type="button" id="btnStartAIAnalyze" onclick="window.curriculumUI.runAIDiagnostic()" style="background:#0284c7; color:white; border:none; padding:10px 20px; border-radius:10px; font-weight:800; font-size:13.5px; cursor:pointer;">
-                  ⚡ Gửi AI Phân Tích & Băm Lộ Trình
+                  ⚡ Gửi AI Phân Tích & Bù Trừ Lộ Trình
                 </button>
               </div>
 
@@ -388,21 +504,26 @@ class CurriculumUISystem {
     const progressPercent = data.totals.nodeCount > 0 ? Math.min(100, Math.round((completedTotal / data.totals.nodeCount) * 100)) : 0;
     const currentDayPlan = data.schedule.find(s => s.dayNumber === data.currentDay) || data.schedule[0];
     const totalDaysCount = data.schedule.length;
+    const isLocked = !!data.isLockedByAdmin;
+    const isAdmin = this.checkIsAdmin();
 
     container.innerHTML = `
       <div class="cs-container">
+        ${adminBarHtml}
+
         <!-- BANNER ĐỒNG BỘ SỐ NGÀY ĐỘNG (${totalDaysCount} NGÀY) -->
         <div style="background: linear-gradient(135deg, #8B1518 0%, #B91C1C 100%); border-radius: 18px; padding: 20px 24px; margin-bottom: 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; box-shadow: 0 4px 0 #5E0C0E; color: white;">
           <div>
             <div style="display: flex; align-items: center; gap: 8px;">
               <span style="background: #FFC800; color: #5A3800; font-size: 12px; font-weight: 900; padding: 3px 10px; border-radius: 20px;">CHẶNG: BAND ${data.startBand || 0.0} ➔ ${data.targetBand || 7.0}</span>
+              ${isLocked ? `<span style="background: #DCFCE7; color: #166534; font-size: 12px; font-weight: 900; padding: 3px 10px; border-radius: 20px;">🔒 ĐÃ KHÓA BỞI GIÁO VIÊN</span>` : ''}
               <span style="font-size: 13.5px; opacity: 0.95; font-weight: 700;">(1.5h BTVN/ngày)</span>
             </div>
             <h3 style="margin: 6px 0 0 0; font-size: 22px; font-weight: 900; color: #FFFFFF;">
-              🗺️ BẢN ĐỒ TOÀN CẢNH LỘ TRÌNH (${totalDaysCount} NGÀY)
+              🗺️ LỘ TRÌNH ĐẶC TRỊ: ${email} (${totalDaysCount} NGÀY)
             </h3>
             <p style="margin: 5px 0 0 0; font-size: 13.5px; opacity: 0.95; font-weight: 700;">
-              Xem chi tiết từng ngày học, các dạng đề Cam 17-21 và bài giảng được phân bổ
+              Lộ trình đã được tối ưu hóa trọng số: Cắt bài thừa, bù đắp bài tập trung vào các kỹ năng trọng yếu.
             </p>
           </div>
           
@@ -410,9 +531,11 @@ class CurriculumUISystem {
             <a href="curriculum-system/roadmap.html" class="btn-3d" style="background: #FFFFFF; color: #8B1518 !important; border-bottom: 4px solid rgba(0,0,0,0.18); font-size: 14.5px; padding: 12px 22px;">
               🚀 XEM TOÀN BỘ LỘ TRÌNH &rarr;
             </a>
-            <button type="button" onclick="window.curriculumUI.resetRoadmap()" class="btn-3d" style="background: rgba(255,255,255,0.2); color: #FFFFFF !important; border: 1.5px solid rgba(255,255,255,0.4); border-bottom: 4px solid rgba(0,0,0,0.2); padding: 12px 16px; font-size: 13.5px;" title="Thiết lập lại lộ trình">
-              🔄 Đặt lại
-            </button>
+            ${(!isLocked || isAdmin) ? `
+              <button type="button" onclick="window.curriculumUI.resetRoadmap()" class="btn-3d" style="background: rgba(255,255,255,0.2); color: #FFFFFF !important; border: 1.5px solid rgba(255,255,255,0.4); border-bottom: 4px solid rgba(0,0,0,0.2); padding: 12px 16px; font-size: 13.5px;" title="Thiết lập lại lộ trình">
+                🔄 Đặt lại
+              </button>
+            ` : ''}
           </div>
         </div>
 
@@ -432,7 +555,7 @@ class CurriculumUISystem {
           </div>
           <div class="cs-stat-box stat-box-green">
             <div class="cs-stat-val" style="color: #15803D;">⚡ ${data.totals.totalSelfStudyHours}h</div>
-            <div class="cs-stat-lbl" style="color: #14532D;">BTVN Tự cày (1.5h/ngày)</div>
+            <div class="cs-stat-lbl" style="color: #14532D;">BTVN Tự cày (${totalDaysCount} ngày)</div>
           </div>
           <div class="cs-stat-box stat-box-blue">
             <div class="cs-stat-val" style="color: #0284C7;">🏫 ${data.totals.totalLiveSessions} buổi</div>
@@ -474,7 +597,6 @@ class CurriculumUISystem {
                   
                   ${isDone ? `
                     <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 8px;">
-                      <!-- KẾT QUẢ LẦN 1 -->
                       <div style="font-size: 13px; font-weight: 800; color: #166534; background: #DCFCE7; border: 1.5px solid #86EFAC; border-radius: 8px; padding: 4px 10px; display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap;">
                         <span style="background: #166534; color: white; padding: 1px 6px; border-radius: 5px; font-size: 11px;">LẦN 1</span>
                         <span>🎯 Điểm: <b>${compInfo.firstAttempt.score}</b></span>
@@ -482,7 +604,6 @@ class CurriculumUISystem {
                         <span>📅 Nộp lúc: <b>${compInfo.firstAttempt.timestamp}</b></span>
                       </div>
 
-                      <!-- KẾT QUẢ LẦN 2 (NẾU ĐÃ LÀM LẠI) -->
                       ${compInfo.latestAttempt ? `
                         <div style="font-size: 13px; font-weight: 800; color: #065F46; background: #A7F3D0; border: 1.5px solid #34D399; border-radius: 8px; padding: 4px 10px; display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap;">
                           <span style="background: #059669; color: white; padding: 1px 6px; border-radius: 5px; font-size: 11px;">LẦN 2 (MỚI NHẤT)</span>
@@ -524,10 +645,9 @@ class CurriculumUISystem {
   }
 
   // =========================================================================
-  // LỊCH CHUYÊN CẦN & BANNER LỊCH SỬ TÔNG MÀU PASTEL CHUẨN MÔN (ĐÃ FIX ĐẦY ĐỦ)
+  // LỊCH CHUYÊN CẦN & BANNER LỊCH SỬ TÔNG MÀU PASTEL CHUẨN MÔN
   // =========================================================================
   renderTodayHistoryAndCalendar(attempts = [], email = '') {
-    // Sắp xếp thời gian giảm dần (MỚI NHẤT LÊN ĐẦU TIÊN)
     this.cachedAttempts = stateManager.sortAttemptsDescending(attempts);
     this.cachedEmail = email;
 
