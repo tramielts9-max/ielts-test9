@@ -1,7 +1,7 @@
 /**
  * curriculum-system/ai-service-system.js
- * DỊCH VỤ AI GEMINI CHẨN ĐOÁN LỘ TRÌNH & ĐIỀU PHỐI ĐỐT SỐNG
- * Key được mã hóa 2 phần chuẩn theo kiến trúc api-t1.js
+ * DỊCH VỤ AI GEMINI CHẨN ĐOÁN LỘ TRÌNH & ĐIỀU PHỐI ĐỐT SỐNG (GIAI ĐOẠN 1)
+ * Chuẩn kiến trúc bảo toàn code - Không cắt giảm tính năng
  */
 
 // 1. MÃ HÓA KEY THEO ĐÚNG QUY LUẬT CỦA API-T1.JS
@@ -85,29 +85,84 @@ export async function callGeminiDiagnostic(promptText) {
  */
 export async function analyzeStudentDiagnostic(studentInputText) {
   const prompt = `
-Bạn là Giám Đốc Học Thuật IELTS cấp cao.
-Nhiệm vụ: Đọc kỹ thông tin năng lực học sinh dưới đây (do học sinh nói qua micro, gõ tay hoặc trích xuất từ file báo cáo/bảng điểm):
+Bạn là Giám Đốc Học Thuật IELTS cấp cao của hệ thống luyện thi cá nhân hóa.
+Nhiệm vụ: Đọc và phân tích sâu sắc toàn bộ hồ sơ năng lực học thuật dưới đây (do học sinh nói qua micro, gõ tay hoặc dán từ bản báo cáo chi tiết):
 """
 ${studentInputText}
 """
 
-HÃY PHÂN TÍCH VÀ TRÍCH XUẤT CÁC MỤC SAU:
-1. "estimated_band": Điểm hiện tại của học sinh (từ 0.0 đến 6.5).
-2. "target_band": Điểm mục tiêu mà học sinh mong muốn đạt được (Ví dụ: học sinh nói "lên band 7" hoặc "mục tiêu 7.0" thì lấy đúng 7.0. Nếu học sinh không nói rõ mục tiêu thì mặc định lấy 7.0. Trần tối đa khóa học là 7.0).
-3. ĐỐI CHIẾU VÀ ÁNH XẠ NĂNG LỰC CỦA HỌC SINH VÀO KHO BÀI TẬP (GỒM CÁC TAGS):
-- Ngữ pháp: G_NOUNS, G_PRES_SIMPLE, G_PAST_SIMPLE, G_FUTURE_SIMPLE, G_ARTICLES, G_PREP_BASIC, G_PAST_CONT, G_PRES_PERF, G_PAST_PERF, G_CONDITIONALS, G_PASSIVE_VOICE, G_COMPARISON, G_RELATIVE_CLAUSE, G_PREP_ADV, G_WORD_FORM.
-- Kỹ năng cơ bản: VOCAB_U01_U04, PRE_LIS_A1_A2, PRE_READ_A1_A2, PRE_SPK_A1.
-- Kỹ năng nâng cao: WT1_LINE, WT1_BAR, WT1_TABLE, WT1_PIE, WT1_MAP, WT1_PROCESS, WT2_OPINION, WT2_DISCUSSION, WT2_OUTWEIGH, WT2_CAUSE_SOLUTION, SPK_P1, SPK_P2, SPK_P3, READ_UNPROMPTED, LIS_UNPROMPTED.
+HỆ THỐNG KHO BÀI TẬP HIỆN CÓ CỦA TRUNG TÂM (858 BÀI):
+1. DOMAINS CHÍNH:
+   - GRAMMAR: Ngữ pháp lý thuyết & bài tập.
+   - VOCABULARY: Từ vựng học thuật 300 từ & 540 từ.
+   - PRE_LISTENING: Luyện nghe bắt âm nối, số liệu, tên riêng A1, A2, B1, B2.
+   - PRE_READING: Scanning, Sentence Stripping câu đơn, câu phức A1, A2, B1, B2.
+   - PRE_SPEAKING: Shadowing nhại giọng bản ngữ A1, A2, B1, B2, C1.
+   - PRE_WRITING_T1: Dịch câu số liệu biểu đồ 3 mốc Band Task 1.
+   - PRE_WRITING_T2: Dịch câu tư duy lập luận PEEL Task 2.
+   - READING: Luyện đề Cam 17 - Cam 21 (có mớm từ khóa và tự làm không mớm).
+   - LISTENING: Luyện đề Cam 19 - Cam 21 (có mớm và tốc độ 1.1x).
+   - WRITING_T1: Viết bài 150 từ hoàn chỉnh Task 1 (Line, Bar, Table, Pie, Map, Process, Floor, Mixed).
+   - WRITING_T2: Viết luận 250 từ chuẩn PEEL Task 2 (Opinion, Discussion, Outweigh, Cause-Solution, Two-part).
+   - SPEAKING: Luyện nói Forecast Part 1, Part 2, Part 3.
+   - MOCK_TEST: Đề thi thử áp lực 3 tiếng.
+
+2. DANH MỤC TAGS KHO BÀI:
+   - Ngữ pháp: G_NOUNS, G_PRES_SIMPLE, G_PRES_CONT, G_IRREG_V2, G_PAST_SIMPLE, G_FUTURE_SIMPLE, G_PREP_BASIC, G_ARTICLES, G_PAST_CONT, G_IRREG_V3, G_PRES_PERF, G_PAST_PERF, G_CONDITIONALS, G_PASSIVE_VOICE, G_COMPARISON, G_RELATIVE_CLAUSE, G_PREP_ADV, G_WORD_FORM.
+   - Nền tảng: VOCAB_300_U1 -> U10, VOCAB_540_U1 -> U18, PRE_LIS_A1, PRE_LIS_INTER, PRE_LIS_ADV, PRE_READ_A1, PRE_READ_INTER, PRE_READ_ADV, PRE_SPK_A1, PRE_SPK_INTER, PRE_SPK_B2, PRE_SPK_C1, PWT1_CORE, PWT2_CORE.
+   - Đề chính thức & Nâng cao: READ_PROMPTED, READ_UNPROMPTED, LIS_PROMPTED, LIS_UNPROMPTED, WT1_STAGE3, WT1_STAGE4, WT2_STAGE3, WT2_STAGE4, SPK_P1, SPK_P2, SPK_P3, MOCK_TEST_FULL.
+
+HÃY PHÂN TÍCH HỌC THUẬT VÀ TRẢ VỀ ĐƠN THUỐC ĐIỀU PHỐI (JSON):
+1. "estimated_band": Band tổng hiện tại (từ 0.0 đến 6.5). Nếu báo cáo ghi rõ (ví dụ: Band 5.5) thì lấy đúng số đó.
+2. "target_band": Band mục tiêu mong muốn (Tối đa 7.0. Mặc định là 7.0 nếu học sinh muốn bứt phá lên mốc cao nhất).
+3. "skill_scores": Điểm chi tiết từng kỹ năng bóc tách từ báo cáo (reading, listening, writing, speaking).
+4. "bottleneck_skill": Kỹ năng yếu nhất đang kéo tụt điểm (Điểm nghẽn cổ chai - Ví dụ: SPEAKING nếu điểm 4.5).
+5. "pruned_domains": Các domain cần GỌT BỎ HOÀN TOÀN (Ví dụ: Reading học sinh đã 6.5 thì cắt sạch PRE_READING; nếu ngữ pháp căn bản đã vững thì cắt các bài ngữ pháp câu đơn).
+6. "pruned_tags": Danh sách tags cụ thể cần loại bỏ để tránh học lại cái đã biết.
+7. "retained_weak_tags": Danh sách tags cụ thể học sinh bị sai sót nghiêm trọng BẮT BUỘC PHẢI GIỮ LẠI (Ví dụ sai "rised" thì giữ G_IRREG_V2; sai to-be thì giữ G_PASSIVE_VOICE; phát âm sai/nuốt âm đuôi/câu dây thừng thì giữ PRE_SPK_A1, PRE_SPK_INTER).
+8. "intensity_weights": Trọng số điều phối để Engine bù trừ bài học (Môn yếu đẩy trọng số cao từ 1.8 - 2.5 để tăng gấp đôi bài; môn đã giỏi hạ trọng số xuống 0.2 - 0.4 để giảm bài).
+   Bắt buộc gồm các keys: "SPEAKING", "PRE_SPEAKING", "WRITING_T1", "WRITING_T2", "LISTENING", "READING", "GRAMMAR", "VOCABULARY".
+9. "pedagogical_constraints": 2 - 3 dòng chỉ thị sư phạm răn đe hành vi học tập (Ví dụ: "Khóa bài mẫu Writing sau 5 phút để trị bệnh ngâm tài liệu 50 phút", "Luyện Shadowing câu ngắn dứt khoát trị tật câu dây thừng").
+10. Đồng bộ các mảng tương thích ngược:
+    - "excluded_domains": Giống pruned_domains.
+    - "focus_domains": Mảng các domain trọng tâm cần đẩy mạnh (Ví dụ: ["SPEAKING", "PRE_SPEAKING", "WRITING_T1", "WRITING_T2"]).
+    - "mastered_tags": Giống pruned_tags.
+    - "weak_tags": Giống retained_weak_tags.
 
 TRẢ VỀ DUY NHẤT 1 CHUỖI JSON THUẦN (KHÔNG DÙNG MARKDOWN, KHÔNG \`\`\`json):
 {
   "estimated_band": 5.5,
   "target_band": 7.0,
-  "recommended_speed": "normal",
-  "recommended_daily_hours": 1.5,
-  "academic_summary": "Nhận xét ngắn gọn 2-3 câu về điểm mạnh và lỗ hổng kiến thức cốt lõi.",
-  "mastered_tags": ["Danh", "sach", "tags", "hoc", "sinh", "da", "vung", "de", "got", "bo"],
-  "weak_tags": ["Danh", "sach", "tags", "hoc", "sinh", "yeu", "can", "uu", "tien"]
+  "skill_scores": {
+    "reading": 6.5,
+    "listening": 6.0,
+    "writing": 5.5,
+    "speaking": 4.5
+  },
+  "bottleneck_skill": "SPEAKING",
+  "academic_summary": "Nhận xét súc tích 2-3 câu: Điểm nghẽn lớn nhất là Speaking 4.5 lệch sâu so với Reading 6.5. Cần cắt giảm đọc hiểu để x2 thời lượng Shadowing ngắt câu và ép viết Writing độc lập không phụ thuộc bài mẫu.",
+  "pruned_domains": ["PRE_READING"],
+  "pruned_tags": ["G_PRES_SIMPLE", "G_FUTURE_SIMPLE", "G_NOUNS", "G_ARTICLES"],
+  "retained_weak_tags": ["G_IRREG_V2", "G_IRREG_V3", "G_PASSIVE_VOICE", "PRE_SPK_A1", "PRE_SPK_INTER", "PWT1_CORE", "PWT2_CORE"],
+  "intensity_weights": {
+    "SPEAKING": 2.5,
+    "PRE_SPEAKING": 2.5,
+    "WRITING_T1": 1.8,
+    "WRITING_T2": 1.8,
+    "LISTENING": 1.0,
+    "READING": 0.3,
+    "GRAMMAR": 0.4,
+    "VOCABULARY": 0.8
+  },
+  "pedagogical_constraints": [
+    "Khóa tính năng xem gợi ý Writing sau 5 phút để ép tư duy tự viết",
+    "Shadowing câu ngắn ngắt nghỉ dứt khoát để trị tật nuốt âm đuôi và câu dây thừng",
+    "Trị dứt điểm 17 lỗi chính tả và chia sai động từ quá khứ bất quy tắc"
+  ],
+  "excluded_domains": ["PRE_READING"],
+  "focus_domains": ["SPEAKING", "PRE_SPEAKING", "WRITING_T1", "WRITING_T2"],
+  "mastered_tags": ["G_PRES_SIMPLE", "G_FUTURE_SIMPLE", "G_NOUNS", "G_ARTICLES"],
+  "weak_tags": ["G_IRREG_V2", "G_IRREG_V3", "G_PASSIVE_VOICE", "PRE_SPK_A1", "PRE_SPK_INTER", "PWT1_CORE", "PWT2_CORE"]
 }
 `;
 
