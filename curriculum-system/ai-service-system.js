@@ -1,7 +1,7 @@
 /**
  * curriculum-system/ai-service-system.js
  * DỊCH VỤ AI GEMINI CHẨN ĐOÁN LỘ TRÌNH & ĐIỀU PHỐI ĐỐT SỐNG (MASTER PROMPT PHIÊN BẢN ĐỈNH CAO)
- * ĐÃ TÍCH HỢP 4 BỘ LUẬT SƯ PHẠM: KHÓA HẠN NGẠCH 75% ĐỀ THI THẬT, CHẶN BÀI A1 & VÒNG LẶP ÔN TẬP 3 NGÀY
+ * ĐÃ SỬA DỨT ĐIỂM LỖI CÚ PHÁP DẤU NHÁY NGƯỢC - BẢO VỆ CHUỖI TOÀN DIỆN
  */
 
 // 1. MÃ HÓA KEY THEO ĐÚNG QUY LUẬT CỦA API-T1.JS
@@ -112,7 +112,7 @@ LUẬT 1: LỌC TRÌNH ĐỘ THÔNG MINH (TRÁNH BẪY HỌC VỠ LÒNG)
 - Nếu học sinh xuất phát Band >= 5.0: BẮT BUỘC LOẠI BỎ 100% các bài Pre-Listening A1 (nghe số đếm, tên riêng) và Pre-Speaking A1 (chào hỏi đời sống). Tuyệt đối không để học sinh khá học lại kiến thức vỡ lòng A1.
 - Nếu học sinh xuất phát Band >= 6.0: Loại bỏ toàn bộ bài có mớm từ khóa, đẩy thẳng vào đề thi Cam không mớm và Shadowing C1.
 
-LUẬT 2: KHÓA HẠN NGẠCH BÀI TẬP (TRIỆT TIÊU BỆNH "PRE NUỐT TRỌN ĐỀ THI THẬT")
+LUẬT 2: KHÓA HẠN NGẠCH BÀI TẬP (TRIỆT TIÊU BỆNH PRE NUỐT TRỌN ĐỀ THI THẬT)
 - Phần PRE (dịch câu, shadowing) chỉ là đòn bẩy lót đường, chiếm TỐI ĐA 20% - 25% tổng thời lượng của kỹ năng đó.
 - TỐI THIỂU 75% - 80% thời lượng của Chặng Writing và Speaking BẮT BUỘC PHẢI LÀ ĐỀ THI THẬT:
   + Writing: Phải có bài viết Task 1 hoàn chỉnh và bài luận Task 2 (250 từ chuẩn PEEL). Cấm tình trạng cả chặng chỉ toàn dịch câu mà không có đề Task 2.
@@ -129,7 +129,7 @@ Nếu học sinh có yêu cầu về thứ tự học, phân bổ chính xác 5 
 LUẬT 4: VÒNG LẶP ÔN TẬP DUY TRÌ 3 NGÀY (SPACED REPETITION)
 - Tại Chặng 4 (Writing) và Chặng 5 (Speaking): Cứ cách 3 ngày một lần (Ngày 3, Ngày 6, Ngày 9...), hệ thống phải tự động chèn 1 đề thi Reading hoặc Listening Cambridge của các chặng trước vào để giải đề bấm giờ, duy trì phản xạ phòng thi liên tục.
 
-HÃY TRẢ VỀ DUY NHẤT 1 CHUỖI JSON THUẦN (KHÔNG DÙNG MARKDOWN, KHÔNG ```json):
+HÃY TRẢ VỀ DUY NHẤT 1 CHUỖI JSON THUẦN (KHÔNG DÙNG MARKDOWN, KHÔNG DÙNG KHỐI CODE):
 {
   "estimated_band": 5.5,
   "target_band": 7.0,
@@ -171,7 +171,7 @@ HÃY TRẢ VỀ DUY NHẤT 1 CHUỖI JSON THUẦN (KHÔNG DÙNG MARKDOWN, KHÔNG
     "VOCABULARY": 2.0
   },
   "pedagogical_constraints": [
-    "Thực thi đúng trình tự 5 chặng: Ngữ pháp ➔ Reading + 100% Từ vựng (28 Unit) ➔ Listening ➔ Writing ➔ Speaking",
+    "Thực thi đúng trình tự 5 chặng: Ngữ pháp -> Reading + 100% Từ vựng (28 Unit) -> Listening -> Writing -> Speaking",
     "Cấm học bài Pre-A1 vỡ lòng đối với học viên Band 5.5. Dành tối thiểu 75% thời lượng cho Đề thi chính thức",
     "Cứ cách 3 ngày ở Chặng Viết và Nói phải giải 1 đề Reading/Listening Cambridge để duy trì phong độ",
     "Khóa tài liệu gợi ý Writing sau 5 phút để ép tư duy tự lập luận PEEL độc lập"
