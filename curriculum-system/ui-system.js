@@ -2,7 +2,7 @@
  * curriculum-system/ui-system.js
  * GIAO DIỆN LỘ TRÌNH, LỊCH CHUYÊN CẦN & BANNER LỊCH SỬ PASTEL ĐỔI MÀU THEO HỌC PHẦN
  * (BẢN ĐẦY ĐỦ 100% - KHÔNG CẮT BỚT BẤT KỲ TÍNH NĂNG NÀO)
- * GIAI ĐOẠN 1: CÁCH LY LỊCH SỬ HỌC VIÊN & ĐỒNG BỘ BÀI NỘP THẬT TỪ CLOUD
+ * TÍCH HỢP TOÀN DIỆN: CHẾ ĐỘ ĐÓNG VAI HỌC VIÊN (IMPERSONATION) & CÔ LẬP LỊCH SỬ BÀI LÀM
  */
 
 import { curriculumEngineSystem } from './engine-system.js';
@@ -25,8 +25,7 @@ class CurriculumUISystem {
     this.cachedEmail = '';
     this.selectedDateStr = this.getFormattedDate(new Date());
     this.isListCollapsed = false;
-    this.targetStudentEmail = ''; // Email học sinh mà Admin đang can thiệp
-    this.studentHistoryCache = {}; // Ngăn chứa lịch sử riêng biệt cho từng email học sinh
+    this.targetStudentEmail = ''; // Email học sinh Admin đang chỉ định
     this.initSpeechSTT();
   }
 
@@ -53,14 +52,79 @@ class CurriculumUISystem {
     diagRecognition.onerror = (e) => console.warn("STT Lỗi:", e.error);
   }
 
-  getStorageKey(email) {
-    const clean = (email || localStorage.getItem('ielts_student_email') || 'guest').toLowerCase().trim();
-    return `ielts_roadmap_data_${clean}`;
+  // =========================================================================
+  // 1. QUẢN LÝ PHIÊN ĐĂNG NHẬP & CHẾ ĐỘ ĐÓNG VAI (IMPERSONATION SYSTEM)
+  // =========================================================================
+  isImpersonating() {
+    return !!localStorage.getItem('ielts_impersonating_email');
   }
 
-  getStudentHistoryStorageKey(email) {
-    const clean = (email || localStorage.getItem('ielts_student_email') || 'guest').toLowerCase().trim();
-    return `ielts_history_${clean}`;
+  getOriginalAdminEmail() {
+    return localStorage.getItem('ielts_admin_backup_email') || '';
+  }
+
+  checkIsAdmin() {
+    // Nếu đang đóng vai học sinh thì vẫn nhớ gốc là Admin để cho phép thoát
+    if (this.isImpersonating()) return true;
+    const email = (localStorage.getItem('ielts_student_email') || '').toLowerCase().trim();
+    return email.includes('admin') || (CONFIG?.ADMIN_EMAILS || []).map(e => e.toLowerCase()).includes(email);
+  }
+
+  getActiveWorkingEmail() {
+    if (this.isImpersonating()) {
+      return (localStorage.getItem('ielts_impersonating_email') || '').toLowerCase().trim();
+    }
+    if (this.checkIsAdmin() && this.targetStudentEmail) {
+      return this.targetStudentEmail.toLowerCase().trim();
+    }
+    return (localStorage.getItem('ielts_student_email') || 'guest').toLowerCase().trim();
+  }
+
+  setTargetStudentEmail(email) {
+    this.targetStudentEmail = (email || '').toLowerCase().trim();
+    this.render();
+  }
+
+  // NHẢY VÀO ĐIỀU KHIỂN TÀI KHOẢN HỌC SINH
+  async startImpersonation(studentEmail) {
+    const clean = (studentEmail || '').toLowerCase().trim();
+    if (!clean || clean === 'guest') {
+      alert("⚠️ Vui lòng nhập email học viên hợp lệ!");
+      return;
+    }
+    const currentAdmin = localStorage.getItem('ielts_student_email') || 'admin';
+    if (!localStorage.getItem('ielts_admin_backup_email')) {
+      localStorage.setItem('ielts_admin_backup_email', currentAdmin);
+    }
+    localStorage.setItem('ielts_impersonating_email', clean);
+    localStorage.setItem('ielts_student_email', clean);
+    this.targetStudentEmail = clean;
+
+    // Tải dữ liệu thật của học sinh từ Cloud
+    await this.fetchStudentRoadmapFromCloud(clean);
+    await this.fetchStudentHistoryFromCloud(clean);
+
+    alert(`🎭 Đã chuyển sang chế độ điều khiển tài khoản học viên: ${clean}`);
+    window.location.reload();
+  }
+
+  // THOÁT VỀ LẠI QUYỀN ADMIN NGUYÊN BẢN
+  stopImpersonation() {
+    const backup = this.getOriginalAdminEmail() || 'admin@tramielts.edu.vn';
+    localStorage.setItem('ielts_student_email', backup);
+    localStorage.removeItem('ielts_impersonating_email');
+    localStorage.removeItem('ielts_admin_backup_email');
+    this.targetStudentEmail = '';
+    alert("⬅ Đã thoát khỏi tài khoản học viên. Trở về quyền Quản trị viên!");
+    window.location.reload();
+  }
+
+  // =========================================================================
+  // 2. CÔ LẬP BỘ NHỚ LỊCH SỬ & KÉO DỮ LIỆU TỪ CLOUD (DATA ISOLATION)
+  // =========================================================================
+  getStorageKey(email) {
+    const clean = (email || this.getActiveWorkingEmail()).toLowerCase().trim();
+    return `ielts_roadmap_data_${clean}`;
   }
 
   getSavedRoadmap(email) {
@@ -95,7 +159,6 @@ class CurriculumUISystem {
     } catch(e) {}
   }
 
-  // TỰ ĐỘNG TẢI LỘ TRÌNH TỪ CLOUD NẾU HỌC SINH MỞ MÁY MỚI
   async fetchStudentRoadmapFromCloud(email) {
     if (!CLOUD_SCRIPT_URL || !email || email === 'guest') return null;
     try {
@@ -111,84 +174,36 @@ class CurriculumUISystem {
     return null;
   }
 
-  // TỰ ĐỘNG TẢI LỊCH SỬ LÀM BÀI THẬT CỦA HỌC SINH TỪ CLOUD VỀ
   async fetchStudentHistoryFromCloud(email) {
-    const cleanEmail = (email || '').toLowerCase().trim();
-    if (!CLOUD_SCRIPT_URL || !cleanEmail || cleanEmail === 'guest') return [];
-
+    if (!CLOUD_SCRIPT_URL || !email || email === 'guest') return [];
     try {
-      const response = await fetch(`${CLOUD_SCRIPT_URL}?action=get_student_history&studentEmail=${encodeURIComponent(cleanEmail)}`);
+      const response = await fetch(`${CLOUD_SCRIPT_URL}?action=get_student_history&studentEmail=${encodeURIComponent(email)}`);
       if (response.ok) {
-        const resData = await response.json();
-        const historyList = Array.isArray(resData) ? resData : (resData?.history || []);
-        this.studentHistoryCache[cleanEmail] = historyList;
-        localStorage.setItem(this.getStudentHistoryStorageKey(cleanEmail), JSON.stringify(historyList));
-        return historyList;
+        const cloudData = await response.json();
+        const attempts = cloudData.attempts || [];
+        localStorage.setItem(`ielts_history_${email}`, JSON.stringify(attempts));
+        return attempts;
       }
     } catch(e) {}
+    return [];
+  }
 
-    // Fallback: đọc từ cache máy nếu có
+  // ĐỐI SOÁT BÀI LÀM: CÔ LẬP HOÀN TOÀN GIỮA ADMIN VÀ HỌC SINH
+  getNodeCompletionInfo(node, specifiedEmail = null) {
     try {
-      const local = localStorage.getItem(this.getStudentHistoryStorageKey(cleanEmail));
-      const parsed = local ? JSON.parse(local) : [];
-      this.studentHistoryCache[cleanEmail] = parsed;
-      return parsed;
-    } catch(e) {
-      return [];
-    }
-  }
-
-  // LẤY DANH SÁCH BÀI LÀM ĐÃ ĐƯỢC CÁCH LY RIÊNG CHO EMAIL NÀY
-  getIsolatedHistoryForStudent(email) {
-    const cleanEmail = (email || this.getActiveWorkingEmail()).toLowerCase().trim();
-    const isAdmin = this.checkIsAdmin();
-    const isTargetingOther = isAdmin && this.targetStudentEmail && this.targetStudentEmail !== (localStorage.getItem('ielts_student_email') || '').toLowerCase().trim();
-
-    // Nếu Admin đang chọn học sinh khác -> CHỈ ĐỌC LỊCH SỬ CỦA HỌC SINH ĐÓ, TUYỆT ĐỐI KHÔNG ĐỌC LỊCH SỬ ADMIN
-    if (isTargetingOther) {
-      if (this.studentHistoryCache[cleanEmail]) {
-        return this.studentHistoryCache[cleanEmail];
-      }
-      try {
-        const cached = localStorage.getItem(this.getStudentHistoryStorageKey(cleanEmail));
-        return cached ? JSON.parse(cached) : [];
-      } catch(e) {
-        return [];
-      }
-    }
-
-    // Nếu học sinh tự mở máy nó, hoặc Admin đang tự xem máy mình
-    return stateManager.getLocalHistory();
-  }
-
-  checkIsAdmin() {
-    const email = (localStorage.getItem('ielts_student_email') || '').toLowerCase().trim();
-    return email.includes('admin') || (CONFIG?.ADMIN_EMAILS || []).map(e => e.toLowerCase()).includes(email);
-  }
-
-  // LẤY EMAIL ĐANG LÀM VIỆC (NẾU ADMIN ĐANG CHỌN HỌC SINH THÌ LẤY HỌC SINH ĐÓ)
-  getActiveWorkingEmail() {
-    if (this.checkIsAdmin() && this.targetStudentEmail) {
-      return this.targetStudentEmail.toLowerCase().trim();
-    }
-    return (localStorage.getItem('ielts_student_email') || 'guest').toLowerCase().trim();
-  }
-
-  async setTargetStudentEmail(email) {
-    this.targetStudentEmail = (email || '').toLowerCase().trim();
-    if (this.targetStudentEmail) {
-      // Khi chọn học sinh, lập tức tải trước lịch sử thật của học sinh đó từ Cloud về
-      await this.fetchStudentHistoryFromCloud(this.targetStudentEmail);
-    }
-    this.render();
-  }
-
-  // ĐỐI SOÁT TẤT CẢ CÁC LẦN NỘP BÀI (ĐÃ CÁCH LY CHỐNG ĐÈ LỊCH SỬ CỦA ADMIN)
-  getNodeCompletionInfo(node, studentEmail = null) {
-    try {
-      const email = studentEmail || this.getActiveWorkingEmail();
-      const history = this.getIsolatedHistoryForStudent(email);
+      const activeEmail = (specifiedEmail || this.getActiveWorkingEmail()).toLowerCase().trim();
+      const originalAdmin = (localStorage.getItem('ielts_admin_backup_email') || localStorage.getItem('ielts_student_email') || '').toLowerCase().trim();
       
+      let history = [];
+      // Nếu đang xem bài của học sinh (khác tài khoản Admin) -> CHỈ ĐỌC LỊCH SỬ CỦA HỌC SINH ĐÓ
+      if (this.isImpersonating() || (this.checkIsAdmin() && this.targetStudentEmail)) {
+        const studentRaw = localStorage.getItem(`ielts_history_${activeEmail}`);
+        history = studentRaw ? JSON.parse(studentRaw) : [];
+      } else {
+        // Tài khoản bình thường
+        history = stateManager.getLocalHistory() || [];
+      }
+
       const matches = history.filter(item => {
         if (!item) return false;
         const t = (item.testTitle || '').toLowerCase();
@@ -230,8 +245,8 @@ class CurriculumUISystem {
     return { isCompleted: false, totalAttempts: 0 };
   }
 
-  isNodeCompletedInHistory(node, studentEmail = null) {
-    return this.getNodeCompletionInfo(node, studentEmail).isCompleted;
+  isNodeCompletedInHistory(node) {
+    return this.getNodeCompletionInfo(node).isCompleted;
   }
 
   getModuleTheme(moduleType, url = '', title = '') {
@@ -401,7 +416,7 @@ class CurriculumUISystem {
       schedule: scheduleData.dailySchedule,
       completedNodeIds: [],
       aiDiagnosticData: aiData,
-      isLockedByAdmin: isAdmin // Khóa cứng nếu do Giáo viên/Admin trực tiếp phê duyệt
+      isLockedByAdmin: isAdmin
     };
 
     this.saveRoadmap(targetEmail, payload);
@@ -426,7 +441,7 @@ class CurriculumUISystem {
 
   // RENDER THANH ADMIN NẾU LÀ TÀI KHOẢN QUẢN TRỊ
   renderAdminControlBar() {
-    if (!this.checkIsAdmin()) return '';
+    if (!this.checkIsAdmin() && !this.isImpersonating()) return '';
 
     const currentTarget = this.targetStudentEmail || 'Chính mình (Mặc định)';
     return `
@@ -440,13 +455,19 @@ class CurriculumUISystem {
         </div>
         
         <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-          <input type="email" id="adminTargetEmailInput" placeholder="Nhập email học sinh (vd: phongchau2.205@gmail.com)" value="${this.targetStudentEmail}" style="padding:7px 12px; border-radius:8px; border:none; font-size:13px; font-weight:700; width:260px; color:#1e293b;">
-          <button type="button" onclick="window.curriculumUI.setTargetStudentEmail(document.getElementById('adminTargetEmailInput').value)" style="background:#FCD34D; color:#8B1518; border:none; padding:7px 14px; border-radius:8px; font-weight:900; font-size:12.5px; cursor:pointer;">
-            🎯 Chọn Học Sinh Này
+          <input type="email" id="adminTargetEmailInput" placeholder="Nhập email học sinh..." value="${this.targetStudentEmail}" style="padding:7px 12px; border-radius:8px; border:none; font-size:13px; font-weight:700; width:220px; color:#1e293b;">
+          
+          <button type="button" onclick="window.curriculumUI.setTargetStudentEmail(document.getElementById('adminTargetEmailInput').value)" style="background:#FCD34D; color:#8B1518; border:none; padding:7px 12px; border-radius:8px; font-weight:900; font-size:12px; cursor:pointer;">
+            🎯 Chọn Học Sinh
           </button>
+
+          <button type="button" onclick="window.curriculumUI.startImpersonation(document.getElementById('adminTargetEmailInput').value || '${this.targetStudentEmail}')" style="background:#10B981; color:white; border:none; padding:7px 14px; border-radius:8px; font-weight:900; font-size:12px; cursor:pointer;" title="Nhảy thẳng vào tài khoản học sinh để xem dữ liệu sạch">
+            🎭 Đóng vai học sinh này &rarr;
+          </button>
+
           ${this.targetStudentEmail ? `
             <button type="button" onclick="window.curriculumUI.setTargetStudentEmail('')" style="background:rgba(255,255,255,0.2); color:white; border:1px solid rgba(255,255,255,0.4); padding:7px 10px; border-radius:8px; font-size:12px; cursor:pointer;">
-              ✕ Thoát học sinh
+              ✕ Bỏ chọn
             </button>
           ` : ''}
         </div>
@@ -454,7 +475,25 @@ class CurriculumUISystem {
     `;
   }
 
-  // RENDER GIAO DIỆN LỘ TRÌNH MÀN HÌNH CHÍNH (ĐÃ CÁCH LY LỊCH SỬ THẬT CỦA HỌC SINH)
+  // RENDER THANH NỔI KHI ĐANG ĐÓNG VAI HỌC VIÊN
+  renderFloatingImpersonationBar() {
+    if (!this.isImpersonating()) return '';
+    const activeEmail = this.getActiveWorkingEmail();
+
+    return `
+      <div style="position:fixed; bottom:16px; right:16px; z-index:99999; background:#DC2626; color:white; padding:12px 20px; border-radius:16px; box-shadow:0 8px 24px rgba(0,0,0,0.3); border:2px solid #FEF2F2; display:flex; align-items:center; gap:14px; font-weight:800; font-size:13px; animation: bounce 1s infinite alternate;">
+        <div>
+          <span>🎭 ĐANG ĐÓNG VAI:</span> <u style="color:#FEF08A;">${activeEmail}</u>
+          <div style="font-size:11px; opacity:0.9; font-weight:600;">Lịch sử bài làm hiển thị chính xác của học viên</div>
+        </div>
+        <button type="button" onclick="window.curriculumUI.stopImpersonation()" style="background:#FFFFFF; color:#DC2626; border:none; padding:7px 16px; border-radius:10px; font-weight:900; font-size:12.5px; cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,0.2);">
+          ⬅ Thoát về Admin
+        </button>
+      </div>
+    `;
+  }
+
+  // RENDER GIAO DIỆN LỘ TRÌNH MÀN HÌNH CHÍNH
   async render(targetContainerId = 'roadmapSectionMount') {
     let container = document.getElementById(targetContainerId);
     if (!container) return;
@@ -462,22 +501,18 @@ class CurriculumUISystem {
     const email = this.getActiveWorkingEmail();
     let data = this.getSavedRoadmap(email);
 
-    // NẾU HỌC SINH MỞ MÁY MỚI CHƯA CÓ LOCALSTORAGE -> THỬ TẢI TỪ CLOUD VỀ
     if (!data && email !== 'guest') {
       data = await this.fetchStudentRoadmapFromCloud(email);
     }
 
-    // ĐẢM BẢO LỊCH SỬ BÀI LÀM CỦA ĐÚNG HỌC SINH NÀY ĐÃ ĐƯỢC TẢI VỀ
-    if (this.targetStudentEmail && !this.studentHistoryCache[this.targetStudentEmail]) {
-      await this.fetchStudentHistoryFromCloud(this.targetStudentEmail);
-    }
-
     const adminBarHtml = this.renderAdminControlBar();
+    const floatingBarHtml = this.renderFloatingImpersonationBar();
 
     if (!data) {
       container.innerHTML = `
         <div class="cs-container">
           ${adminBarHtml}
+          ${floatingBarHtml}
           <div style="text-align:center; padding:10px;">
             <h3 style="margin:0 0 6px 0; font-size:22px; font-weight:900; color:#8B1518;">🎯 THIẾT LẬP LỘ TRÌNH HỌC TẬP CÁ NHÂN HÓA</h3>
             <p style="margin:0 auto 16px auto; max-width:650px; font-size:14px; color:#64748b; font-weight:700;">
@@ -558,12 +593,9 @@ class CurriculumUISystem {
       return;
     }
 
-    // ĐỐI SOÁT LẠI TIẾN ĐỘ THEO ĐÚNG LỊCH SỬ THẬT CỦA HỌC SINH (KHÔNG LẤY CỦA ADMIN)
-    data.completedNodeIds = [];
     data.schedule.forEach(day => {
       day.nodes.forEach(node => {
-        const comp = this.getNodeCompletionInfo(node, email);
-        if (comp.isCompleted && !data.completedNodeIds.includes(node.id)) {
+        if (!data.completedNodeIds.includes(node.id) && this.isNodeCompletedInHistory(node)) {
           data.completedNodeIds.push(node.id);
         }
       });
@@ -579,6 +611,7 @@ class CurriculumUISystem {
     container.innerHTML = `
       <div class="cs-container">
         ${adminBarHtml}
+        ${floatingBarHtml}
 
         <!-- BANNER ĐỒNG BỘ SỐ NGÀY ĐỘNG (${totalDaysCount} NGÀY) -->
         <div style="background: linear-gradient(135deg, #8B1518 0%, #B91C1C 100%); border-radius: 18px; padding: 20px 24px; margin-bottom: 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; box-shadow: 0 4px 0 #5E0C0E; color: white;">
@@ -597,7 +630,7 @@ class CurriculumUISystem {
           </div>
           
           <div style="display: flex; gap: 10px; align-items: center;">
-            <a href="curriculum-system/roadmap.html" class="btn-3d" style="background: #FFFFFF; color: #8B1518 !important; border-bottom: 4px solid rgba(0,0,0,0.18); font-size: 14.5px; padding: 12px 22px;">
+            <a href="curriculum-system/roadmap.html?studentEmail=${encodeURIComponent(email)}" class="btn-3d" style="background: #FFFFFF; color: #8B1518 !important; border-bottom: 4px solid rgba(0,0,0,0.18); font-size: 14.5px; padding: 12px 22px;">
               🚀 XEM TOÀN BỘ LỘ TRÌNH &rarr;
             </a>
             ${(!isLocked || isAdmin) ? `
@@ -646,10 +679,10 @@ class CurriculumUISystem {
           </div>
         </div>
 
-        <!-- DANH SÁCH BÀI TẬP HÔM NAY (HIỂN THỊ ĐÚNG THEO BÀI LÀM CỦA HỌC SINH ĐÍCH) -->
+        <!-- DANH SÁCH BÀI TẬP HÔM NAY -->
         <div class="cs-task-list">
           ${currentDayPlan.nodes.map(node => {
-            const compInfo = this.getNodeCompletionInfo(node, email);
+            const compInfo = this.getNodeCompletionInfo(node);
             const isDone = compInfo.isCompleted;
 
             return `
@@ -812,7 +845,7 @@ class CurriculumUISystem {
 
     const dateCountMap = {};
     attempts.forEach(att => {
-      const m = att.timestamp?.match(/(\d{2}\/\d{2}\/\d{4})/);
+      const m = att.timestamp?.match(/(\d{2})\/(\d{2})\/(\d{4})/);
       if (m && parseInt(m[2], 10) === (month + 1) && parseInt(m[3], 10) === year) {
         const d = parseInt(m[1], 10);
         dateCountMap[d] = (dateCountMap[d] || 0) + 1;
