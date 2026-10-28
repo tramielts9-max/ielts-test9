@@ -1,7 +1,7 @@
 /**
  * curriculum-system/engine-system.js
  * BỘ MÁY ĐIỀU PHỐI TÍNH XUÔI THEO SỐ BUỔI HỌC (300K/BUỔI - 12 BUỔI/NỬA BAND + LŨY TIẾN)
- * GIAI ĐOẠN 2: BẢO TOÀN KHỐI LƯỢNG HỌC TẬP (ZERO-SUM) & TÁI PHÂN BỔ TRỌNG SỐ THEO AI
+ * GIAI ĐOẠN 2 HOÀN CHỈNH: THUẬT TOÁN BĂM 5 KHỐI CHẶNG TUẦN TỰ & QUÉT SẠCH 100% KHO TỪ VỰNG
  */
 
 export class CurriculumEngineSystem {
@@ -83,7 +83,7 @@ export class CurriculumEngineSystem {
   }
 
   /**
-   * LỌC KHO BÀI TẬP: TỰ ĐỘNG BÙ TRỪ VÀ GIẢI CỨU ĐỐT SỐNG NỀN TẢNG THEO AI
+   * LỌC KHO BÀI TẬP: BẢO TỒN 100% TỪ VỰNG KHI CÓ YÊU CẦU & GIẢI CỨU ĐỐT NỀN TẢNG
    */
   pruneCurriculumByBands(startBand = 0.0, targetBand = 7.0, aiOptions = {}) {
     const sBand = parseFloat(startBand) || 0.0;
@@ -93,7 +93,7 @@ export class CurriculumEngineSystem {
     const prunedTags = aiOptions.pruned_tags || aiOptions.mastered_tags || [];
     const excludedDomains = (aiOptions.pruned_domains || aiOptions.excluded_domains || []).map(d => d.toUpperCase());
     const focusDomains = (aiOptions.focus_domains || []).map(d => d.toUpperCase());
-    const weights = aiOptions.intensity_weights || {};
+    const isFullVocab = (aiOptions.vocab_requirement === 'FULL_100_PERCENT');
 
     return this.allNodes.filter((node, idx) => {
       const d = (node.domain || '').toUpperCase();
@@ -101,29 +101,33 @@ export class CurriculumEngineSystem {
       const stg = node.stage || 'S1';
       const titleLower = (node.title || '').toLowerCase();
 
-      // 1. NẾU BÀI CHỨA TAG YẾU CẦN GIẢI CỨU (VÍ DỤ: G_IRREG_V2, PRE_SPK_A1) -> BẢO VỆ 100%, KHÔNG CẮT
+      // 1. NẾU YÊU CẦU HỌC 100% TỪ VỰNG -> BẢO TỒN TOÀN BỘ 28 UNIT TỪ VỰNG KHÔNG CẮT BẤT KỲ BÀI NÀO
+      if (isFullVocab && d === 'VOCABULARY') {
+        return true;
+      }
+
+      // 2. GIẢI CỨU BÀI NỀN TẢNG YẾU (VÍ DỤ: G_IRREG_V2, G_PASSIVE_VOICE, PRE_SPK_A1)
       if (weakTags.length > 0 && nodeTags.some(tag => weakTags.includes(tag))) {
         return true;
       }
 
-      // 2. NẾU THUỘC DOMAIN MÀ AI YÊU CẦU CẮT HOÀN TOÀN (VÍ DỤ: PRE_READING) -> CẮT NGAY
+      // 3. CẮT BỎ CÁC DOMAIN BỊ LOẠI TRỪ (VÍ DỤ: PRE_READING)
       if (excludedDomains.some(ex => d === ex || d.startsWith(ex) || ex.includes(d))) {
         return false;
       }
 
-      // 3. NẾU THUỘC DANH SÁCH TAGS AI BÁO ĐÃ VỮNG VÀ KHÔNG CHỨA TAG YẾU -> CẮT BỎ ĐỠ TỐN THỜI GIAN
+      // 4. CẮT BỎ CÁC TAGS RÂU RIA AI ĐÃ ĐÁNH GIÁ VỮNG
       if (prunedTags.length > 0 && nodeTags.length > 0 && nodeTags.every(t => prunedTags.includes(t))) {
         return false;
       }
 
-      // 4. NẾU LÀ DOMAIN TRỌNG TÂM ƯU TIÊN CAO (SPEAKING, WRITING) -> BẢO VỆ ĐỂ LẤY NGUYÊN LIỆU XẾP 91 NGÀY
-      const isHighPriority = focusDomains.some(fc => d === fc || d.includes(fc)) || (weights[d] && weights[d] >= 1.5);
-      if (isHighPriority) {
+      // 5. BẢO VỆ CÁC DOMAIN TRỌNG TÂM ĐỂ DÀNH NGUYÊN LIỆU CHO 5 CHẶNG
+      if (focusDomains.some(fc => d === fc || d.includes(fc))) {
         if (tBand <= 5.5 && stg === 'S4') return false;
         return true;
       }
 
-      // 5. CẮT ĐẦU THEO BAND XUẤT PHÁT (HEAD-CUT CHO CÁC MÔN CÒN LẠI)
+      // 6. CẮT ĐẦU THEO BAND XUẤT PHÁT (HEAD-CUT)
       if (sBand >= 3.5 && stg === 'S1') return false;
       if (sBand >= 4.5 && stg === 'S1') return false;
       if (sBand >= 5.0 && stg === 'S2' && !d.includes('PRE_WRITING')) return false;
@@ -131,7 +135,7 @@ export class CurriculumEngineSystem {
       if (sBand >= 6.0 && stg === 'S3' && (titleLower.includes('có mớm') || d.includes('PRE_'))) return false;
       if (sBand >= 6.5 && stg === 'S3') return false;
 
-      // 6. CẮT ĐUÔI THEO BAND MỤC TIÊU (TAIL-CUT)
+      // 7. CẮT ĐUÔI THEO BAND MỤC TIÊU (TAIL-CUT)
       if (tBand <= 5.0 && (stg === 'S3' || stg === 'S4')) return false;
       if (tBand <= 5.5 && stg === 'S4') return false;
       if (tBand <= 6.0 && stg === 'S4') return false;
@@ -156,189 +160,370 @@ export class CurriculumEngineSystem {
     };
   }
 
-  /**
-   * XẾP LỊCH BTVN: BẢO TOÀN TUYỆT ĐỐI ĐỦ 91 NGÀY (KHÔNG HỤT NGÀY) & ĐÔN TRỌNG SỐ THEO AI
-   */
+  // =========================================================================
+  // BỘ ĐIỀU PHỐI CHÍNH: TỰ ĐỘNG CHUYỂN GIỮA "CHẶNG TUẦN TỰ" VÀ "DÀN TRẢI"
+  // =========================================================================
   generateDailyCalendar(retainedNodes, speedProfile = 'normal', dailyHours = 1.5, startBand = 0.0, targetBand = 7.0, aiOptions = {}) {
     const stats = this.calculateSessionsByBands(startBand, targetBand);
-    const targetDays = stats.days; // 91 ngày cho chặng 5.5 -> 7.0
+    const targetDays = stats.days; // 91 ngày chuẩn cho mốc 5.5 -> 7.0
     const dailyTargetMinutes = Math.round(dailyHours * 60); // 90 phút/ngày
+
+    // NẾU CÓ LỆNH THỨ TỰ BẮT BUỘC TỪ AI -> KÍCH HOẠT THUẬT TOÁN 5 CHẶNG TUẦN TỰ
+    if (aiOptions.schedule_mode === 'SEQUENTIAL_PHASES') {
+      return this.generateSequentialPhasesCalendar(retainedNodes, targetDays, dailyTargetMinutes, speedProfile, stats, aiOptions);
+    }
+
+    // NẾU KHÔNG CÓ YÊU CẦU THỨ TỰ -> CHẠY THUẬT TOÁN XOAY VÒNG TIÊU CHUẨN
+    return this.generateStandardSpiralCalendar(retainedNodes, targetDays, dailyTargetMinutes, speedProfile, stats, aiOptions);
+  }
+
+  // =========================================================================
+  // THUẬT TOÁN 1: BĂM 5 KHỐI CHẶNG TUẦN TỰ (ĐÚNG THEO LỆNH CỦA BẠN 100%)
+  // =========================================================================
+  generateSequentialPhasesCalendar(retainedNodes, targetDays, dailyTargetMinutes, speedProfile, stats, aiOptions) {
     const calendarDays = [];
 
-    const weights = aiOptions.intensity_weights || {
-      SPEAKING: 1.0, PRE_SPEAKING: 1.0, WRITING_T1: 1.0, WRITING_T2: 1.0,
-      LISTENING: 1.0, READING: 1.0, GRAMMAR: 1.0, VOCABULARY: 1.0
-    };
-    const weakTags = aiOptions.retained_weak_tags || aiOptions.weak_tags || [];
+    // 1. Phân loại toàn bộ kho bài vào các ngăn tủ chuyên biệt
+    const qGrammar = [];
+    const qVocab = [];
+    const qReading = [];
+    const qListening = [];
+    const qWriting = [];
+    const qSpeaking = [];
 
-    // Phân loại hàng đợi theo môn
-    const qUrgentRescue = []; // Bài nền tảng giải cứu khẩn cấp (quá khứ bất quy tắc, to-be...)
-    const qShadowing = [];    // Pre-Speaking Shadowing
-    const qSpkFormal = [];    // Speaking Part 1, 2, 3
-    const qPreWrite = [];     // Pre-Writing dịch câu PEEL
-    const qWriteT1 = [];      // Writing Task 1
-    const qWriteT2 = [];      // Writing Task 2
-    const qListening = [];    // Listening đề Cam
-    const qReading = [];      // Reading đề Cam
-    const qGrammar = [];      // Ngữ pháp
-    const qVocab = [];        // Từ vựng
-    const qMock = [];         // Thi thử
+    // Sắp xếp bài từ vựng đúng thứ tự Unit 1 -> 10 (300 từ) rồi đến Unit 1 -> 18 (540 từ)
+    const rawVocab = retainedNodes.filter(n => (n.domain || '').toUpperCase() === 'VOCABULARY');
+    rawVocab.sort((a, b) => {
+      const getNum = id => parseInt(id.replace(/[^0-9]/g, ''), 10) || 0;
+      return getNum(a.id) - getNum(b.id);
+    });
+    rawVocab.forEach(n => qVocab.push({ ...n, benefit: n.benefit || this.generateBenefit(n) }));
 
     retainedNodes.forEach(node => {
       const d = (node.domain || '').toUpperCase();
       const nWithBenefit = { ...node, benefit: node.benefit || this.generateBenefit(node) };
-      const isWeak = (node.tags || []).some(t => weakTags.includes(t));
 
-      if (isWeak && (d === 'GRAMMAR' || d === 'PRE_SPEAKING')) {
-        qUrgentRescue.push(nWithBenefit);
-      } else if (d === 'PRE_SPEAKING') qShadowing.push(nWithBenefit);
-      else if (d === 'SPEAKING') qSpkFormal.push(nWithBenefit);
-      else if (d.includes('PRE_WRITING')) qPreWrite.push(nWithBenefit);
-      else if (d === 'WRITING_T1') qWriteT1.push(nWithBenefit);
-      else if (d === 'WRITING_T2') qWriteT2.push(nWithBenefit);
-      else if (d === 'LISTENING' || d === 'PRE_LISTENING') qListening.push(nWithBenefit);
+      if (d === 'GRAMMAR') qGrammar.push(nWithBenefit);
       else if (d === 'READING' || d === 'PRE_READING') qReading.push(nWithBenefit);
-      else if (d === 'GRAMMAR') qGrammar.push(nWithBenefit);
+      else if (d === 'LISTENING' || d === 'PRE_LISTENING') qListening.push(nWithBenefit);
+      else if (d.includes('WRITING')) qWriting.push(nWithBenefit);
+      else if (d.includes('SPEAKING')) qSpeaking.push(nWithBenefit);
+    });
+
+    // 2. Tính toán phân bổ số ngày cho từng Chặng (Tổng cộng chuẩn 91 ngày)
+    // Chặng 1 (Ngữ pháp): khoảng 8 ngày
+    const daysPhase1 = Math.min(10, Math.max(6, Math.ceil(qGrammar.length / 2)));
+    // Chặng 2 (Reading + 100% Từ vựng): 28 ngày (đủ đúng 28 Unit từ vựng)
+    const daysPhase2 = qVocab.length > 0 ? qVocab.length : 28;
+    // Chặng 3 (Listening): 16 ngày
+    const daysPhase3 = 16;
+    // Chặng 4 (Writing): 19 ngày
+    const daysPhase4 = 19;
+    // Chặng 5 (Speaking bứt phá về đích): Số ngày còn lại (91 - 8 - 28 - 16 - 19 = 20 ngày)
+    const daysPhase5 = targetDays - (daysPhase1 + daysPhase2 + daysPhase3 + daysPhase4);
+
+    const pickFromQueue = (queue, maxMins = 50) => {
+      if (!queue || queue.length === 0) return null;
+      const task = queue.shift();
+      const dur = task.duration?.[speedProfile] || task.duration?.normal || 25;
+      return { ...task, assignedDurationMinutes: dur };
+    };
+
+    let currentDayNum = 1;
+
+    // -----------------------------------------------------------------------
+    // CHẶNG 1: NỀN TẢNG NGỮ PHÁP (NGÀY 1 -> daysPhase1) - TUYỆT ĐỐI KHÔNG CÓ NÓI/VIẾT
+    // -----------------------------------------------------------------------
+    for (let i = 0; i < daysPhase1 && currentDayNum <= targetDays; i++) {
+      const dayTasks = [];
+      let mins = 0;
+
+      while (mins < dailyTargetMinutes && qGrammar.length > 0) {
+        const task = pickFromQueue(qGrammar, 40);
+        if (task) {
+          dayTasks.push(task);
+          mins += task.assignedDurationMinutes;
+        }
+      }
+
+      if (dayTasks.length === 0) {
+        dayTasks.push({
+          id: `S2_GRAM_REV_${currentDayNum}`,
+          stage: "S2", domain: "GRAMMAR", type: "PRACTICE",
+          title: `Tổng ôn & Triệt tiêu lỗi câu phức / Thì quá khứ #${i + 1}`,
+          benefit: "Luyện phản xạ chuyển đổi câu chủ động sang bị động và sử dụng mệnh đề quan hệ.",
+          assignedDurationMinutes: 60,
+          url: "grammar/index-g.html"
+        });
+        mins = 60;
+      }
+
+      calendarDays.push({
+        dayNumber: currentDayNum,
+        totalMinutes: mins,
+        phaseId: "PHASE_1_GRAMMAR",
+        phaseName: "Chặng 1: Nền Tảng Ngữ Pháp Trọng Tâm",
+        phaseDesc: "Tập trung triệt tiêu toàn bộ lỗi chia thì, động từ bất quy tắc và câu phức trước khi làm đề.",
+        nodes: dayTasks
+      });
+      currentDayNum++;
+    }
+
+    // -----------------------------------------------------------------------
+    // CHẶNG 2: READING & 100% KHO TỪ VỰNG (MỖI NGÀY 1 UNIT TỪ VỰNG + 1 BÀI READING)
+    // -----------------------------------------------------------------------
+    for (let i = 0; i < daysPhase2 && currentDayNum <= targetDays; i++) {
+      const dayTasks = [];
+      let mins = 0;
+
+      // 1. Đúng 1 Unit từ vựng tuần tự từ Unit 1 đến Unit 28
+      const vTask = pickFromQueue(qVocab, 30);
+      if (vTask) {
+        dayTasks.push(vTask);
+        mins += vTask.assignedDurationMinutes;
+      }
+
+      // 2. Chạy song song 1 bài Reading Cambridge
+      const rTask = pickFromQueue(qReading, 45);
+      if (rTask) {
+        dayTasks.push(rTask);
+        mins += rTask.assignedDurationMinutes;
+      } else {
+        dayTasks.push({
+          id: `REV_READ_${currentDayNum}`,
+          stage: "S4", domain: "READING", type: "TEST",
+          title: `Reading Cambridge Thực Chiến: Giải Passage 3 dưới áp lực 20 phút`,
+          benefit: "Rèn kỹ thuật xử lý dạng bài khó Summary Completion và True/False/Not Given.",
+          assignedDurationMinutes: 45,
+          url: "reading/reading.html"
+        });
+        mins += 45;
+      }
+
+      calendarDays.push({
+        dayNumber: currentDayNum,
+        totalMinutes: mins,
+        phaseId: "PHASE_2_READING_VOCAB",
+        phaseName: "Chặng 2: Đột Phá Reading & Quét Sạch 100% Từ Vựng (28 Unit)",
+        phaseDesc: "Cày sạch toàn bộ 10 Unit bộ 300 từ và 18 Unit bộ 540 từ, kết hợp giải đề Reading chuẩn phòng thi.",
+        nodes: dayTasks
+      });
+      currentDayNum++;
+    }
+
+    // -----------------------------------------------------------------------
+    // CHẶNG 3: CHIẾN THUẬT LISTENING PHÒNG THI
+    // -----------------------------------------------------------------------
+    for (let i = 0; i < daysPhase3 && currentDayNum <= targetDays; i++) {
+      const dayTasks = [];
+      let mins = 0;
+
+      while (mins < dailyTargetMinutes && qListening.length > 0) {
+        const lTask = pickFromQueue(qListening, 35);
+        if (lTask) {
+          dayTasks.push(lTask);
+          mins += lTask.assignedDurationMinutes;
+        }
+      }
+
+      if (dayTasks.length === 0) {
+        dayTasks.push({
+          id: `REV_LIS_${currentDayNum}`,
+          stage: "S4", domain: "LISTENING", type: "TEST",
+          title: `Listening Cambridge 1.1x: Bẫy Matching Features & Chuyển ý Part 2/Part 3`,
+          benefit: "Luyện phản xạ bắt từ khóa khi người nói đảo chiều và trị tật mất dấu track âm thanh.",
+          assignedDurationMinutes: 45,
+          url: "listening/listening.html"
+        });
+        mins = 45;
+      }
+
+      calendarDays.push({
+        dayNumber: currentDayNum,
+        totalMinutes: mins,
+        phaseId: "PHASE_3_LISTENING",
+        phaseName: "Chặng 3: Chiến Thuật Listening & Trị Bẫy Đảo Chiều",
+        phaseDesc: "Rèn kỹ năng bám dấu bài nghe, triệt tiêu lỗi bỏ trống chuỗi câu ở Part 2 và Part 3.",
+        nodes: dayTasks
+      });
+      currentDayNum++;
+    }
+
+    // -----------------------------------------------------------------------
+    // CHẶNG 4: THỰC CHIẾN WRITING TASK 1 & TASK 2 (CAI NGHIỆN BÀI MẪU)
+    // -----------------------------------------------------------------------
+    for (let i = 0; i < daysPhase4 && currentDayNum <= targetDays; i++) {
+      const dayTasks = [];
+      let mins = 0;
+
+      while (mins < dailyTargetMinutes && qWriting.length > 0) {
+        const wTask = pickFromQueue(qWriting, 50);
+        if (wTask) {
+          dayTasks.push(wTask);
+          mins += wTask.assignedDurationMinutes;
+        }
+      }
+
+      if (dayTasks.length === 0) {
+        dayTasks.push({
+          id: `REV_WRT2_${currentDayNum}`,
+          stage: "S4", domain: "WRITING_T2", type: "PRACTICE",
+          title: `Writing Task 2 Độc Lập: Viết luận 250 từ chuẩn PEEL (Bấm giờ 40 phút)`,
+          benefit: "Tự lên dàn ý và triển khai câu luận điểm độc lập, không tra cứu tài liệu gợi ý.",
+          assignedDurationMinutes: 50,
+          url: "writing task 2/index-t2.html"
+        });
+        mins = 50;
+      }
+
+      calendarDays.push({
+        dayNumber: currentDayNum,
+        totalMinutes: mins,
+        phaseId: "PHASE_4_WRITING",
+        phaseName: "Chặng 4: Thực Chiến Writing Task 1 & Task 2 (Cai Nghiện Bài Mẫu)",
+        phaseDesc: "Ép thời gian viết 20 phút Task 1 và 40 phút Task 2, cấm tuyệt đối việc ngâm tài liệu gợi ý.",
+        nodes: dayTasks
+      });
+      currentDayNum++;
+    }
+
+    // -----------------------------------------------------------------------
+    // CHẶNG 5: VỀ ĐÍCH BÙNG NỔ SPEAKING (KÉO TỪ 4.5 LÊN 7.0)
+    // -----------------------------------------------------------------------
+    while (currentDayNum <= targetDays) {
+      const dayTasks = [];
+      let mins = 0;
+
+      while (mins < dailyTargetMinutes && qSpeaking.length > 0) {
+        const sTask = pickFromQueue(qSpeaking, 35);
+        if (sTask) {
+          dayTasks.push(sTask);
+          mins += sTask.assignedDurationMinutes;
+        }
+      }
+
+      if (dayTasks.length === 0) {
+        dayTasks.push({
+          id: `REV_SPK_P3_${currentDayNum}`,
+          stage: "S4", domain: "SPEAKING", type: "PRACTICE",
+          title: `Speaking Part 3 Phản Biện Chuyên Sâu: Trả lời 4 bước AREA không ngập ngừng`,
+          benefit: "Rèn phản xạ kéo dài câu trả lời mạch lạc, triệt tiêu tật đệm 'like', 'yeah' và câu run-on.",
+          assignedDurationMinutes: 35,
+          url: "speaking/index-s.html"
+        });
+        dayTasks.push({
+          id: `REV_SHAD_FINAL_${currentDayNum}`,
+          stage: "S4", domain: "PRE_SPEAKING", type: "PRACTICE",
+          title: `Shadowing Diễn Thuyết C1: Bật rõ âm đuôi (-s, -ed) & Ngữ điệu bản ngữ`,
+          benefit: "Chuẩn hóa cơ miệng phát âm, trị dứt điểm tật nuốt âm đuôi gây hiểu nhầm từ vựng.",
+          assignedDurationMinutes: 30,
+          url: "pre-speaking/index-ps.html"
+        });
+        mins = 65;
+      }
+
+      calendarDays.push({
+        dayNumber: currentDayNum,
+        totalMinutes: mins,
+        phaseId: "PHASE_5_SPEAKING",
+        phaseName: "Chặng 5: Về Đích - Đột Phá Speaking & Shadowing Toàn Diện",
+        phaseDesc: "Dồn toàn lực giải quyết điểm nghẽn 4.5: Trị dứt điểm câu dây thừng, nuốt âm đuôi và lỗi nhảy thì.",
+        nodes: dayTasks
+      });
+      currentDayNum++;
+    }
+
+    return {
+      totalDays: calendarDays.length,
+      estimatedMonths: stats.months,
+      dailySchedule: calendarDays
+    };
+  }
+
+  // =========================================================================
+  // THUẬT TOÁN 2: XOAY VÒNG TIÊU CHUẨN (CHO HỌC VIÊN KHÔNG YÊU CẦU THỨ TỰ)
+  // =========================================================================
+  generateStandardSpiralCalendar(retainedNodes, targetDays, dailyTargetMinutes, speedProfile, stats, aiOptions) {
+    const calendarDays = [];
+    const qGrammar = [];
+    const qVocab = [];
+    const qPreLis = [];
+    const qOffLis = [];
+    const qPreRead = [];
+    const qOffRead = [];
+    const qPreWrite = [];
+    const qOffWrite = [];
+    const qPreSpk = [];
+    const qOffSpk = [];
+    const qMock = [];
+
+    retainedNodes.forEach(node => {
+      const d = (node.domain || '').toUpperCase();
+      const nWithBenefit = { ...node, benefit: node.benefit || this.generateBenefit(node) };
+
+      if (d === 'GRAMMAR') qGrammar.push(nWithBenefit);
       else if (d === 'VOCABULARY') qVocab.push(nWithBenefit);
+      else if (d === 'PRE_LISTENING') qPreLis.push(nWithBenefit);
+      else if (d === 'LISTENING') qOffLis.push(nWithBenefit);
+      else if (d === 'PRE_READING') qPreRead.push(nWithBenefit);
+      else if (d === 'READING') qOffRead.push(nWithBenefit);
+      else if (d.includes('PRE_WRITING')) qPreWrite.push(nWithBenefit);
+      else if (d.includes('WRITING')) qOffWrite.push(nWithBenefit);
+      else if (d === 'PRE_SPEAKING') qPreSpk.push(nWithBenefit);
+      else if (d === 'SPEAKING') qOffSpk.push(nWithBenefit);
       else if (d === 'MOCK_TEST') qMock.push(nWithBenefit);
     });
 
-    const spkWeight = (weights.SPEAKING || 1.0);
-    const writeWeight = (weights.WRITING_T2 || weights.WRITING_T1 || 1.0);
-    const readWeight = (weights.READING || 1.0);
-
-    const pickTask = (queue, dayNodes, usedDomains, maxAllowed = 40) => {
-      if (!queue || queue.length === 0) return 0;
-      const candidate = queue[0];
+    const pickTask = (queue, maxAllowed = 40) => {
+      if (!queue || queue.length === 0) return null;
+      const candidate = queue.shift();
       const dur = candidate.duration?.[speedProfile] || candidate.duration?.normal || 20;
-
-      queue.shift();
-      dayNodes.push({
-        ...candidate,
-        assignedDurationMinutes: dur
-      });
-      return dur;
+      return { ...candidate, assignedDurationMinutes: dur };
     };
 
-    let reviewLoopIndex = 1;
-
-    // VÒNG LẶP CHẠY CHÍNH XÁC 100% ĐỦ targetDays (91 NGÀY)
     for (let currentDay = 1; currentDay <= targetDays; currentDay++) {
       let dayMinutes = 0;
       const dayNodes = [];
-      const usedDomainsThisDay = new Set();
 
-      // 1. CỨU VIỆN KHẨN CẤP (XẾP ĐẦU TIÊN Ở CÁC TUẦN ĐẦU)
-      if (qUrgentRescue.length > 0) {
-        dayMinutes += pickTask(qUrgentRescue, dayNodes, usedDomainsThisDay, 25);
+      if (qGrammar.length > 0) {
+        const t = pickTask(qGrammar, 30);
+        if (t) { dayNodes.push(t); dayMinutes += t.assignedDurationMinutes; }
+      }
+      if (dayMinutes < dailyTargetMinutes && (qPreLis.length > 0 || qOffLis.length > 0)) {
+        const t = pickTask(qPreLis.length > 0 ? qPreLis : qOffLis, 35);
+        if (t) { dayNodes.push(t); dayMinutes += t.assignedDurationMinutes; }
+      }
+      if (dayMinutes < dailyTargetMinutes && (qVocab.length > 0 || qPreRead.length > 0 || qOffRead.length > 0)) {
+        const t = pickTask(currentDay % 2 === 1 && qVocab.length > 0 ? qVocab : (qPreRead.length > 0 ? qPreRead : qOffRead), 35);
+        if (t) { dayNodes.push(t); dayMinutes += t.assignedDurationMinutes; }
+      }
+      if (dayMinutes < dailyTargetMinutes && (qPreWrite.length > 0 || qOffWrite.length > 0)) {
+        const t = pickTask(qPreWrite.length > 0 ? qPreWrite : qOffWrite, 45);
+        if (t) { dayNodes.push(t); dayMinutes += t.assignedDurationMinutes; }
+      }
+      if (dayMinutes < dailyTargetMinutes && (qPreSpk.length > 0 || qOffSpk.length > 0)) {
+        const t = pickTask(qPreSpk.length > 0 ? qPreSpk : qOffSpk, 35);
+        if (t) { dayNodes.push(t); dayMinutes += t.assignedDurationMinutes; }
       }
 
-      // 2. ƯU TIÊN SỐ 1: BÀI NÓI (NẾU TRỌNG SỐ CAO THÌ NGÀY NÀO CŨNG PHẢI NÓI)
-      if (spkWeight >= 1.5) {
-        // Luân phiên 1 bài Shadowing câu ngắn trị nuốt âm hoặc 1 bài phản xạ Part 1/Part 2
-        if (qShadowing.length > 0 && currentDay % 2 === 1) {
-          dayMinutes += pickTask(qShadowing, dayNodes, usedDomainsThisDay, 25);
-          usedDomainsThisDay.add('SPEAKING');
-        } else if (qSpkFormal.length > 0) {
-          dayMinutes += pickTask(qSpkFormal, dayNodes, usedDomainsThisDay, 25);
-          usedDomainsThisDay.add('SPEAKING');
-        } else if (qShadowing.length > 0) {
-          dayMinutes += pickTask(qShadowing, dayNodes, usedDomainsThisDay, 25);
-          usedDomainsThisDay.add('SPEAKING');
-        }
-      }
-
-      // 3. ƯU TIÊN SỐ 2: VIẾT (ĐẶC TRỊ CAI NGHIỆN BÀI MẪU)
-      if (writeWeight >= 1.5 && dayMinutes < dailyTargetMinutes) {
-        if (qPreWrite.length > 0 && currentDay <= 30) {
-          dayMinutes += pickTask(qPreWrite, dayNodes, usedDomainsThisDay, 30);
-          usedDomainsThisDay.add('WRITING');
-        } else if (currentDay % 2 === 0 && qWriteT1.length > 0) {
-          dayMinutes += pickTask(qWriteT1, dayNodes, usedDomainsThisDay, 35);
-          usedDomainsThisDay.add('WRITING');
-        } else if (qWriteT2.length > 0) {
-          dayMinutes += pickTask(qWriteT2, dayNodes, usedDomainsThisDay, 45);
-          usedDomainsThisDay.add('WRITING');
-        }
-      }
-
-      // 4. NGHE (LUYỆN BẮT TỪ KHÓA & TRỊ MẤT DẤU BĂNG)
-      if (!usedDomainsThisDay.has('LISTENING') && dayMinutes < dailyTargetMinutes && qListening.length > 0) {
-        if (currentDay % 2 === 1) {
-          dayMinutes += pickTask(qListening, dayNodes, usedDomainsThisDay, 25);
-          usedDomainsThisDay.add('LISTENING');
-        }
-      }
-
-      // 5. ĐỌC (NẾU HỌC SINH ĐÃ 6.5 THÌ CHỈ XẾP 4-5 NGÀY/LẦN ĐỂ DUY TRÌ TAY LÀM ĐỀ)
-      if (readWeight <= 0.5) {
-        if (currentDay % 5 === 0 && qReading.length > 0 && !usedDomainsThisDay.has('READING')) {
-          dayMinutes += pickTask(qReading, dayNodes, usedDomainsThisDay, 30);
-          usedDomainsThisDay.add('READING');
-        }
-      } else if (dayMinutes < dailyTargetMinutes && qReading.length > 0 && !usedDomainsThisDay.has('READING')) {
-        dayMinutes += pickTask(qReading, dayNodes, usedDomainsThisDay, 25);
-        usedDomainsThisDay.add('READING');
-      }
-
-      // 6. TỪ VỰNG HOẶC NGỮ PHÁP BỔ TRỢ
-      if (dayMinutes < dailyTargetMinutes) {
-        if (qVocab.length > 0 && currentDay % 3 === 0) {
-          dayMinutes += pickTask(qVocab, dayNodes, usedDomainsThisDay, 20);
-        } else if (qGrammar.length > 0) {
-          dayMinutes += pickTask(qGrammar, dayNodes, usedDomainsThisDay, 20);
-        }
-      }
-
-      // 7. BẢO TOÀN THỜI LƯỢNG (AUTO-REFILL): NẾU CHƯA ĐỦ 80 PHÚT, BƠM THÊM BÀI ĐẾN ĐỦ
-      if (dayMinutes < 70) {
-        const refillQueues = [qWriteT2, qWriteT1, qSpkFormal, qShadowing, qListening, qVocab];
-        for (const rQ of refillQueues) {
-          if (rQ.length > 0) {
-            dayMinutes += pickTask(rQ, dayNodes, usedDomainsThisDay, 35);
-            if (dayMinutes >= 75) break;
-          }
-        }
-      }
-
-      // 8. BẢO HIỂM CUỐI: NẾU TẤT CẢ KHO BÀI MỚI ĐÃ HẾT TRƯỚC NGÀY 91 -> KÍCH HOẠT VÒNG LẶP ÔN TẬP CAO CẤP
       if (dayNodes.length === 0) {
-        const isSpeakingTurn = (currentDay % 2 === 1);
-        if (isSpeakingTurn) {
-          dayNodes.push({
-            id: `REV_SPK_${String(reviewLoopIndex).padStart(2, '0')}`,
-            stage: "S4", domain: "SPEAKING", type: "PRACTICE",
-            title: `[ÔN TẬP DUY TRÌ #${reviewLoopIndex}] Luyện phản xạ ngắt nghỉ Speaking Part 2 & Part 3 (Bấm giờ phòng thi)`,
-            benefit: "Ép tốc độ phản xạ và kiểm soát câu ngắn, loại bỏ hoàn toàn tật ngập ngừng và câu run-on.",
-            assignedDurationMinutes: 30,
-            url: "speaking/index-s.html"
-          });
-          dayNodes.push({
-            id: `REV_SHADOW_${String(reviewLoopIndex).padStart(2, '0')}`,
-            stage: "S4", domain: "PRE_SPEAKING", type: "PRACTICE",
-            title: `[SHADOWING C1 #${reviewLoopIndex}] Luyện ngữ điệu & Bật âm đuôi (-s, -ed) theo người bản xứ`,
-            benefit: "Chuẩn hóa cơ miệng, triệt tiêu lỗi nuốt âm đuôi gây mất điểm Pronunciation.",
-            assignedDurationMinutes: 25,
-            url: "pre-speaking/index-ps.html"
-          });
-          dayMinutes = 55;
-        } else {
-          dayNodes.push({
-            id: `REV_WRT_${String(reviewLoopIndex).padStart(2, '0')}`,
-            stage: "S4", domain: "WRITING_T2", type: "PRACTICE",
-            title: `[VIẾT ĐỘC LẬP #${reviewLoopIndex}] Viết bài luận Task 2 bấm giờ 40 phút (CẤM XEM BÀI MẪU)`,
-            benefit: "Cai nghiện hoàn toàn thói quen ngâm tài liệu gợi ý, tự lên dàn ý PEEL và viết chuẩn thời gian.",
-            assignedDurationMinutes: 50,
-            url: "writing task 2/index-t2.html"
-          });
-          dayMinutes = 50;
-        }
-        reviewLoopIndex++;
+        dayNodes.push({
+          id: `MOCK_FULL_${currentDay}`,
+          stage: "S4", domain: "MOCK_TEST", type: "TEST",
+          title: `Tổng duyệt Đề Thi Thử Áp Lực Chuẩn Phòng Thi 3 Tiếng`,
+          benefit: "Rèn luyện thể lực và chiến thuật làm bài liên tục 4 kỹ năng.",
+          assignedDurationMinutes: 120,
+          url: "reading/reading.html"
+        });
+        dayMinutes = 120;
       }
 
       calendarDays.push({
         dayNumber: currentDay,
         totalMinutes: dayMinutes,
+        phaseId: "PHASE_SPIRAL",
+        phaseName: "Lộ Trình Tích Hợp 4 Kỹ Năng",
+        phaseDesc: "Phát triển đồng đều 4 kỹ năng kết hợp củng cố ngữ pháp và từ vựng mỗi ngày.",
         nodes: dayNodes
       });
     }
