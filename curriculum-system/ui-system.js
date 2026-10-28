@@ -2,7 +2,7 @@
  * curriculum-system/ui-system.js
  * GIAO DIỆN LỘ TRÌNH, LỊCH CHUYÊN CẦN & BANNER LỊCH SỬ PASTEL ĐỔI MÀU THEO HỌC PHẦN
  * (BẢN ĐẦY ĐỦ 100% - KHÔNG CẮT BỚT BẤT KỲ TÍNH NĂNG NÀO)
- * GIAI ĐOẠN 3 HOÀN CHỈNH: KẾT NỐI AI 5 CHẶNG TUẦN TỰ, QUYỀN ADMIN TỐI CAO & CÔ LẬP LỊCH SỬ HỌC VIÊN
+ * GIAI ĐOẠN 3 HOÀN CHỈNH: KẾT NỐI HẠN NGẠCH 75% ĐỀ THI THẬT, QUYỀN ADMIN TỐI CAO & CÔ LẬP LỊCH SỬ
  */
 
 import { curriculumEngineSystem } from './engine-system.js';
@@ -212,7 +212,6 @@ class CurriculumUISystem {
     return [];
   }
 
-  // ĐỐI SOÁT BÀI LÀM: CÔ LẬP HOÀN TOÀN, TUYỆT ĐỐI KHÔNG ĐỂ ADMIN ĐÈ LÊN HỌC SINH
   getNodeCompletionInfo(node, specifiedEmail = null) {
     try {
       const activeEmail = (specifiedEmail || this.getActiveWorkingEmail()).toLowerCase().trim();
@@ -324,7 +323,7 @@ class CurriculumUISystem {
   }
 
   // =========================================================================
-  // 3. CHẨN ĐOÁN AI & TRUYỀN LỆNH KỸ THUẬT 5 CHẶNG SANG ENGINE
+  // 3. CHẨN ĐOÁN AI & NẠP HẠN NGẠCH 75% ĐỀ THI THẬT + VÒNG LẶP 3 NGÀY
   // =========================================================================
   async runAIDiagnostic() {
     const text = document.getElementById('diagTextInput')?.value.trim();
@@ -334,7 +333,7 @@ class CurriculumUISystem {
     }
     const btn = document.getElementById('btnStartAIAnalyze');
     btn.disabled = true;
-    btn.innerHTML = `⏳ AI Gemini đang băm lộ trình 5 chặng tuần tự...`;
+    btn.innerHTML = `⏳ AI Gemini đang băm lộ trình 5 chặng & khóa hạn ngạch đề thật...`;
 
     try {
       const result = await analyzeStudentDiagnostic(text);
@@ -348,13 +347,14 @@ class CurriculumUISystem {
       const parsedTarget = parseFloat(result.target_band);
       const targetB = Math.min(7.0, !isNaN(parsedTarget) ? parsedTarget : 7.0);
 
-      // TRUYỀN TOÀN BỘ LỆNH ĐIỀU PHỐI (CHẶNG TUẦN TỰ, 100% TỪ VỰNG) SANG ENGINE
+      // TRUYỀN TOÀN BỘ CHỈ THỊ HẠN NGẠCH SƯ PHẠM VÀO ENGINE
       const pruned = curriculumEngineSystem.pruneCurriculumByBands(startB, targetB, result);
       const savedCount = MASTER_CURRICULUM_SYSTEM.length - pruned.length;
       const stats = curriculumEngineSystem.calculateSessionsByBands(startB, targetB);
 
       const targetEmail = this.getActiveWorkingEmail();
       const isAdmin = this.checkIsAdmin();
+      const quota = result.quota_policy || {};
 
       let badgesHtml = '';
       if (result.schedule_mode === 'SEQUENTIAL_PHASES') {
@@ -363,8 +363,17 @@ class CurriculumUISystem {
       if (result.vocab_requirement === 'FULL_100_PERCENT') {
         badgesHtml += `<span style="background:#dcfce7; color:#15803d; padding:4px 10px; border-radius:8px; font-weight:900; font-size:12px;">📖 HỌC SẠCH 100% TỪ VỰNG (28 UNIT)</span> `;
       }
+      if (quota.min_official_exam_ratio) {
+        badgesHtml += `<span style="background:#fef3c7; color:#b45309; padding:4px 10px; border-radius:8px; font-weight:900; font-size:12px;">🛡️ HẠN NGẠCH ${Math.round(quota.min_official_exam_ratio * 100)}% ĐỀ THI THẬT</span> `;
+      }
+      if (quota.review_interval_days) {
+        badgesHtml += `<span style="background:#f3e8ff; color:#7e22ce; padding:4px 10px; border-radius:8px; font-weight:900; font-size:12px;">🔄 ÔN TẬP DUY TRÌ: ${quota.review_interval_days} NGÀY/ĐỀ CAM</span> `;
+      }
+      if (quota.prohibited_levels && quota.prohibited_levels.length > 0) {
+        badgesHtml += `<span style="background:#fee2e2; color:#b91c1c; padding:4px 10px; border-radius:8px; font-weight:900; font-size:12px;">🚫 ĐÃ CHẶN BÀI VỠ LÒNG: ${quota.prohibited_levels.join(', ')}</span> `;
+      }
       if (result.bottleneck_skill) {
-        badgesHtml += `<span style="background:#fee2e2; color:#b91c1c; padding:4px 10px; border-radius:8px; font-weight:900; font-size:12px;">🚨 Điểm nghẽn ưu tiên: ${result.bottleneck_skill}</span> `;
+        badgesHtml += `<span style="background:#fee2e2; color:#b91c1c; padding:4px 10px; border-radius:8px; font-weight:900; font-size:12px;">🚨 Điểm nghẽn: ${result.bottleneck_skill}</span> `;
       }
       if (result.pruned_domains && result.pruned_domains.length > 0) {
         badgesHtml += `<span style="background:#f1f5f9; color:#475569; padding:4px 10px; border-radius:8px; font-weight:800; font-size:12px;">✂️ Gọt bỏ: ${result.pruned_domains.join(', ')}</span> `;
@@ -373,7 +382,7 @@ class CurriculumUISystem {
       let constraintsHtml = '';
       if (result.pedagogical_constraints && result.pedagogical_constraints.length > 0) {
         constraintsHtml = `
-          <div style="background:#fffbeb; border:1px solid #fde68a; border-radius:10px; padding:10px 14px; margin:10px 0; font-size:13px; color:#92400e;">
+          <div style="background:#fffbeb; border:1.5px solid #fde68a; border-radius:10px; padding:10px 14px; margin:10px 0; font-size:13px; color:#92400e;">
             <b>📌 Chỉ thị sư phạm đặc trị từ Gemini:</b>
             <ul style="margin:4px 0 0 16px; padding:0; line-height:1.5;">
               ${result.pedagogical_constraints.map(c => `<li>${c}</li>`).join('')}
@@ -433,7 +442,6 @@ class CurriculumUISystem {
     }
 
     const isAdmin = this.checkIsAdmin();
-    // BỘ MÁY ENGINE THỰC THI CHÍNH XÁC LỆNH 5 CHẶNG TUẦN TỰ
     const retainedNodes = curriculumEngineSystem.pruneCurriculumByBands(sBand, tBand, aiData || {});
     const totals = curriculumEngineSystem.calculateTotals(retainedNodes, 'normal', 1.5, sBand, tBand);
     const scheduleData = curriculumEngineSystem.generateDailyCalendar(retainedNodes, 'normal', 1.5, sBand, tBand, aiData || {});
