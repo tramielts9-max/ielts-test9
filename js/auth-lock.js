@@ -1,6 +1,6 @@
 /**
- * js/auth-lock.js - HỆ THỐNG PHÂN QUYỀN FREEMIUM, MODAL ZALO & FLOATING ADMIN TOOLBAR
- * Trạm IELTS - Bản quyền quản trị & chuyển đổi khách hàng
+ * js/auth-lock.js - HỆ THỐNG PHÂN QUYỀN FREEMIUM & LÁ CHẮN TƯƠNG TÁC TỰ ĐỘNG
+ * Trạm IELTS - Cho phép xem đề thi, chặn ngay khi bấm vào ô làm bài / lựa chọn / nộp bài
  */
 
 const AUTH_STORAGE_KEYS = {
@@ -14,6 +14,7 @@ class AuthLockSystem {
     this.studentId = this.getOrCreateStudentID();
     this.initAdminBar();
     this.injectConversionModal();
+    this.activateUniversalInteractionBarrier(); // Kích hoạt lá chắn tự động
   }
 
   // 1. Tự sinh hoặc lấy mã học viên TR-xxxx
@@ -29,7 +30,6 @@ class AuthLockSystem {
 
   // 2. Kiểm tra học sinh đã được duyệt quyền chưa
   isStudentActive() {
-    // Nếu có email admin thì luôn cho qua
     const email = (localStorage.getItem('ielts_student_email') || '').toLowerCase();
     if (email.includes('admin') || email.includes('tramielts9@gmail.com') || email.includes('dinhnguyenphuc019.2@gmail.com')) {
       return true;
@@ -40,17 +40,70 @@ class AuthLockSystem {
   // 3. Khóa chuyển đổi (Execution Lock) - Chặn hành động và bung Modal Zalo
   enforceLock(actionName = "Bài tập & Chấm thi AI") {
     if (this.isStudentActive()) return true;
-
     this.showConversionModal(actionName);
     return false;
   }
 
-  // 4. Modal Zalo Onboarding
+  // 4. LÁ CHẮN TỰ ĐỘNG TOÀN SÀN: Bắt mọi cú click vào ô làm bài / trắc nghiệm / nộp bài
+  activateUniversalInteractionBarrier() {
+    if (this.isStudentActive()) return;
+
+    // Danh sách selector cần chặn khi chưa kích hoạt
+    const interactiveSelectors = [
+      'input:not([id*="admin"]):not([id*="login"]):not([id*="search"])',
+      'textarea:not([id*="admin"])',
+      'select:not([id*="admin"])',
+      '.choice-btn',
+      '.option-btn',
+      '.btn-submit',
+      '.btn-submit-grading',
+      '.btn-full-submit',
+      '#btnSubmitGrading',
+      '#btnStartGrading',
+      '#btnBottomSubmit',
+      '#recBtn'
+    ].join(',');
+
+    const blockEvent = (e) => {
+      if (this.isStudentActive()) return;
+
+      const target = e.target.closest(interactiveSelectors);
+      if (target) {
+        // Chặn hoàn toàn không cho gõ phím / chọn đáp án / submit
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        if (typeof target.blur === 'function') target.blur();
+
+        let featureName = "Làm bài tập";
+        if (target.tagName === 'TEXTAREA') featureName = "Viết bài luận / Trả lời";
+        else if (target.type === 'radio' || target.classList.contains('choice-btn')) featureName = "Chọn đáp án trắc nghiệm";
+        else if (target.id === 'recBtn') featureName = "Phòng thu âm Speaking";
+        else if (target.innerText && (target.innerText.includes('Chấm') || target.innerText.includes('Nộp'))) featureName = "Chấm điểm & Sửa bài AI";
+
+        this.showConversionModal(featureName);
+      }
+    };
+
+    // Bắt sự kiện từ gốc (Capture Phase) để chặn trước khi logic bài thi kịp chạy
+    document.addEventListener('pointerdown', blockEvent, true);
+    document.addEventListener('focusin', blockEvent, true);
+    document.addEventListener('keydown', (e) => {
+      if (this.isStudentActive()) return;
+      if (e.target.closest(interactiveSelectors)) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.showConversionModal("Làm bài tập");
+      }
+    }, true);
+  }
+
+  // 5. Modal Zalo Onboarding
   injectConversionModal() {
     if (document.getElementById('zaloConversionModal')) return;
 
     const modalHtml = `
-      <div id="zaloConversionModal" style="display:none; position:fixed; inset:0; z-index:99999; background:rgba(15, 23, 42, 0.75); backdrop-filter:blur(6px); align-items:center; justify-content:center; padding:16px;">
+      <div id="zaloConversionModal" style="display:none; position:fixed; inset:0; z-index:999999; background:rgba(15, 23, 42, 0.75); backdrop-filter:blur(6px); align-items:center; justify-content:center; padding:16px;">
         <div style="background:#FFFFFF; border:3px solid #E8E2D8; border-bottom:7px solid #D3CBC0; border-radius:26px; max-width:440px; width:100%; padding:26px 22px; text-align:center; position:relative; box-shadow:0 20px 40px rgba(0,0,0,0.3); font-family:'Plus Jakarta Sans', system-ui, sans-serif;">
           
           <button type="button" onclick="window.authLockSystem.hideConversionModal()" style="position:absolute; top:14px; right:16px; background:#F1ECE6; border:none; width:34px; height:34px; border-radius:50%; font-weight:900; color:#7E7672; cursor:pointer; font-size:16px;">✕</button>
@@ -81,7 +134,7 @@ class AuthLockSystem {
           </div>
 
           <a id="btnOpenZaloApp" href="https://zalo.me/0967561243" target="_blank" style="background:#0068FF; color:#FFFFFF; text-decoration:none; padding:13px 20px; border-radius:14px; font-weight:900; font-size:14.5px; display:flex; align-items:center; justify-content:center; gap:8px; border-bottom:4px solid #004EC4; margin-bottom:12px;">
-            <i class="fa-solid fa-comment-dots"></i> Nhắn Zalo Cho Thầy Kích Hoạt
+            Nhắn Zalo Cho Thầy Kích Hoạt
           </a>
 
           <div style="font-size:12px; font-weight:700; color:#64748B;">
@@ -113,15 +166,13 @@ class AuthLockSystem {
     });
   }
 
-  // 5. Khởi tạo thanh Admin nổi (Chỉ hiện khi URL có ?admin=...)
+  // 6. Thanh Admin nổi (chỉ hiện khi có ?admin= trên URL)
   initAdminBar() {
     const params = new URLSearchParams(window.location.search);
-    const hasAdminParam = params.has('admin');
-
-    if (!hasAdminParam) return;
+    if (!params.has('admin')) return;
 
     const barHtml = `
-      <div id="floatingAdminBar" style="position:fixed; bottom:0; left:0; right:0; z-index:999999; background:#0F172A; color:#FFFFFF; border-top:3px solid #D97706; padding:10px 18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; font-family:monospace; font-size:13px; box-shadow:0 -4px 20px rgba(0,0,0,0.4);">
+      <div id="floatingAdminBar" style="position:fixed; bottom:0; left:0; right:0; z-index:9999999; background:#0F172A; color:#FFFFFF; border-top:3px solid #D97706; padding:10px 18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; font-family:monospace; font-size:13px; box-shadow:0 -4px 20px rgba(0,0,0,0.4);">
         <div style="display:flex; align-items:center; gap:10px;">
           <span style="background:#D97706; color:white; padding:3px 8px; border-radius:6px; font-weight:bold;">🛠️ TRẠM ADMIN TOOLBAR</span>
           <span>Mã tab hiện tại: <b style="color:#38BDF8;">${this.studentId}</b></span>
