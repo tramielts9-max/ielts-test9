@@ -783,20 +783,8 @@ function isStudentUnlocked() {
     }
   }
 
-  function bindModuleGateInterceptors() {
-    const isUnlocked = isStudentUnlocked();
-
-    document.querySelectorAll('.module-card').forEach(card => {
-      const btn = card.querySelector('.btn-module-white');
-      const title = card.querySelector('h3')?.innerText || 'Bài học';
-
-      if (btn && !isUnlocked) {
-        btn.onclick = (e) => {
-          e.preventDefault();
-          window.openZaloModal(title);
-        };
-      }
-    });
+function bindModuleGateInterceptors() {
+    // ĐÃ GỠ KHÓA BANNER: Cho phép học sinh bấm vào xem nội dung bài học thoải mái
   }
 
   window.switchMainView = (view) => {
