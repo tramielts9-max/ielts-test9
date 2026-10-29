@@ -1,8 +1,8 @@
 /**
  * vocab/js-v/app-v.js
- * BỘ ĐIỀU KHIỂN TỔNG THỂ TỪ VỰNG DUOLINGO X TRẠM IELTS (BẢN ĐẠI TU TOÀN DIỆN)
- * BẢN FULL ĐẦY ĐỦ 100% - KIỂM TRA BẢNG LIST 30 TỪ, AI CHẤM TRỌN GÓI 1 LẦN,
- * HỌC FLASHCARD TỪNG BÀI & ĐỒNG BỘ LỊCH SỬ TRANG CHỦ + GOOGLE DRIVE
+ * BỘ ĐIỀU KHIỂN TỔNG THỂ TỪ VỰNG DUOLINGO X TRẠM IELTS
+ * TÍCH HỢP FLASHCARD DARK UI CHUẨN TEST8 (LOA + PHÍM TẮT + ✕ / ✓)
+ * VÀ BÀI THI LIST 30 TỪ AI CHẤM TRỌN GÓI
  */
 
 // 1. MÃ HÓA RUNTIME AUTH KEY CHO GEMINI AI
@@ -33,6 +33,7 @@ class VocabApp {
     // Trạng thái Flashcard
     this.fcCurrentIndex = 0;
     this.isCardFlipped = false;
+    this.keyHandler = null;
 
     // Trạng thái Bài thi List 30 từ
     this.examTimerInterval = null;
@@ -69,7 +70,6 @@ class VocabApp {
     const userLabel = document.getElementById('userDisplayLabel');
     if (userLabel) userLabel.innerText = `${this.user.name} (${this.user.email})`;
 
-    // Đếm chuỗi ngày học từ lịch sử chung
     const localHist = JSON.parse(localStorage.getItem('ielts_local_history') || '[]');
     const vocabAttempts = localHist.filter(item => (item.moduleType === 'vocab' || (item.testTitle && item.testTitle.includes('Từ vựng'))));
     
@@ -77,9 +77,6 @@ class VocabApp {
     if (xpEl) xpEl.innerHTML = `<i class="fa-solid fa-bolt"></i> ${vocabAttempts.length * 30} KN`;
   }
 
-  // =========================================================================
-  // 1. THANH CHỌN KHÓA HỌC (300 TỪ / 540 TỪ)
-  // =========================================================================
   initCourseDropdown() {
     const dropdown = document.getElementById('courseSelectorDropdown');
     if (!dropdown) return;
@@ -94,7 +91,7 @@ class VocabApp {
   }
 
   // =========================================================================
-  // 2. MÀN HÌNH CHÍNH: LỘ TRÌNH TỪNG UNIT (KÈM SỐ TỪ THUỘC & ĐIỂM KIỂM TRA)
+  // 1. MÀN HÌNH CHÍNH: LỘ TRÌNH TỪNG UNIT
   // =========================================================================
   renderRoadmapLessons() {
     const container = document.getElementById('roadmapLessonList');
@@ -107,11 +104,9 @@ class VocabApp {
     let totalLearnedAllUnits = 0;
     const totalWordsAllUnits = this.currentCourse.lessons.length * 30;
 
-    container.innerHTML = this.currentCourse.lessons.map((lesson, idx) => {
+    container.innerHTML = this.currentCourse.lessons.map((lesson) => {
       const stats = this.getUnitStats(lesson.file);
       totalLearnedAllUnits += stats.learnedCount;
-
-      const isDone = stats.learnedCount > 0 || stats.attemptsCount > 0;
 
       return `
         <div class="vocab-unit-card">
@@ -128,7 +123,6 @@ class VocabApp {
                 ${lesson.subTitle}
               </div>
 
-              <!-- THỐNG KÊ CHI TIẾT TỪNG BÀI THEO YÊU CẦU TRANG 15 -->
               <div class="unit-stat-pills">
                 <span class="pill-learned">
                   <i class="fa-solid fa-circle-check"></i> Đã thuộc: <b>${stats.learnedCount}/30 từ</b>
@@ -166,7 +160,6 @@ class VocabApp {
     }
   }
 
-  // Quản lý dữ liệu học tập của từng Unit trong LocalStorage
   getUnitStorageKey(file) {
     const cleanEmail = this.user.email.replace(/[^a-zA-Z0-9]/g, '_');
     return `sv_unit_stats_${cleanEmail}_${file}`;
@@ -186,7 +179,7 @@ class VocabApp {
   }
 
   // =========================================================================
-  // 3. MÀN HÌNH FLASHCARD: HỌC TỪ MỚI TRƯỚC KHI KHẢO BÀI
+  // 2. MÀN HÌNH FLASHCARD DARK UI (CHUẨN TEST8)
   // =========================================================================
   async openFlashcard(file, title) {
     try {
@@ -201,81 +194,130 @@ class VocabApp {
       document.getElementById('listExamScreen').style.display = 'none';
       document.getElementById('flashcardScreen').style.display = 'block';
 
+      this.bindFlashcardShortcuts();
       this.renderCurrentFlashcard();
     } catch(e) {
       alert("Lỗi tải từ vựng: " + file);
     }
   }
 
-  renderCurrentFlashcard() {
-    const word = this.activeWords[this.fcCurrentIndex];
-    if (!word) return;
+  bindFlashcardShortcuts() {
+    this.removeFlashcardShortcuts();
 
-    const counter = document.getElementById('fcCardCounterBadge');
+    this.keyHandler = (e) => {
+      const fcScreen = document.getElementById('flashcardScreen');
+      if (!fcScreen || fcScreen.style.display === 'none') return;
+
+      if (e.code === 'Space') {
+        e.preventDefault();
+        this.flipFlashcard();
+      } else if (e.code === 'ArrowLeft') {
+        e.preventDefault();
+        this.handleFlashcardAnswer(false);
+      } else if (e.code === 'ArrowRight') {
+        e.preventDefault();
+        this.handleFlashcardAnswer(true);
+      }
+    };
+
+    window.addEventListener('keydown', this.keyHandler);
+  }
+
+  removeFlashcardShortcuts() {
+    if (this.keyHandler) {
+      window.removeEventListener('keydown', this.keyHandler);
+      this.keyHandler = null;
+    }
+  }
+
+  speakCurrentWord() {
+    const item = this.activeWords[this.fcCurrentIndex];
+    if (!item || !window.speechSynthesis) return;
+
+    window.speechSynthesis.cancel();
+    const cleanWord = (item.word || '').replace(/\s*\(.*?\)/g, '').trim();
+    const utterance = new SpeechSynthesisUtterance(cleanWord);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.95;
+    window.speechSynthesis.speak(utterance);
+  }
+
+  renderCurrentFlashcard() {
+    if (this.fcCurrentIndex >= this.activeWords.length) {
+      if (window.speechSynthesis) window.speechSynthesis.cancel();
+      alert("🎉 Em đã xem hết 30 từ vựng của bài học! Giờ hãy vào làm bài kiểm tra để AI đánh giá nhé.");
+      this.backToPortal();
+      return;
+    }
+
+    const item = this.activeWords[this.fcCurrentIndex];
+    const card = document.getElementById('mainFlashcard');
+    const counterEl = document.getElementById('fcTopCounterDisplay');
     const wordEn = document.getElementById('fcWordEn');
+    const phonetic = document.getElementById('fcPhonetic');
     const meaningVn = document.getElementById('fcMeaningVn');
     const exampleEl = document.getElementById('fcExample');
-    const frontSide = document.getElementById('fcFrontSide');
-    const backSide = document.getElementById('fcBackSide');
 
-    if (counter) counter.innerText = `Thẻ: ${this.fcCurrentIndex + 1}/${this.activeWords.length}`;
-    if (wordEn) wordEn.innerText = word.word;
-    if (meaningVn) meaningVn.innerText = word.meaning;
-    if (exampleEl) exampleEl.innerText = word.example ? `"${word.example}"` : '';
+    if (counterEl) counterEl.innerHTML = `Thẻ <b>${this.fcCurrentIndex + 1} / ${this.activeWords.length}</b>`;
+    if (wordEn) wordEn.innerText = item.word;
+    if (phonetic) phonetic.innerText = item.phonetic || '';
+    if (meaningVn) meaningVn.innerText = item.meaning;
 
+    if (exampleEl) {
+      if (item.example) {
+        exampleEl.style.display = 'block';
+        exampleEl.innerText = `"${item.example}"`;
+      } else {
+        exampleEl.style.display = 'none';
+      }
+    }
+
+    // Reset về mặt trước
     this.isCardFlipped = false;
-    frontSide.style.display = 'block';
-    backSide.style.display = 'none';
+    card?.classList.remove('is-flipped');
+
+    // Tự động phát âm từ tiếng Anh
+    this.speakCurrentWord();
   }
 
   flipFlashcard() {
+    const card = document.getElementById('mainFlashcard');
+    if (!card) return;
     this.isCardFlipped = !this.isCardFlipped;
-    const frontSide = document.getElementById('fcFrontSide');
-    const backSide = document.getElementById('fcBackSide');
-    frontSide.style.display = this.isCardFlipped ? 'none' : 'block';
-    backSide.style.display = this.isCardFlipped ? 'block' : 'none';
+    card.classList.toggle('is-flipped', this.isCardFlipped);
   }
 
-  nextFlashcard() {
-    if (this.fcCurrentIndex < this.activeWords.length - 1) {
-      this.fcCurrentIndex++;
-      this.renderCurrentFlashcard();
-    } else {
-      alert("🎉 Em đã xem hết toàn bộ 30 từ vựng của bài này! Giờ hãy vào làm bài kiểm tra 30 từ nhé.");
-    }
-  }
+  handleFlashcardAnswer(isLearned) {
+    const item = this.activeWords[this.fcCurrentIndex];
+    if (item && this.activeLesson) {
+      const stats = this.getUnitStats(this.activeLesson.file);
+      if (!stats.learnedWordIds) stats.learnedWordIds = [];
 
-  prevFlashcard() {
-    if (this.fcCurrentIndex > 0) {
-      this.fcCurrentIndex--;
-      this.renderCurrentFlashcard();
-    }
-  }
-
-  markCurrentWordLearned() {
-    const word = this.activeWords[this.fcCurrentIndex];
-    if (!word || !this.activeLesson) return;
-
-    const stats = this.getUnitStats(this.activeLesson.file);
-    if (!stats.learnedWordIds) stats.learnedWordIds = [];
-
-    if (!stats.learnedWordIds.includes(word.id)) {
-      stats.learnedWordIds.push(word.id);
-      stats.learnedCount = stats.learnedWordIds.length;
-      this.saveUnitStats(this.activeLesson.file, stats);
+      if (isLearned) {
+        // Đã thuộc -> lưu ID từ vào danh sách
+        if (!stats.learnedWordIds.includes(item.id)) {
+          stats.learnedWordIds.push(item.id);
+          stats.learnedCount = stats.learnedWordIds.length;
+          this.saveUnitStats(this.activeLesson.file, stats);
+        }
+      }
     }
 
-    this.nextFlashcard();
+    this.fcCurrentIndex++;
+    this.renderCurrentFlashcard();
   }
 
   // =========================================================================
-  // 4. MÀN HÌNH BÀI THI: BẢNG LIST 30 TỪ CHIA 2 CỘT (CHUẨN TRANG 15)
+  // 3. MÀN HÌNH BÀI THI: BẢNG LIST 30 TỪ CHIA 2 CỘT
   // =========================================================================
   async openListExam(file, title, unitNum) {
     try {
       const res = await fetch(`data-v/${file}`);
       this.activeWords = await res.json();
       this.activeLesson = { file, title, unitNum };
+
+      this.removeFlashcardShortcuts();
+      if (window.speechSynthesis) window.speechSynthesis.cancel();
 
       document.getElementById('portalRoadmapView').style.display = 'none';
       document.getElementById('coursePickerSection').style.display = 'none';
@@ -328,7 +370,6 @@ class VocabApp {
   }
 
   setupExamListeners() {
-    // Tự động lưu nháp sau khi học sinh ngừng gõ 1.5 giây
     const form = document.getElementById('vocabTestForm');
     let autoSaveTimeout = null;
     form?.addEventListener('input', () => {
@@ -413,7 +454,7 @@ class VocabApp {
   }
 
   // =========================================================================
-  // 5. GỌI AI GEMINI CHẤM TRỌN GÓI 30 TỪ TRONG 1 REQUEST DUY NHẤT
+  // 4. AI CHẤM ĐIỂM BẢNG 30 TỪ
   // =========================================================================
   async submitVocabListForAIGrading() {
     const studentInputs = [];
@@ -443,7 +484,6 @@ class VocabApp {
 
     this.stopExamTimer();
 
-    // PROMPT CHẤM TRỌN GÓI CẢ DANH SÁCH 30 TỪ
     const prompt = `
 Bạn là Giáo viên Khảo thí Từ vựng tiếng Anh.
 Nhiệm vụ: Chấm điểm bài kiểm tra từ vựng (gồm 30 từ) dưới đây của học sinh.
@@ -478,8 +518,7 @@ HÃY TRẢ VỀ DUY NHẤT 1 CHUỖI JSON THUẦN (KHÔNG MARKDOWN, KHÔNG \`\`\
       this.applyGradingResultUI(gradingResult, studentInputs);
       this.clearExamDraft();
     } catch (err) {
-      console.warn("Lỗi AI chấm, chuyển sang chấm tự động bằng thuật toán từ điển:", err);
-      // Fallback chấm offline chống mất bài
+      console.warn("Lỗi AI chấm, chuyển sang chấm bằng thuật toán:", err);
       this.fallbackLocalGrading(studentInputs);
       this.clearExamDraft();
     } finally {
@@ -514,7 +553,6 @@ HÃY TRẢ VỀ DUY NHẤT 1 CHUỖI JSON THUẦN (KHÔNG MARKDOWN, KHÔNG \`\`\
     throw new Error("Không thể kết nối đến AI.");
   }
 
-  // Chấm offline nếu mạng lỗi
   fallbackLocalGrading(studentInputs) {
     let correctCount = 0;
     const results = studentInputs.map(item => {
@@ -560,7 +598,6 @@ HÃY TRẢ VỀ DUY NHẤT 1 CHUỖI JSON THUẦN (KHÔNG MARKDOWN, KHÔNG \`\`\
       }
     });
 
-    // Cập nhật Box kết quả
     const resBox = document.getElementById('aiExamResultContainer');
     const badge = document.getElementById('examScoreBadge');
     const summary = document.getElementById('aiSummaryFeedback');
@@ -573,8 +610,6 @@ HÃY TRẢ VỀ DUY NHẤT 1 CHUỖI JSON THUẦN (KHÔNG MARKDOWN, KHÔNG \`\`\
     `;
 
     resBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-    // Lưu vào thống kê Unit
     this.saveUnitExamRecord(correctCount, learnedIdsToSave);
   }
 
@@ -590,7 +625,6 @@ HÃY TRẢ VỀ DUY NHẤT 1 CHUỖI JSON THUẦN (KHÔNG MARKDOWN, KHÔNG \`\`\
     stats.learnedCount = stats.learnedWordIds.length;
     this.saveUnitStats(this.activeLesson.file, stats);
 
-    // Lưu vào Lịch sử chung trang chủ index.html
     const now = new Date();
     const timeStr = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')} - ${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
     const speedStr = `${Math.floor(this.examSeconds/60)}p ${this.examSeconds%60}s`;
@@ -628,6 +662,9 @@ HÃY TRẢ VỀ DUY NHẤT 1 CHUỖI JSON THUẦN (KHÔNG MARKDOWN, KHÔNG \`\`\
 
   backToPortal() {
     this.stopExamTimer();
+    this.removeFlashcardShortcuts();
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+
     document.getElementById('flashcardScreen').style.display = 'none';
     document.getElementById('listExamScreen').style.display = 'none';
     document.getElementById('portalRoadmapView').style.display = 'block';
@@ -636,7 +673,6 @@ HÃY TRẢ VỀ DUY NHẤT 1 CHUỖI JSON THUẦN (KHÔNG MARKDOWN, KHÔNG \`\`\
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // Tự động nhận diện ?unit= trên URL khi bấm từ lộ trình Roadmap
   checkUrlDeepLink() {
     const params = new URLSearchParams(window.location.search);
     const unitParam = parseInt(params.get('unit'), 10);
@@ -659,6 +695,5 @@ window.startVocabListExam = (f, t, u) => app.openListExam(f, t, u);
 window.viewPastVocabAttempt = (f, t, u) => app.viewPastVocabAttempt(f, t, u);
 window.backToVocabPortal = () => app.backToPortal();
 window.flipCurrentFlashcard = () => app.flipFlashcard();
-window.nextFlashcard = () => app.nextFlashcard();
-window.prevFlashcard = () => app.prevFlashcard();
-window.markFlashcardLearned = () => app.markCurrentWordLearned();
+window.speakCurrentWord = () => app.speakCurrentWord();
+window.handleFlashcardAnswer = (isLearned) => app.handleFlashcardAnswer(isLearned);
