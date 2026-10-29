@@ -1,11 +1,12 @@
 .quiz-container {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  padding: 24px;
-  max-width: 680px;
+  background: #FFFFFF;
+  border: 2.5px solid var(--duo-border, #E8E2D8);
+  border-bottom: 5px solid var(--duo-shadow, #D3CBC0);
+  border-radius: 24px;
+  padding: 24px 28px;
+  max-width: 650px;
   margin: 20px auto;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
 }
 
 .quiz-top-bar {
@@ -15,7 +16,7 @@
   margin-bottom: 16px;
   font-size: 14px;
   font-weight: 700;
-  color: var(--text-muted);
+  color: #64748B;
 }
 
 .flashcard-wrapper {
@@ -25,72 +26,155 @@
 
 .flashcard {
   width: 100%;
-  min-height: 320px;
+  min-height: 330px;
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.4s cubic-bezier(0.4, 0.2, 0.2, 1);
   cursor: pointer;
+  user-select: none;
 }
 
-.flashcard.is-flipped { transform: rotateY(180deg); }
+.flashcard.is-flipped { 
+  transform: rotateY(180deg); 
+}
 
 .card-face {
-  position: absolute; inset: 0; backface-visibility: hidden;
-  border-radius: 16px; padding: 30px 24px;
-  display: flex; flex-direction: column; justify-content: space-between; align-items: center;
-  border: 2px solid #334155; background: #1e293b; color: #f8fafc;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  position: absolute; 
+  inset: 0; 
+  backface-visibility: hidden;
+  border-radius: 20px; 
+  padding: 30px 24px;
+  display: flex; 
+  flex-direction: column; 
+  justify-content: space-between; 
+  align-items: center;
+  border: 2px solid #334155; 
+  background: #1e293b; 
+  color: #f8fafc;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.18);
 }
 
-.card-face-back { transform: rotateY(180deg); background: #0f172a; border-color: var(--primary); }
-.card-main-content { margin: auto 0; text-align: center; }
-.card-term { font-size: 32px; font-weight: 800; }
-.card-phonetic { color: #94a3b8; font-size: 16px; margin-top: 6px; }
-.card-meaning { font-size: 28px; font-weight: 800; color: #38bdf8; }
-.card-example { margin-top: 14px; font-size: 14.5px; color: #cbd5e1; font-style: italic; max-width: 500px; line-height: 1.5; }
-.card-hint-bar { font-size: 12.5px; color: #94a3b8; background: rgba(255,255,255,0.08); padding: 6px 14px; border-radius: 20px; }
-
-.flashcard-actions { display: flex; justify-content: center; align-items: center; gap: 35px; }
-.btn-fc-action {
-  width: 64px; height: 64px; border-radius: 50%; border: 2px solid transparent;
-  font-size: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s;
+.card-face-back { 
+  transform: rotateY(180deg); 
+  background: #0f172a; 
+  border-color: #0284C7; 
 }
-.btn-fc-wrong { background: #fee2e2; color: #ef4444; border-color: #fca5a5; }
-.btn-fc-wrong:hover { background: #ef4444; color: white; transform: scale(1.1); }
-.btn-fc-correct { background: #dcfce7; color: #10b981; border-color: #86efac; }
-.btn-fc-correct:hover { background: #10b981; color: white; transform: scale(1.1); }
 
+.card-main-content { 
+  margin: auto 0; 
+  text-align: center; 
+}
+
+.card-term { 
+  font-size: 34px; 
+  font-weight: 900; 
+  letter-spacing: -0.5px;
+  color: #ffffff;
+}
+
+.card-phonetic { 
+  color: #94a3b8; 
+  font-size: 16px; 
+  font-weight: 700;
+  margin-top: 6px; 
+}
+
+.card-meaning { 
+  font-size: 28px; 
+  font-weight: 900; 
+  color: #38bdf8; 
+}
+
+.card-example { 
+  margin-top: 14px; 
+  font-size: 15px; 
+  color: #cbd5e1; 
+  font-style: italic; 
+  max-width: 500px; 
+  line-height: 1.5; 
+}
+
+.card-hint-bar { 
+  font-size: 12.5px; 
+  font-weight: 700;
+  color: #94a3b8; 
+  background: rgba(255,255,255,0.08); 
+  padding: 6px 16px; 
+  border-radius: 20px; 
+}
+
+/* NÚT LOA PHÁT ÂM */
 .audio-btn {
-  background: rgba(255,255,255,0.15); color: white; border: none; border-radius: 50%;
-  width: 44px; height: 44px; font-size: 20px; cursor: pointer; margin-top: 10px;
+  background: #0284C7; 
+  color: white; 
+  border: none; 
+  border-radius: 50%;
+  width: 48px; 
+  height: 48px; 
+  font-size: 20px; 
+  cursor: pointer; 
+  margin-top: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  box-shadow: 0 4px 10px rgba(2, 132, 199, 0.4);
+}
+.audio-btn:hover { 
+  background: #0369a1; 
+  transform: scale(1.08); 
+}
+.audio-btn:active { 
+  transform: scale(0.95); 
 }
 
-/* ==========================================================================
-   POP-UP KẾT THÚC PHIÊN HỌC (3 CHỈ SỐ LỚN: ĐÃ LƯU, ĐIỂM KN, TỐC ĐỘ)
-   ========================================================================== */
-.result-modal-card {
-  background: white; border-radius: 20px; max-width: 480px; width: 100%;
-  padding: 30px 24px; text-align: center; box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+/* CẶP NÚT TRÒN ĐIỀU HƯỚNG ✕ VÀ ✓ */
+.flashcard-actions { 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  gap: 36px; 
+  margin-top: 10px;
 }
 
-.result-celebrate-icon { font-size: 55px; margin-bottom: 10px; }
-.result-modal-card h2 { font-size: 22px; font-weight: 800; color: #0f172a; margin-bottom: 4px; }
-.result-subtitle { font-size: 13.5px; color: var(--text-muted); margin-bottom: 24px; }
-
-.result-stats-grid {
-  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 25px;
+.btn-fc-action {
+  width: 66px; 
+  height: 66px; 
+  border-radius: 50%; 
+  border: 2px solid transparent;
+  font-size: 26px; 
+  font-weight: 900;
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  cursor: pointer; 
+  transition: all 0.18s ease;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+.btn-fc-action:active { 
+  transform: translateY(2px) scale(0.96); 
 }
 
-.result-stat-box {
-  background: #f8fafc; border: 1.5px solid var(--border-color); border-radius: 12px; padding: 14px 8px;
+.btn-fc-wrong { 
+  background: #fee2e2; 
+  color: #ef4444; 
+  border-color: #fca5a5; 
+}
+.btn-fc-wrong:hover { 
+  background: #ef4444; 
+  color: white; 
+  transform: scale(1.1); 
+  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.35);
 }
 
-.result-stat-box .stat-val { font-size: 22px; font-weight: 800; color: var(--primary); margin-bottom: 4px; }
-.result-stat-box .stat-lbl { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
-
-.btn-result-finish {
-  background: #f59e0b; color: white; border: none; padding: 14px 28px;
-  border-radius: 30px; font-weight: 800; font-size: 15px; width: 100%; cursor: pointer;
-  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+.btn-fc-correct { 
+  background: #dcfce7; 
+  color: #10b981; 
+  border-color: #86efac; 
 }
-.btn-result-finish:hover { background: #d97706; }
+.btn-fc-correct:hover { 
+  background: #10b981; 
+  color: white; 
+  transform: scale(1.1); 
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.35);
+}
