@@ -4,7 +4,7 @@
  * BẢN FULL ĐẦY ĐỦ 100% - AUTO-SAVE THỜI GIAN THỰC, NÚT LƯU TẠM DRAFT,
  * FIX DEEP-LINK XEM LẠI TỪ TRANG CHỦ & FIX HIỂN THỊ CÂU GỐC TRONG AI SỬA BÀI
  */
-
+import '../../js/auth-lock.js';
 import { streamGeminiTask2 } from './api-t2.js';
 
 let manifestData = [];
