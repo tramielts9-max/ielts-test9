@@ -1,6 +1,7 @@
 /**
  * js/auth-lock.js - HỆ THỐNG PHÂN QUYỀN FREEMIUM & LÁ CHẮN TƯƠNG TÁC TỰ ĐỘNG
- * Trạm IELTS - Cho phép xem đề thi, chặn ngay khi bấm vào ô làm bài / lựa chọn / nộp bài
+ * Trạm IELTS - BẢN MASTER NÂNG CẤP TOÀN DIỆN (CHỐNG CRASH DOM & ĐỒNG BỘ KHÓA CLOUD)
+ * Tương thích kép: Dùng được cho cả import module lẫn thẻ script độc lập
  */
 
 const AUTH_STORAGE_KEYS = {
@@ -9,12 +10,36 @@ const AUTH_STORAGE_KEYS = {
   ADMIN_SECRET: 'phuc_tramielts'
 };
 
+const HARDCODED_ADMINS = [
+  "tramielts9@gmail.com",
+  "dinhnguyenphuc019.2@gmail.com"
+];
+
+const CLOUD_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyNErQQFdciAQM0k9KUrACtpX7rxKkopjChYAC2Ubwj5MGzFOeekDEGs8C1n7P9cNR6vg/exec";
+
 class AuthLockSystem {
   constructor() {
     this.studentId = this.getOrCreateStudentID();
+    this.isCloudLocked = false;
+    
+    // AN TOÀN TUYỆT ĐỐI: Chờ DOM sẵn sàng mới vẽ giao diện, chống lỗi crash document.body null
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => this.init());
+    } else {
+      this.init();
+    }
+  }
+
+  async init() {
     this.initAdminBar();
     this.injectConversionModal();
-    this.activateUniversalInteractionBarrier(); // Kích hoạt lá chắn tự động
+    this.injectAdminLockoutModal();
+    
+    // Kiểm tra trạng thái khóa từ xa của Giáo viên trên Cloud
+    await this.verifyCloudAccess();
+    
+    // Kích hoạt lá chắn bảo vệ tương tác
+    this.activateUniversalInteractionBarrier();
   }
 
   // 1. Tự sinh hoặc lấy mã học viên TR-xxxx
@@ -28,27 +53,68 @@ class AuthLockSystem {
     return id;
   }
 
-  // 2. Kiểm tra học sinh đã được duyệt quyền chưa
+  // 2. Kiểm tra học sinh có quyền Admin hoặc đã active chưa
   isStudentActive() {
-    const email = (localStorage.getItem('ielts_student_email') || '').toLowerCase();
-    if (email.includes('admin') || email.includes('tramielts9@gmail.com') || email.includes('dinhnguyenphuc019.2@gmail.com')) {
+    const email = (localStorage.getItem('ielts_student_email') || '').toLowerCase().trim();
+    const backupEmail = (localStorage.getItem('ielts_admin_backup_email') || '').toLowerCase().trim();
+
+    if (
+      email.includes('admin') ||
+      backupEmail.includes('admin') ||
+      HARDCODED_ADMINS.includes(email) ||
+      HARDCODED_ADMINS.includes(backupEmail)
+    ) {
       return true;
     }
+
+    if (this.isCloudLocked) return false;
+
     return localStorage.getItem(AUTH_STORAGE_KEYS.ACCESS_STATUS) === 'active';
   }
 
-  // 3. Khóa chuyển đổi (Execution Lock) - Chặn hành động và bung Modal Zalo
+  // 3. Kiểm tra xem học sinh có bị Thầy bấm "🚫 Tạm khóa" từ xa trên Cloud không
+  async verifyCloudAccess() {
+    const email = (localStorage.getItem('ielts_student_email') || '').toLowerCase().trim();
+    if (!email || email === 'guest' || HARDCODED_ADMINS.includes(email) || email.includes('admin')) {
+      this.isCloudLocked = false;
+      return;
+    }
+
+    if (!CLOUD_SCRIPT_URL) return;
+
+    try {
+      const res = await fetch(`${CLOUD_SCRIPT_URL}?action=check_student_access&studentId=${encodeURIComponent(email)}`);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.isUnlocked === false) {
+          this.isCloudLocked = true;
+          this.showAdminLockoutModal();
+        } else {
+          this.isCloudLocked = false;
+        }
+      }
+    } catch (e) {
+      // Nếu lỗi mạng thì không chặn học sinh làm bài
+      this.isCloudLocked = false;
+    }
+  }
+
+  // 4. Khóa chuyển đổi (Execution Lock) - Chặn hành động và bung Modal
   enforceLock(actionName = "Bài tập & Chấm thi AI") {
     if (this.isStudentActive()) return true;
-    this.showConversionModal(actionName);
+    
+    if (this.isCloudLocked) {
+      this.showAdminLockoutModal();
+    } else {
+      this.showConversionModal(actionName);
+    }
     return false;
   }
 
-  // 4. LÁ CHẮN TỰ ĐỘNG TOÀN SÀN: Bắt mọi cú click vào ô làm bài / trắc nghiệm / nộp bài
+  // 5. LÁ CHẮN TỰ ĐỘNG TOÀN SÀN
   activateUniversalInteractionBarrier() {
     if (this.isStudentActive()) return;
 
-    // Danh sách selector cần chặn khi chưa kích hoạt
     const interactiveSelectors = [
       'input:not([id*="admin"]):not([id*="login"]):not([id*="search"])',
       'textarea:not([id*="admin"])',
@@ -69,11 +135,15 @@ class AuthLockSystem {
 
       const target = e.target.closest(interactiveSelectors);
       if (target) {
-        // Chặn hoàn toàn không cho gõ phím / chọn đáp án / submit
         e.preventDefault();
         e.stopPropagation();
         e.stopImmediatePropagation();
         if (typeof target.blur === 'function') target.blur();
+
+        if (this.isCloudLocked) {
+          this.showAdminLockoutModal();
+          return;
+        }
 
         let featureName = "Làm bài tập";
         if (target.tagName === 'TEXTAREA') featureName = "Viết bài luận / Trả lời";
@@ -85,7 +155,6 @@ class AuthLockSystem {
       }
     };
 
-    // Bắt sự kiện từ gốc (Capture Phase) để chặn trước khi logic bài thi kịp chạy
     document.addEventListener('pointerdown', blockEvent, true);
     document.addEventListener('focusin', blockEvent, true);
     document.addEventListener('keydown', (e) => {
@@ -93,12 +162,79 @@ class AuthLockSystem {
       if (e.target.closest(interactiveSelectors)) {
         e.preventDefault();
         e.stopPropagation();
-        this.showConversionModal("Làm bài tập");
+        if (this.isCloudLocked) {
+          this.showAdminLockoutModal();
+        } else {
+          this.showConversionModal("Làm bài tập");
+        }
       }
     }, true);
   }
 
-  // 5. Modal Zalo Onboarding
+  // 6. MODAL 1: CẢNH CÁO TẠM KHÓA TỪ XA BỞI GIÁO VIÊN
+  injectAdminLockoutModal() {
+    if (document.getElementById('adminLockoutModal')) return;
+
+    const modalHtml = `
+      <div id="adminLockoutModal" style="display:none; position:fixed; inset:0; z-index:9999999; background:rgba(15, 23, 42, 0.85); backdrop-filter:blur(8px); align-items:center; justify-content:center; padding:16px;">
+        <div style="background:#FFF1F2; border:3px solid #FDA4AF; border-bottom:7px solid #E11D48; border-radius:26px; max-width:460px; width:100%; padding:32px 24px; text-align:center; position:relative; box-shadow:0 25px 50px rgba(0,0,0,0.4); font-family:'Plus Jakarta Sans', system-ui, sans-serif;">
+          
+          <div style="width:64px; height:64px; border-radius:50%; background:#FFE4E6; border:3px solid #FDA4AF; display:flex; align-items:center; justify-content:center; margin:0 auto 14px auto; font-size:30px;">
+            ⛔
+          </div>
+
+          <h3 style="margin:0 0 8px 0; color:#9F1239; font-size:20px; font-weight:900;">
+            TÀI KHOẢN ĐANG BỊ TẠM DỪNG
+          </h3>
+          <p style="margin:0 0 20px 0; font-size:13.5px; font-weight:600; color:#4C0519; line-height:1.6;">
+            Em chưa hoàn thành BTVN đúng hạn hoặc cần trao đổi trực tiếp với Thầy/Cô.<br>
+            <b style="color:#BE123C;">Vui lòng nhắn tin Zalo cho Thầy để được mở lại quyền truy cập học tập nhé!</b>
+          </p>
+
+          <button type="button" id="btnLockoutReentry" onclick="window.authLockSystem.checkReentryFromModal()" style="background:#BE123C; color:#FFFFFF; border:none; padding:13px 24px; border-radius:14px; font-weight:900; font-size:14px; cursor:pointer; width:100%; border-bottom:4px solid #881337; margin-bottom:12px;">
+            🔄 Thầy đã mở khóa, bấm để vào học tiếp
+          </button>
+
+          <a href="https://zalo.me/0967561243" target="_blank" style="background:#FFFFFF; color:#0068FF; text-decoration:none; padding:11px 20px; border-radius:14px; font-weight:800; font-size:13.5px; display:inline-flex; align-items:center; justify-content:center; gap:8px; border:2px solid #BFDBFE; border-bottom:4px solid #93C5FD; width:100%; box-sizing:border-box;">
+            💬 Nhắn Zalo Cho Thầy Phúc
+          </a>
+        </div>
+      </div>
+    `;
+    if (document.body) {
+      document.body.insertAdjacentHTML('beforeend', modalHtml);
+    }
+  }
+
+  showAdminLockoutModal() {
+    const modal = document.getElementById('adminLockoutModal');
+    if (modal) modal.style.display = 'flex';
+  }
+
+  async checkReentryFromModal() {
+    const btn = document.getElementById('btnLockoutReentry');
+    if (btn) {
+      btn.disabled = true;
+      btn.innerText = "⏳ Đang kiểm tra quyền truy cập...";
+    }
+
+    await this.verifyCloudAccess();
+
+    if (!this.isCloudLocked) {
+      alert("🎉 Quyền truy cập đã được mở khóa thành công! Chúc em học tốt.");
+      const modal = document.getElementById('adminLockoutModal');
+      if (modal) modal.style.display = 'none';
+      location.reload();
+    } else {
+      alert("⚠️ Thầy chưa mở khóa trên máy chủ. Em hãy nhắn Zalo báo Thầy kiểm tra rồi bấm lại nhé!");
+      if (btn) {
+        btn.disabled = false;
+        btn.innerText = "🔄 Thầy đã mở khóa, bấm để vào học tiếp";
+      }
+    }
+  }
+
+  // 7. MODAL 2: ZALO ONBOARDING DÀNH CHO TÀI KHOẢN MỚI
   injectConversionModal() {
     if (document.getElementById('zaloConversionModal')) return;
 
@@ -127,7 +263,7 @@ class AuthLockSystem {
             </div>
           </div>
 
-          <!-- ẢNH QR ZALO -->
+          <!-- ẢNH QR ZALO (HỖ TRỢ ĐƯỜNG DẪN ĐA CẤP THƯ MỤC) -->
           <div style="margin-bottom:16px;">
             <div style="font-size:12.5px; font-weight:800; color:#334155; margin-bottom:8px;">Quét mã QR Zalo Thầy Phúc để mở quyền:</div>
             <img src="assets/zalo-qr.png" onerror="this.onerror=null; this.src='../assets/zalo-qr.png';" alt="QR Zalo Thầy Phúc" style="width:170px; height:170px; border-radius:14px; border:2px solid #E8E2D8; object-fit:cover; margin:0 auto; display:block;">
@@ -145,7 +281,9 @@ class AuthLockSystem {
         </div>
       </div>
     `;
-    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    if (document.body) {
+      document.body.insertAdjacentHTML('beforeend', modalHtml);
+    }
   }
 
   showConversionModal(featureName) {
@@ -166,7 +304,7 @@ class AuthLockSystem {
     });
   }
 
-  // 6. Thanh Admin nổi (chỉ hiện khi có ?admin= trên URL)
+  // 8. THANH ADMIN NỔI
   initAdminBar() {
     const params = new URLSearchParams(window.location.search);
     if (!params.has('admin')) return;
@@ -191,7 +329,9 @@ class AuthLockSystem {
         </div>
       </div>
     `;
-    document.body.insertAdjacentHTML('beforeend', barHtml);
+    if (document.body) {
+      document.body.insertAdjacentHTML('beforeend', barHtml);
+    }
   }
 
   adminSetStudentStatus(status) {
@@ -206,5 +346,6 @@ class AuthLockSystem {
   }
 }
 
+// KHỞI TẠO VÀ XUẤT TƯƠNG THÍCH KÉP (DUAL COMPATIBILITY)
 export const authLockSystem = new AuthLockSystem();
 window.authLockSystem = authLockSystem;
