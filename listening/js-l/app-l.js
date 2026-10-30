@@ -2,6 +2,7 @@
  * listening/js-l/app-l.js - Module điều khiển bài thi IELTS Listening Duolingo 3D
  * ĐÃ BỎ 100% BIỂU TƯỢNG FONT AWESOME GÂY LỖI Ô VUÔNG
  */
+import '../../js/auth-lock.js';
 import { CONFIG } from '../../js/config.js';
 import { stateManager } from '../../js/state.js';
 import { TestTimer } from '../../js/timer.js';
