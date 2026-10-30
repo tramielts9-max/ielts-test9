@@ -1,6 +1,7 @@
 /**
  * js/auth-lock.js - HỆ THỐNG PHÂN QUYỀN FREEMIUM & LÁ CHẮN TƯƠNG TÁC TỰ ĐỘNG
  * Trạm IELTS - BẢN MASTER NÂNG CẤP TOÀN DIỆN (CHỐNG CRASH DOM & ĐỒNG BỘ KHÓA CLOUD)
+ * BẢO VỆ TOÀN DIỆN: GRAMMAR & VOCAB (LÂU DÀI) + CÁC BÀI PRE VÀ LINK NGOÀI (TẠM THỜI)
  * Tương thích kép: Dùng được cho cả import module lẫn thẻ script độc lập
  */
 
@@ -111,14 +112,15 @@ class AuthLockSystem {
     return false;
   }
 
-  // 5. LÁ CHẮN TỰ ĐỘNG TOÀN SÀN
+  // 5. LÁ CHẮN TỰ ĐỘNG TOÀN SÀN: BẢO VỆ CẢ BÀI TẬP NỘI BỘ LẪN CÁC LINK NGOÀI VÀ NÚT ĐẶC THÙ
   activateUniversalInteractionBarrier() {
     if (this.isStudentActive()) return;
 
     const interactiveSelectors = [
-      'input:not([id*="admin"]):not([id*="login"]):not([id*="search"])',
+      // --- I. Ô NHẬP LIỆU & NÚT NỘP CHUẨN CHUNG (LÂU DÀI) ---
+      'input:not([id*="admin"]):not([id*="login"]):not([id*="search"]):not([id*="Search"])',
       'textarea:not([id*="admin"])',
-      'select:not([id*="admin"])',
+      'select:not([id*="admin"]):not([id*="courseSelector"])',
       '.choice-btn',
       '.option-btn',
       '.btn-submit',
@@ -127,7 +129,53 @@ class AuthLockSystem {
       '#btnSubmitGrading',
       '#btnStartGrading',
       '#btnBottomSubmit',
-      '#recBtn'
+      '#recBtn',
+
+      // --- II. GRAMMAR (BẢO VỆ LÂU DÀI) ---
+      '.input-blank-g',
+      '.choice-label-g',
+      '.choice-label-g input',
+      '.btn-submit-g',
+      '.btn-grade-part',
+      '.btn-reset-part',
+      '#btnGradeQuiz',
+      '#btnSubmitToAI',
+      '#aiRecallInput',
+
+      // --- III. VOCABULARY (BẢO VỆ LÂU DÀI) ---
+      '.col-vn-input',
+      '#btnSubmitVocabList',
+      '#btnSaveDraftVocab',
+      '.btn-fc-action',
+      '#btnFcWrong',
+      '#btnFcCorrect',
+      '.flashcard',
+      'button[onclick*="startVocabFlashcard"]',
+      'button[onclick*="startVocabListExam"]',
+      'button[onclick*="viewPastVocabAttempt"]',
+
+      // --- IV. PRE-SKILLS & LINK NGOÀI (BẢO VỆ ĐẶC TRỊ TẠM THỜI) ---
+      // Link làm bài bên ngoài & nút nộp Pre-Listening / Pre-Reading
+      '.pl-lesson-card a',
+      '.pr-lesson-card a',
+      'a[href*="elllo.org"]',
+      'a[href*="test-english.com"]',
+      'button[onclick*="openSubmitModalPL"]',
+      'button[onclick*="openSubmitModalPR"]',
+      // Nút thẻ và nút ghi âm Pre-Speaking
+      'button[onclick*="startLessonFromPortal"]',
+      'button[onclick*="openPastAttemptsFromPortal"]',
+      '#btnRecord',
+      '#btnStop',
+      '#btnComplete',
+      'button[onclick*="toggleShadowRecording"]',
+      'button[onclick*="stopAndSubmitRecording"]',
+      // Nút Pre-Writing Task 1 & Task 2
+      'button[onclick*="startLessonPWT1"]',
+      'button[onclick*="openPastAttemptsPWT1"]',
+      '#btnGrading',
+      '#btnSaveDraftPWT1',
+      '#btnSaveDraftPWT2'
     ].join(',');
 
     const blockEvent = (e) => {
@@ -135,6 +183,7 @@ class AuthLockSystem {
 
       const target = e.target.closest(interactiveSelectors);
       if (target) {
+        // Chặn đứng hoàn toàn hành vi click, mở link tab mới, focus hoặc gõ chữ
         e.preventDefault();
         e.stopPropagation();
         e.stopImmediatePropagation();
@@ -146,16 +195,21 @@ class AuthLockSystem {
         }
 
         let featureName = "Làm bài tập";
-        if (target.tagName === 'TEXTAREA') featureName = "Viết bài luận / Trả lời";
+        if (target.tagName === 'A' || target.closest('a')) featureName = "Làm bài tập liên kết";
+        else if (target.matches('.btn-fc-action, .flashcard, button[onclick*="startVocab"]')) featureName = "Học từ vựng & Flashcard";
+        else if (target.matches('#btnRecord, [onclick*="toggleShadowRecording"], #recBtn')) featureName = "Phòng thu âm Speaking";
+        else if (target.matches('.input-blank-g, .choice-label-g, .btn-grade-part, #btnSubmitToAI')) featureName = "Làm bài tập Ngữ pháp";
+        else if (target.tagName === 'TEXTAREA') featureName = "Viết bài luận / Trả lời";
         else if (target.type === 'radio' || target.classList.contains('choice-btn')) featureName = "Chọn đáp án trắc nghiệm";
-        else if (target.id === 'recBtn') featureName = "Phòng thu âm Speaking";
         else if (target.innerText && (target.innerText.includes('Chấm') || target.innerText.includes('Nộp'))) featureName = "Chấm điểm & Sửa bài AI";
 
         this.showConversionModal(featureName);
       }
     };
 
+    // Bắt toàn diện sự kiện ở Capture Phase để khóa trước khi code bài tập kịp phản hồi
     document.addEventListener('pointerdown', blockEvent, true);
+    document.addEventListener('click', blockEvent, true);
     document.addEventListener('focusin', blockEvent, true);
     document.addEventListener('keydown', (e) => {
       if (this.isStudentActive()) return;
