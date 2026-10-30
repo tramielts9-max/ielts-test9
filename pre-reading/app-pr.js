@@ -3,7 +3,6 @@
  * BỘ ĐIỀU KHIỂN DANH SÁCH BÀI ĐỌC THEO LEVEL CEFR DUOLINGO 3D
  * BẢN FULL ĐẦY ĐỦ 100% - HIỂN THỊ KẾT QUẢ CẢ LẦN 1 VÀ LẦN 2 TRÊN THẺ BÀI
  */
-import '../../js/auth-lock.js';
 import { initDB, getAllSubmissions } from './db-pr.js';
 import { initModal, openModal } from './modal-pr.js';
 import { exportReport } from './export-pr.js';
