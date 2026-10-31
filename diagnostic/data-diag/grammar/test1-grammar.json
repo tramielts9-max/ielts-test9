@@ -1,0 +1,159 @@
+{
+  "testId": "test_01",
+  "title": "ĐỀ KIỂM TRA SỐ 1: CƠ BẢN (EASY LEVEL)",
+  "timeMinutes": 20,
+  "totalQuestions": 15,
+  "target": "Kiểm tra nhận diện dấu hiệu thì, vị trí từ loại cơ bản, mạo từ và giới từ cơ bản.",
+  "questions": [
+    {
+      "id": "t1_g01",
+      "num": 1,
+      "type": "choice",
+      "prompt": "The train to Da Nang ________ at 6:30 AM every morning.",
+      "options": ["A. leave", "B. leaves", "C. is leaving", "D. left"],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Dấu hiệu every morning và lịch trình tàu xe cố định ➔ Hiện tại đơn, chủ ngữ số ít The train chia leaves."
+    },
+    {
+      "id": "t1_g02",
+      "num": 2,
+      "type": "choice",
+      "prompt": "Look! The children ________ in the garden.",
+      "options": ["A. are playing", "B. play", "C. played", "D. were playing"],
+      "correctIndex": 0,
+      "answer": "A",
+      "explanation": "Dấu hiệu câu mệnh lệnh gây chú ý Look! ➔ Hiện tại tiếp diễn: The children (số nhiều) + are playing."
+    },
+    {
+      "id": "t1_g03",
+      "num": 3,
+      "type": "choice",
+      "prompt": "Yesterday, my father ________ a new bicycle for my younger brother.",
+      "options": ["A. buys", "B. bought", "C. is buying", "D. buyed"],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Dấu hiệu Yesterday ➔ Quá khứ đơn; động từ bất quy tắc buy có V2 là bought."
+    },
+    {
+      "id": "t1_g04",
+      "num": 4,
+      "type": "choice",
+      "prompt": "They ________ this bridge two years ago.",
+      "options": ["A. built", "B. build", "C. have built", "D. were building"],
+      "correctIndex": 0,
+      "answer": "A",
+      "explanation": "Dấu hiệu two years ago ➔ Quá khứ đơn; V2 của build là built."
+    },
+    {
+      "id": "t1_g05",
+      "num": 5,
+      "type": "choice",
+      "prompt": "Tomorrow it ________ cold in the Northern region.",
+      "options": ["A. is", "B. was", "C. will be", "D. has been"],
+      "correctIndex": 2,
+      "answer": "C",
+      "explanation": "Dấu hiệu Tomorrow ➔ Tương lai đơn: will + V0 ➔ will be."
+    },
+    {
+      "id": "t1_g06",
+      "num": 6,
+      "type": "choice",
+      "prompt": "She has lived in this apartment ________ 2018.",
+      "options": ["A. for", "B. since", "C. in", "D. at"],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Đi trước mốc thời gian xác định trong quá khứ (2018) ở thì Hiện tại hoàn thành dùng since."
+    },
+    {
+      "id": "t1_g07",
+      "num": 7,
+      "type": "choice",
+      "prompt": "This chair is ________ than that one.",
+      "options": ["A. comfortable", "B. more comfortable", "C. most comfortable", "D. the most comfortable"],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "So sánh hơn của tính từ dài (comfortable) đi với than là more comfortable."
+    },
+    {
+      "id": "t1_g08",
+      "num": 8,
+      "type": "choice",
+      "prompt": "If it ________ tomorrow, we will stay at home and watch TV.",
+      "options": ["A. rain", "B. rains", "C. rained", "D. will rain"],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Câu điều kiện loại 1: Mệnh đề If chia hiện tại đơn, chủ ngữ it ➔ rains."
+    },
+    {
+      "id": "t1_g09",
+      "num": 9,
+      "type": "choice",
+      "prompt": "The man ________ spoke to you yesterday is my English teacher.",
+      "options": ["A. which", "B. whom", "C. who", "D. whose"],
+      "correctIndex": 2,
+      "answer": "C",
+      "explanation": "Thay thế cho danh từ chỉ người (The man) làm chủ ngữ đứng trước động từ spoke ➔ dùng đại từ quan hệ who."
+    },
+    {
+      "id": "t1_g10",
+      "num": 10,
+      "type": "choice",
+      "prompt": "This flower ________ by my mother every morning.",
+      "options": ["A. is watered", "B. was watered", "C. waters", "D. is watering"],
+      "correctIndex": 0,
+      "answer": "A",
+      "explanation": "Câu bị động thì Hiện tại đơn (every morning): S + am/is/are + V3/ed ➔ is watered."
+    },
+    {
+      "id": "t1_g11",
+      "num": 11,
+      "type": "choice",
+      "prompt": "Christopher Columbus discovered America ________ 1492.",
+      "options": ["A. on", "B. at", "C. in", "D. to"],
+      "correctIndex": 2,
+      "answer": "C",
+      "explanation": "Đi trước năm lịch sử (1492) luôn dùng giới từ in."
+    },
+    {
+      "id": "t1_g12",
+      "num": 12,
+      "type": "choice",
+      "prompt": "Her family usually goes to church ________ Sundays.",
+      "options": ["A. at", "B. on", "C. in", "D. of"],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Đi trước thứ trong tuần (Sundays) luôn dùng giới từ on."
+    },
+    {
+      "id": "t1_g13",
+      "num": 13,
+      "type": "choice",
+      "prompt": "My older brother is ________ engineer in a multinational corporation.",
+      "options": ["A. a", "B. an", "C. the", "D. Ø (no article)"],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Danh từ nghề nghiệp số ít bắt đầu bằng nguyên âm /e/ (engineer) ➔ dùng mạo từ an."
+    },
+    {
+      "id": "t1_g14",
+      "num": 14,
+      "type": "choice",
+      "prompt": "She hopes to achieve great ________ in her future career.",
+      "options": ["A. succeed", "B. success", "C. successful", "D. successfully"],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Đứng sau tính từ great cần một danh từ ➔ success (sự thành công)."
+    },
+    {
+      "id": "t1_g15",
+      "num": 15,
+      "type": "choice",
+      "prompt": "There wasn't ________ snow on the road last night.",
+      "options": ["A. many", "B. few", "C. much", "D. a large number of"],
+      "correctIndex": 2,
+      "answer": "C",
+      "explanation": "Snow là danh từ không đếm được; câu phủ định (wasn't) đi với much."
+    }
+  ]
+}
