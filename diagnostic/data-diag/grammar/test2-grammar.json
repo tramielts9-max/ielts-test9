@@ -1,0 +1,214 @@
+{
+  "testId": "test_02",
+  "title": "ĐỀ KIỂM TRA SỐ 2: TRUNG BÌNH (INTERMEDIATE LEVEL)",
+  "timeMinutes": 30,
+  "totalQuestions": 20,
+  "target": "Kiểm tra sự phối hợp thì (When/While, Before/After), câu điều kiện loại 2, câu so sánh kép, mạo từ nâng cao và trật tự từ bị động.",
+  "questions": [
+    {
+      "id": "t2_g01",
+      "num": 1,
+      "type": "choice",
+      "prompt": "At 8:00 PM yesterday, while my mother was cooking, I ________ my homework.",
+      "options": ["A. did", "B. was doing", "C. have done", "D. had done"],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Cấu trúc hai hành động diễn ra song song trong quá khứ nối bằng while: was cooking while I was doing."
+    },
+    {
+      "id": "t2_g02",
+      "num": 2,
+      "type": "choice",
+      "prompt": "He was playing football when it suddenly ________ to rain heavily.",
+      "options": ["A. started", "B. was starting", "C. has started", "D. had started"],
+      "correctIndex": 0,
+      "answer": "A",
+      "explanation": "Hành động đang diễn ra (was playing) thì hành động ngắn khác cắt ngang (started - chia Quá khứ đơn)."
+    },
+    {
+      "id": "t2_g03",
+      "num": 3,
+      "type": "choice",
+      "prompt": "By the time the police arrived, the burglar ________ through the window.",
+      "options": ["A. escaped", "B. was escaping", "C. had escaped", "D. has escaped"],
+      "correctIndex": 2,
+      "answer": "C",
+      "explanation": "Cấu trúc By the time + S + V2/ed, S + had + V3/ed (hành động trốn thoát xảy ra trước khi cảnh sát đến)."
+    },
+    {
+      "id": "t2_g04",
+      "num": 4,
+      "type": "choice",
+      "prompt": "If today were Sunday, we ________ camping in the national forest.",
+      "options": ["A. will go", "B. would go", "C. went", "D. had gone"],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Câu điều kiện loại 2 (giả định trái ngược hiện tại): Mệnh đề If dùng were ➔ Mệnh đề chính: would + V0 ➔ would go."
+    },
+    {
+      "id": "t2_g05",
+      "num": 5,
+      "type": "choice",
+      "prompt": "She doesn't have a car, so she walks to work. ➔ Viết lại câu bắt đầu bằng If:",
+      "options": [
+        "A. If she had a car, she wouldn't walk to work.",
+        "B. If she has a car, she won't walk to work.",
+        "C. If she didn't have a car, she would walk to work.",
+        "D. If she had had a car, she wouldn't have walked to work."
+      ],
+      "correctIndex": 0,
+      "answer": "A",
+      "explanation": "Chuyển tình huống thực tế hiện tại sang If loại 2: Đổi thể khẳng định/phủ định và lùi thì ➔ If she had a car, she wouldn't walk to work."
+    },
+    {
+      "id": "t2_g06",
+      "num": 6,
+      "type": "choice",
+      "prompt": "The ________ you study for this exam, the ________ results you will achieve.",
+      "options": ["A. harder / better", "B. more hard / more good", "C. hardest / best", "D. more harder / better"],
+      "correctIndex": 0,
+      "answer": "A",
+      "explanation": "So sánh kép The + comparative, the + comparative: The harder ..., the better ..."
+    },
+    {
+      "id": "t2_g07",
+      "num": 7,
+      "type": "choice",
+      "prompt": "This textbook is getting ________ difficult for young learners to follow.",
+      "options": ["A. more and most", "B. more and more", "C. increasingly and more", "D. much and more"],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Cấu trúc so sánh kép 'càng ngày càng' với tính từ dài: more and more + adj ➔ more and more difficult."
+    },
+    {
+      "id": "t2_g08",
+      "num": 8,
+      "type": "choice",
+      "prompt": "The doctor ________ you visited at the hospital yesterday is my uncle.",
+      "options": ["A. which", "B. whose", "C. whom", "D. what"],
+      "correctIndex": 2,
+      "answer": "C",
+      "explanation": "Thay thế cho tân ngữ chỉ người (The doctor... you visited him) ➔ dùng đại từ quan hệ whom (hoặc that)."
+    },
+    {
+      "id": "t2_g09",
+      "num": 9,
+      "type": "choice",
+      "prompt": "That is the famous writer ________ daughter won the international piano contest.",
+      "options": ["A. who", "B. whom", "C. which", "D. whose"],
+      "correctIndex": 3,
+      "answer": "D",
+      "explanation": "Sở hữu cách (his daughter - con gái của nhà văn) ➔ dùng whose."
+    },
+    {
+      "id": "t2_g10",
+      "num": 10,
+      "type": "choice",
+      "prompt": "Long Bien Bridge ________ in Ha Noi by the French in 1899.",
+      "options": ["A. constructed", "B. was constructed", "C. is constructed", "D. had constructed"],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Bị động quá khứ đơn: was constructed + Địa điểm (in Ha Noi) + by O (by the French) + Thời gian (in 1899)."
+    },
+    {
+      "id": "t2_g11",
+      "num": 11,
+      "type": "choice",
+      "prompt": "They were very nervous that the final project would not ________ on time.",
+      "options": ["A. finish", "B. be finished", "C. be finishing", "D. have finished"],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Sau modal verb ở dạng quá khứ would not + be + V3/ed ➔ be finished."
+    },
+    {
+      "id": "t2_g12",
+      "num": 12,
+      "type": "choice",
+      "prompt": "Did you watch the documentary on ________ television or at ________ cinema?",
+      "options": ["A. the / the", "B. Ø / Ø", "C. Ø / the", "D. the / Ø"],
+      "correctIndex": 2,
+      "answer": "C",
+      "explanation": "Cụm từ cố định: on television (truyền hình nói chung, không mạo từ) nhưng at the cinema (luôn có the)."
+    },
+    {
+      "id": "t2_g13",
+      "num": 13,
+      "type": "choice",
+      "prompt": "The government has launched new policies to support ________ unemployed.",
+      "options": ["A. a", "B. an", "C. the", "D. Ø"],
+      "correctIndex": 2,
+      "answer": "C",
+      "explanation": "Cấu trúc The + Adj chỉ một tập hợp giai cấp/nhóm người trong xã hội: the unemployed (những người thất nghiệp)."
+    },
+    {
+      "id": "t2_g14",
+      "num": 14,
+      "type": "choice",
+      "prompt": "My sister is really good ________ solving complicated mathematical equations.",
+      "options": ["A. in", "B. at", "C. with", "D. for"],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Cụm tính từ đi với giới từ cố định: be good at something / doing something (giỏi về cái gì)."
+    },
+    {
+      "id": "t2_g15",
+      "num": 15,
+      "type": "choice",
+      "prompt": "We must hand in our final report ________ the end of this month.",
+      "options": ["A. on", "B. by", "C. in", "D. between"],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Giới từ chỉ hạn chót 'trước hoặc chậm nhất vào lúc nào' là by (by the end of this month)."
+    },
+    {
+      "id": "t2_g16",
+      "num": 16,
+      "type": "choice",
+      "prompt": "He tried to unlock the front door with an old key, but he was ________.",
+      "options": ["A. succeed", "B. success", "C. successful", "D. unsuccessful"],
+      "correctIndex": 3,
+      "answer": "D",
+      "explanation": "Liên từ but mang nghĩa tương phản (cố mở nhưng không được) ➔ tính từ phủ định: unsuccessful."
+    },
+    {
+      "id": "t2_g17",
+      "num": 17,
+      "type": "choice",
+      "prompt": "The panda is officially listed as an ________ species.",
+      "options": ["A. danger", "B. dangerous", "C. endangered", "D. dangerously"],
+      "correctIndex": 2,
+      "answer": "C",
+      "explanation": "Cụm danh từ học thuật: an endangered species (loài có nguy cơ tuyệt chủng)."
+    },
+    {
+      "id": "t2_g18",
+      "num": 18,
+      "type": "choice",
+      "prompt": "Although the story sounded fascinating, it was completely ________.",
+      "options": ["A. believable", "B. unbelievable", "C. believably", "D. unbelief"],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Sau to be was và trạng từ completely, ngữ cảnh tương phản (Although) ➔ tính từ phủ định: unbelievable (không thể tin được)."
+    },
+    {
+      "id": "t2_g19",
+      "num": 19,
+      "type": "choice",
+      "prompt": "________ the students in our university come from rural areas.",
+      "options": ["A. Most", "B. Most of", "C. Many of", "D. Almost"],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Đứng trước cụm danh từ có mạo từ xác định the students bắt buộc phải dùng Most of."
+    },
+    {
+      "id": "t2_g20",
+      "num": 20,
+      "type": "choice",
+      "prompt": "There are two empty seats left, but ________ of them is near the window.",
+      "options": ["A. neither", "B. none", "C. both", "D. all"],
+      "correctIndex": 0,
+      "answer": "A",
+      "explanation": "Chỉ 2 đối tượng (two empty seats) ở dạng phủ định từng cá thể đi với động từ số ít (is) dùng neither."
+    }
+  ]
+}
