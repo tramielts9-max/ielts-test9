@@ -1,16 +1,16 @@
 /**
  * diagnostic/js-diag/diag-engine.js
  * BỘ MÁY ĐIỀU PHỐI KHẢO THÍ CHẨN ĐOÁN THÍCH ỨNG MASTER (TEST 1, 2, 3 & 3 SET XOAY TUA)
- * BẢN FULL ĐẦY ĐỦ 100% - ĐIỀU PHỐI ĐỒNG BỘ CẢ 3 BỘ MÁY: READING, LISTENING VÀ WRITING
- * CHẤM TWO-TIER, CHẤM AI WRITING & SPEAKING, ĐO TTFI VÀ BÁO CÁO CÂU SAI CHI TIẾT
+ * BẢN FULL ĐẦY ĐỦ 100% - ĐIỀU PHỐI ĐỒNG BỘ CẢ 4 BỘ MÁY: GRAMMAR, LISTENING, READING, WRITING
  */
 
-import { diagReadingEngine } from './diag-reading.js';
+import { diagGrammarEngine } from './diag-grammar.js';
 import { diagListeningEngine } from './diag-listening.js';
+import { diagReadingEngine } from './diag-reading.js';
 import { diagWritingEngine } from './diag-writing.js';
 
 // =========================================================================
-// 1. MÃ HÓA 3 API KEY RIÊNG BIỆT CHO TỪNG KỸ NĂNG (BẢO MẬT CHỐNG F12)
+// 1. MÃ HÓA 3 API KEY RIÊNG BIỆT (BẢO MẬT CHỐNG F12)
 // =========================================================================
 const _READING_SEEDS = [
   65, 81, 46, 65, 98, 56, 82, 78, 54, 74, 111, 118, 45, 99, 119, 83,
@@ -35,119 +35,23 @@ function getSpeakingKey() { return _SPEAKING_SEEDS.map(c => String.fromCharCode(
 const CLOUD_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyNErQQFdciAQM0k9KUrACtpX7rxKkopjChYAC2Ubwj5MGzFOeekDEGs8C1n7P9cNR6vg/exec";
 
 // =========================================================================
-// 2. NGÂN HÀNG DỮ LIỆU ĐỀ THI CHO TEST 1, 2, 3 (NGỮ PHÁP & SPEAKING)
+// 2. METADATA VÀ CẤU HÌNH THỜI LƯỢNG CHO TỪNG BÀI TEST
 // =========================================================================
-const DIAGNOSTIC_DATABASE = {
-  // TEST 1 (45 PHÚT - BAND 0 ➔ 5.0)
-  test_01: {
-    title: "TEST 1: KHẢO SÁT NỀN TẢNG (45 PHÚT)",
-    targetBand: "0 - 5.0",
-    grammarSets: {
-      1: [
-        { id: "g01", q: "She usually ______ to school by bicycle every morning.", options: ["A. go", "B. goes", "C. is going"], answer: "B", topic: "Hiện tại đơn" },
-        { id: "g02", q: "Look! The children ______ football on the playground.", options: ["A. play", "B. played", "C. are playing"], answer: "C", topic: "Hiện tại tiếp diễn" },
-        { id: "g03", q: "Yesterday, we ______ an interesting museum in the city center.", options: ["A. visit", "B. visited", "C. will visit"], answer: "B", topic: "Quá khứ đơn" },
-        { id: "g04", q: "While he ______ dinner, the lights suddenly went out.", options: ["A. cooked", "B. was cooking", "C. is cooking"], answer: "B", topic: "Quá khứ tiếp diễn" },
-        { id: "g05", q: "They ______ in this town for more than ten years.", options: ["A. live", "B. lived", "C. have lived"], answer: "C", topic: "Hiện tại hoàn thành" },
-        { id: "g06", q: "By the time the police arrived, the thief ______.", options: ["A. escaped", "B. had escaped", "C. escapes"], answer: "B", topic: "Quá khứ hoàn thành" },
-        { id: "g07", q: "I promise I ______ you with your homework tomorrow.", options: ["A. help", "B. will help", "C. helped"], answer: "B", topic: "Tương lai đơn" },
-        { id: "g08", q: "If it ______ tomorrow, we will stay at home.", options: ["A. rains", "B. will rain", "C. rained"], answer: "A", topic: "Câu điều kiện 1" },
-        { id: "g09", q: "If I ______ you, I would take that opportunity.", options: ["A. am", "B. were", "C. will be"], answer: "B", topic: "Câu điều kiện 2" },
-        { id: "g10", q: "The historic building ______ by thousands of visitors every year.", options: ["A. visits", "B. is visited", "C. was visited"], answer: "B", topic: "Câu bị động" },
-        { id: "g11", q: "The woman ______ lives next door is a famous scientist.", options: ["A. which", "B. who", "C. whose"], answer: "B", topic: "Mệnh đề quan hệ" },
-        { id: "g12", q: "This exercise is much ______ than the previous one.", options: ["A. easy", "B. easier", "C. more easy"], answer: "B", topic: "Cấu trúc so sánh" },
-        { id: "g13", q: "We arrived ______ the airport early in the morning.", options: ["A. in", "B. on", "C. at"], answer: "C", topic: "Giới từ" },
-        { id: "g14", q: "He is interested in ______ foreign languages.", options: ["A. learn", "B. learning", "C. to learn"], answer: "B", topic: "Danh động từ V-ing" },
-        { id: "g15", q: "The government made a large ______ in clean technology.", options: ["A. invest", "B. investment", "C. investor"], answer: "B", topic: "Từ loại (Word Form)" }
-      ]
-    },
-    listeningSets: {
-      1: {
-        audioA2: {
-          url: "https://archive.org/download/lisb2-3/lisa2-1.mp3",
-          title: "Audio 1 (A2): Hotel Reservation",
-          questions: [
-            { id: "lis_s1_01", q: "1. What is the guest's surname?", options: ["A. Berardelli", "B. Bernard", "C. Baradelli"], answer: "A" },
-            { id: "lis_s1_02", q: "2. What type of room was booked for one night?", options: ["A. Double room", "B. Single room", "C. Suite room"], answer: "B" },
-            { id: "lis_s1_03", q: "3. What number should the guest dial for the reception desk?", options: ["A. Dial 0", "B. Dial 9", "C. Dial 1"], answer: "A" },
-            { id: "lis_s1_04", q: "4. What is the latest luggage checkout time at reception?", options: ["A. 10 o'clock", "B. 12 o'clock", "C. 2 o'clock"], answer: "B" },
-            { id: "lis_s1_05", q: "5. What time was the morning wake-up call confirmed?", options: ["A. 7:00 a.m.", "B. 7:30 a.m.", "C. 8:00 a.m."], answer: "B" }
-          ]
-        },
-        audioB2: {
-          url: "https://archive.org/download/lisb2-3/lisb2-1.mp3",
-          title: "Audio 2 (B2): Working in the Film Industry",
-          questions: [
-            { id: "lis_s1_06", q: "6. How long has the speaker worked in the film industry?", options: ["A. 3 years", "B. 8 years", "C. 10 years"], answer: "B" },
-            { id: "lis_s1_07", q: "7. What do people in junior roles spend most of their time doing on set?", options: ["A. Writing script ideas", "B. Standing and waiting", "C. Talking with directors"], answer: "B" },
-            { id: "lis_s1_08", q: "8. Why have many talented individuals left the film business?", options: ["A. Low salaries", "B. Too much drama and stress", "C. Strict office hours"], answer: "B" },
-            { id: "lis_s1_09", q: "9. How long does a close-knit film crew typically work together?", options: ["A. Up to 3 months", "B. Exactly 6 months", "C. Over a year"], answer: "A" },
-            { id: "lis_s1_10", q: "10. What unique language feature must new workers quickly learn on set?", options: ["A. Formal grammar", "B. Slang words and jargon", "C. Foreign accents"], answer: "B" }
-          ]
-        }
-      }
-    },
-    speaking: {
-      q1: "Do you work or are you a student? What do you like most about your studies or career?",
-      q2: "How often do you use English in your daily life or studies?"
-    }
-  },
-
-  // TEST 2 (100 PHÚT - BAND 5.0 ➔ 6.5)
-  test_02: {
-    title: "TEST 2: KHẢO THÍ CHUẨN HÓA (100 PHÚT)",
-    targetBand: "5.0 - 6.5",
-    grammarSets: {
-      1: [
-        { id: "t2_g01", q: "Rarely ______ such a brilliant academic presentation.", options: ["A. I have heard", "B. have I heard", "C. I heard"], answer: "B", topic: "Đảo ngữ" },
-        { id: "t2_g02", q: "Had we known the flight was delayed, we ______ at home longer.", options: ["A. would stay", "B. would have stayed", "C. stayed"], answer: "B", topic: "Điều kiện loại 3" },
-        { id: "t2_g03", q: "The research suggests that regular exercise ______ mental focus.", options: ["A. enhances", "B. enhance", "C. is enhancing"], answer: "A", topic: "Hiện tại đơn học thuật" },
-        { id: "t2_g04", q: "It was not until midnight that the committee ______ their decision.", options: ["A. reached", "B. has reached", "C. reaches"], answer: "A", topic: "Cấu trúc nhấn mạnh" },
-        { id: "t2_g05", q: "She insisted that every member ______ present at the meeting.", options: ["A. is", "B. be", "C. was"], answer: "B", topic: "Giả định thức (Subjunctive)" }
-      ]
-    },
-    vocabSets: {
-      1: [
-        { id: "v01", q: "Which word means 'to officially approve or support something'?", options: ["A. Endorse", "B. Abandon", "C. Neglect"], answer: "A" },
-        { id: "v02", q: "What is the synonym of 'rapid acceleration'?", options: ["A. Sudden decline", "B. Swift increase", "C. Minor fluctuation"], answer: "B" },
-        { id: "v03", q: "The term 'excavate' in archaeology most closely means:", options: ["A. Dig up carefully", "B. Restore paint", "C. Bury underground"], answer: "A" },
-        { id: "v04", q: "What does 'sustainable development' refer to?", options: ["A. Short-term profit", "B. Preserving resources for future", "C. Fast industrialization"], answer: "B" },
-        { id: "v05", q: "A 'precursor' is something that:", options: ["A. Comes after an event", "B. Comes before and influences", "C. Stops an action"], answer: "B" }
-      ]
-    },
-    speaking: {
-      q1: "Let's talk about your hometown. Has it changed much in recent years?",
-      q2: "Describe a useful piece of electronic equipment that you use regularly (Cue Card Part 2)."
-    }
-  },
-
-  // TEST 3 (105 PHÚT - BAND 6.5+)
-  test_03: {
-    title: "TEST 3: THỬ THÁCH ĐỈNH CAO (105 PHÚT)",
-    targetBand: "6.5 - 7.5+",
-    grammarSets: {
-      1: [
-        { id: "t3_g01", q: "Under no circumstances ______ confidential data be shared.", options: ["A. should", "B. must not", "C. it should"], answer: "A", topic: "Đảo ngữ phủ định" },
-        { id: "t3_g02", q: "______ for his timely intervention, the project would have collapsed.", options: ["A. Were it not", "B. Had it not been", "C. If it wasn't"], answer: "B", topic: "Đảo ngữ điều kiện loại 3" }
-      ]
-    },
-    speaking: {
-      q1: "Do you believe artificial intelligence will eventually replace human decision-making in legal and ethical matters? (Part 3 Deep Discussion)"
-    }
-  }
+const DIAGNOSTIC_META = {
+  test_01: { title: "TEST 1: KHẢO SÁT NỀN TẢNG (45 PHÚT)", targetBand: "0 - 5.0" },
+  test_02: { title: "TEST 2: KHẢO THÍ CHUẨN HÓA (100 PHÚT)", targetBand: "5.0 - 6.5" },
+  test_03: { title: "TEST 3: THỬ THÁCH ĐỈNH CAO (105 PHÚT)", targetBand: "6.5 - 7.5+" }
 };
 
 // =========================================================================
-// 3. ĐỘNG CƠ ĐIỀU PHỐI KHẢO THÍ CHÍNH
+// 3. ĐỘNG CƠ ĐIỀU PHỐI KHẢO THÍ MASTER
 // =========================================================================
 class DiagnosticEngineMaster {
   constructor() {
     this.currentSkill = "grammar";
     this.testId = "test_01";
     this.setNum = 1;
-    this.activeData = null;
 
-    this.metrics = {};
     this.timerSeconds = 0;
     this.timerInterval = null;
 
@@ -163,23 +67,22 @@ class DiagnosticEngineMaster {
     const rawSet = parseInt(urlParams.get('set') || urlParams.get('ver'), 10);
     this.setNum = (!isNaN(rawSet) && rawSet >= 1 && rawSet <= 3) ? rawSet : Math.floor(Math.random() * 3) + 1;
 
-    this.activeData = DIAGNOSTIC_DATABASE[this.testId] || DIAGNOSTIC_DATABASE.test_01;
-
+    const meta = DIAGNOSTIC_META[this.testId] || DIAGNOSTIC_META.test_01;
     const titleEl = document.getElementById('currentTestTitle');
     if (titleEl) {
-      titleEl.innerText = `${this.activeData.title} • Set ${this.setNum}`;
+      titleEl.innerText = `${meta.title} • Set ${this.setNum}`;
     }
 
-    // 1. Render Ngữ pháp & Từ vựng
-    this.renderGrammarAndVocabSection();
+    // 1. NẠP ĐỀ NGỮ PHÁP TỪ FILE JSON RIÊNG BIỆT (MỚI)
+    await this.initGrammarFromJson();
 
-    // 2. NẠP LISTENING QUA DIAG-LISTENING.JS
-    await this.initListeningSection();
+    // 2. NẠP ĐỀ LISTENING TỪ FILE JSON RIÊNG BIỆT
+    await this.initListeningFromJson();
 
-    // 3. NẠP READING QUA DIAG-READING.JS
+    // 3. NẠP ĐỀ READING TỪ FILE JSON RIÊNG BIỆT
     await this.initReadingFromJson();
 
-    // 4. NẠP WRITING QUA DIAG-WRITING.JS (MỚI KẾT NỐI)
+    // 4. NẠP ĐỀ WRITING TỪ FILE JSON RIÊNG BIỆT
     await this.initWritingFromJson();
 
     // 5. Khởi tạo Speaking, Mic & Timer
@@ -193,7 +96,31 @@ class DiagnosticEngineMaster {
     }
   }
 
-  // --- NẠP READING TỪ FILE JSON RIÊNG BIỆT ---
+  // --- NẠP NGỮ PHÁP TỪ FILE JSON QUA DIAG-GRAMMAR.JS ---
+  async initGrammarFromJson() {
+    const testNum = this.testId.replace('test_0', '').replace('test_', '');
+    const jsonPath = `data-diag/grammar/test${testNum}-grammar.json`;
+    console.log(`[DiagEngine] Đang nạp Grammar JSON: ${jsonPath}`);
+    const success = await diagGrammarEngine.loadTestFromJson(jsonPath);
+    if (success) {
+      diagGrammarEngine.render();
+    }
+  }
+
+  // --- NẠP LISTENING TỪ FILE JSON QUA DIAG-LISTENING.JS ---
+  async initListeningFromJson() {
+    const testNum = this.testId.replace('test_0', '').replace('test_', '');
+    if (this.testId === 'test_02' || this.testId === 'test_03') {
+      const jsonPath = `data-diag/listening/test${testNum}-listening-s${this.setNum}.json`;
+      console.log(`[DiagEngine] Đang nạp Listening JSON: ${jsonPath}`);
+      const success = await diagListeningEngine.loadTestFromJson(jsonPath);
+      if (success) {
+        diagListeningEngine.render();
+      }
+    }
+  }
+
+  // --- NẠP READING TỪ FILE JSON QUA DIAG-READING.JS ---
   async initReadingFromJson() {
     const testNum = this.testId.replace('test_0', '').replace('test_', '');
     const jsonPath = `data-diag/reading/test${testNum}-reading-s${this.setNum}.json`;
@@ -204,168 +131,18 @@ class DiagnosticEngineMaster {
     }
   }
 
-  // --- NẠP LISTENING TỪ FILE JSON QUA DIAG-LISTENING.JS ---
-  async initListeningSection() {
-    const testNum = this.testId.replace('test_0', '').replace('test_', '');
-
-    if (this.testId === 'test_02' || this.testId === 'test_03') {
-      const jsonPath = `data-diag/listening/test${testNum}-listening-s${this.setNum}.json`;
-      console.log(`[DiagEngine] Đang nạp Listening JSON qua diagListeningEngine: ${jsonPath}`);
-      const success = await diagListeningEngine.loadTestFromJson(jsonPath);
-      if (success) {
-        diagListeningEngine.render();
-        return;
-      }
-    }
-
-    // Fallback bài nghe A2/B2 cho Test 1
-    this.renderBasicListeningTest1();
-  }
-
-  renderBasicListeningTest1() {
-    const mount = document.getElementById('listeningQuestionsMount');
-    const audioEl = document.getElementById('diagAudioPlayer');
-    const labelEl = document.getElementById('currentAudioLabel');
-    if (!mount) return;
-
-    if (this.testId === 'test_01' && this.activeData.listeningSets) {
-      const setLis = this.activeData.listeningSets[this.setNum] || this.activeData.listeningSets[1];
-      if (audioEl) audioEl.src = setLis.audioA2.url;
-      if (labelEl) labelEl.innerText = setLis.audioA2.title;
-
-      let html = `
-        <div style="margin-bottom:20px;">
-          <b style="font-size:14.5px; color:#0284C7; display:block; margin-bottom:10px;">
-            🎧 BÀI NGHE 1 (LEVEL A2): TRẮC NGHIỆM 3 LỰA CHỌN
-          </b>
-          ${setLis.audioA2.questions.map(q => this.renderBasicListeningItem(q)).join('')}
-        </div>
-        <div style="margin-top:24px; border-top:2px dashed #E8E2D8; padding-top:18px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
-            <b style="font-size:14.5px; color:#8B1518;">🎧 BÀI NGHE 2 (LEVEL B2): ${setLis.audioB2.title}</b>
-            <button type="button" class="btn-3d btn-3d-white" style="padding:6px 12px; font-size:12px;" onclick="document.getElementById('diagAudioPlayer').src='${setLis.audioB2.url}'; document.getElementById('currentAudioLabel').innerText='${setLis.audioB2.title}'; document.getElementById('diagAudioPlayer').play();">
-              ▶ Bật Audio B2 này
-            </button>
-          </div>
-          ${setLis.audioB2.questions.map(q => this.renderBasicListeningItem(q)).join('')}
-        </div>
-      `;
-      mount.innerHTML = html;
-    }
-  }
-
-  renderBasicListeningItem(q) {
-    this.initQuestionMetric(q.id);
-    return `
-      <div class="q-item-box" id="box_${q.id}" style="margin-bottom:10px;">
-        <b style="font-size:14px; color:#1E293B; display:block; margin-bottom:6px;">${q.q}</b>
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          ${q.options.map(opt => `
-            <label class="option-label" style="flex:1; min-width:140px;" onclick="window.diagEngine.recordInteraction('${q.id}', '${opt.charAt(0)}')">
-              <input type="radio" name="ans_${q.id}" value="${opt.charAt(0)}">
-              <span>${opt}</span>
-            </label>
-          `).join('')}
-        </div>
-        <div id="fb_${q.id}" style="display:none; font-size:12.5px; font-weight:800; margin-top:8px; padding:4px 8px; border-radius:6px;"></div>
-      </div>
-    `;
-  }
-
-  // --- NẠP WRITING QUA DIAG-WRITING.JS ---
+  // --- NẠP WRITING TỪ FILE JSON QUA DIAG-WRITING.JS ---
   async initWritingFromJson() {
     const testNum = this.testId.replace('test_0', '').replace('test_', '');
     const jsonPath = `data-diag/writing/test${testNum}-writing-s${this.setNum}.json`;
-    console.log(`[DiagEngine] Đang nạp Writing JSON qua diagWritingEngine: ${jsonPath}`);
+    console.log(`[DiagEngine] Đang nạp Writing JSON: ${jsonPath}`);
     const success = await diagWritingEngine.loadTestFromJson(jsonPath);
     if (success) {
       diagWritingEngine.render();
     }
   }
 
-  // --- RENDER NGỮ PHÁP & TỪ VỰNG ---
-  renderGrammarAndVocabSection() {
-    const mount = document.getElementById('grammarQuestionsMount');
-    if (!mount) return;
-
-    const gList = (this.activeData.grammarSets && this.activeData.grammarSets[this.setNum]) || 
-                  (this.activeData.grammarSets && this.activeData.grammarSets[1]) || [];
-    const vList = (this.activeData.vocabSets && this.activeData.vocabSets[this.setNum]) || 
-                  (this.activeData.vocabSets && this.activeData.vocabSets[1]) || [];
-
-    let html = `
-      <div style="font-size:14px; font-weight:900; color:#059669; margin-bottom:12px; display:flex; align-items:center; gap:6px;">
-        <i class="fa-solid fa-shapes"></i> BÀI TẬP NGỮ PHÁP (${gList.length} CÂU):
-      </div>
-    `;
-
-    gList.forEach((item, idx) => {
-      this.initQuestionMetric(item.id);
-      html += `
-        <div class="q-item-box" id="box_${item.id}">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-            <b style="font-size:14px; color:#1E293B;">Câu ${idx + 1}: ${item.q}</b>
-            <span style="font-size:11px; background:#E2E8F0; padding:2px 8px; border-radius:6px; font-weight:800; color:#475569;">${item.topic}</span>
-          </div>
-          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:8px;">
-            ${item.options.map(opt => `
-              <label class="option-label" onclick="window.diagEngine.recordInteraction('${item.id}', '${opt.charAt(0)}')">
-                <input type="radio" name="ans_${item.id}" value="${opt.charAt(0)}">
-                <span>${opt}</span>
-              </label>
-            `).join('')}
-          </div>
-          <div id="fb_${item.id}" style="display:none; font-size:12.5px; font-weight:800; margin-top:8px; padding:6px 10px; border-radius:6px;"></div>
-        </div>
-      `;
-    });
-
-    if (vList.length > 0) {
-      html += `
-        <div style="font-size:14px; font-weight:900; color:#0284C7; margin:24px 0 12px 0; display:flex; align-items:center; gap:6px;">
-          <i class="fa-solid fa-spell-check"></i> BÀI TẬP TỪ VỰNG HỌC THUẬT (${vList.length} CÂU):
-        </div>
-      `;
-      vList.forEach((item, idx) => {
-        this.initQuestionMetric(item.id);
-        html += `
-          <div class="q-item-box" id="box_${item.id}">
-            <b style="font-size:14px; color:#1E293B; display:block; margin-bottom:8px;">Câu ${idx + 1}: ${item.q}</b>
-            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:8px;">
-              ${item.options.map(opt => `
-                <label class="option-label" onclick="window.diagEngine.recordInteraction('${item.id}', '${opt.charAt(0)}')">
-                  <input type="radio" name="ans_${item.id}" value="${opt.charAt(0)}">
-                  <span>${opt}</span>
-                </label>
-              `).join('')}
-            </div>
-            <div id="fb_${item.id}" style="display:none; font-size:12.5px; font-weight:800; margin-top:8px; padding:6px 10px; border-radius:6px;"></div>
-          </div>
-        `;
-      });
-    }
-
-    mount.innerHTML = html;
-  }
-
-  initQuestionMetric(qId) {
-    if (!this.metrics[qId]) {
-      this.metrics[qId] = { renderTime: Date.now(), firstInteractionTime: null, hesitationCount: 0, chosenValues: [] };
-    }
-  }
-
-  recordInteraction(qId, val) {
-    if (this.isReviewMode) return;
-    if (!this.metrics[qId]) this.initQuestionMetric(qId);
-    const m = this.metrics[qId];
-    const now = Date.now();
-    if (!m.firstInteractionTime) m.firstInteractionTime = now - m.renderTime;
-    if (m.chosenValues.length > 0 && m.chosenValues[m.chosenValues.length - 1] !== val) {
-      m.hesitationCount++;
-    }
-    m.chosenValues.push(val);
-  }
-
+  // --- CHUYỂN TAB VÀ TIMER ---
   switchSection(skillKey) {
     ['grammar', 'listening', 'reading', 'writing', 'speaking'].forEach(s => {
       const tab = document.getElementById(`tabNav_${s}`);
@@ -429,7 +206,7 @@ class DiagnosticEngineMaster {
   }
 
   // =========================================================================
-  // 4. CHẤM BÀI TOÀN DIỆN & XUẤT DASHBOARD
+  // 4. CHẤM BÀI TOÀN DIỆN QUA 4 ENGINE & XUẤT DASHBOARD
   // =========================================================================
   async submitFullExam() {
     if (!confirm("Em có chắc chắn muốn nộp bài thi để hệ thống phân tích phản xạ, đối soát câu chữ và chấm điểm AI không?")) {
@@ -444,51 +221,19 @@ class DiagnosticEngineMaster {
 
     clearInterval(this.timerInterval);
 
-    // 1. Chấm Ngữ pháp
-    let gCorrect = 0;
-    const gWrongList = [];
-    const gList = (this.activeData.grammarSets && this.activeData.grammarSets[this.setNum]) || (this.activeData.grammarSets && this.activeData.grammarSets[1]) || [];
+    // 1. Chấm Ngữ pháp qua DiagGrammarEngine
+    const grammarResult = diagGrammarEngine.evaluate();
 
-    gList.forEach((item, idx) => {
-      const chosen = document.querySelector(`input[name="ans_${item.id}"]:checked`)?.value;
-      if (chosen === item.answer) {
-        gCorrect++;
-      } else {
-        gWrongList.push({ num: idx + 1, q: item.q, chosen: chosen || "Bỏ trống", expected: item.answer, topic: item.topic });
-      }
-    });
-
-    // 2. Chấm Listening: GỌI QUA DIAG-LISTENING NẾU LÀ TEST 2 HOẶC 3
-    let lCorrect = 0;
-    let lTotal = 10;
-    let lWrongList = [];
-    let listeningSnapshot = {};
-
-    if (this.testId === 'test_02' || this.testId === 'test_03') {
-      const lisEval = diagListeningEngine.evaluate();
-      lCorrect = lisEval.score;
-      lTotal = lisEval.total || 20;
-      lWrongList = lisEval.wrongList;
-      listeningSnapshot = lisEval.answersSnapshot;
-    } else {
-      const setLis = this.activeData.listeningSets[this.setNum] || this.activeData.listeningSets[1];
-      const allLisQ = [...setLis.audioA2.questions, ...setLis.audioB2.questions];
-      lTotal = allLisQ.length;
-      allLisQ.forEach((item, idx) => {
-        const chosen = document.querySelector(`input[name="ans_${item.id}"]:checked`)?.value;
-        if (chosen === item.answer) lCorrect++;
-        else lWrongList.push({ num: idx + 1, q: item.q, chosen: chosen || "Bỏ trống", expected: item.answer });
-      });
-    }
+    // 2. Chấm Listening qua DiagListeningEngine
+    const lisEval = diagListeningEngine.evaluate();
 
     // 3. Chấm Reading qua DiagReadingEngine
     const readingResult = diagReadingEngine.evaluate();
 
-    // 4. LẤY BÀI VIẾT TỰ LUẬN TỪ DIAG-WRITING.JS VÀ GỌI AI CHẤM
+    // 4. Lấy bài Writing qua DiagWritingEngine và gọi AI chấm
     const writingSubData = diagWritingEngine.getWritingSubmissionData();
-    const wt1Text = writingSubData.task1Text || document.getElementById('diag_wt1_input')?.value.trim() || '';
-    const wt2Text = writingSubData.task2Text || document.getElementById('diag_wt2_input')?.value.trim() || '';
-    const writingAnswersSnapshot = writingSubData.answersSnapshot || {};
+    const wt1Text = writingSubData.task1Text || '';
+    const wt2Text = writingSubData.task2Text || '';
 
     const spk1Text = document.getElementById('diag_spk_1')?.value.trim() || '';
     const spk2Text = document.getElementById('diag_spk_2')?.value.trim() || '';
@@ -519,11 +264,11 @@ class DiagnosticEngineMaster {
     }
 
     // 5. Tính toán Band tổng
-    const lisRatio = lTotal > 0 ? (lCorrect / lTotal) : 0;
-    const overallScore = Math.round(((gCorrect / (gList.length || 1)) * 25) + 
-                                    (lisRatio * 25) + 
-                                    (readingResult.scorePercent * 0.25) + 
-                                    ((writingBand / 9) * 25));
+    const lisRatio = lisEval.total > 0 ? (lisEval.score / lisEval.total) : 0;
+    const gRatio = grammarResult.total > 0 ? (grammarResult.score / grammarResult.total) : 0;
+    const rRatio = readingResult.total > 0 ? (readingResult.score / readingResult.total) : 0;
+
+    const overallScore = Math.round((gRatio * 25) + (lisRatio * 25) + (rRatio * 25) + ((writingBand / 9) * 25));
     
     let estimatedBand = "4.5";
     let bandReason = "";
@@ -550,7 +295,7 @@ class DiagnosticEngineMaster {
     const attemptSnapshot = {
       id: "diag_attempt_" + Date.now(),
       timestamp: new Date().toLocaleString('vi-VN'),
-      testTitle: `${this.activeData.title} (Set ${this.setNum})`,
+      testTitle: `${DIAGNOSTIC_META[this.testId]?.title || this.testId} (Set ${this.setNum})`,
       studentName: user.name,
       studentEmail: user.email,
       score: `Band ${estimatedBand} (${overallScore}/100)`,
@@ -558,16 +303,17 @@ class DiagnosticEngineMaster {
       moduleType: "diagnostic",
       pageUrl: `diagnostic/runner-diag.html?testId=${this.testId}&set=${this.setNum}`,
       details: {
-        gScore: `${gCorrect}/${gList.length}`,
-        lScore: `${lCorrect}/${lTotal}`,
+        gScore: `${grammarResult.score}/${grammarResult.total}`,
+        lScore: `${lisEval.score}/${lisEval.total}`,
         rScore: `${readingResult.score}/${readingResult.total}`,
         wBand: writingBand,
         sBand: speakingBand,
-        gWrongList,
-        lWrongList,
+        gWrongList: grammarResult.wrongList,
+        lWrongList: lisEval.wrongList,
         rDetails: readingResult.details,
-        listeningSnapshot,
-        writingAnswersSnapshot,
+        grammarSnapshot: grammarResult.answersSnapshot,
+        listeningSnapshot: lisEval.answersSnapshot,
+        writingAnswersSnapshot: writingSubData.answersSnapshot,
         wt1Text, wt2Text, spk1Text, spk2Text,
         aiWritingFeedback,
         aiSpeakingFeedback,
@@ -591,7 +337,7 @@ class DiagnosticEngineMaster {
       body: JSON.stringify({ action: "save_attempt", attempt: attemptSnapshot })
     }).catch(() => {});
 
-    // 7. Render Dashboard
+    // 7. Hiển thị Dashboard
     this.renderComprehensiveDashboard(attemptSnapshot);
   }
 
@@ -610,6 +356,7 @@ class DiagnosticEngineMaster {
     const d = attempt.details;
     let wrongQuestionsHtml = '';
 
+    // A. Sai Ngữ pháp
     if (d.gWrongList && d.gWrongList.length > 0) {
       wrongQuestionsHtml += `
         <div style="margin-bottom:16px;">
@@ -618,7 +365,8 @@ class DiagnosticEngineMaster {
             ${d.gWrongList.map(item => `
               <div style="background:#FEF2F2; border:1px solid #FCA5A5; padding:8px 12px; border-radius:8px; font-size:13px;">
                 <b>Câu ${item.num}:</b> ${item.q}<br>
-                <span style="color:#991B1B;">• Em chọn: <b>${item.chosen}</b></span> ➔ <span style="color:#166534;">Đáp án chuẩn: <b>${item.expected}</b> (${item.topic})</span>
+                <span style="color:#991B1B;">• Em chọn: <b>${item.chosen}</b></span> ➔ <span style="color:#166534;">Đáp án chuẩn: <b>${item.expected}</b></span>
+                ${item.explanation ? `<div style="margin-top:3px; font-size:12px; color:#475569;">💡 ${item.explanation}</div>` : ''}
               </div>
             `).join('')}
           </div>
@@ -626,6 +374,7 @@ class DiagnosticEngineMaster {
       `;
     }
 
+    // B. Sai Listening
     if (d.lWrongList && d.lWrongList.length > 0) {
       wrongQuestionsHtml += `
         <div style="margin-bottom:16px;">
@@ -642,6 +391,7 @@ class DiagnosticEngineMaster {
       `;
     }
 
+    // C. Sai Reading
     const rWrongList = (d.rDetails || []).filter(item => !item.isCorrect);
     if (rWrongList.length > 0) {
       wrongQuestionsHtml += `
@@ -726,7 +476,7 @@ class DiagnosticEngineMaster {
     `;
   }
 
-  // --- REVIEW MODE: KHÔI PHỤC VÀ TÔ MÀU ĐÚNG SAI ---
+  // --- REVIEW MODE: KHÔI PHỤC VÀ TÔ MÀU ĐÚNG SAI QUA CÁC ENGINE ---
   restoreReviewMode(attemptId) {
     this.isReviewMode = true;
     try {
@@ -736,22 +486,19 @@ class DiagnosticEngineMaster {
 
       const d = att.details;
 
-      // 1. Tô màu Ngữ pháp
-      (this.activeData.grammarSets[this.setNum] || []).forEach(g => {
-        const box = document.getElementById(`box_${g.id}`);
-        const fb = document.getElementById(`fb_${g.id}`);
-        const wrongItem = (d.gWrongList || []).find(w => w.q === g.q);
-
-        if (box) {
-          box.style.borderColor = wrongItem ? '#EF4444' : '#22C55E';
-          box.style.background = wrongItem ? '#FEF2F2' : '#F0FDF4';
-        }
-        if (fb) {
-          fb.style.display = 'block';
-          fb.style.color = wrongItem ? '#991B1B' : '#166534';
-          fb.innerText = wrongItem ? `✗ Sai (Em chọn: ${wrongItem.chosen} | Chuẩn: ${wrongItem.expected})` : `✓ ĐÚNG`;
-        }
-      });
+      // 1. Tô màu Ngữ pháp qua DiagGrammarEngine
+      if (d.grammarSnapshot) {
+        diagGrammarEngine.renderReviewMode({
+          answersSnapshot: d.grammarSnapshot,
+          details: d.gWrongList ? d.gWrongList.map(w => ({
+            questionId: `t${this.testId.replace('test_0','')}_g${String(w.num).padStart(2,'0')}`,
+            userAnswer: w.chosen,
+            expectedAnswer: w.expected,
+            isCorrect: false,
+            explanation: w.explanation
+          })) : []
+        });
+      }
 
       // 2. Khôi phục bài nghe qua DiagListeningEngine
       if (this.testId === 'test_02' || this.testId === 'test_03') {
@@ -769,11 +516,6 @@ class DiagnosticEngineMaster {
       // 4. Khôi phục Writing qua DiagWritingEngine
       if (d.writingAnswersSnapshot) {
         diagWritingEngine.renderReviewMode(d.writingAnswersSnapshot);
-      } else {
-        const wt1 = document.getElementById('diag_wt1_input');
-        const wt2 = document.getElementById('diag_wt2_input');
-        if (wt1 && d.wt1Text) { wt1.value = d.wt1Text; wt1.disabled = true; }
-        if (wt2 && d.wt2Text) { wt2.value = d.wt2Text; wt2.disabled = true; }
       }
 
       // 5. Khôi phục Speaking
@@ -790,9 +532,7 @@ class DiagnosticEngineMaster {
   }
 }
 
-// =========================================================================
-// 5. GẮN BIẾN TOÀN CỤC & SỰ KIỆN WINDOW
-// =========================================================================
+// Khởi tạo toàn cục
 export const diagEngine = new DiagnosticEngineMaster();
 window.diagEngine = diagEngine;
 window.switchSkillSection = (s) => diagEngine.switchSection(s);
