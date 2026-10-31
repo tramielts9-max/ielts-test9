@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hệ Thống Khảo Thí Chẩn Đoán - Trạm IELTS</title>
+  <title>Cổng Khảo Thí Năng Lực IELTS - Trạm IELTS</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,7 +33,7 @@
       color: #261F1D;
     }
 
-    .diag-wrapper { max-width: 980px; margin: 0 auto; }
+    .diag-wrapper { max-width: 1040px; margin: 0 auto; }
 
     /* TOPBAR DUOLINGO */
     .top-nav {
@@ -58,23 +58,33 @@
     .btn-3d-red { background: var(--tram-red); color: #FFFFFF !important; border-bottom: 5px solid var(--tram-red-shadow); }
     .btn-3d-red:hover { background: var(--tram-red-hover); }
     .btn-3d-blue { background: #0284C7; color: #FFFFFF !important; border-bottom: 5px solid #0369A1; }
+    .btn-3d-purple { background: #6366F1; color: #FFFFFF !important; border-bottom: 5px solid #4338CA; }
+    .btn-3d-purple:hover { background: #4F46E5; }
     .btn-3d-gold { background: #D97706; color: #FFFFFF !important; border-bottom: 5px solid #92400E; }
+    .btn-3d-white { background: #FFFFFF; color: #261F1D !important; border: 2px solid var(--duo-border); border-bottom: 4px solid var(--duo-shadow); }
     .btn-3d-disabled { background: #E2E8F0 !important; color: #94A3B8 !important; border-bottom: 4px solid #CBD5E1 !important; cursor: not-allowed; }
 
-    /* BANNER GIỚI THIỆU */
+    /* HERO BANNER */
     .hero-banner {
       background: linear-gradient(135deg, #8B1518 0%, #B91C1C 100%);
       border-radius: 24px; padding: 26px 28px; margin-bottom: 26px; color: white;
       box-shadow: 0 5px 0 #5E0C0E;
     }
 
-    /* CARD 3 BÀI TEST */
+    /* CARD BÀI THI */
     .test-card {
       background: #FFFFFF; border: 2.5px solid var(--duo-border); border-bottom: 6px solid var(--duo-shadow);
-      border-radius: 22px; padding: 24px; margin-bottom: 22px; transition: transform 0.1s ease;
+      border-radius: 22px; padding: 24px; margin-bottom: 24px; transition: transform 0.1s ease;
     }
     .test-card:hover { transform: translateY(-2px); }
     .test-card.is-locked { opacity: 0.75; background: #FAF9F6; }
+
+    /* CARD FULL MOCK TEST ĐẶC BIỆT */
+    .test-card-fullmock {
+      background: linear-gradient(180deg, #FFFFFF 0%, #F5F3FF 100%);
+      border: 3px solid #C4B5FD; border-bottom: 7px solid #8B5CF6;
+      box-shadow: 0 6px 20px rgba(139, 92, 246, 0.12);
+    }
 
     .test-header {
       display: flex; justify-content: space-between; align-items: center;
@@ -87,7 +97,7 @@
       font-size: 12px; font-weight: 900; padding: 4px 12px; border-radius: 20px; text-transform: uppercase;
     }
 
-    /* GRID CÁC KỸ NĂNG TRONG TEST */
+    /* GRID CÁC KỸ NĂNG */
     .skills-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px;
     }
@@ -97,7 +107,7 @@
     .skill-name { font-size: 12px; font-weight: 900; text-transform: uppercase; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
     .skill-detail { font-size: 13px; font-weight: 700; color: #475569; line-height: 1.4; }
 
-    /* KHUNG THỐNG KÊ KẾT QUẢ ĐÃ LÀM */
+    /* THANH KẾT QUẢ ĐÃ THI */
     .past-result-bar {
       background: #F0FDF4; border: 1.5px solid #86EFAC; border-radius: 12px; padding: 10px 14px;
       margin-bottom: 16px; font-size: 13px; font-weight: 800; color: #166534; display: flex;
@@ -115,7 +125,7 @@
       <i class="fa-solid fa-arrow-left"></i> Quay lại Trang chủ
     </a>
     <div style="font-size: 17px; font-weight: 900; color: var(--tram-red);">
-      🎯 HỆ THỐNG KHẢO THÍ CHẨN ĐOÁN THÍCH ỨNG
+      🎯 CỔNG KHẢO THÍ NĂNG LỰC & CHẨN ĐOÁN IELTS
     </div>
     <div id="studentBadge" style="font-size: 13px; font-weight: 900; background: #EFF6FF; color: #1E40AF; padding: 5px 14px; border-radius: 12px; border: 1.5px solid #BFDBFE;">
       Học viên: Đang tải...
@@ -126,15 +136,88 @@
   <div class="hero-banner">
     <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
       <span style="background: #FFC800; color: #5A3800; font-size: 12px; font-weight: 900; padding: 3px 10px; border-radius: 20px;">
-        2-STAGE ADAPTIVE DIAGNOSTIC
+        HỆ THỐNG PHÂN LUỒNG TỰ HÀNH
       </span>
-      <span style="font-size: 13px; font-weight: 800; opacity: 0.95;">(Đo lường độ trễ phản xạ & Chống khoanh bừa)</span>
+      <span style="font-size: 13px; font-weight: 800; opacity: 0.95;">(Đo lường năng lực chuẩn xác & Tự động xuất lộ trình)</span>
     </div>
     <h2 style="margin: 0 0 10px 0; font-size: 24px; font-weight: 900;">
-      ĐÁNH GIÁ NĂNG LỰC THỰC CHIẾN 4 KỸ NĂNG IELTS
+      LỰA CHỌN PHƯƠNG THỨC KIỂM TRA ĐẦU VÀO
     </h2>
-    <p style="margin: 0; font-size: 14.5px; font-weight: 700; opacity: 0.95; line-height: 1.5; max-width: 820px;">
-      Hệ thống áp dụng cơ chế <b>Two-Tier (2 tầng nhận thức)</b>: Tầng 1 chọn đáp án, Tầng 2 chọn căn cứ chứng minh từ bài đọc. Kết hợp bộ đo <b>TTFI (Độ trễ phản xạ)</b> để nhận diện chính xác: Bạn hiểu bài thật sự hay đoán mò, từ đó tự động băm nhỏ lộ trình học tập tối ưu nhất.
+    <p style="margin: 0; font-size: 14.5px; font-weight: 700; opacity: 0.95; line-height: 1.5; max-width: 860px;">
+      Em có thể lựa chọn <b>Bài thi Chẩn đoán Thích ứng</b> (băm nhỏ đề, đo độ trễ phản xạ TTFI và chống đoán mò Two-Tier để xây gốc) HOẶC bước thẳng vào <b>Phòng thi Chuyên sâu Full Mock Test</b> (trải nghiệm trọn vẹn 3 tiếng áp lực thi thật chuẩn Cambridge 21).
+    </p>
+  </div>
+
+  <!-- =========================================================================
+       LUỒNG ĐẶC BIỆT: BÀI THI CHUYÊN SÂU FULL MOCK TEST (CHUẨN THI THẬT)
+       ========================================================================= -->
+  <div class="test-card test-card-fullmock" id="cardFullMockTest">
+    <div class="test-header" style="border-bottom-color: #DDD6FE;">
+      <div class="test-title-wrap">
+        <h3 style="color: #6D28D9;">
+          <i class="fa-solid fa-crown text-amber-500"></i> BÀI THI CHUYÊN SÂU: INTENSIVE FULL MOCK TEST (CAMBRIDGE 21)
+        </h3>
+        <div style="font-size: 13.5px; font-weight: 700; color: #64748B; margin-top: 3px;">
+          Dành cho học sinh tự tin vào năng lực, sẵn sàng thử lửa áp lực phòng thi thật liên hoàn 4 kỹ năng + 100 câu Ngữ pháp
+        </div>
+      </div>
+      <span class="test-badge" style="background: #EDE9FE; color: #6D28D9; border: 1.5px solid #C4B5FD;">
+        ● FULL THỰC CHIẾN 100%
+      </span>
+    </div>
+
+    <!-- CÁC KỸ NĂNG FULL TEST -->
+    <div class="skills-grid">
+      <div class="skill-box" style="background:#FAF5FF; border-color:#E9D5FF;">
+        <div class="skill-name" style="color: #7C3AED;"><i class="fa-solid fa-shapes"></i> Ngữ pháp 100 câu</div>
+        <div class="skill-detail">Khảo bài lý thuyết, 15 động từ bất quy tắc, cấu tạo từ & viết lại câu.</div>
+      </div>
+      <div class="skill-box" style="background:#F0F9FF; border-color:#BAE6FD;">
+        <div class="skill-name" style="color: #0284C7;"><i class="fa-solid fa-headphones"></i> Full Listening</div>
+        <div class="skill-detail">40 câu hỏi trọn vẹn 4 Parts (Cam 21: Bảng, Map, Nối thông tin).</div>
+      </div>
+      <div class="skill-box" style="background:#FEF2F2; border-color:#FECACA;">
+        <div class="skill-name" style="color: #DC2626;"><i class="fa-solid fa-book-open"></i> Full Reading</div>
+        <div class="skill-detail">40 câu hỏi trọn vẹn 3 Passages học thuật chuẩn Cambridge 21 (60 phút).</div>
+      </div>
+      <div class="skill-box" style="background:#EFF6FF; border-color:#BFDBFE;">
+        <div class="skill-name" style="color: #2563EB;"><i class="fa-solid fa-pen-nib"></i> Full Writing (60p)</div>
+        <div class="skill-detail">Tự viết full Task 1 (150 từ) + Task 2 (250 từ) được AI chấm 4 tiêu chí.</div>
+      </div>
+      <div class="skill-box" style="background:#FFFBEB; border-color:#FDE68A;">
+        <div class="skill-name" style="color: #D97706;"><i class="fa-solid fa-microphone"></i> Full Speaking</div>
+        <div class="skill-detail">Phỏng vấn Part 1, Cue Card Part 2 (1p chuẩn bị) và Phản biện Part 3.</div>
+      </div>
+    </div>
+
+    <!-- KHUNG LỊCH SỬ FULL TEST NẾU ĐÃ LÀM -->
+    <div id="pastResultFullTest" class="past-result-bar" style="display: none; background:#FAF5FF; border-color:#C4B5FD; color:#6D28D9;">
+      <span id="pastResultFullTestText">✓ Em đã hoàn thành Full Mock Test: Overall Band 0.0</span>
+      <a href="#" id="pastResultFullTestLink" target="_blank" style="color: #6D28D9; text-decoration: underline; font-weight:900;">Xem lại bảng điểm &rarr;</a>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-size: 13px; font-weight: 800; color: #475569;">Chọn Đề thi:</span>
+        <select id="selectFullTestSet" style="padding:8px 12px; border:2px solid #C4B5FD; border-radius:12px; font-weight:800; font-family:inherit; outline:none; background:#FFFFFF; color:#6D28D9;">
+          <option value="1">Set 1: Cambridge 21 - Test 1</option>
+          <option value="2">Set 2: Cambridge 21 - Test 2</option>
+          <option value="3">Set 3: Cambridge 21 - Test 3</option>
+        </select>
+      </div>
+
+      <button type="button" onclick="startFullMockTest()" class="btn-3d btn-3d-purple" style="box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);">
+        🔥 BẮT ĐẦU FULL MOCK TEST (3 TIẾNG) &rarr;
+      </button>
+    </div>
+  </div>
+
+  <div style="margin: 32px 0 16px 0; border-top: 2px dashed #E8E2D8; padding-top: 24px;">
+    <h3 style="margin:0 0 4px 0; color:#261F1D; font-size:18px; font-weight:900;">
+      🎯 LUỒNG CHẨN ĐOÁN THÍCH ỨNG (ADAPTIVE DIAGNOSTIC - 3 CẤP ĐỘ)
+    </h3>
+    <p style="margin:0 0 18px 0; font-size:13.5px; color:#64748B; font-weight:700;">
+      Dành cho học sinh muốn đo tốc độ phản xạ, tìm ra lỗ hổng chi tiết để xây dựng lộ trình bù đắp từ gốc.
     </p>
   </div>
 
@@ -145,7 +228,7 @@
     <div class="test-header">
       <div class="test-title-wrap">
         <h3>
-          <i class="fa-solid fa-seedling text-emerald-600"></i> TEST 1: KHẢO SÁT NỀN TẢNG (BẢN RÚT GỌN 45 PHÚT)
+          <i class="fa-solid fa-seedling text-emerald-600"></i> TEST 1: KHẢO SÁT NỀN TẢNG (45 PHÚT)
         </h3>
         <div style="font-size: 13.5px; font-weight: 700; color: #64748B; margin-top: 3px;">
           Dành cho học sinh mất gốc hoặc đang ở mức Sub-A2 ➔ Band 5.0 (Tránh gây ngợp nản)
@@ -156,23 +239,22 @@
       </span>
     </div>
 
-    <!-- CÁC KỸ NĂNG TEST 1 -->
     <div class="skills-grid">
       <div class="skill-box">
-        <div class="skill-name" style="color: #059669;"><i class="fa-solid fa-shapes"></i> Ngữ pháp & Dò lỗi</div>
-        <div class="skill-detail">15 câu thì cơ bản (20s/câu) + 5 phút dò lỗi scan câu.</div>
+        <div class="skill-name" style="color: #059669;"><i class="fa-solid fa-shapes"></i> Ngữ pháp cơ bản</div>
+        <div class="skill-detail">15 câu trắc nghiệm nhận diện dấu hiệu thì, từ loại, mạo từ (PDF Đề 1).</div>
       </div>
       <div class="skill-box">
-        <div class="skill-name" style="color: #0284C7;"><i class="fa-solid fa-headphones"></i> Listening (6p)</div>
-        <div class="skill-detail">2 bài audio giao tiếp đời sống A2 & B2 (archive.org).</div>
+        <div class="skill-name" style="color: #0284C7;"><i class="fa-solid fa-headphones"></i> Listening A2 & B2</div>
+        <div class="skill-detail">2 bài nghe giao tiếp cơ bản (10 câu hỏi trắc nghiệm A-B-C).</div>
       </div>
       <div class="skill-box">
         <div class="skill-name" style="color: #8B1518;"><i class="fa-solid fa-book-open"></i> Reading Two-Tier</div>
-        <div class="skill-detail">12 câu (A2-B2-IELTS): Đúng cả 2 tầng mới tính điểm.</div>
+        <div class="skill-detail">12 câu (A2-B2-IELTS): Bắt buộc đúng cả 2 tầng mới tính điểm.</div>
       </div>
       <div class="skill-box">
         <div class="skill-name" style="color: #2563EB;"><i class="fa-solid fa-pen-nib"></i> Writing Dịch (10p)</div>
-        <div class="skill-detail">5p Overview T1 + 5p dàn ý & triển khai PEEL T2.</div>
+        <div class="skill-detail">Chặng 1 Brainstorm tiếng Việt + Chặng 2 Dịch câu tiếng Anh có sẵn gợi ý.</div>
       </div>
       <div class="skill-box">
         <div class="skill-name" style="color: #D97706;"><i class="fa-solid fa-microphone"></i> Speaking Part 1</div>
@@ -180,15 +262,14 @@
       </div>
     </div>
 
-    <!-- KHUNG LỊCH SỬ TEST 1 (NẾU ĐÃ LÀM) -->
     <div id="pastResultTest1" class="past-result-bar" style="display: none;">
-      <span id="pastResultTest1Text">✓ Em đã hoàn thành bài Test 1: Điểm 0/100</span>
+      <span id="pastResultTest1Text">✓ Em đã hoàn thành bài Test 1</span>
       <a href="#" id="pastResultTest1Link" target="_blank" style="color: #166534; text-decoration: underline;">Xem lại bài làm &rarr;</a>
     </div>
 
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
       <div style="font-size: 13px; font-weight: 800; color: #64748B;">
-        ⏱️ Thời gian thi: <b>Đúng 45 phút</b> • Chống đoán mò tự động
+        ⏱️ Thời gian thi: <b>Đúng 45 phút</b> • Đo lường phản xạ nền tảng
       </div>
       <a href="runner-diag.html?testId=test_01" class="btn-3d btn-3d-red">
         🚀 BẮT ĐẦU TEST 1 (45 PHÚT) &rarr;
@@ -203,7 +284,7 @@
     <div class="test-header">
       <div class="test-title-wrap">
         <h3>
-          <i class="fa-solid fa-chart-line text-sky-600"></i> TEST 2: KHẢO THÍ CHUẨN HÓA (BẢN ĐẦY ĐỦ 100 PHÚT)
+          <i class="fa-solid fa-chart-line text-sky-600"></i> TEST 2: KHẢO THÍ CHUẨN HÓA (100 PHÚT)
         </h3>
         <div style="font-size: 13.5px; font-weight: 700; color: #64748B; margin-top: 3px;">
           Dành cho học sinh đã qua Test 1 hoặc có nền tảng Band 5.0 - 6.5
@@ -214,31 +295,29 @@
       </span>
     </div>
 
-    <!-- CÁC KỸ NĂNG TEST 2 -->
     <div class="skills-grid">
       <div class="skill-box">
         <div class="skill-name" style="color: #059669;"><i class="fa-solid fa-spell-check"></i> Ngữ pháp & Từ vựng</div>
-        <div class="skill-detail">30 câu ngữ pháp (15p) + 10p scan lỗi + 40 từ vựng 300/540.</div>
+        <div class="skill-detail">20 câu phối hợp thì, câu điều kiện 2, so sánh kép (PDF Đề 2).</div>
       </div>
       <div class="skill-box">
         <div class="skill-name" style="color: #0284C7;"><i class="fa-solid fa-headphones"></i> Listening Cam 21</div>
-        <div class="skill-detail">Part 1 + Part 2 (15 phút xoay tua Cam 21 Test 1, 2, 3).</div>
+        <div class="skill-detail">Part 1 + Part 2 (Có tua mốc thời gian startTime & bài Map Labelling).</div>
       </div>
       <div class="skill-box">
         <div class="skill-name" style="color: #8B1518;"><i class="fa-solid fa-book-open"></i> Reading Passage 2</div>
         <div class="skill-detail">16 câu chuẩn Cam 21: Tự gõ căn cứ để AI chấm Rubric.</div>
       </div>
       <div class="skill-box">
-        <div class="skill-name" style="color: #2563EB;"><i class="fa-solid fa-pen-nib"></i> Writing Từ Khóa (30p)</div>
-        <div class="skill-detail">15p Bar Chart (từ khóa gợi ý) + 15p Task 2 PEEL.</div>
+        <div class="skill-name" style="color: #2563EB;"><i class="fa-solid fa-pen-nib"></i> Writing Từ Khóa (20p)</div>
+        <div class="skill-detail">Tự liên kết các cụm từ khóa định hướng để viết câu Task 1 và Task 2.</div>
       </div>
       <div class="skill-box">
         <div class="skill-name" style="color: #D97706;"><i class="fa-solid fa-microphone"></i> Speaking Part 1 & 2</div>
-        <div class="skill-detail">4 câu hỏi Part 1 + 1 chủ đề Cue Card Part 2 (10 phút).</div>
+        <div class="skill-detail">Giao tiếp Part 1 và thuyết trình Cue Card Part 2.</div>
       </div>
     </div>
 
-    <!-- KHUNG LỊCH SỬ TEST 2 -->
     <div id="pastResultTest2" class="past-result-bar" style="display: none;">
       <span id="pastResultTest2Text">✓ Em đã hoàn thành bài Test 2</span>
       <a href="#" id="pastResultTest2Link" target="_blank" style="color: #166534; text-decoration: underline;">Xem lại bài làm &rarr;</a>
@@ -261,7 +340,7 @@
     <div class="test-header">
       <div class="test-title-wrap">
         <h3>
-          <i class="fa-solid fa-trophy text-amber-600"></i> TEST 3: THỬ THÁCH ĐỈNH CAO (105 PHÚT - BAND 6.5+)
+          <i class="fa-solid fa-trophy text-amber-600"></i> TEST 3: THỬ THÁCH ĐỈNH CAO (105 PHÚT)
         </h3>
         <div style="font-size: 13.5px; font-weight: 700; color: #64748B; margin-top: 3px;">
           Dành cho học sinh xuất sắc chạm trần năng lực Band 7.0 - 7.5+
@@ -272,23 +351,22 @@
       </span>
     </div>
 
-    <!-- CÁC KỸ NĂNG TEST 3 -->
     <div class="skills-grid">
       <div class="skill-box">
-        <div class="skill-name" style="color: #059669;"><i class="fa-solid fa-bolt"></i> Ngữ pháp Advanced</div>
-        <div class="skill-detail">15 câu đảo ngữ, câu chẻ, mệnh đề quan hệ rút gọn.</div>
+        <div class="skill-name" style="color: #059669;"><i class="fa-solid fa-bolt"></i> Ngữ pháp Bẫy Advanced</div>
+        <div class="skill-detail">30 câu đảo ngữ, câu điều kiện hỗn hợp, giới từ đại từ quan hệ (PDF Đề 3).</div>
       </div>
       <div class="skill-box">
         <div class="skill-name" style="color: #0284C7;"><i class="fa-solid fa-headphones"></i> Listening Cam 21 P3-4</div>
-        <div class="skill-detail">Part 3 thảo luận + Part 4 bài giảng học thuật (15 phút).</div>
+        <div class="skill-detail">Part 3 thảo luận khoa học + Part 4 bài giảng học thuật.</div>
       </div>
       <div class="skill-box">
         <div class="skill-name" style="color: #8B1518;"><i class="fa-solid fa-book-open"></i> Reading Passage 3</div>
-        <div class="skill-detail">16 câu phân tích học thuật (Passage 3 Cam 21 - 30 phút).</div>
+        <div class="skill-detail">16 câu phân tích chuyên sâu Cambridge 21 (30 phút).</div>
       </div>
       <div class="skill-box">
         <div class="skill-name" style="color: #2563EB;"><i class="fa-solid fa-pen-nib"></i> Writing Thân Bài (40p)</div>
-        <div class="skill-detail">15p 2 đoạn Body Task 1 + 25p 2 đoạn Body Task 2.</div>
+        <div class="skill-detail">Viết 2 đoạn Body Task 1 (90-120 từ) + 2 đoạn Body Task 2 PEEL (160 từ).</div>
       </div>
       <div class="skill-box">
         <div class="skill-name" style="color: #D97706;"><i class="fa-solid fa-microphone"></i> Speaking Part 3 (5p)</div>
@@ -296,7 +374,6 @@
       </div>
     </div>
 
-    <!-- KHUNG LỊCH SỬ TEST 3 -->
     <div id="pastResultTest3" class="past-result-bar" style="display: none;">
       <span id="pastResultTest3Text">✓ Em đã hoàn thành bài Test 3</span>
       <a href="#" id="pastResultTest3Link" target="_blank" style="color: #166534; text-decoration: underline;">Xem lại bài làm &rarr;</a>
@@ -318,6 +395,12 @@
   import { CONFIG } from '../js/config.js';
   import { stateManager } from '../js/state.js';
 
+  window.startFullMockTest = function() {
+    const sel = document.getElementById('selectFullTestSet');
+    const setVal = sel ? sel.value : '1';
+    window.location.href = `runner-fulltest.html?set=${setVal}`;
+  };
+
   function initDiagnosticPortal() {
     const user = stateManager.getUser();
     const studentBadge = document.getElementById('studentBadge');
@@ -328,29 +411,34 @@
     const email = (user.email || '').toLowerCase().trim();
     const isAdmin = email.includes('admin') || (CONFIG.ADMIN_EMAILS || []).map(e => e.toLowerCase()).includes(email);
 
-    // Đọc lịch sử làm bài thi chẩn đoán
     const localHist = JSON.parse(localStorage.getItem('ielts_local_history') || '[]');
-    const diagAttempts = localHist.filter(item => item.moduleType === 'diagnostic' || (item.testTitle && item.testTitle.includes('Chẩn Đoán')));
-
-    const test1Record = diagAttempts.find(a => a.testTitle.includes('Test 1'));
-    const test2Record = diagAttempts.find(a => a.testTitle.includes('Test 2'));
-    const test3Record = diagAttempts.find(a => a.testTitle.includes('Test 3'));
-
-    // 1. Render kết quả Test 1
-    if (test1Record) {
-      const pBox = document.getElementById('pastResultTest1');
-      const pText = document.getElementById('pastResultTest1Text');
-      const pLink = document.getElementById('pastResultTest1Link');
+    
+    // 1. Kiểm tra lịch sử Full Test
+    const fullTestRecord = localHist.find(item => item.moduleType === 'fulltest');
+    if (fullTestRecord) {
+      const pBox = document.getElementById('pastResultFullTest');
+      const pText = document.getElementById('pastResultFullTestText');
+      const pLink = document.getElementById('pastResultFullTestLink');
       pBox.style.display = 'flex';
-      pText.innerHTML = `✓ Em đã làm Test 1 lúc <b>${test1Record.timestamp}</b> • Điểm: <b>${test1Record.score}</b> (Thời gian: ${test1Record.timeSpent})`;
-      pLink.href = `runner-diag.html?attemptId=${test1Record.id}`;
+      pText.innerHTML = `✓ Em đã làm Full Mock Test lúc <b>${fullTestRecord.timestamp}</b> • <b>${fullTestRecord.score}</b> (Thời gian: ${fullTestRecord.timeSpent})`;
+      pLink.href = `runner-fulltest.html?attemptId=${fullTestRecord.id}`;
     }
 
-    // 2. Kiểm tra điều kiện mở khóa Test 2 (Đã làm Test 1 hoặc Admin)
+    // 2. Kiểm tra Test 1
+    const test1Record = localHist.find(a => (a.testTitle && a.testTitle.includes('Test 1')) && a.moduleType === 'diagnostic');
+    if (test1Record) {
+      const pBox1 = document.getElementById('pastResultTest1');
+      const pText1 = document.getElementById('pastResultTest1Text');
+      const pLink1 = document.getElementById('pastResultTest1Link');
+      pBox1.style.display = 'flex';
+      pText1.innerHTML = `✓ Em đã làm Test 1 lúc <b>${test1Record.timestamp}</b> • Điểm: <b>${test1Record.score}</b>`;
+      pLink1.href = `runner-diag.html?attemptId=${test1Record.id}`;
+    }
+
+    // 3. Mở khóa Test 2
     const card2 = document.getElementById('cardTest2');
     const badge2 = document.getElementById('badgeLockTest2');
     const btn2 = document.getElementById('btnActionTest2');
-
     const isTest2Unlocked = isAdmin || !!test1Record || localStorage.getItem('diag_unlocked_test2') === 'true';
 
     if (isTest2Unlocked) {
@@ -370,20 +458,11 @@
       };
     }
 
-    if (test2Record) {
-      const pBox2 = document.getElementById('pastResultTest2');
-      const pText2 = document.getElementById('pastResultTest2Text');
-      const pLink2 = document.getElementById('pastResultTest2Link');
-      pBox2.style.display = 'flex';
-      pText2.innerHTML = `✓ Em đã làm Test 2 lúc <b>${test2Record.timestamp}</b> • Điểm: <b>${test2Record.score}</b> (Thời gian: ${test2Record.timeSpent})`;
-      pLink2.href = `runner-diag.html?attemptId=${test2Record.id}`;
-    }
-
-    // 3. Kiểm tra điều kiện mở khóa Test 3 (Đã làm Test 2 hoặc Admin)
+    // 4. Mở khóa Test 3
+    const test2Record = localHist.find(a => (a.testTitle && a.testTitle.includes('Test 2')) && a.moduleType === 'diagnostic');
     const card3 = document.getElementById('cardTest3');
     const badge3 = document.getElementById('badgeLockTest3');
     const btn3 = document.getElementById('btnActionTest3');
-
     const isTest3Unlocked = isAdmin || !!test2Record || localStorage.getItem('diag_unlocked_test3') === 'true';
 
     if (isTest3Unlocked) {
@@ -399,17 +478,8 @@
       btn3.className = 'btn-3d btn-3d-disabled';
       btn3.onclick = (e) => {
         e.preventDefault();
-        alert("⚠️ Em cần hoàn thành bài Test 2 (100 phút) đạt yêu cầu để mở khóa bài Test 3 đỉnh cao nhé!");
+        alert("⚠️ Em cần hoàn thành bài Test 2 đạt yêu cầu để mở khóa bài Test 3 đỉnh cao nhé!");
       };
-    }
-
-    if (test3Record) {
-      const pBox3 = document.getElementById('pastResultTest3');
-      const pText3 = document.getElementById('pastResultTest3Text');
-      const pLink3 = document.getElementById('pastResultTest3Link');
-      pBox3.style.display = 'flex';
-      pText3.innerHTML = `✓ Em đã làm Test 3 lúc <b>${test3Record.timestamp}</b> • Điểm: <b>${test3Record.score}</b> (Thời gian: ${test3Record.timeSpent})`;
-      pLink3.href = `runner-diag.html?attemptId=${test3Record.id}`;
     }
   }
 
