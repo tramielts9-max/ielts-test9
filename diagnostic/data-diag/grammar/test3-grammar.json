@@ -1,0 +1,339 @@
+{
+  "testId": "test_03",
+  "title": "ĐỀ KIỂM TRA SỐ 3: NÂNG CAO & BẪY NGỮ PHÁP (ADVANCED LEVEL)",
+  "timeMinutes": 45,
+  "totalQuestions": 30,
+  "target": "Phân loại học sinh giỏi; kiểm tra điều kiện loại 3, điều kiện hỗn hợp, giới từ đứng trước đại từ quan hệ, phân biệt a few/few, little/a little, ngoại động từ không giới từ.",
+  "questions": [
+    {
+      "id": "t3_g01",
+      "num": 1,
+      "type": "choice",
+      "prompt": "If they ________ the engine carefully before the journey, the bus wouldn't have broken down on the highway yesterday.",
+      "options": ["A. checked", "B. have checked", "C. had checked", "D. would check"],
+      "correctIndex": 2,
+      "answer": "C",
+      "explanation": "Câu điều kiện loại 3 (nguyên nhân và kết quả đều trong quá khứ: yesterday và wouldn't have broken): Mệnh đề If chia Quá khứ hoàn thành ➔ had checked."
+    },
+    {
+      "id": "t3_g02",
+      "num": 2,
+      "type": "choice",
+      "prompt": "If she had taken the doctor's prescription yesterday, she ________ completely exhausted right now.",
+      "options": ["A. wouldn't be", "B. wouldn't have been", "C. won't be", "D. hadn't been"],
+      "correctIndex": 0,
+      "answer": "A",
+      "explanation": "Bẫy điều kiện hỗn hợp (Mixed 3-2): Giả thiết quá khứ (yesterday ➔ had taken) nhưng hệ quả ở hiện tại (right now) ➔ mệnh đề chính dùng would/could + V0 ➔ wouldn't be."
+    },
+    {
+      "id": "t3_g03",
+      "num": 3,
+      "type": "choice",
+      "prompt": "Unless he ________ immediately, he will miss the last bus to the city.",
+      "options": ["A. hurry", "B. doesn't hurry", "C. hurries", "D. didn't hurry"],
+      "correctIndex": 2,
+      "answer": "C",
+      "explanation": "Sau Unless mang nghĩa phủ định (= If not), động từ chia ở thể khẳng định hiện tại đơn với ngôi he thêm -es ➔ hurries."
+    },
+    {
+      "id": "t3_g04",
+      "num": 4,
+      "type": "choice",
+      "prompt": "The company offered him the position, ________ was a complete surprise to his family.",
+      "options": ["A. that", "B. which", "C. who", "D. what"],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Bẫy đại từ quan hệ thay thế cả mệnh đề: Dùng , which đứng sau dấu phẩy để thay thế cho toàn bộ sự việc ở vế trước (The company offered him the position). Tuyệt đối không dùng that sau dấu phẩy."
+    },
+    {
+      "id": "t3_g05",
+      "num": 5,
+      "type": "choice",
+      "prompt": "The candidate ________ the committee awarded the scholarship has achieved outstanding academic results.",
+      "options": ["A. to whom", "B. to that", "C. who", "D. whose"],
+      "correctIndex": 0,
+      "answer": "A",
+      "explanation": "Cấu trúc award sth to sb ➔ đưa giới từ lên trước đại từ quan hệ: to whom (cấm dùng to that hoặc to who)."
+    },
+    {
+      "id": "t3_g06",
+      "num": 6,
+      "type": "choice",
+      "prompt": "The matter ________ you should pay special attention is of vital importance to the survival of our project.",
+      "options": ["A. in which", "B. to which", "C. with which", "D. of which"],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Cụm cố định pay attention to sth (chú ý tới cái gì) ➔ khi đưa lên mệnh đề quan hệ phải là to which you should pay attention."
+    },
+    {
+      "id": "t3_g07",
+      "num": 7,
+      "type": "choice",
+      "prompt": "No student in my class is more hard-working than Nam. ➔ Câu nào sau đây đồng nghĩa?",
+      "options": [
+        "A. Nam is the most hard-working student in my class.",
+        "B. Nam is as hard-working as no student in my class.",
+        "C. Nam is less hard-working than all students in my class.",
+        "D. Nam is the harder student in my class."
+      ],
+      "correctIndex": 0,
+      "answer": "A",
+      "explanation": "Không ai chăm chỉ hơn Nam ➔ Nam là người chăm chỉ nhất (the most hard-working student)."
+    },
+    {
+      "id": "t3_g08",
+      "num": 8,
+      "type": "choice",
+      "prompt": "The red vehicle is significantly more expensive than the black one. ➔ Câu nào sau đây đồng nghĩa?",
+      "options": [
+        "A. The black vehicle is as expensive as the red one.",
+        "B. The black vehicle is less expensive than the red one.",
+        "C. The black vehicle is the most expensive one.",
+        "D. The red vehicle is cheaper than the black one."
+      ],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Xe đỏ đắt hơn nhiều so với xe đen ➔ Xe đen ít đắt hơn (less expensive) xe đỏ."
+    },
+    {
+      "id": "t3_g09",
+      "num": 9,
+      "type": "choice",
+      "prompt": "The manager ________ by the board of directors regarding the budget deficit yesterday morning.",
+      "options": ["A. wasn't phoned", "B. hadn't phoned", "C. hasn't been phoned", "D. isn't phoned"],
+      "correctIndex": 0,
+      "answer": "A",
+      "explanation": "Bị động quá khứ đơn (yesterday morning): The manager là danh từ số ít ➔ wasn't phoned."
+    },
+    {
+      "id": "t3_g10",
+      "num": 10,
+      "type": "choice",
+      "prompt": "We wonder whether the new director ________ for the CEO position by the committee next week.",
+      "options": ["A. chooses", "B. will choose", "C. will be chosen", "D. is chosen"],
+      "correctIndex": 2,
+      "answer": "C",
+      "explanation": "Tương lai đơn thể bị động đi với dấu hiệu next week: will + be + V3/ed ➔ will be chosen."
+    },
+    {
+      "id": "t3_g11",
+      "num": 11,
+      "type": "choice",
+      "prompt": "I feel deep sympathy for her because she has ________ real friends in this bustling city and feels isolated.",
+      "options": ["A. a few", "B. few", "C. a little", "D. little"],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Bẫy sắc thái Few vs A few: Cảm thấy thương cảm, cô đơn (isolated) vì cô ấy gần như không có bạn (mang nghĩa tiêu cực/thiếu thốn) ➔ bắt buộc dùng few (thay vì a few)."
+    },
+    {
+      "id": "t3_g12",
+      "num": 12,
+      "type": "choice",
+      "prompt": "There is only ________ hope left that the trapped miners will be rescued before nightfall.",
+      "options": ["A. little", "B. a little", "C. few", "D. a few"],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Sau từ hạn định only luôn đi với a little (only a little = chỉ còn một chút ít hy vọng)."
+    },
+    {
+      "id": "t3_g13",
+      "num": 13,
+      "type": "choice",
+      "prompt": "The newly bought curtains do not ________ the color of the living room walls.",
+      "options": ["A. match with", "B. match to", "C. match", "D. match together"],
+      "correctIndex": 2,
+      "answer": "C",
+      "explanation": "Bẫy giới từ: Động từ match (phù hợp, ăn khớp) trong tiếng Anh là một ngoại động từ trực tiếp: match something, KHÔNG dùng match with hay match to."
+    },
+    {
+      "id": "t3_g14",
+      "num": 14,
+      "type": "choice",
+      "prompt": "With a view to ________ their communicative competence, the students enrolled in an intensive speaking course.",
+      "options": ["A. improve", "B. improving", "C. improvement", "D. improved"],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Bẫy V-ing sau To: Cụm liên từ mục đích nâng cao with a view to + V-ing (với mục đích làm gì) ➔ chọn improving."
+    },
+    {
+      "id": "t3_g15",
+      "num": 15,
+      "type": "choice",
+      "prompt": "The manager is scheduled to return to the head office ________ 15 minutes.",
+      "options": ["A. at", "B. on", "C. in", "D. within of"],
+      "correctIndex": 2,
+      "answer": "C",
+      "explanation": "Cấu trúc in + khoảng thời gian (trong vòng ... nữa) ➔ in 15 minutes (trong 15 phút nữa)."
+    },
+    {
+      "id": "t3_g16",
+      "num": 16,
+      "type": "choice",
+      "prompt": "Turn left ________ the traffic lights and the hospital will be ________ your right.",
+      "options": ["A. at / on", "B. in / at", "C. on / on", "D. at / at"],
+      "correctIndex": 0,
+      "answer": "A",
+      "explanation": "Tại điểm mốc cụ thể đèn giao thông dùng at the traffic lights; chỉ hướng làn đường dùng on your right."
+    },
+    {
+      "id": "t3_g17",
+      "num": 17,
+      "type": "choice",
+      "prompt": "The earthquake was extremely ________, leaving tens of thousands of families homeless.",
+      "options": ["A. destruct", "B. destruction", "C. destructive", "D. destructively"],
+      "correctIndex": 2,
+      "answer": "C",
+      "explanation": "Sau to be was và trạng từ chỉ mức độ extremely cần một tính từ miêu tả tính chất tàn phá ➔ destructive."
+    },
+    {
+      "id": "t3_g18",
+      "num": 18,
+      "type": "choice",
+      "prompt": "Her speech was so moving and profound that the entire audience stood ________ for a few moments.",
+      "options": ["A. speech", "B. speechless", "C. speak", "D. speechlessly"],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Sau linking verb stood miêu tả trạng thái con người sững sờ, không thốt nên lời ➔ chọn tính từ speechless."
+    },
+    {
+      "id": "t3_g19",
+      "num": 19,
+      "type": "choice",
+      "prompt": "The damage inflicted on the coastal villages by the violent typhoon was almost ________.",
+      "options": ["A. imaginable", "B. imagination", "C. unimaginable", "D. unimaginably"],
+      "correctIndex": 2,
+      "answer": "C",
+      "explanation": "Ngữ cảnh thảm họa thiên nhiên tàn phá nặng nề không thể tưởng tượng nổi ➔ tính từ phủ định: unimaginable."
+    },
+    {
+      "id": "t3_g20",
+      "num": 20,
+      "type": "choice",
+      "prompt": "It is reported that the plane landed safely ________ midnight despite the severe thunderstorm.",
+      "options": ["A. in", "B. on", "C. at", "D. during of"],
+      "correctIndex": 2,
+      "answer": "C",
+      "explanation": "Cụm từ chỉ mốc nửa đêm luôn đi với giới từ at midnight."
+    },
+    {
+      "id": "t3_g21",
+      "num": 21,
+      "type": "choice",
+      "prompt": "He spends most of his adult life living and working at ________ sea as a marine officer.",
+      "options": ["A. the", "B. a", "C. an", "D. Ø"],
+      "correctIndex": 3,
+      "answer": "D",
+      "explanation": "Bẫy mạo từ rỗng: Thành ngữ at sea (lênh đênh đi biển làm nhiệm vụ) không có mạo từ (Zero article - Ø)."
+    },
+    {
+      "id": "t3_g22",
+      "num": 22,
+      "type": "choice",
+      "prompt": "There are billions of stars, planets, and galaxies floating in ________ outer space.",
+      "options": ["A. the", "B. a", "C. Ø", "D. an"],
+      "correctIndex": 2,
+      "answer": "C",
+      "explanation": "Space / outer space mang nghĩa là vũ trụ bao la nói chung không dùng mạo từ the."
+    },
+    {
+      "id": "t3_g23",
+      "num": 23,
+      "type": "choice",
+      "prompt": "________ used razor blade is ________ useless tool for shaving.",
+      "options": ["A. An / an", "B. A / a", "C. The / the", "D. A / an"],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Bẫy phiên âm /ju:/: Cả used (/juːzd/) và useless (/ˈjuːsləs/) đều bắt đầu bằng bán nguyên âm /j/ (phụ âm) ➔ cả hai đều đi với A (A used... a useless...)."
+    },
+    {
+      "id": "t3_g24",
+      "num": 24,
+      "type": "choice",
+      "prompt": "I don't think Dennis ________ this heavy metal CD; he prefers classical music.",
+      "options": ["A. likes", "B. will like", "C. won't like", "D. is liking"],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Dự đoán tương lai dùng thì Tương lai đơn: will like. Vế trước I don't think đã mang nghĩa phủ định chuyển dịch."
+    },
+    {
+      "id": "t3_g25",
+      "num": 25,
+      "type": "choice",
+      "prompt": "Select the sentence that is GRAMMATICALLY INCORRECT:",
+      "options": [
+        "A. By the time we arrived at the cinema, the movie had already started.",
+        "B. She has written three reports since she has joined the department.",
+        "C. If you had listened to my advice, you would not be in this trouble now.",
+        "D. The flowers in the garden were blooming gorgeously when we arrived."
+      ],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Lỗi sai thì: Mệnh đề sau since bắt buộc chia thì Quá khứ đơn (since she joined), không được chia hiện tại hoàn thành (since she has joined)."
+    },
+    {
+      "id": "t3_g26",
+      "num": 26,
+      "type": "choice",
+      "prompt": "Select the sentence that has the CORRECT preposition usage:",
+      "options": [
+        "A. The man to that you spoke is my father.",
+        "B. The man to whom you spoke is my father.",
+        "C. The man to who you spoke is my father.",
+        "D. The man who you spoke to him is my father."
+      ],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Quy tắc giới từ: Giới từ chỉ được đứng trước whom (người) hoặc which (vật). Cấm dùng to that, to who."
+    },
+    {
+      "id": "t3_g27",
+      "num": 27,
+      "type": "choice",
+      "prompt": "I was under the impression that we had ________ time left to complete the test, but the bell suddenly rang.",
+      "options": ["A. plenty of", "B. a few", "C. many", "D. a number of"],
+      "correctIndex": 0,
+      "answer": "A",
+      "explanation": "Time là danh từ không đếm được. Trong 4 phương án, chỉ có plenty of (+ N không đếm được) là đúng ngữ pháp."
+    },
+    {
+      "id": "t3_g28",
+      "num": 28,
+      "type": "choice",
+      "prompt": "Choose the correct passive transformation: 'They awarded the first prize to the young reporter.'",
+      "options": [
+        "A. The young reporter was awarded to the first prize.",
+        "B. The first prize was awarded to the young reporter.",
+        "C. The first prize had awarded to the young reporter.",
+        "D. The young reporter awarded the first prize."
+      ],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Bị động với 2 tân ngữ (vật làm chủ ngữ): The first prize was awarded to the young reporter."
+    },
+    {
+      "id": "t3_g29",
+      "num": 29,
+      "type": "choice",
+      "prompt": "Choose the correct transformation using 'UNLESS': 'Keep silent or the baby will wake up.'",
+      "options": [
+        "A. Unless you don't keep silent, the baby will wake up.",
+        "B. Unless you keep silent, the baby will wake up.",
+        "C. Unless you kept silent, the baby won't wake up.",
+        "D. Unless you keep silent, the baby won't wake up."
+      ],
+      "correctIndex": 1,
+      "answer": "B",
+      "explanation": "Unless = If not. Câu gốc: 'Hãy giữ im lặng nếu không em bé sẽ thức dậy' ➔ Unless you keep silent, the baby will wake up (Nếu bạn không giữ im lặng, em bé sẽ thức giấc)."
+    },
+    {
+      "id": "t3_g30",
+      "num": 30,
+      "type": "choice",
+      "prompt": "Which word form correctly completes the sentence: 'The professor provided an ________ note at the beginning of the academic article.'",
+      "options": ["A. explain", "B. explanation", "C. explanatory", "D. explainable"],
+      "correctIndex": 2,
+      "answer": "C",
+      "explanation": "Đứng trước danh từ note cần một tính từ mang tính chất giải thích/chú giải ➔ explanatory (explanatory note)."
+    }
+  ]
+}
