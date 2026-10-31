@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phòng Thi Chuyên Sâu Full Mock Test - Trạm IELTS</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+
+  <style>
+    :root {
+      --tram-red: #8B1518;
+      --tram-red-hover: #A01B20;
+      --tram-red-shadow: #5E0C0E;
+      --duo-border: #E8E2D8;
+      --duo-shadow: #D3CBC0;
+      --bg-cream: #FAF7F2;
+    }
+
+    body {
+      background-color: var(--bg-cream) !important;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important;
+      margin: 0; padding: 16px 14px 80px 14px;
+      color: #261F1D;
+    }
+
+    .fulltest-container { max-width: 1100px; margin: 0 auto; }
+
+    /* HEADER PHÒNG THI STICKY */
+    .runner-header {
+      background: #FFFFFF; border: 2.5px solid var(--duo-border); border-bottom: 5px solid var(--duo-shadow);
+      border-radius: 20px; padding: 12px 20px; margin-bottom: 20px; display: flex;
+      justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+      position: sticky; top: 10px; z-index: 100; box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    }
+
+    .skill-tabs-nav { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; }
+    .skill-tab-pill {
+      background: #FAF7F2; border: 1.5px solid var(--duo-border); border-bottom: 3.5px solid var(--duo-shadow);
+      padding: 8px 16px; border-radius: 12px; font-weight: 800; font-size: 13.5px; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; color: #475569;
+      user-select: none; transition: all 0.1s ease;
+    }
+    .skill-tab-pill.active {
+      background: var(--tram-red); color: #FFFFFF; border-color: var(--tram-red-shadow); border-bottom-width: 3.5px;
+    }
+
+    .timer-badge {
+      font-family: monospace; font-size: 18px; font-weight: 900; background: #FEF3C7; color: #92400E;
+      padding: 6px 14px; border-radius: 12px; border: 1.5px solid #FCD34D; display: inline-flex; align-items: center; gap: 6px;
+    }
+
+    /* CARD CHỨA BÀI THI */
+    .exam-section-card {
+      background: #FFFFFF; border: 2.5px solid var(--duo-border); border-bottom: 6px solid var(--duo-shadow);
+      border-radius: 22px; padding: 26px; margin-bottom: 22px; box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+    }
+
+    .q-item-box {
+      background: #FAF7F2; border: 2px solid var(--duo-border); border-radius: 16px;
+      padding: 18px; margin-bottom: 16px;
+    }
+
+    .option-label {
+      display: flex; align-items: flex-start; gap: 10px; background: #FFFFFF; border: 1.5px solid #E2E8F0;
+      border-radius: 10px; padding: 10px 14px; margin-top: 8px; cursor: pointer; font-size: 14px; font-weight: 700;
+      transition: all 0.1s ease; user-select: none;
+    }
+    .option-label:hover { border-color: #0284C7; background: #F0F9FF; }
+
+    .diag-input {
+      width: 100%; box-sizing: border-box; padding: 10px 14px; border: 2px solid var(--duo-border);
+      border-radius: 10px; font-size: 14px; font-weight: 700; font-family: inherit; outline: none; margin-top: 6px;
+    }
+    .diag-input:focus { border-color: var(--tram-red); background: #FFFFFF; }
+
+    .diag-textarea {
+      width: 100%; box-sizing: border-box; padding: 14px; border: 2px solid var(--duo-border);
+      border-radius: 14px; font-size: 14px; font-weight: 700; font-family: inherit; outline: none; resize: vertical; line-height: 1.6;
+    }
+    .diag-textarea:focus { border-color: var(--tram-red); }
+
+    /* 3D BUTTONS DUOLINGO */
+    .btn-3d {
+      border: none; border-radius: 14px; font-family: inherit; font-weight: 900; font-size: 14px;
+      text-transform: uppercase; padding: 12px 24px; display: inline-flex; align-items: center;
+      justify-content: center; gap: 8px; cursor: pointer; text-decoration: none; transition: all 0.08s ease;
+      box-sizing: border-box; white-space: nowrap;
+    }
+    .btn-3d:active { transform: translateY(2px); box-shadow: none !important; }
+    .btn-3d-red { background: var(--tram-red); color: #FFFFFF !important; border-bottom: 4px solid var(--tram-red-shadow); }
+    .btn-3d-red:hover { background: var(--tram-red-hover); }
+    .btn-3d-blue { background: #0284C7; color: #FFFFFF !important; border-bottom: 4px solid #0369A1; }
+    .btn-3d-white { background: #FFFFFF; color: #261F1D !important; border: 2px solid var(--duo-border); border-bottom: 4px solid var(--duo-shadow); }
+
+    /* BĂNG KÝ ÂM TRANSCRIPT & BẢNG BÀI ĐỌC */
+    .reading-passage-split {
+      background: #FFFFFF; border: 2px solid #E8E2D8; border-left: 6px solid var(--tram-red);
+      border-radius: 16px; padding: 22px; max-height: 480px; overflow-y: auto; line-height: 1.75;
+      font-size: 14.5px; margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="fulltest-container">
+
+  <!-- HEADER THANH ĐIỀU HƯỚNG & ĐỒNG HỒ -->
+  <div class="runner-header">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <a href="index-diag.html" class="btn-3d btn-3d-white" style="padding: 7px 12px; font-size: 12px;" onclick="return confirm('Em có chắc muốn thoát bài Full Mock Test này?')">
+        ✕ Thoát
+      </a>
+      <span style="font-size: 15px; font-weight: 900; color: var(--tram-red);" id="fullTestHeaderTitle">
+        IELTS INTENSIVE FULL MOCK TEST
+      </span>
+    </div>
+
+    <!-- 5 TAB KỸ NĂNG -->
+    <div class="skill-tabs-nav" id="fullTestTabsBar">
+      <div class="skill-tab-pill active" id="tab_ft_grammar" onclick="window.switchFullTestSection('grammar')">
+        1. Ngữ Pháp (100 Câu)
+      </div>
+      <div class="skill-tab-pill" id="tab_ft_listening" onclick="window.switchFullTestSection('listening')">
+        2. Full Listening (40 Câu)
+      </div>
+      <div class="skill-tab-pill" id="tab_ft_reading" onclick="window.switchFullTestSection('reading')">
+        3. Full Reading (40 Câu)
+      </div>
+      <div class="skill-tab-pill" id="tab_ft_writing" onclick="window.switchFullTestSection('writing')">
+        4. Full Writing (2 Tasks)
+      </div>
+      <div class="skill-tab-pill" id="tab_ft_speaking" onclick="window.switchFullTestSection('speaking')">
+        5. Full Speaking (3 Parts)
+      </div>
+    </div>
+
+    <!-- ĐỒNG HỒ ĐẾM NGƯỢC -->
+    <div class="timer-badge" id="fullTestTimerBadge">
+      <i class="fa-solid fa-clock"></i> <span id="fullTestTimerDisplay">00:00</span>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       PHẦN 0: NGỮ PHÁP 100 CÂU CHUYÊN SÂU
+       ========================================================================= -->
+  <div id="section_ft_grammar" class="exam-section-card">
+    <div style="border-bottom: 2px solid #F4EFEB; padding-bottom: 12px; margin-bottom: 18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+      <div>
+        <h3 style="margin: 0; color: #059669; font-size: 18px; font-weight: 900;">
+          <i class="fa-solid fa-shapes"></i> PHẦN 1: KHẢO SÁT NGỮ PHÁP CHUYÊN SÂU TOÀN DIỆN (100 CÂU)
+        </h3>
+        <p style="margin: 4px 0 0 0; font-size: 13px; font-weight: 700; color: #64748B;">
+          Đo lường sự thành thạo 16 chuyên đề cốt lõi: Lý thuyết, Động từ bất quy tắc, Cấu tạo từ và Viết lại câu.
+        </p>
+      </div>
+      <span style="font-size: 12px; font-weight: 900; background: #DCFCE7; color: #166534; padding: 4px 12px; border-radius: 12px;">
+        100 Câu Hỏi
+      </span>
+    </div>
+
+    <div id="ftGrammarMount">
+      <div style="text-align: center; padding: 30px; font-weight: 800; color: #64748B;">⏳ Đang tải 100 câu ngữ pháp...</div>
+    </div>
+
+    <div style="display: flex; justify-content: flex-end; margin-top: 24px;">
+      <button type="button" onclick="window.switchFullTestSection('listening')" class="btn-3d btn-3d-blue">
+        Tiếp tục sang Full Listening &rarr;
+      </button>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       PHẦN 1: FULL LISTENING (40 CÂU - CAMBRIDGE 21)
+       ========================================================================= -->
+  <div id="section_ft_listening" class="exam-section-card" style="display: none;">
+    <div style="border-bottom: 2px solid #F4EFEB; padding-bottom: 12px; margin-bottom: 18px;">
+      <h3 style="margin: 0; color: #0284C7; font-size: 18px; font-weight: 900;">
+        <i class="fa-solid fa-headphones"></i> PHẦN 2: IELTS LISTENING LIÊN HOÀN (40 CÂU - 4 PARTS)
+      </h3>
+      <p style="margin: 4px 0 0 0; font-size: 13px; font-weight: 700; color: #64748B;">
+        Băng nghe chuẩn kỳ thi IELTS Cambridge 21. Bấm chuyển các Part để tua đúng mốc thời gian.
+      </p>
+    </div>
+
+    <div style="background:#EFF6FF; border:2px solid #BFDBFE; border-radius:16px; padding:16px; margin-bottom:20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+      <div>
+        <b style="font-size:14.5px; color:#0C4A6E;" id="ftAudioLabel">Audio Full Listening Cam 21</b>
+        <div style="font-size:12px; color:#0284C7; font-weight:700;">40 câu hỏi liên hoàn Part 1 - 4</div>
+      </div>
+      <audio id="ftAudioPlayer" controls style="height:40px; outline:none;"></audio>
+    </div>
+
+    <div id="ftListeningMount"></div>
+
+    <div style="display: flex; justify-content: space-between; margin-top: 24px;">
+      <button type="button" onclick="window.switchFullTestSection('grammar')" class="btn-3d btn-3d-white">
+        &larr; Quay lại Ngữ pháp
+      </button>
+      <button type="button" onclick="window.switchFullTestSection('reading')" class="btn-3d btn-3d-blue">
+        Tiếp tục sang Full Reading &rarr;
+      </button>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       PHẦN 2: FULL READING (40 CÂU - 3 PASSAGES CAMBRIDGE 21)
+       ========================================================================= -->
+  <div id="section_ft_reading" class="exam-section-card" style="display: none;">
+    <div style="border-bottom: 2px solid #F4EFEB; padding-bottom: 12px; margin-bottom: 18px;">
+      <h3 style="margin: 0; color: var(--tram-red); font-size: 18px; font-weight: 900;">
+        <i class="fa-solid fa-book-open"></i> PHẦN 3: IELTS ACADEMIC READING (40 CÂU - 3 BÀI ĐỌC)
+      </h3>
+      <p style="margin: 4px 0 0 0; font-size: 13px; font-weight: 700; color: #64748B;">
+        Đọc kỹ từng Passage và trả lời đầy đủ 40 câu hỏi chuẩn kỳ thi thật.
+      </p>
+    </div>
+
+    <div id="ftReadingMount"></div>
+
+    <div style="display: flex; justify-content: space-between; margin-top: 24px;">
+      <button type="button" onclick="window.switchFullTestSection('listening')" class="btn-3d btn-3d-white">
+        &larr; Quay lại Listening
+      </button>
+      <button type="button" onclick="window.switchFullTestSection('writing')" class="btn-3d btn-3d-blue">
+        Tiếp tục sang Full Writing &rarr;
+      </button>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       PHẦN 3: FULL WRITING (TASK 1 & TASK 2 - CHUẨN THI THẬT)
+       ========================================================================= -->
+  <div id="section_ft_writing" class="exam-section-card" style="display: none;">
+    <div style="border-bottom: 2px solid #F4EFEB; padding-bottom: 12px; margin-bottom: 18px;">
+      <h3 style="margin: 0; color: #2563EB; font-size: 18px; font-weight: 900;">
+        <i class="fa-solid fa-pen-nib"></i> PHẦN 4: IELTS ACADEMIC WRITING (60 PHÚT - 2 BÀI VIẾT ĐẦY ĐỦ)
+      </h3>
+      <p style="margin: 4px 0 0 0; font-size: 13px; font-weight: 700; color: #64748B;">
+        Tự viết toàn bộ bài báo cáo Task 1 (tối thiểu 150 từ) và bài luận Task 2 (tối thiểu 250 từ). AI sẽ chấm điểm theo đúng 4 tiêu chí của Giám khảo IELTS.
+      </p>
+    </div>
+
+    <div id="ftWritingMount"></div>
+
+    <div style="display: flex; justify-content: space-between; margin-top: 24px;">
+      <button type="button" onclick="window.switchFullTestSection('reading')" class="btn-3d btn-3d-white">
+        &larr; Quay lại Reading
+      </button>
+      <button type="button" onclick="window.switchFullTestSection('speaking')" class="btn-3d btn-3d-blue">
+        Tiếp tục sang Full Speaking &rarr;
+      </button>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       PHẦN 4: FULL SPEAKING (3 PARTS - THU ÂM VÀ CHẤM AI)
+       ========================================================================= -->
+  <div id="section_ft_speaking" class="exam-section-card" style="display: none;">
+    <div style="border-bottom: 2px solid #F4EFEB; padding-bottom: 12px; margin-bottom: 18px;">
+      <h3 style="margin: 0; color: #D97706; font-size: 18px; font-weight: 900;">
+        <i class="fa-solid fa-microphone"></i> PHẦN 5: IELTS SPEAKING THỰC CHIẾN (PART 1, 2, 3)
+      </h3>
+      <p style="margin: 4px 0 0 0; font-size: 13px; font-weight: 700; color: #64748B;">
+        Bấm micro để trả lời lần lượt từng phần. Toàn bộ transcript sẽ được AI phân tích độ trôi chảy và từ vựng.
+      </p>
+    </div>
+
+    <div id="ftSpeakingMount"></div>
+
+    <!-- NÚT NỘP BÀI TỔNG -->
+    <div style="margin-top: 30px; border-top: 2px dashed #E8E2D8; padding-top: 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+      <button type="button" onclick="window.switchFullTestSection('writing')" class="btn-3d btn-3d-white">
+        &larr; Quay lại Writing
+      </button>
+
+      <button type="button" id="btnSubmitFullMockTest" onclick="window.submitFullMockTestExam()" class="btn-3d btn-3d-red" style="padding: 15px 32px; font-size: 16px; box-shadow: 0 4px 16px rgba(139, 21, 24, 0.35);">
+        🏁 NỘP TOÀN BỘ BÀI THI & XUẤT OVERALL BAND SCORE
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<!-- MODULE ĐIỀU PHỐI FULL TEST CHUYÊN SÂU -->
+<script type="module" src="js-diag/diag-fulltest-engine.js"></script>
+</body>
+</html>
